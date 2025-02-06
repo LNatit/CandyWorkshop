@@ -1,5 +1,6 @@
 package com.lnatit.ccw;
 
+import com.lnatit.ccw.item.ItemRegistry;
 import com.mojang.logging.LogUtils;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -12,6 +13,7 @@ public class CandyWorkshop {
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public CandyWorkshop(IEventBus modEventBus, ModContainer modContainer) {
-
+        modEventBus.addListener(RegistryRegistry::registerRegistry);
+        ItemRegistry.register(modEventBus);
     }
 }

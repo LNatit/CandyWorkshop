@@ -1,7 +1,8 @@
 package com.lnatit.ccw.item.sugaring;
 
+import com.lnatit.ccw.RegistryRegistry;
+import com.lnatit.ccw.item.ItemRegistry;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -9,37 +10,28 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.Potion;
 
 import java.util.List;
 
-public class Sugar {
-    public static final Codec<Sugar> CODEC =
-            RecordCodecBuilder.create(ins -> ins.group(
-                    Codec.STRING.fieldOf("name").forGetter(o -> o.name),
-                    Potion.CODEC.fieldOf("potion").forGetter(o -> o.potion),
-                    Codec.INT.fieldOf("duration").forGetter(o -> o.duration)
-            ).apply(ins, Sugar::new));
-    public static final StreamCodec<RegistryFriendlyByteBuf, Sugar> STREAM_CODEC =
-            StreamCodec.composite(
-                    ByteBufCodecs.STRING_UTF8,
-                    o -> o.name,
-                    Potion.STREAM_CODEC,
-                    o -> o.potion,
-                    ByteBufCodecs.VAR_INT,
-                    o -> o.duration,
-                    Sugar::new
-            );
-    public static final Sugar VANILLA = new Sugar("vanilla", null, 0);
+/**
+ * Combine Sugar Registry and Item data component together
+ * if split needed (e.g. a SugarContents similar to PotionContents)
+ * createSugarItem need to be port to the new record class
+ */
+public record Sugar(String name, Holder<Potion> potion, int duration)
+{
+    public static final Codec<Holder<Sugar>> CODEC = RegistryRegistry.SUGAR.holderByNameCodec();
+    public static final StreamCodec<RegistryFriendlyByteBuf, Holder<Sugar>> STREAM_CODEC =
+            ByteBufCodecs.holderRegistry(RegistryRegistry.SUGAR_KEY);
 
-    private final String name;
-    private final Holder<Potion> potion;
-    private final int duration;
+//    public static final Sugar VANILLA = new Sugar("vanilla", null, 0);
 
-    public Sugar(String name, Holder<Potion> potion, int duration) {
-        this.name = name;
-        this.potion = potion;
-        this.duration = duration;
+    public static ItemStack createSugarItem(Holder<Sugar> sugar) {
+        ItemStack itemStack = ItemRegistry.GUMMY_ITEM.toStack(1);
+        itemStack.set(ItemRegistry.SUGAR_DCTYPE, sugar);
+        return itemStack;
     }
 
     public void applySugarOn(LivingEntity entity) {
@@ -50,10 +42,14 @@ public class Sugar {
                 // Instantenous effect behaves differently
                 if (apply.value().isInstantenous()) {
                     apply.value().applyInstantenousEffect(entity, entity, entity, effect.getAmplifier(), 0.5);
-                } else {
+                }
+                else {
                     MobEffectInstance exist = entity.getEffect(apply);
                     int duration = this.duration;
-                    if (exist != null) {
+//                    while (exist != null && exist.getAmplifier() != effect.getAmplifier()) {
+//                        exist = exist.getEffect()
+//                    }
+                    if (exist != null && !exist.isAmbient() && exist.getAmplifier() <= effect.getAmplifier()) {
                         duration += exist.getDuration();
                     }
                     entity.addEffect(new MobEffectInstance(apply, duration, effect.getAmplifier()));

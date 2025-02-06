@@ -2,6 +2,7 @@ package com.lnatit.ccw.item;
 
 import com.lnatit.ccw.item.sugaring.Sugar;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
@@ -30,8 +31,10 @@ public class GummyItem extends Item {
         }
 
         if (!level.isClientSide) {
-            Sugar sugar = stack.getOrDefault(ItemRegistry.SUGAR_DCTYPE, Sugar.VANILLA);
-            sugar.applySugarOn(livingEntity);
+            Holder<Sugar> holder = stack.get(ItemRegistry.SUGAR_DCTYPE);
+            if (holder != null) {
+                holder.value().applySugarOn(livingEntity);
+            }
         }
 
         if (player != null) {
