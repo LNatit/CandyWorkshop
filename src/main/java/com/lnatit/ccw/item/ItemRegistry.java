@@ -9,7 +9,13 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.*;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.food.Foods;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.Consumables;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -36,7 +42,12 @@ public class ItemRegistry
     public static final DeferredItem<GummyItem> GUMMY_ITEM =
             ITEMS.register(
                     "gummy",
-                    () -> new GummyItem(new Item.Properties().component(SUGAR_DCTYPE, Sugars.VANILLA))
+                    key -> new GummyItem(
+                            new Item.Properties()
+                                    .food(Foods.DRIED_KELP, Consumables.DRIED_KELP)
+                                    .component(SUGAR_DCTYPE, Sugars.VANILLA)
+                                    .setId(ResourceKey.create(Registries.ITEM, key))
+                    )
             );
 
     public static final DeferredRegister<CreativeModeTab> TABS =

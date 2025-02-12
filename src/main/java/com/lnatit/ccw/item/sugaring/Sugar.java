@@ -1,12 +1,16 @@
 package com.lnatit.ccw.item.sugaring;
 
+import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.RegistryRegistry;
 import com.lnatit.ccw.item.ItemRegistry;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
@@ -31,17 +35,19 @@ public record Sugar(String name, Holder<Potion> potion, int duration)
     public static ItemStack createSugarItem(Holder<Sugar> sugar) {
         ItemStack itemStack = ItemRegistry.GUMMY_ITEM.toStack(1);
         itemStack.set(ItemRegistry.SUGAR_DCTYPE, sugar);
+//        if (sugar != Su)
+            itemStack.set(DataComponents.ITEM_MODEL, sugar.value().toModelId());
         return itemStack;
     }
 
-    public void applySugarOn(LivingEntity entity) {
-        if (potion != null) {
-            List<MobEffectInstance> effects = potion.value().getEffects();
+    public void applySugarOn(ServerLevel level, LivingEntity entity) {
+        if (this.potion != null) {
+            List<MobEffectInstance> effects = this.potion.value().getEffects();
             for (MobEffectInstance effect : effects) {
                 Holder<MobEffect> apply = effect.getEffect();
                 // Instantenous effect behaves differently
                 if (apply.value().isInstantenous()) {
-                    apply.value().applyInstantenousEffect(entity, entity, entity, effect.getAmplifier(), 0.5);
+                    apply.value().applyInstantenousEffect(level, entity, entity, entity, effect.getAmplifier(), 0.5);
                 }
                 else {
                     MobEffectInstance exist = entity.getEffect(apply);
@@ -56,5 +62,10 @@ public record Sugar(String name, Holder<Potion> potion, int duration)
                 }
             }
         }
+    }
+
+    public ResourceLocation toModelId() {
+        return ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID, this.name)
+                               .withSuffix("_gummy");
     }
 }
