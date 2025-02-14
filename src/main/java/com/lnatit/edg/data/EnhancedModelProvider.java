@@ -1,5 +1,6 @@
 package com.lnatit.edg.data;
 
+import com.lnatit.edg.data.model.ClientItemModelGenerators;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
