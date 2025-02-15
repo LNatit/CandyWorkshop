@@ -1,4 +1,4 @@
-package com.lnatit.edg.data.model;
+package com.lnatit.emp.data.model;
 
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
@@ -9,7 +9,6 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import java.util.HashMap;
@@ -34,7 +33,7 @@ public class ClientItemModelGenerators
         this.modelOutput = template.modelOutput;
     }
 
-    public Generator gen() {
+    public Generators.Init gen() {
         return new Generator(this);
     }
 
@@ -94,14 +93,22 @@ public class ClientItemModelGenerators
             return this;
         }
 
-        public ResourceLocation getModelResourceLocation() {
-            return this.modelResourceLocation == null ? this.id.withPrefix("item/") : this.modelResourceLocation;
+        @Override
+        public ResourceLocation getId() {
+            return this.id;
         }
 
+        @Override
+        public ResourceLocation getModelResourceLocation() {
+            return this.modelResourceLocation == null ? Generators.getDefaultModel(this.id) : this.modelResourceLocation;
+        }
+
+        @Override
         public TextureMapping getTextureMapping() {
             return this.textureMapping == null ? TextureMapping.layer0(this.getModelResourceLocation()) : this.textureMapping;
         }
 
+        @Override
         public ModelTemplate getModelTemplate() {
             return this.modelTemplate == null ? ModelTemplates.FLAT_ITEM : this.modelTemplate;
         }
@@ -111,6 +118,7 @@ public class ClientItemModelGenerators
             return new ClientItemBuilder(this.getModelResourceLocation());
         }
 
+        @Override
         public ClientItem getClientItem() {
             return this.clientItem == null ? this.getClientItemBuilder().build() : this.clientItem;
         }
@@ -118,7 +126,7 @@ public class ClientItemModelGenerators
         @Override
         public void all() {
             this.genRef.generate(
-                    this.id,
+                    this.getId(),
                     this.getClientItem(),
                     this.getModelResourceLocation(),
                     this.getTextureMapping(),
@@ -138,7 +146,7 @@ public class ClientItemModelGenerators
         @Override
         public void clientItemOnly() {
             this.genRef.genClientItem(
-                    this.id,
+                    this.getId(),
                     this.getClientItem()
             );
         }
@@ -156,7 +164,7 @@ public class ClientItemModelGenerators
         private ItemModel.Unbaked unbaked;
         private ClientItem.Properties properties;
 
-        public ClientItemBuilder(@NotNull ResourceLocation modelResourceLocation) {
+        public ClientItemBuilder(ResourceLocation modelResourceLocation) {
             this.modelResourceLocation = modelResourceLocation;
         }
 

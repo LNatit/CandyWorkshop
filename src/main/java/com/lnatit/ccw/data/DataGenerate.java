@@ -11,6 +11,5 @@ public class DataGenerate
     @SubscribeEvent
     public static void onGatherData(GatherDataEvent.Client event) {
         event.createProvider(ModModelProvider::new);
-
     }
 }
