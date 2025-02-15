@@ -23,6 +23,9 @@ public class EnhancedModelProvider extends ModelProvider
         this.clientItemCollector = new ClientItemModelGenerators.ClientItemCollector();
     }
 
+    /**
+     * @deprecated Call {@link EnhancedModelProvider#registerModels(BlockModelGenerators, ItemModelGenerators, ClientItemModelGenerators)} instead to customize clientItem & models
+     */
     @Deprecated
     @Override
     protected void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
