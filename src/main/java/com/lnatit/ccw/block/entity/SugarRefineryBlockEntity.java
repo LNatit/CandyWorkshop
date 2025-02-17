@@ -12,13 +12,15 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class SugarRefineryBlockEntity extends BaseContainerBlockEntity
 {
+    public static final Component DEFAULT_NAME = Component.translatable("container.sugar_refinery");
+
     public SugarRefineryBlockEntity(BlockPos pos, BlockState blockState) {
         super(BlockRegistry.SUGAR_REFINERY_BETYPE.get(), pos, blockState);
     }
 
     @Override
     protected Component getDefaultName() {
-        return null;
+        return DEFAULT_NAME;
     }
 
     @Override
