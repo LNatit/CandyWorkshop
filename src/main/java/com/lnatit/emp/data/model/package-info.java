@@ -1,9 +1,7 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-@FieldsAreNonnullByDefault
-package com.lnatit.ccw.item;
+package com.lnatit.emp.data.model;
 
-import net.minecraft.FieldsAreNonnullByDefault;
 import net.minecraft.MethodsReturnNonnullByDefault;
 
 import javax.annotation.ParametersAreNonnullByDefault;

@@ -1,14 +1,11 @@
-package com.lnatit.edg.data;
+package com.lnatit.emp.data;
 
-import com.lnatit.edg.data.model.ClientItemModelGenerators;
+import com.lnatit.emp.data.model.ClientItemModelGenerators;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
-import net.minecraft.client.data.models.model.ModelTemplates;
-import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -23,6 +20,9 @@ public class EnhancedModelProvider extends ModelProvider
         this.clientItemCollector = new ClientItemModelGenerators.ClientItemCollector();
     }
 
+    /**
+     * @deprecated Call {@link EnhancedModelProvider#registerModels(BlockModelGenerators, ItemModelGenerators, ClientItemModelGenerators)} instead to customize clientItem & models
+     */
     @Deprecated
     @Override
     protected void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -36,10 +36,5 @@ public class EnhancedModelProvider extends ModelProvider
     public CompletableFuture<?> run(CachedOutput output) {
         // No validation needed maybe
         return CompletableFuture.allOf(super.run(output), this.clientItemCollector.save(output, this.itemInfoPathProvider));
-    }
-
-    public static ResourceLocation registerModel(ResourceLocation location, ItemModelGenerators itemModels) {
-        ResourceLocation id = location.withPrefix("item/");
-        return ModelTemplates.FLAT_ITEM.create(id, TextureMapping.layer0(id), itemModels.modelOutput);
     }
 }
