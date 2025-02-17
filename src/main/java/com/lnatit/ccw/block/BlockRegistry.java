@@ -33,8 +33,4 @@ public class BlockRegistry
                                             SugarRefineryBlockEntity::new,
                                             SUGAR_REFINERY.get()
                                     ));
-
-    public static void register(IEventBus eventBus) {
-
-    }
 }

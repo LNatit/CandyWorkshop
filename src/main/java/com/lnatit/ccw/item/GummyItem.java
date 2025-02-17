@@ -1,8 +1,7 @@
 package com.lnatit.ccw.item;
 
-import com.lnatit.ccw.item.sugaring.Sugar;
+import com.lnatit.ccw.item.sugaring.SugarContents;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -10,16 +9,20 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.Consumable;
 import net.minecraft.world.item.component.ConsumableListener;
+import net.minecraft.world.item.component.Consumables;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 import java.util.List;
 
 public class GummyItem extends Item {
-    public static final int EAT_DURATION = 16;
+    public static final FoodProperties GUMMY_FOOD = Foods.DRIED_KELP;
+    public static final Consumable GUMMY_CONSUMABLE = Consumables.DRIED_KELP;
 
     public GummyItem(Properties properties) {
         super(properties);
@@ -31,15 +34,18 @@ public class GummyItem extends Item {
         return consumable != null ? onConsumeSugar(consumable, level, livingEntity, stack) : stack;
     }
 
-    // TODO modify after implemented sugaring
-//    @Override
-//    public String getDescriptionId() {
-//        return super.getDescriptionId();
-//    }
+    @Override
+    public Component getName(ItemStack stack) {
+        SugarContents sugarContents = stack.get(ItemRegistry.SUGAR_CONTENTS_DCTYPE);
+        return sugarContents != null ? sugarContents.getName(this.descriptionId) : super.getName(stack);
+    }
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+        SugarContents sugarContents = stack.get(ItemRegistry.SUGAR_CONTENTS_DCTYPE);
+        if (sugarContents != null) {
+            sugarContents.addSugarTooltip(tooltipComponents::add, 1.0F, context.tickRate());
+        }
     }
 
     // Proxy Consumable::onConsume
@@ -53,9 +59,9 @@ public class GummyItem extends Item {
 
         stack.getAllOfType(ConsumableListener.class).forEach(c -> c.onConsume(level, livingEntity, stack, consumable));
         if (!level.isClientSide) {
-            Holder<Sugar> holder = stack.get(ItemRegistry.SUGAR_DCTYPE);
-            if (holder != null) {
-                holder.value().applySugarOn((ServerLevel) level, livingEntity);
+            SugarContents sugar = stack.get(ItemRegistry.SUGAR_CONTENTS_DCTYPE);
+            if (sugar != null) {
+                sugar.applyOn((ServerLevel) level, livingEntity);
             }
         }
 

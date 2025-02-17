@@ -3,20 +3,16 @@ package com.lnatit.ccw.item;
 import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.RegistryRegistry;
 import com.lnatit.ccw.item.sugaring.Sugar;
-import com.lnatit.ccw.item.sugaring.Sugars;
-import net.minecraft.core.Holder;
+import com.lnatit.ccw.item.sugaring.SugarContents;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.Consumables;
-import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -30,10 +26,10 @@ public class ItemRegistry
                     CandyWorkshop.MODID
             );
 
-    public static final Supplier<DataComponentType<Holder<Sugar>>> SUGAR_DCTYPE =
+    public static final Supplier<DataComponentType<SugarContents>> SUGAR_CONTENTS_DCTYPE =
             DATA_COMPONENTS.registerComponentType(
-                    "sugar",
-                    sugarBuilder -> sugarBuilder.persistent(Sugar.CODEC).networkSynchronized(Sugar.STREAM_CODEC)
+                    "sugar_contents",
+                    sugarBuilder -> sugarBuilder.persistent(SugarContents.CODEC).networkSynchronized(SugarContents.STREAM_CODEC).cacheEncoding()
             );
 
     public static final DeferredRegister.Items ITEMS =
@@ -44,8 +40,8 @@ public class ItemRegistry
                     "gummy",
                     key -> new GummyItem(
                             new Item.Properties()
-                                    .food(Foods.DRIED_KELP, Consumables.DRIED_KELP)
-                                    .component(SUGAR_DCTYPE, Sugars.VANILLA)
+                                    .food(GummyItem.GUMMY_FOOD, GummyItem.GUMMY_CONSUMABLE)
+                                    .component(SUGAR_CONTENTS_DCTYPE, SugarContents.VANILLA)
                                     .setId(ResourceKey.create(Registries.ITEM, key))
                     )
             );
@@ -66,6 +62,7 @@ public class ItemRegistry
                                                  (parameters, output) ->
                                                  {
                                                      output.accept(Items.MILK_BUCKET);
+                                                     output.accept(GUMMY_ITEM);
                                                      parameters.holders()
                                                                .lookup(RegistryRegistry.SUGAR_KEY)
                                                                .ifPresent(
@@ -78,13 +75,6 @@ public class ItemRegistry
                                          ).build()
             );
 
-    public static void register(IEventBus eventBus) {
-        Sugars.register(eventBus);
-        DATA_COMPONENTS.register(eventBus);
-        ITEMS.register(eventBus);
-        TABS.register(eventBus);
-    }
-
     private static void generateSugarTypes(
             CreativeModeTab.Output output,
             HolderLookup<Sugar> sugars,
@@ -93,7 +83,7 @@ public class ItemRegistry
         sugars.listElements()
               // if FeatureElement implemented, we need to filter the map
 //                .filter()
-              .map(Sugar::createSugarItem)
-              .forEach(result -> output.accept(result, visibility));
+              .map(Sugar::createSugarItems)
+              .forEach(result -> output.acceptAll(result, visibility));
     }
 }

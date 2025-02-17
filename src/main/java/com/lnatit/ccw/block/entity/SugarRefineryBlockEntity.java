@@ -1,12 +1,15 @@
 package com.lnatit.ccw.block.entity;
 
 import com.lnatit.ccw.block.BlockRegistry;
+import com.lnatit.ccw.menu.SugarRefineryMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -16,6 +19,10 @@ public class SugarRefineryBlockEntity extends BaseContainerBlockEntity
 
     public SugarRefineryBlockEntity(BlockPos pos, BlockState blockState) {
         super(BlockRegistry.SUGAR_REFINERY_BETYPE.get(), pos, blockState);
+    }
+
+    public static void serverTick(Level level, BlockPos pos, BlockState state, SugarRefineryBlockEntity blockEntity) {
+
     }
 
     @Override
@@ -35,7 +42,7 @@ public class SugarRefineryBlockEntity extends BaseContainerBlockEntity
 
     @Override
     protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
-        return null;
+        return new SugarRefineryMenu(containerId, inventory);
     }
 
     @Override

@@ -14,15 +14,16 @@ public class Sugars
     public static final DeferredRegister<Sugar> SUGARS =
             DeferredRegister.create(RegistryRegistry.SUGAR_KEY, CandyWorkshop.MODID);
 
-    public static final DeferredHolder<Sugar, Sugar> VANILLA = register("vanilla", null, 0);
+//    public static final DeferredHolder<Sugar, Sugar> VANILLA = register("vanilla", null, 0);
 
-    public static final DeferredHolder<Sugar, Sugar> SPEED = register("speed", Potions.SWIFTNESS, 600);
+    public static final DeferredHolder<Sugar, Sugar> SPEED =
+            register("speed", Potions.SWIFTNESS, Potions.STRONG_SWIFTNESS, Potions.LONG_SWIFTNESS, 600);
 
     public static void register(IEventBus eventBus) {
         SUGARS.register(eventBus);
     }
 
-    private static DeferredHolder<Sugar, Sugar> register(String id, Holder<Potion> potion, int duration) {
-        return SUGARS.register(id, () -> new Sugar(id, potion, duration));
+    private static DeferredHolder<Sugar, Sugar> register(String id, Holder<Potion> base, Holder<Potion> excited, Holder<Potion> bold, int duration) {
+        return SUGARS.register(id, () -> new Sugar(id, base, excited, bold, duration));
     }
 }
