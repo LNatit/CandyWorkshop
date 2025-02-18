@@ -1,5 +1,6 @@
-package com.lnatit.ccw;
+package com.lnatit.ccw.misc;
 
+import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.item.sugaring.Sugar;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
@@ -10,7 +11,7 @@ import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.RegistryBuilder;
 
 @EventBusSubscriber(modid = CandyWorkshop.MODID, bus = EventBusSubscriber.Bus.MOD)
-public class RegistryRegistry
+public class RegRegistry
 {
     public static final ResourceKey<Registry<Sugar>> SUGAR_KEY = ResourceKey.createRegistryKey(
             ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID, "sugar"));
@@ -21,7 +22,7 @@ public class RegistryRegistry
             .create();
 
     @SubscribeEvent
-    public static void registerRegistry(final NewRegistryEvent event) {
+    public static void registerRegistries(final NewRegistryEvent event) {
         event.register(SUGAR);
     }
 }

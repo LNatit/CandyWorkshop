@@ -1,24 +1,27 @@
 package com.lnatit.ccw.block.entity;
 
 import com.lnatit.ccw.block.BlockRegistry;
-import com.lnatit.ccw.menu.SugarRefineryMenu;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.Nameable;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.ItemStackHandler;
+import org.jetbrains.annotations.Nullable;
 
-public class SugarRefineryBlockEntity extends BaseContainerBlockEntity
+public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvider, Nameable
 {
     public static final Component DEFAULT_NAME = Component.translatable("container.sugar_refinery");
     public static final int REFINE_TIME = 100;
 
-    ItemStackHandler inventory = new ItemStackHandler(8);
+    ItemStackHandler inventory = new Contents();
     int refineTime;
     long finishTime = 0;
     boolean changed = true;
@@ -57,28 +60,54 @@ public class SugarRefineryBlockEntity extends BaseContainerBlockEntity
 
     }
 
-    @Override
-    protected Component getDefaultName() {
-        return DEFAULT_NAME;
+    public ItemStackHandler getInventory() {
+        return this.inventory;
     }
 
+    // TODO copy BaseContainer
     @Override
-    protected NonNullList<ItemStack> getItems() {
+    public Component getName() {
         return null;
     }
 
     @Override
-    protected void setItems(NonNullList<ItemStack> items) {
-        // Is this really usefull?
+    public Component getDisplayName() {
+        return DEFAULT_NAME;
     }
 
     @Override
-    protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
-        return new SugarRefineryMenu(containerId, inventory);
+    public @Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
+        return null;
     }
 
-    @Override
-    public int getContainerSize() {
-        return 0;
+    /**
+     * milk, sugar, main, suppl, output, misc1, misc2, misc3
+     */
+    public class Contents extends ItemStackHandler {
+        public Contents() {
+            super(8);
+        }
+
+        @Override
+        public void setSize(int size) {
+            super.setSize(8);
+        }
+
+        @Override
+        public boolean isItemValid(int slot, ItemStack stack) {
+            return switch (slot) {
+                case 0 ->
+                    // TODO
+                        stack.is(Items.MILK_BUCKET);
+                case 1 -> stack.is(Items.SUGAR);
+                case 2, 3 -> true;
+                default -> false;
+            };
+        }
+
+        @Override
+        protected void onContentsChanged(int slot) {
+            super.onContentsChanged(slot);
+        }
     }
 }

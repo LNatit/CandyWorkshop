@@ -1,7 +1,7 @@
 package com.lnatit.ccw.item.sugaring;
 
 import com.lnatit.ccw.CandyWorkshop;
-import com.lnatit.ccw.RegistryRegistry;
+import com.lnatit.ccw.misc.RegRegistry;
 import com.lnatit.ccw.item.ItemRegistry;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.Holder;
@@ -25,8 +25,8 @@ import java.util.*;
 
 public record Sugar(String name, Holder<Potion> base, @Nullable Holder<Potion> excited, @Nullable Holder<Potion> bold,
                     int duration) {
-    public static final Codec<Holder<Sugar>> CODEC = RegistryRegistry.SUGAR.holderByNameCodec();
-    public static final StreamCodec<RegistryFriendlyByteBuf, Holder<Sugar>> STREAM_CODEC = ByteBufCodecs.holderRegistry(RegistryRegistry.SUGAR_KEY);
+    public static final Codec<Holder<Sugar>> CODEC = RegRegistry.SUGAR.holderByNameCodec();
+    public static final StreamCodec<RegistryFriendlyByteBuf, Holder<Sugar>> STREAM_CODEC = ByteBufCodecs.holderRegistry(RegRegistry.SUGAR_KEY);
 
     public static ItemStack createSugarItem(Holder<Sugar> sugar, Type type) {
         ItemStack itemStack = ItemRegistry.GUMMY_ITEM.toStack(1);

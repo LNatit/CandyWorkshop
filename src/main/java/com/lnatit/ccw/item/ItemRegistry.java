@@ -1,7 +1,7 @@
 package com.lnatit.ccw.item;
 
 import com.lnatit.ccw.CandyWorkshop;
-import com.lnatit.ccw.RegistryRegistry;
+import com.lnatit.ccw.misc.RegRegistry;
 import com.lnatit.ccw.item.sugaring.Sugar;
 import com.lnatit.ccw.item.sugaring.SugarContents;
 import net.minecraft.core.HolderLookup;
@@ -64,7 +64,7 @@ public class ItemRegistry
                                                      output.accept(Items.MILK_BUCKET);
                                                      output.accept(GUMMY_ITEM);
                                                      parameters.holders()
-                                                               .lookup(RegistryRegistry.SUGAR_KEY)
+                                                               .lookup(RegRegistry.SUGAR_KEY)
                                                                .ifPresent(
                                                                        lookups -> generateSugarTypes(output,
                                                                                                      lookups,

@@ -1,7 +1,7 @@
 package com.lnatit.ccw.item.sugaring;
 
 import com.lnatit.ccw.CandyWorkshop;
-import com.lnatit.ccw.RegistryRegistry;
+import com.lnatit.ccw.misc.RegRegistry;
 import net.minecraft.core.Holder;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.Potions;
@@ -12,7 +12,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 public class Sugars
 {
     public static final DeferredRegister<Sugar> SUGARS =
-            DeferredRegister.create(RegistryRegistry.SUGAR_KEY, CandyWorkshop.MODID);
+            DeferredRegister.create(RegRegistry.SUGAR_KEY, CandyWorkshop.MODID);
 
 //    public static final DeferredHolder<Sugar, Sugar> VANILLA = register("vanilla", null, 0);
 
