@@ -58,6 +58,8 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
                 this.matchTime -= times;
                 this.startTime += (long) times * REFINE_TIME;
                 genOutputs(times);
+                // no need to mark flag since it's an internal update
+                super.setChanged();
             }
         }
     }
@@ -102,7 +104,7 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
     }
 
     /**
-     * milk, sugar, main, suppl, output, misc1, misc2, misc3
+     * milk, sugar, main, extra, output, misc1, misc2, misc3
      */
     public class Contents extends ItemStackHandler
     {
