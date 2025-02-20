@@ -23,6 +23,8 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
 
     ItemStackHandler inventory = new Contents();
     int refineTime;
+    int matchTime = 0;
+    long startTime = 0;
     long finishTime = 0;
     boolean changed = true;
 
@@ -50,6 +52,35 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
                 // update the results
             }
         }
+
+        // RecipeHolder will match the recipe & store max craft times, and update the data accrodingly
+        // BE will store nearest finish time, check it on each tick and update if needed
+        // Each time when the contents is changed by external operations (other than recipe update)
+        // will trigger a rematch of RecipeHolder
+        delta = level.getGameTime() - this.startTime;
+        if (this.changed)
+        {
+            this.matchRecipe();
+        } else {
+            if (delta >= REFINE_TIME) {
+                int maxTime = toInt(delta / REFINE_TIME);
+                if (maxTime <= matchTime) {
+                    matchTime -= maxTime;
+                    startTime += maxTime * REFINE_TIME;
+                    // generate the outputs
+                } else {
+
+                }
+            }
+        }
+    }
+
+    private void matchRecipe() {
+
+    }
+
+    private int toInt(long value) {
+
     }
 
     private boolean isRefineable() {
