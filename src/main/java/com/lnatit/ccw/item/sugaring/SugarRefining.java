@@ -1,39 +1,57 @@
 package com.lnatit.ccw.item.sugaring;
 
-import com.lnatit.ccw.api.ITickFreeRecipe;
+import com.lnatit.ccw.CandyWorkshop;
+import com.lnatit.ccw.block.entity.SugarRefineryBlockEntity;
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class SugarRefining implements ITickFreeRecipe<RecipeWrapper> {
-    private final Map<Item, Holder<Sugar>> knownRefiners = new HashMap();
+public class SugarRefining
+{
+    public static final TagKey<Item> EXTRAS =
+            TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID, "extras"));
+    private final Map<Item, Holder<Sugar>> knownRefiners = new HashMap<>();
 
     public SugarRefining() {
         knownRefiners.put(Items.SUGAR, Sugars.SPEED);
     }
 
-    @Override
-    public int match(RecipeWrapper context) {
-        ItemStack slot3 = context.getItem(2);
-        if (!knownRefiners.containsKey(slot3.getItem())) {
-            return 0;
+    public int match(SugarRefineryBlockEntity.Contents context) {
+        int count = matchKnown(context);
+        if (count > 0) {
+            return count;
         }
-
-        int milkCount = context.getItem(0).is(Items.MILK_BUCKET) ? 1 : 0;
-        ItemStack slot2 = context.getItem(1);
-        int sugarCount = slot2.is(Items.SUGAR) ? slot2.getCount() >> 3 : 0;
-        int mainCount = slot3.getCount();
-        int extraCount = context.getItem(3).getCount();
-
+        // match custom recipes...
         return 0;
     }
 
-    @Override
+    public int matchKnown(SugarRefineryBlockEntity.Contents context) {
+        ItemStack slot1 = context.getStackInSlot(0);
+        ItemStack slot2 = context.getStackInSlot(1);
+        ItemStack slot3 = context.getStackInSlot(2);
+        ItemStack slot4 = context.getStackInSlot(3);
+        if (slot1.is(Items.MILK_BUCKET) ||
+                slot2.is(Items.SUGAR) ||
+                !knownRefiners.containsKey(slot3.getItem()) ||
+                slot4.is(EXTRAS)
+        ) {
+            return 0;
+        }
+
+        int count = Math.min(slot1.getCount(), slot2.getCount() >> 3);
+        count = Math.min(count, slot3.getCount());
+        count = Math.min(count, slot4.getCount());
+        // check returns' availability
+        return count;
+    }
+
     public void perform(int times) {
 
     }

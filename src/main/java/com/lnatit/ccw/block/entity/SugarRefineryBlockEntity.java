@@ -37,7 +37,7 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
     }
 
     public void tick(Level level) {
-        // RecipeHolder will match the recipe & store max craft times, and update the data accrodingly
+        // RecipeHolder will matchKnown the recipe & store max craft times, and update the data accrodingly
         // BE will store nearest finish time, check it on each tick and update if needed
         // Each time when the contents is changed by external operations (other than recipe update)
         // will trigger a rematch of RecipeHolder
