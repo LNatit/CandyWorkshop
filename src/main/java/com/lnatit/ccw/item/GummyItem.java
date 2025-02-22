@@ -1,6 +1,7 @@
 package com.lnatit.ccw.item;
 
 import com.lnatit.ccw.item.sugaring.SugarContents;
+import com.lnatit.ccw.item.sugaring.SugarRefining;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;

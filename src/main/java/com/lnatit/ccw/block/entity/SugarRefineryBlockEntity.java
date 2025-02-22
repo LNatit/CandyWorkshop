@@ -19,10 +19,9 @@ import org.jetbrains.annotations.Nullable;
 public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvider, Nameable
 {
     public static final Component DEFAULT_NAME = Component.translatable("container.sugar_refinery");
-    public static final int REFINE_TIME = 100;
-    public static final long MASK = 0xFFFF_FFFF_0000_0000L;
+    public static final int REFINE_TIME = 160;
 
-    ItemStackHandler inventory = new Contents();
+    Contents inventory = new Contents();
     int matchTime = 0;
     long startTime = 0;
     boolean changed = true;
@@ -44,7 +43,7 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
         // will trigger a rematch of RecipeHolder
         long delta = level.getGameTime() - this.startTime;
         if (this.changed) {
-            this.matchTime = matchRecipe();
+            this.matchTime = this.inventory.matchRecipe();
             if (this.matchTime > 0) {
                 this.startTime = level.getGameTime();
             }
@@ -57,30 +56,19 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
                 }
                 this.matchTime -= times;
                 this.startTime += (long) times * REFINE_TIME;
-                genOutputs(times);
+                this.inventory.genOutputs(times);
                 // no need to mark flag since it's an internal update
                 super.setChanged();
             }
         }
     }
 
-    private int matchRecipe() {
-        return 0;
-    }
-
-    private void genOutputs(int times) {
-
-    }
-
     public static void serverTick(Level level, BlockPos pos, BlockState state, SugarRefineryBlockEntity blockEntity) {
-
+        blockEntity.tick(level);
     }
 
     private static int toInt(long value) {
-        if ((value & MASK) != 0) {
-            return value > 0 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
-        }
-        return (int) value;
+        return (int) value != value ? value > 0 ? Integer.MAX_VALUE : Integer.MIN_VALUE : (int) value;
     }
 
     public ItemStackHandler getInventory() {
@@ -110,6 +98,14 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
     {
         public Contents() {
             super(8);
+        }
+
+        public int matchRecipe() {
+            return 0;
+        }
+
+        public void genOutputs(int times) {
+
         }
 
         @Override
