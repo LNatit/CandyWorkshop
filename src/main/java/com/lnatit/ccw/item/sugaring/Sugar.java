@@ -17,6 +17,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
 import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 
@@ -93,6 +94,15 @@ public record Sugar(String name, Holder<Potion> base, @Nullable Holder<Potion> e
         @Override
         public String getSerializedName() {
             return this.name;
+        }
+
+        public static Type fromExtra(ItemStack extra) {
+            if (extra.is(Items.COCOA_BEANS))
+                return Type.EXCITED;
+            if (extra.is(Items.HONEY_BOTTLE))
+                return Type.BOLD;
+            return Type.BASE;
+
         }
     }
 }

@@ -7,8 +7,8 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
 public class SugarRefiningRecipeSerializer implements RecipeSerializer<SugarRefiningRecipe> {
-    public static final MapCodec<SugarRefiningRecipe> CODEC = RecordCodecBuilder.mapCodec();
-    public static final StreamCodec<RegistryFriendlyByteBuf, SugarRefiningRecipe> STREAM_CODEC = ;
+    public static final MapCodec<SugarRefiningRecipe> CODEC = null;
+    public static final StreamCodec<RegistryFriendlyByteBuf, SugarRefiningRecipe> STREAM_CODEC = null;
 
     @Override
     public MapCodec<SugarRefiningRecipe> codec() {
