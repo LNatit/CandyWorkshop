@@ -2,6 +2,7 @@ package com.lnatit.ccw.block.entity;
 
 import com.lnatit.ccw.block.BlockRegistry;
 import com.lnatit.ccw.item.sugaring.SugarRefining;
+import com.lnatit.ccw.menu.SugarRefineryMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -11,6 +12,7 @@ import net.minecraft.world.Nameable;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -70,6 +72,7 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
 
     private void generateOutputs() {
         ItemStack output = this.inventory.getStackInSlot(4);
+        // TODO consume ingredients
         if (output.isEmpty()) {
             this.inventory.setStackInSlot(4, this.making);
         }
@@ -119,7 +122,7 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
 
     @Override
     public @Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-        return null;
+        return new SugarRefineryMenu(containerId, playerInventory, ContainerLevelAccess.create(this.level, this.worldPosition));
     }
 
     /**
