@@ -13,6 +13,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -77,7 +78,7 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
             this.inventory.setStackInSlot(4, this.making);
         }
         else {
-            output.grow(output.getCount());
+            output.grow(this.making.getCount());
         }
         this.making = ItemStack.EMPTY;
     }
@@ -122,7 +123,24 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
 
     @Override
     public @Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-        return new SugarRefineryMenu(containerId, playerInventory, ContainerLevelAccess.create(this.level, this.worldPosition));
+        return new SugarRefineryMenu(
+                containerId,
+                playerInventory,
+                this.inventory,
+                new DataSlot()
+                {
+                    @Override
+                    public int get() {
+                        return SugarRefineryBlockEntity.this.progress;
+                    }
+
+                    @Override
+                    public void set(int value) {
+                        SugarRefineryBlockEntity.this.progress = value;
+                    }
+                },
+                ContainerLevelAccess.create(this.level, this.worldPosition)
+        );
     }
 
     /**

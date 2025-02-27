@@ -1,6 +1,7 @@
 package com.lnatit.ccw.item;
 
 import com.lnatit.ccw.CandyWorkshop;
+import com.lnatit.ccw.block.BlockRegistry;
 import com.lnatit.ccw.misc.RegRegistry;
 import com.lnatit.ccw.item.sugaring.Sugar;
 import com.lnatit.ccw.item.sugaring.SugarContents;
@@ -9,10 +10,7 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -45,6 +43,7 @@ public class ItemRegistry
                                     .setId(ResourceKey.create(Registries.ITEM, key))
                     )
             );
+    public static final DeferredItem<BlockItem> SUGAR_REFINERY = ITEMS.registerSimpleBlockItem(BlockRegistry.SUGAR_REFINERY);
 
     public static final DeferredRegister<CreativeModeTab> TABS =
             DeferredRegister.create(
