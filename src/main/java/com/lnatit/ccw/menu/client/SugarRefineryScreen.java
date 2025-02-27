@@ -40,7 +40,9 @@ public class SugarRefineryScreen extends AbstractContainerScreen<SugarRefineryMe
                 this.imageHeight,
                 256, 256
         );
+
         int progress = this.menu.getProgress();
+
         if (progress != 0)
         {
             guiGraphics.blitSprite(
@@ -51,15 +53,15 @@ public class SugarRefineryScreen extends AbstractContainerScreen<SugarRefineryMe
                     32, 23
             );
         }
-        // TODO need modification
-        progress += 1;
-        progress = 14 - 14 * progress / SugarRefining.REFINE_TIME;
+
+        progress = -15 * progress / (SugarRefining.REFINE_TIME - 1);
+        progress = progress == -15 ? -14 : progress;
         guiGraphics.blitSprite(
                 RenderType::guiTextured,
                 PROGRESS_SPRITE,
-                this.leftPos + 86 - progress,
+                this.leftPos + 72 - progress,
                 this.topPos + 41,
-                progress * 2, 1
+                28 + progress * 2, 1
         );
     }
 }
