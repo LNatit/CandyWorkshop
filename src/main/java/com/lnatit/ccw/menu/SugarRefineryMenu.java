@@ -1,7 +1,6 @@
 package com.lnatit.ccw.menu;
 
 import com.lnatit.ccw.block.BlockRegistry;
-import com.lnatit.ccw.block.entity.SugarRefineryBlockEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
@@ -12,11 +11,13 @@ import net.neoforged.neoforge.items.SlotItemHandler;
 
 public class SugarRefineryMenu extends AbstractContainerMenu
 {
+    private final DataSlot data;
     private final ContainerLevelAccess access;
 
     // Server constructor
     public SugarRefineryMenu(int containerId, Inventory playerInventory, IItemHandler content, DataSlot data, ContainerLevelAccess access) {
         super(MenuRegistry.SUGAR_REFINERY.get(), containerId);
+        this.data = data;
         this.access = access;
         this.addDataSlot(data);
         this.addRefinerySlots(content);
@@ -29,16 +30,24 @@ public class SugarRefineryMenu extends AbstractContainerMenu
     }
 
     private void addRefinerySlots(IItemHandler contents) {
-        this.addSlot(new SlotItemHandler(contents, 0, 23, 24));
-        this.addSlot(new SlotItemHandler(contents, 1, 48, 24));
-        this.addSlot(new SlotItemHandler(contents, 2, 108, 24));
-        this.addSlot(new SlotItemHandler(contents, 3, 132, 24));
+        this.addSlot(new SlotItemHandler(contents, 0, 23, 23));
+        this.addSlot(new SlotItemHandler(contents, 1, 48, 23));
+        this.addSlot(new SlotItemHandler(contents, 2, 108, 23));
+        this.addSlot(new SlotItemHandler(contents, 3, 132, 23));
 
         this.addSlot(new SlotItemHandler(contents, 4, 78, 56));
 
-        this.addSlot(new SlotItemHandler(contents, 5, 123, 73));
-        this.addSlot(new SlotItemHandler(contents, 6, 139, 73));
-        this.addSlot(new SlotItemHandler(contents, 7, 155, 73));
+        this.addSlot(new SlotItemHandler(contents, 5, 118, 71));
+        this.addSlot(new SlotItemHandler(contents, 6, 136, 71));
+        this.addSlot(new SlotItemHandler(contents, 7, 154, 71));
+    }
+
+    public int getProgress() {
+        return data.get();
+    }
+
+    public void setProgress(int progress) {
+        data.set(progress);
     }
 
     @Override

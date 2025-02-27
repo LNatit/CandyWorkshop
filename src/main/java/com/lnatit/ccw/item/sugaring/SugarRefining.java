@@ -21,6 +21,7 @@ import java.util.function.Consumer;
 public class SugarRefining
 {
     public static final SugarRefining EMPTY = new SugarRefining(ImmutableMap.of());
+    public static final int REFINE_TIME = 160;
     private static final List<Consumer<Builder>> customFlavors = new ArrayList<>();
     public static SugarRefining sugarRefining;
 
