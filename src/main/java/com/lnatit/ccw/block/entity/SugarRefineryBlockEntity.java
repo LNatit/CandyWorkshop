@@ -65,7 +65,7 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
 
     private void generateOutputs() {
         // TODO consume ingredients
-        ItemStack output = this.inventory.makeSugar();
+        ItemStack output = this.inventory.simulateOutput();
         ItemStack exist = this.inventory.getStackInSlot(4);
         if (exist.isEmpty()) {
             this.inventory.setStackInSlot(4, output);
@@ -168,7 +168,7 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
             return getStackInSlot(3);
         }
 
-        public ItemStack makeSugar() {
+        public ItemStack simulateOutput() {
             ItemStack sugar = SugarRefining.sugarRefining.makeSugar(getMain(), getExtra());
             sugar.setCount(SUGAR_PRODUCTION);
             return sugar;
@@ -176,7 +176,7 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
 
         public boolean outputMatches() {
             ItemStack output = getStackInSlot(4);
-            ItemStack simulate = makeSugar();
+            ItemStack simulate = simulateOutput();
             return output.isEmpty()
                     || ItemStack.isSameItemSameComponents(output, simulate)
                     && output.getCount() + simulate.getCount() <= output.getMaxStackSize();

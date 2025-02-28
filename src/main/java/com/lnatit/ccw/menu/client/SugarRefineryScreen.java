@@ -9,6 +9,9 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.ItemStack;
+
+import java.util.List;
 
 public class SugarRefineryScreen extends AbstractContainerScreen<SugarRefineryMenu> {
     public static final ResourceLocation BACKGROUND_LOCATION =
@@ -25,7 +28,13 @@ public class SugarRefineryScreen extends AbstractContainerScreen<SugarRefineryMe
         super(menu, playerInventory, title);
         this.imageWidth = WIDTH;
         this.imageHeight = HEIGHT;
-        this.inventoryLabelY = this.imageHeight - 94;
+        this.inventoryLabelY = this.imageHeight - 95;
+    }
+
+    @Override
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.render(guiGraphics, mouseX, mouseY, partialTick);
+        this.renderTooltip(guiGraphics, mouseX, mouseY);
     }
 
     @Override
@@ -54,8 +63,7 @@ public class SugarRefineryScreen extends AbstractContainerScreen<SugarRefineryMe
             );
         }
 
-        progress = -15 * progress / (SugarRefining.REFINE_TIME - 1);
-        progress = progress == -15 ? -14 : progress;
+        progress = -15 * progress / SugarRefining.REFINE_TIME;
         guiGraphics.blitSprite(
                 RenderType::guiTextured,
                 PROGRESS_SPRITE,
