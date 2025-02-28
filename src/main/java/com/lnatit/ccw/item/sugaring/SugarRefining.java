@@ -10,6 +10,7 @@ import net.minecraft.world.item.Items;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,6 +38,11 @@ public class SugarRefining
 
     public boolean isExtra(ItemStack itemStack) {
         return itemStack.is(Items.COCOA_BEANS) || itemStack.is(Items.HONEY_BOTTLE);
+    }
+
+    @Nullable
+    public Holder<Sugar> getSugar(ItemStack main) {
+        return sugarFlavors.get(main.getItem());
     }
 
     public ItemStack makeSugar(ItemStack main, ItemStack extra) {

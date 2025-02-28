@@ -1,8 +1,8 @@
 package com.lnatit.ccw.item.sugaring;
 
 import com.lnatit.ccw.CandyWorkshop;
-import com.lnatit.ccw.misc.RegRegistry;
 import com.lnatit.ccw.item.ItemRegistry;
+import com.lnatit.ccw.misc.RegRegistry;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -25,21 +25,24 @@ import javax.annotation.Nullable;
 import java.util.*;
 
 public record Sugar(String name, Holder<Potion> base, @Nullable Holder<Potion> excited, @Nullable Holder<Potion> bold,
-                    int duration) {
+                    int duration)
+{
     public static final Codec<Holder<Sugar>> CODEC = RegRegistry.SUGAR.holderByNameCodec();
-    public static final StreamCodec<RegistryFriendlyByteBuf, Holder<Sugar>> STREAM_CODEC = ByteBufCodecs.holderRegistry(RegRegistry.SUGAR_KEY);
+    public static final StreamCodec<RegistryFriendlyByteBuf, Holder<Sugar>> STREAM_CODEC = ByteBufCodecs.holderRegistry(
+            RegRegistry.SUGAR_KEY);
 
-    public static ItemStack createSugarItem(Holder<Sugar> sugar, Type type) {
+    public static ItemStack createSugarItem(@Nullable Holder<Sugar> sugar, Type type) {
         ItemStack itemStack = ItemRegistry.GUMMY_ITEM.toStack(1);
-        itemStack.set(ItemRegistry.SUGAR_CONTENTS_DCTYPE, new SugarContents(Optional.of(sugar), type));
-//        if (sugar != Su)
-        itemStack.set(DataComponents.ITEM_MODEL, sugar.value().toModelId());
+        itemStack.set(ItemRegistry.SUGAR_CONTENTS_DCTYPE, new SugarContents(Optional.ofNullable(sugar), type));
+        if (sugar != null) {
+            itemStack.set(DataComponents.ITEM_MODEL, sugar.value().toModelId());
+        }
         return itemStack;
     }
 
     public static Collection<ItemStack> createSugarItems(Holder<Sugar> sugar) {
         Set<ItemStack> sugarItems = new HashSet<>();
-        for (Type type : Type.values()) {
+        for (Type type : sugar.value().getAvailableTypes()) {
             sugarItems.add(createSugarItem(sugar, type));
         }
         return sugarItems;
@@ -62,7 +65,8 @@ public record Sugar(String name, Holder<Potion> base, @Nullable Holder<Potion> e
             // Instantenous effect behaves differently
             if (apply.value().isInstantenous()) {
                 apply.value().applyInstantenousEffect(level, entity, entity, entity, effect.getAmplifier(), 0.5);
-            } else {
+            }
+            else {
                 MobEffectInstance exist = entity.getEffect(apply);
 //                    while (exist != null && exist.getAmplifier() != effect.getAmplifier()) {
 //                        exist = exist.getEffect()
@@ -75,15 +79,37 @@ public record Sugar(String name, Holder<Potion> base, @Nullable Holder<Potion> e
         }
     }
 
+    public List<Type> getAvailableTypes() {
+        List<Type> types = new ArrayList<>();
+        types.add(Type.BASE);
+        if (this.excited != null) {
+            types.add(Type.EXCITED);
+        }
+        if (this.bold != null) {
+            types.add(Type.BOLD);
+        }
+        return types;
+    }
+
+    public boolean hasType(Type type) {
+        return switch (type) {
+            case EXCITED -> this.excited != null;
+            case BOLD -> this.bold != null;
+            default -> true;
+        };
+    }
+
     public ResourceLocation toModelId() {
         return ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID, this.name).withSuffix("_gummy");
     }
 
-    public enum Type implements StringRepresentable {
+    public enum Type implements StringRepresentable
+    {
         BASE("base"), EXCITED("excited"), BOLD("bold");
 
         public static final Codec<Type> CODEC = StringRepresentable.fromEnum(Type::values);
-        public static final StreamCodec<FriendlyByteBuf, Type> STREAM_CODEC = NeoForgeStreamCodecs.enumCodec(Type.class);
+        public static final StreamCodec<FriendlyByteBuf, Type> STREAM_CODEC = NeoForgeStreamCodecs.enumCodec(
+                Type.class);
 
         private final String name;
 
@@ -97,10 +123,12 @@ public record Sugar(String name, Holder<Potion> base, @Nullable Holder<Potion> e
         }
 
         public static Type fromExtra(ItemStack extra) {
-            if (extra.is(Items.COCOA_BEANS))
+            if (extra.is(Items.COCOA_BEANS)) {
                 return Type.EXCITED;
-            if (extra.is(Items.HONEY_BOTTLE))
+            }
+            if (extra.is(Items.HONEY_BOTTLE)) {
                 return Type.BOLD;
+            }
             return Type.BASE;
 
         }

@@ -35,6 +35,10 @@ public record SugarContents(Optional<Holder<Sugar>> sugar, Sugar.Type type) {
         return this.sugar.isPresent() && holder.equals(this.sugar.get());
     }
 
+    public boolean is(Holder<Sugar> holder, Sugar.Type type) {
+        return is(holder) && this.type.equals(type);
+    }
+
     public void applyOn(ServerLevel level, LivingEntity entity) {
         this.sugar.ifPresent(holder -> holder.value().applySugarOn(level, entity, this.type));
     }
