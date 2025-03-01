@@ -11,7 +11,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.Nameable;
@@ -22,10 +21,8 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BrewingStandBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
@@ -123,7 +120,6 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
         for (int i = 5; i < 8; i++) {
             ItemStack stack = this.inventory.getStackInSlot(i);
             if (stack.isEmpty()) {
-                remainder.setCount(count);
                 this.inventory.setStackInSlot(i, remainder);
                 return;
             }
@@ -131,16 +127,19 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
                 int consume = Math.min(stack.getMaxStackSize() - stack.getCount(), count);
                 stack.grow(consume);
                 this.inventory.setStackInSlot(i, stack);
-                count -= consume;
-                if (count == 0) {
+                remainder.shrink(consume);
+                if (remainder.isEmpty()) {
                     return;
                 }
             }
         }
-        if (count > 0) {
-            remainder.setCount(count);
-            Containers.dropItemStack(this.level, this.worldPosition.getX(), this.worldPosition.getY(), this.worldPosition.getZ(), remainder);
-        }
+        Containers.dropItemStack(
+                this.level,
+                this.worldPosition.getX(),
+                this.worldPosition.getY(),
+                this.worldPosition.getZ(),
+                remainder
+        );
     }
 
     @Override
