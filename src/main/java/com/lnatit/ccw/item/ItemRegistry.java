@@ -45,6 +45,19 @@ public class ItemRegistry
                     )
             );
     public static final DeferredItem<BlockItem> SUGAR_REFINERY = ITEMS.registerSimpleBlockItem(BlockRegistry.SUGAR_REFINERY);
+//    public static final DeferredItem<Item> 糖水萝卜;
+//    public static final DeferredItem<Item> 隐身xx;
+//    public static final DeferredItem<Item> 高钙牛奶;
+//    public static final DeferredItem<Item> 黑胡萝卜;
+//    public static final DeferredItem<Item> 虚弱粉;
+//    public static final DeferredItem<Item> 空壳苹果;
+//    public static final DeferredItem<Item> 镶金苹果;
+//    public static final DeferredItem<Item> 神圣肉排;
+//    public static final DeferredItem<Item> 贪婪贡品;
+//    public static final DeferredItem<Item> 亵渎贡品;
+//    public static final DeferredItem<Item> 海豚饼干;
+//    public static final DeferredItem<Item> 挑衅旗帜;
+//    public static final DeferredItem<Item> ;
 
     public static final DeferredRegister<CreativeModeTab> TABS =
             DeferredRegister.create(

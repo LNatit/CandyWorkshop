@@ -50,7 +50,7 @@ public class SugarRefining
         if (holder != null) {
             return Sugar.createSugarItem(holder, Sugar.Type.fromExtra(extra));
         }
-        return ItemRegistry.GUMMY_ITEM.toStack();
+        return ItemStack.EMPTY;
     }
 
     public static void addModFlavors(Builder builder) {

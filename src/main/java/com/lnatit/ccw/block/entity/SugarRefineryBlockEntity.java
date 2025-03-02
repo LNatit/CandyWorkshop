@@ -6,7 +6,9 @@ import com.lnatit.ccw.item.sugaring.Sugar;
 import com.lnatit.ccw.item.sugaring.SugarContents;
 import com.lnatit.ccw.item.sugaring.SugarRefining;
 import com.lnatit.ccw.menu.SugarRefineryMenu;
+import com.mojang.datafixers.kinds.IdF;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -24,21 +26,20 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.wrapper.RangedWrapper;
 import org.jetbrains.annotations.Nullable;
 
-public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvider, Nameable
-{
+public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvider, Nameable {
     public static final Component DEFAULT_NAME = Component.translatable("container.sugar_refinery");
     private final Contents inventory = new Contents();
     @Nullable
     private Component name;
     private boolean changed = true;
-    /**
-     * 0: Pause
-     * >0: Progress
-     */
     private int progress = 0;
+    @Nullable
+    private ItemStack sugar = ItemStack.EMPTY;
 
     public SugarRefineryBlockEntity(BlockPos pos, BlockState blockState) {
         super(BlockRegistry.SUGAR_REFINERY_BETYPE.get(), pos, blockState);
@@ -51,8 +52,7 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
             // match recipe
             refinery.progress = refinery.tryMatchRecipe() ? 1 : 0;
             refinery.changed = false;
-        }
-        else if (refinery.progress > 0) {
+        } else if (refinery.progress > 0) {
             refinery.progress++;
         }
 
@@ -105,8 +105,7 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
             exist = Sugar.createSugarItem(flavor, type);
             exist.setCount(Contents.SUGAR_PRODUCTION);
             this.inventory.setStackInSlot(4, exist);
-        }
-        else {
+        } else {
             exist.grow(Contents.SUGAR_PRODUCTION);
         }
     }
@@ -122,8 +121,7 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
             if (stack.isEmpty()) {
                 this.inventory.setStackInSlot(i, remainder);
                 return;
-            }
-            else if (ItemStack.isSameItemSameComponents(stack, remainder)) {
+            } else if (ItemStack.isSameItemSameComponents(stack, remainder)) {
                 int consume = Math.min(stack.getMaxStackSize() - stack.getCount(), count);
                 stack.grow(consume);
                 this.inventory.setStackInSlot(i, stack);
@@ -194,8 +192,7 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
                 containerId,
                 playerInventory,
                 this.inventory,
-                new DataSlot()
-                {
+                new DataSlot() {
                     @Override
                     public int get() {
                         return SugarRefineryBlockEntity.this.progress;
@@ -210,11 +207,216 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
         );
     }
 
+    public class Data extends ItemStackHandler {
+        public static final int SUGAR_CONSUMPTION = 8;
+        public static final int SUGAR_PRODUCTION = 8;
+
+        private boolean changedExternal = true;
+        private int progress = 0;
+        private ItemStack scheduledOutput = ItemStack.EMPTY;
+
+        private Data() {
+            super(8);
+        }
+
+        private ItemStack getMilk() {
+            return this.stacks.get(0);
+        }
+
+        private ItemStack getSugar() {
+            return this.stacks.get(1);
+        }
+
+        private ItemStack getMain() {
+            return this.stacks.get(2);
+        }
+
+        private ItemStack getExtra() {
+            return this.stacks.get(3);
+        }
+
+        private DataSlot getDataAccess() {
+            return new DataSlot() {
+                @Override
+                public int get() {
+                    return scheduledOutput.isEmpty() ? ~progress : progress;
+                }
+
+                @Override
+                public void set(int value) {
+                    if (value < 0) {
+                        scheduledOutput = ItemStack.EMPTY;
+                        value = ~value;
+                    }
+                    progress = value;
+                }
+            };
+        }
+
+        private void tick() {
+            if (changed) {
+                // match recipe
+                if (updateRecipe())
+                    progress = 0;
+                changed = false;
+            }
+
+            if (!scheduledOutput.isEmpty()) {
+                progress++;
+            }
+
+            if (progress >= SugarRefining.REFINE_TIME) {
+                progress = 0;
+                // generate the outputs
+                generateOutputs();
+                // the flag is set during output generation
+                changed = true;
+            }
+        }
+
+        /**
+         * @return true if new matched output is different from the old one
+         */
+        private boolean updateRecipe() {
+            if (!hasEnoughMilkAndSugar())
+                return false;
+
+            ItemStack newOutput = SugarRefining.sugarRefining.makeSugar(getMain(), getExtra());
+            ItemStack output = this.stacks.get(4);
+
+            if (ItemStack.isSameItemSameComponents(scheduledOutput, newOutput))
+                return false;
+
+            if (ItemStack.isSameItemSameComponents(output, newOutput) &&
+                    output.getCount() + newOutput.getCount() <= output.getMaxStackSize())
+                scheduledOutput = newOutput;
+
+            return true;
+        }
+
+        private boolean hasEnoughMilkAndSugar() {
+            ItemStack milk = getMilk();
+            ItemStack sugar = getSugar();
+            if (milk.isEmpty() || sugar.isEmpty())
+                return false;
+            if (!milk.is(Items.MILK_BUCKET) || !sugar.is(Items.SUGAR))
+                return false;
+
+            int milkCount = 1;
+            int sugarCount = SUGAR_CONSUMPTION;
+
+            return milk.getCount() >= milkCount && sugar.getCount() >= sugarCount;
+        }
+
+        private void generateOutputs() {
+            // consume ingredients
+            ItemStack milk = this.stacks.get(0);
+            int milkConsumption = 1;
+            acceptRemainder(milk.getCraftingRemainder(), milkConsumption);
+            milk.shrink(milkConsumption);
+
+            ItemStack sugar = this.stacks.get(1);
+            sugar.shrink(Contents.SUGAR_CONSUMPTION);
+
+            ItemStack main = this.stacks.get(2);
+            acceptRemainder(main.getCraftingRemainder(), 1);
+            main.shrink(1);
+
+            ItemStack extra = this.stacks.get(3);
+            Sugar.Type type = Sugar.Type.fromExtra(extra);
+            if (type != Sugar.Type.BASE) {
+                acceptRemainder(extra.getCraftingRemainder(), 1);
+                extra.shrink(1);
+            }
+
+            ItemStack output = this.stacks.get(4);
+            if (output.isEmpty()) {
+                scheduledOutput.setCount(SUGAR_PRODUCTION);
+                this.stacks.set(4, scheduledOutput);
+            } else {
+                output.grow(SUGAR_PRODUCTION);
+            }
+            scheduledOutput = ItemStack.EMPTY;
+        }
+
+        private void acceptRemainder(ItemStack remainder, int count) {
+            remainder.setCount(count);
+            for (int i = 5; i < 8; i++) {
+                ItemStack stack = this.stacks.get(i);
+                if (stack.isEmpty()) {
+                    this.stacks.set(i, remainder);
+                    return;
+                } else if (ItemStack.isSameItemSameComponents(stack, remainder)) {
+                    int consume = Math.min(stack.getMaxStackSize() - stack.getCount(), count);
+                    stack.grow(consume);
+                    this.stacks.set(i, stack);
+                    remainder.shrink(consume);
+                    if (remainder.isEmpty()) {
+                        return;
+                    }
+                }
+            }
+            if (SugarRefineryBlockEntity.this.level != null) {
+                Containers.dropItemStack(
+                        SugarRefineryBlockEntity.this.level,
+                        SugarRefineryBlockEntity.this.worldPosition.getX(),
+                        SugarRefineryBlockEntity.this.worldPosition.getY(),
+                        SugarRefineryBlockEntity.this.worldPosition.getZ(),
+                        remainder
+                );
+            }
+        }
+
+        // TODO
+        public IItemHandler getInventoryAccess(Direction direction) {
+            return switch (direction) {
+                case DOWN -> new RangedWrapper(this, 4, 8);
+                case UP -> new RangedWrapper(this, 1, 8);
+                case NORTH -> new RangedWrapper(this, 1, 3);
+                case SOUTH -> new RangedWrapper(this, 1, 2);
+                case WEST -> new RangedWrapper(this, 1, 1);
+                case EAST -> new RangedWrapper(this, 1, 0);
+            };
+        }
+
+        @Override
+        public boolean isItemValid(int slot, ItemStack stack) {
+            return switch (slot){
+                case 0 -> stack.is(Items.MILK_BUCKET);
+                case 1 -> stack.is(Items.SUGAR);
+                case 2, 3 -> true;
+                default -> false;
+            };
+        }
+
+        @Override
+        public CompoundTag serializeNBT(HolderLookup.Provider provider) {
+            CompoundTag tag = super.serializeNBT(provider);
+            tag.putInt("progress", progress);
+            if (!scheduledOutput.isEmpty()) {
+                tag.put("scheduled_output", scheduledOutput.save(provider));
+            }
+            return tag;
+        }
+
+        @Override
+        public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
+            super.deserializeNBT(provider, nbt);
+            progress = nbt.getInt("progress");
+            scheduledOutput = ItemStack.parseOptional(provider, nbt.getCompound("scheduled_output"));
+            changedExternal = true;
+        }
+
+        @Override
+        protected void onContentsChanged(int slot) {
+            changedExternal = true;
+        }
+    }
+
     /**
      * milk, sugar, main, extra, output, misc1, misc2, misc3
      */
-    public class Contents extends ItemStackHandler
-    {
+    public class Contents extends ItemStackHandler {
         public static final int SUGAR_CONSUMPTION = 8;
         public static final int SUGAR_PRODUCTION = 8;
 

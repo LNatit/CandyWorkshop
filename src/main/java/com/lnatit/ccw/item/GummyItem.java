@@ -21,6 +21,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import java.util.List;
 
 public class GummyItem extends Item {
+    // TODO
     public static final FoodProperties GUMMY_FOOD = Foods.DRIED_KELP;
     public static final Consumable GUMMY_CONSUMABLE = Consumables.DRIED_KELP;
 
