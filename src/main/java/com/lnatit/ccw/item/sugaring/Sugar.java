@@ -24,6 +24,7 @@ import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 import javax.annotation.Nullable;
 import java.util.*;
 
+// TODO decoupling with Potion
 public record Sugar(String name, Holder<Potion> base, @Nullable Holder<Potion> excited, @Nullable Holder<Potion> bold,
                     int duration)
 {
@@ -49,13 +50,13 @@ public record Sugar(String name, Holder<Potion> base, @Nullable Holder<Potion> e
     }
 
     public void applySugarOn(ServerLevel level, LivingEntity entity, Type type) {
-        Holder<Potion> potion = this.base;
-        int duration = this.duration;
-        if (type == Type.EXCITED && this.excited != null) {
-            potion = this.excited;
+        Holder<Potion> potion = this.base();
+        int duration = this.duration();
+        if (type == Type.EXCITED && this.excited() != null) {
+            potion = this.excited();
         }
-        if (type == Type.BOLD && this.bold != null) {
-            potion = this.bold;
+        if (type == Type.BOLD && this.bold() != null) {
+            potion = this.bold();
             duration *= 2;
         }
 
@@ -82,10 +83,10 @@ public record Sugar(String name, Holder<Potion> base, @Nullable Holder<Potion> e
     public List<Type> getAvailableTypes() {
         List<Type> types = new ArrayList<>();
         types.add(Type.BASE);
-        if (this.excited != null) {
+        if (this.excited() != null) {
             types.add(Type.EXCITED);
         }
-        if (this.bold != null) {
+        if (this.bold() != null) {
             types.add(Type.BOLD);
         }
         return types;

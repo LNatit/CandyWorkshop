@@ -2,23 +2,23 @@ package com.lnatit.ccw.item;
 
 import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.block.BlockRegistry;
-import com.lnatit.ccw.misc.RegRegistry;
 import com.lnatit.ccw.item.sugaring.Sugar;
 import com.lnatit.ccw.item.sugaring.SugarContents;
-import net.minecraft.core.Holder;
+import com.lnatit.ccw.misc.RegRegistry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.Consumables;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 
-public class ItemRegistry
-{
+public class ItemRegistry {
     public static final DeferredRegister.DataComponents DATA_COMPONENTS =
             DeferredRegister.createDataComponents(
                     Registries.DATA_COMPONENT_TYPE,
@@ -45,8 +45,15 @@ public class ItemRegistry
                     )
             );
     public static final DeferredItem<BlockItem> SUGAR_REFINERY = ITEMS.registerSimpleBlockItem(BlockRegistry.SUGAR_REFINERY);
-//    public static final DeferredItem<Item> 糖水萝卜;
-//    public static final DeferredItem<Item> 隐身xx;
+    public static final DeferredItem<Item> MILK_GELATIN = ITEMS.register(
+            "milk_gelatin",
+            key -> new Item(
+                    new Item.Properties()
+                            .setId(ResourceKey.create(Registries.ITEM, key))
+            )
+    );
+//    public static final DeferredItem<Item> 能量萝卜;
+//    public static final DeferredItem<Item> 隐身核心;
 //    public static final DeferredItem<Item> 高钙牛奶;
 //    public static final DeferredItem<Item> 黑胡萝卜;
 //    public static final DeferredItem<Item> 虚弱粉;
@@ -57,7 +64,6 @@ public class ItemRegistry
 //    public static final DeferredItem<Item> 亵渎贡品;
 //    public static final DeferredItem<Item> 海豚饼干;
 //    public static final DeferredItem<Item> 挑衅旗帜;
-//    public static final DeferredItem<Item> ;
 
     public static final DeferredRegister<CreativeModeTab> TABS =
             DeferredRegister.create(
@@ -94,9 +100,9 @@ public class ItemRegistry
             CreativeModeTab.TabVisibility visibility
     ) {
         sugars.listElements()
-              // if FeatureElement implemented, we need to filter the map
+                // if FeatureElement implemented, we need to filter the map
 //                .filter()
-              .map(Sugar::createSugarItems)
-              .forEach(result -> output.acceptAll(result, visibility));
+                .map(Sugar::createSugarItems)
+                .forEach(result -> output.acceptAll(result, visibility));
     }
 }

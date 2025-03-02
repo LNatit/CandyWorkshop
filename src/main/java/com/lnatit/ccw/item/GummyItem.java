@@ -22,8 +22,8 @@ import java.util.List;
 
 public class GummyItem extends Item {
     // TODO
-    public static final FoodProperties GUMMY_FOOD = Foods.DRIED_KELP;
-    public static final Consumable GUMMY_CONSUMABLE = Consumables.DRIED_KELP;
+    public static final FoodProperties GUMMY_FOOD = new FoodProperties.Builder().nutrition(1).saturationModifier(0.3F).build();
+    public static final Consumable GUMMY_CONSUMABLE = Consumables.defaultFood().consumeSeconds(0.4f).build();
 
     public GummyItem(Properties properties) {
         super(properties);
