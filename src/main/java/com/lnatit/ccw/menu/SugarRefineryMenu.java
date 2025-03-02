@@ -3,14 +3,15 @@ package com.lnatit.ccw.menu;
 import com.lnatit.ccw.block.BlockRegistry;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.*;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
 
-public class SugarRefineryMenu extends AbstractContainerMenu
-{
+public class SugarRefineryMenu extends AbstractContainerMenu {
     private final DataSlot data;
     private final ContainerLevelAccess access;
 
@@ -46,8 +47,13 @@ public class SugarRefineryMenu extends AbstractContainerMenu
         return data.get();
     }
 
-    public void setProgress(int progress) {
-        data.set(progress);
+    @Override
+    public boolean clickMenuButton(Player player, int id) {
+        if (id == 0) {
+            data.set(getProgress() >= 0 ? -1 : 0);
+            return true;
+        }
+        return super.clickMenuButton(player, id);
     }
 
     @Override

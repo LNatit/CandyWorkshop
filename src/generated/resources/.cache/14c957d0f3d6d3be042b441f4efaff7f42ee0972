@@ -1,5 +1,8 @@
-// 1.21.4	2025-02-17T22:06:29.6020671	Model Definitions - ccw
+// 1.21.4	2025-03-02T18:55:02.6738331	Model Definitions - ccw
+2f67aa44e17f1ac5eea579f268f255c06b1923aa assets/ccw/blockstates/sugar_refinery.json
 60d8fab7616c0c1cf90f7aae667b308199ed4754 assets/ccw/items/gummy.json
 0268085811b3a6ad00032d822db4ad44901e59c0 assets/ccw/items/speed_gummy.json
+847a4d01c694b6ce57783a8a4ce1542ffdaf4c6d assets/ccw/items/sugar_refinery.json
+f6025b786fd3035b127514e4111895837ea9add1 assets/ccw/models/block/sugar_refinery.json
 751529b4cad618e920ab0ef5bac03948c892b03b assets/ccw/models/item/gummy.json
 734a943d574448e2804e7a288772d9d435053883 assets/ccw/models/item/speed_gummy.json

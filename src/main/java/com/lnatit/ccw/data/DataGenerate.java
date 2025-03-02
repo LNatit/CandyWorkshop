@@ -10,6 +10,7 @@ public class DataGenerate
 {
     @SubscribeEvent
     public static void onGatherData(GatherDataEvent.Client event) {
+        event.createProvider(ModEN_USProvider::new);
         event.createProvider(ModModelProvider::new);
         event.createProvider(ModRecipeProvider.Runner::new);
     }
