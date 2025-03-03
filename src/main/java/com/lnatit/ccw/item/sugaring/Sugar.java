@@ -25,12 +25,26 @@ import javax.annotation.Nullable;
 import java.util.*;
 
 // TODO decoupling with Potion
-public record Sugar(String name, Holder<Potion> base, @Nullable Holder<Potion> excited, @Nullable Holder<Potion> bold,
-                    int duration)
-{
+public final class Sugar {
     public static final Codec<Holder<Sugar>> CODEC = RegRegistry.SUGAR.holderByNameCodec();
     public static final StreamCodec<RegistryFriendlyByteBuf, Holder<Sugar>> STREAM_CODEC = ByteBufCodecs.holderRegistry(
             RegRegistry.SUGAR_KEY);
+    private final String name;
+    private final Holder<Potion> base;
+    @Nullable
+    private final Holder<Potion> excited;
+    @Nullable
+    private final Holder<Potion> bold;
+    private final int duration;
+
+    public Sugar(String name, Holder<Potion> base, @Nullable Holder<Potion> excited, @Nullable Holder<Potion> bold,
+                 int duration) {
+        this.name = name;
+        this.base = base;
+        this.excited = excited;
+        this.bold = bold;
+        this.duration = duration;
+    }
 
     public static ItemStack createSugarItem(@Nullable Holder<Sugar> sugar, Type type) {
         ItemStack itemStack = ItemRegistry.GUMMY_ITEM.toStack(1);
@@ -66,8 +80,7 @@ public record Sugar(String name, Holder<Potion> base, @Nullable Holder<Potion> e
             // Instantenous effect behaves differently
             if (apply.value().isInstantenous()) {
                 apply.value().applyInstantenousEffect(level, entity, entity, entity, effect.getAmplifier(), 0.5);
-            }
-            else {
+            } else {
                 MobEffectInstance exist = entity.getEffect(apply);
 //                    while (exist != null && exist.getAmplifier() != effect.getAmplifier()) {
 //                        exist = exist.getEffect()
@@ -104,8 +117,57 @@ public record Sugar(String name, Holder<Potion> base, @Nullable Holder<Potion> e
         return ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID, this.name).withSuffix("_gummy");
     }
 
-    public enum Type implements StringRepresentable
-    {
+    public String name() {
+        return name;
+    }
+
+    public Holder<Potion> base() {
+        return base;
+    }
+
+    @Nullable
+    public Holder<Potion> excited() {
+        return excited;
+    }
+
+    @Nullable
+    public Holder<Potion> bold() {
+        return bold;
+    }
+
+    public int duration() {
+        return duration;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null || obj.getClass() != this.getClass()) return false;
+        var that = (Sugar) obj;
+        return Objects.equals(this.name, that.name) &&
+                Objects.equals(this.base, that.base) &&
+                Objects.equals(this.excited, that.excited) &&
+                Objects.equals(this.bold, that.bold) &&
+                this.duration == that.duration;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, base, excited, bold, duration);
+    }
+
+    @Override
+    public String toString() {
+        return "Sugar[" +
+                "name=" + name + ", " +
+                "base=" + base + ", " +
+                "excited=" + excited + ", " +
+                "bold=" + bold + ", " +
+                "duration=" + duration + ']';
+    }
+
+
+    public enum Type implements StringRepresentable {
         BASE("base"), EXCITED("excited"), BOLD("bold");
 
         public static final Codec<Type> CODEC = StringRepresentable.fromEnum(Type::values);
