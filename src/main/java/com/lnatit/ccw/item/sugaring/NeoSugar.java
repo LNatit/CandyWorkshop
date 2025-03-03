@@ -1,6 +1,7 @@
 package com.lnatit.ccw.item.sugaring;
 
 import com.lnatit.ccw.CandyWorkshop;
+import com.lnatit.ccw.item.ItemRegistry;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.Holder;
 import net.minecraft.network.FriendlyByteBuf;
@@ -14,11 +15,9 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class NeoSugar
-{
+public class NeoSugar {
     private final String name;
     private final List<Holder<MobEffect>> effects;
     private final int duration;
@@ -33,10 +32,10 @@ public class NeoSugar
         this.hasBold = hasBold;
     }
 
-    public void applyOn(ServerLevel level, LivingEntity entity, Type type) {
-        int duration = this.hasBold && type == Type.BOLD ? 2 * this.duration : this.duration;
-        int amplifier = this.hasExcited && type == Type.EXCITED ? 1 : 0;
-        if (type == Type.MILKY) {
+    public void applyOn(ServerLevel level, LivingEntity entity, Flavor flavor) {
+        int duration = this.hasBold && flavor == Flavor.BOLD ? 2 * this.duration : this.duration;
+        int amplifier = this.hasExcited && flavor == Flavor.EXCITED ? 1 : 0;
+        if (flavor == Flavor.MILKY) {
             entity.removeAllEffects();
         }
 
@@ -54,41 +53,41 @@ public class NeoSugar
         }
     }
 
-    public List<Type> getAvailableTypes() {
-        List<Type> types = new ArrayList<>();
-        types.add(Type.ORIGINAL);
+    public List<Flavor> getAvailableTypes() {
+        List<Flavor> flavors = new ArrayList<>();
+        flavors.add(Flavor.ORIGINAL);
         if (hasExcited) {
-            types.add(Type.EXCITED);
+            flavors.add(Flavor.EXCITED);
         }
         if (hasBold) {
-            types.add(Type.BOLD);
+            flavors.add(Flavor.BOLD);
         }
-        types.add(Type.MILKY);
-        return types;
+        flavors.add(Flavor.MILKY);
+        return flavors;
     }
 
     public ResourceLocation getModelId() {
         return ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID, this.name).withSuffix("_gummy");
     }
 
-    public enum Type {
+    public enum Flavor {
         ORIGINAL("original"),
         EXCITED("excited"),
         BOLD("bold"),
         MILKY("milky");
 
-        public static final Codec<Type> CODEC = Codec.stringResolver(Type::name, Type::fromName);
-        public static final StreamCodec<FriendlyByteBuf, Type> STREAM_CODEC =
-                NeoForgeStreamCodecs.enumCodec(Type.class);
+        public static final Codec<Flavor> CODEC = Codec.stringResolver(Flavor::name, Flavor::fromName);
+        public static final StreamCodec<FriendlyByteBuf, Flavor> STREAM_CODEC =
+                NeoForgeStreamCodecs.enumCodec(Flavor.class);
 
         final String name;
 
-        Type(String name) {
+        Flavor(String name) {
             this.name = name;
         }
 
         @Nullable
-        static Type fromName(String name) {
+        static Flavor fromName(String name) {
             return switch (name) {
                 case "original" -> ORIGINAL;
                 case "excited" -> EXCITED;
@@ -98,7 +97,7 @@ public class NeoSugar
             };
         }
 
-        public static Type fromExtra(ItemStack extra) {
+        public static Flavor fromExtra(ItemStack extra) {
             return ORIGINAL;
         }
     }
@@ -151,28 +150,45 @@ public class NeoSugar
         }
     }
 
-    public interface INameAcceptor
-    {
+    public interface INameAcceptor {
         IEffectsAcceptor withName(String name);
     }
 
-    public interface IEffectsAcceptor{
+    public interface IEffectsAcceptor {
         IDurationAcceptor withEffects(Holder<MobEffect>... effect);
     }
 
-    public interface IDurationAcceptor
-    {
+    public interface IDurationAcceptor {
         IOptionalAcceptor withDuration(int duration);
     }
 
-    public interface IOptionalAcceptor extends IBuilder
-    {
+    public interface IOptionalAcceptor extends IBuilder {
         IBuilder withNoExcited();
+
         IBuilder withNoBold();
     }
 
-    public interface IBuilder
-    {
+    public interface IBuilder {
         NeoSugar build();
+    }
+
+    public static ItemStack createSugar(@Nullable Holder<NeoSugar> sugar, Flavor flavor) {
+        if (sugar == null) {
+            return ItemStack.EMPTY;
+        }
+        ItemStack itemStack = ItemRegistry.GUMMY_ITEM.toStack();
+        // TODO
+        return itemStack;
+    }
+
+    public static Collection<ItemStack> createAllFlavors(@Nullable Holder<NeoSugar> sugar) {
+        if (sugar == null) {
+            return Set.of();
+        }
+        Set<ItemStack> sugars = new HashSet<>();
+        for (Flavor flavor : sugar.value().getAvailableTypes()) {
+            sugars.add(createSugar(sugar, flavor));
+        }
+        return sugars;
     }
 }
