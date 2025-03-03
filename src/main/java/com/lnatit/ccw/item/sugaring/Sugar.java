@@ -12,188 +12,205 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.Potion;
 import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 
 import javax.annotation.Nullable;
 import java.util.*;
 
-// TODO decoupling with Potion
-public final class Sugar {
+public class Sugar {
     public static final Codec<Holder<Sugar>> CODEC = RegRegistry.SUGAR.holderByNameCodec();
-    public static final StreamCodec<RegistryFriendlyByteBuf, Holder<Sugar>> STREAM_CODEC = ByteBufCodecs.holderRegistry(
-            RegRegistry.SUGAR_KEY);
+    public static final StreamCodec<RegistryFriendlyByteBuf, Holder<Sugar>> STREAM_CODEC =
+            ByteBufCodecs.holderRegistry(RegRegistry.SUGAR_KEY);
+
     private final String name;
-    private final Holder<Potion> base;
-    @Nullable
-    private final Holder<Potion> excited;
-    @Nullable
-    private final Holder<Potion> bold;
+    private final List<Holder<MobEffect>> effects;
     private final int duration;
+    private final boolean hasExcited;
+    private final boolean hasBold;
 
-    public Sugar(String name, Holder<Potion> base, @Nullable Holder<Potion> excited, @Nullable Holder<Potion> bold,
-                 int duration) {
+    private Sugar(String name, List<Holder<MobEffect>> effects, int duration, boolean hasExcited, boolean hasBold) {
         this.name = name;
-        this.base = base;
-        this.excited = excited;
-        this.bold = bold;
+        this.effects = effects;
         this.duration = duration;
-    }
-
-    public static ItemStack createSugarItem(@Nullable Holder<Sugar> sugar, Type type) {
-        ItemStack itemStack = ItemRegistry.GUMMY_ITEM.toStack(1);
-        itemStack.set(ItemRegistry.SUGAR_CONTENTS_DCTYPE, new SugarContents(Optional.ofNullable(sugar), type));
-        if (sugar != null) {
-            itemStack.set(DataComponents.ITEM_MODEL, sugar.value().toModelId());
-        }
-        return itemStack;
-    }
-
-    public static Collection<ItemStack> createSugarItems(Holder<Sugar> sugar) {
-        Set<ItemStack> sugarItems = new HashSet<>();
-        for (Type type : sugar.value().getAvailableTypes()) {
-            sugarItems.add(createSugarItem(sugar, type));
-        }
-        return sugarItems;
-    }
-
-    public void applySugarOn(ServerLevel level, LivingEntity entity, Type type) {
-        Holder<Potion> potion = this.base();
-        int duration = this.duration();
-        if (type == Type.EXCITED && this.excited() != null) {
-            potion = this.excited();
-        }
-        if (type == Type.BOLD && this.bold() != null) {
-            potion = this.bold();
-            duration *= 2;
-        }
-
-        List<MobEffectInstance> effects = potion.value().getEffects();
-        for (MobEffectInstance effect : effects) {
-            Holder<MobEffect> apply = effect.getEffect();
-            // Instantenous effect behaves differently
-            if (apply.value().isInstantenous()) {
-                apply.value().applyInstantenousEffect(level, entity, entity, entity, effect.getAmplifier(), 0.5);
-            } else {
-                MobEffectInstance exist = entity.getEffect(apply);
-//                    while (exist != null && exist.getAmplifier() != effect.getAmplifier()) {
-//                        exist = exist.getEffect()
-//                    }
-                if (exist != null && !exist.isAmbient() && exist.getAmplifier() >= effect.getAmplifier()) {
-                    duration += exist.getDuration();
-                }
-                entity.addEffect(new MobEffectInstance(apply, duration, effect.getAmplifier()));
-            }
-        }
-    }
-
-    public List<Type> getAvailableTypes() {
-        List<Type> types = new ArrayList<>();
-        types.add(Type.BASE);
-        if (this.excited() != null) {
-            types.add(Type.EXCITED);
-        }
-        if (this.bold() != null) {
-            types.add(Type.BOLD);
-        }
-        return types;
-    }
-
-    public boolean hasType(Type type) {
-        return switch (type) {
-            case EXCITED -> this.excited != null;
-            case BOLD -> this.bold != null;
-            default -> true;
-        };
-    }
-
-    public ResourceLocation toModelId() {
-        return ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID, this.name).withSuffix("_gummy");
+        this.hasExcited = hasExcited;
+        this.hasBold = hasBold;
     }
 
     public String name() {
         return name;
     }
 
-    public Holder<Potion> base() {
-        return base;
+    public void applyOn(ServerLevel level, LivingEntity entity, Flavor flavor) {
+        int duration = this.hasBold && flavor == Flavor.BOLD ? 2 * this.duration : this.duration;
+        int amplifier = this.hasExcited && flavor == Flavor.EXCITED ? 1 : 0;
+        if (flavor == Flavor.MILKY) {
+            entity.removeAllEffects();
+        }
+
+        for (Holder<MobEffect> effect : effects) {
+            // Instantenous effect behaves differently
+            if (effect.value().isInstantenous()) {
+                effect.value().applyInstantenousEffect(level, entity, entity, entity, amplifier, 0.5);
+            } else {
+                MobEffectInstance exist = entity.getEffect(effect);
+                if (exist != null && !exist.isAmbient() && exist.getAmplifier() >= amplifier) {
+                    duration += exist.getDuration();
+                }
+                entity.addEffect(new MobEffectInstance(effect, duration, amplifier));
+            }
+        }
     }
 
-    @Nullable
-    public Holder<Potion> excited() {
-        return excited;
+    public List<Flavor> getAvailableTypes() {
+        List<Flavor> flavors = new ArrayList<>();
+        flavors.add(Flavor.ORIGINAL);
+        if (hasExcited) {
+            flavors.add(Flavor.EXCITED);
+        }
+        if (hasBold) {
+            flavors.add(Flavor.BOLD);
+        }
+        flavors.add(Flavor.MILKY);
+        return flavors;
     }
 
-    @Nullable
-    public Holder<Potion> bold() {
-        return bold;
+    public ResourceLocation getModelId() {
+        return ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID, this.name).withSuffix("_gummy");
     }
 
-    public int duration() {
-        return duration;
+    public enum Flavor {
+        ORIGINAL("original"),
+        EXCITED("excited"),
+        BOLD("bold"),
+        MILKY("milky");
+
+        public static final Codec<Flavor> CODEC = Codec.stringResolver(Flavor::toName, Flavor::fromName);
+        public static final StreamCodec<FriendlyByteBuf, Flavor> STREAM_CODEC =
+                NeoForgeStreamCodecs.enumCodec(Flavor.class);
+
+        public final String name;
+
+        Flavor(String name) {
+            this.name = name;
+        }
+
+        static String toName(Flavor flavor) {
+            return flavor.name;
+        }
+
+        @Nullable
+        static Flavor fromName(String name) {
+            return switch (name) {
+                case "original" -> ORIGINAL;
+                case "excited" -> EXCITED;
+                case "bold" -> BOLD;
+                case "milky" -> MILKY;
+                default -> null;
+            };
+        }
+
+        public static Flavor fromExtra(ItemStack extra) {
+            if (extra.is(Items.COCOA_BEANS))
+                return EXCITED;
+            if (extra.is(Items.HONEY_BOTTLE))
+                return BOLD;
+            if (extra.is(ItemRegistry.MILK_GELATIN))
+                return MILKY;
+            return ORIGINAL;
+        }
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (obj == null || obj.getClass() != this.getClass()) return false;
-        var that = (Sugar) obj;
-        return Objects.equals(this.name, that.name) &&
-                Objects.equals(this.base, that.base) &&
-                Objects.equals(this.excited, that.excited) &&
-                Objects.equals(this.bold, that.bold) &&
-                this.duration == that.duration;
+    public static IEffectsAcceptor builder(String name) {
+        return new Builder(name);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, base, excited, bold, duration);
-    }
+    public static class Builder implements IEffectsAcceptor, IDurationAcceptor, IOptionalAcceptor {
+        private String name;
+        private List<Holder<MobEffect>> effects;
+        private int duration = 0;
+        private boolean hasExcited = true;
+        private boolean hasBold = true;
 
-    @Override
-    public String toString() {
-        return "Sugar[" +
-                "name=" + name + ", " +
-                "base=" + base + ", " +
-                "excited=" + excited + ", " +
-                "bold=" + bold + ", " +
-                "duration=" + duration + ']';
-    }
-
-
-    public enum Type implements StringRepresentable {
-        BASE("base"), EXCITED("excited"), BOLD("bold");
-
-        public static final Codec<Type> CODEC = StringRepresentable.fromEnum(Type::values);
-        public static final StreamCodec<FriendlyByteBuf, Type> STREAM_CODEC = NeoForgeStreamCodecs.enumCodec(
-                Type.class);
-
-        private final String name;
-
-        Type(String name) {
+        private Builder(String name) {
             this.name = name;
         }
 
         @Override
-        public String getSerializedName() {
-            return this.name;
+        @SafeVarargs
+        public final IDurationAcceptor withEffects(Holder<MobEffect>... effect) {
+            this.effects = List.of(effect);
+            return this;
         }
 
-        public static Type fromExtra(ItemStack extra) {
-            if (extra.is(Items.COCOA_BEANS)) {
-                return Type.EXCITED;
-            }
-            if (extra.is(Items.HONEY_BOTTLE)) {
-                return Type.BOLD;
-            }
-            return Type.BASE;
-
+        @Override
+        public IOptionalAcceptor withDuration(int duration) {
+            this.duration = duration;
+            return this;
         }
+
+        @Override
+        public IBuilder withNoExcited() {
+            this.hasExcited = false;
+            return this;
+        }
+
+        @Override
+        public IBuilder withNoBold() {
+            this.hasBold = false;
+            return this;
+        }
+
+        @Override
+        public Sugar build() {
+            return new Sugar(name, effects, duration, hasExcited, hasBold);
+        }
+    }
+
+    public interface INameAcceptor {
+        IEffectsAcceptor withName(String name);
+    }
+
+    public interface IEffectsAcceptor {
+        IDurationAcceptor withEffects(Holder<MobEffect>... effect);
+    }
+
+    public interface IDurationAcceptor {
+        IOptionalAcceptor withDuration(int duration);
+    }
+
+    public interface IOptionalAcceptor extends IBuilder {
+        IBuilder withNoExcited();
+
+        IBuilder withNoBold();
+    }
+
+    public interface IBuilder {
+        Sugar build();
+    }
+
+    public static ItemStack createSugar(@Nullable Holder<Sugar> sugar, Flavor flavor) {
+        if (sugar == null) {
+            return ItemStack.EMPTY;
+        }
+        ItemStack itemStack = ItemRegistry.GUMMY_ITEM.toStack();
+        itemStack.set(ItemRegistry.SUGAR_CONTENTS_DCTYPE, new SugarContents(Optional.of(sugar), flavor));
+        itemStack.set(DataComponents.ITEM_MODEL, sugar.value().getModelId());
+        return itemStack;
+    }
+
+    public static Collection<ItemStack> createAllFlavors(@Nullable Holder<Sugar> sugar) {
+        if (sugar == null) {
+            return Set.of();
+        }
+        Set<ItemStack> sugars = new HashSet<>();
+        for (Flavor flavor : sugar.value().getAvailableTypes()) {
+            sugars.add(createSugar(sugar, flavor));
+        }
+        return sugars;
     }
 }

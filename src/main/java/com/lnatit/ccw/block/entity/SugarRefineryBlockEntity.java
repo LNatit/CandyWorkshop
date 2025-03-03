@@ -203,8 +203,8 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
             main.shrink(1);
 
             ItemStack extra = this.stacks.get(3);
-            Sugar.Type type = Sugar.Type.fromExtra(extra);
-            if (type != Sugar.Type.BASE) {
+            Sugar.Flavor flavor = Sugar.Flavor.fromExtra(extra);
+            if (flavor != Sugar.Flavor.ORIGINAL) {
                 acceptRemainder(extra.getCraftingRemainder(), 1);
                 extra.shrink(1);
             }

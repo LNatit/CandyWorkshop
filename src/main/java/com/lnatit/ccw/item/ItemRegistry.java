@@ -7,12 +7,10 @@ import com.lnatit.ccw.item.sugaring.SugarContents;
 import com.lnatit.ccw.misc.RegRegistry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentType;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.component.Consumables;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -102,7 +100,7 @@ public class ItemRegistry {
         sugars.listElements()
                 // if FeatureElement implemented, we need to filter the map
 //                .filter()
-                .map(Sugar::createSugarItems)
+                .map(Sugar::createAllFlavors)
                 .forEach(result -> output.acceptAll(result, visibility));
     }
 }

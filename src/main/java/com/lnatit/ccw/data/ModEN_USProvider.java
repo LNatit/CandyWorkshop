@@ -1,7 +1,6 @@
 package com.lnatit.ccw.data;
 
 import com.lnatit.ccw.CandyWorkshop;
-import com.lnatit.ccw.block.BlockRegistry;
 import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.item.sugaring.Sugar;
 import com.lnatit.ccw.item.sugaring.Sugars;
@@ -30,8 +29,8 @@ public class ModEN_USProvider extends LanguageProvider {
 //        this.add(BlockRegistry.SUGAR_REFINERY.get(), "Sugar Refinery");
 
         for (DeferredHolder<Sugar, ? extends Sugar> sugar : Sugars.SUGARS.getEntries()) {
-            for (Sugar.Type type : sugar.get().getAvailableTypes()) {
-                this.add("item." + CandyWorkshop.MODID + ".gummy." + sugar.get().name() + "." + type.getSerializedName(), "placeholder");
+            for (Sugar.Flavor flavor : sugar.get().getAvailableTypes()) {
+                this.add("item." + CandyWorkshop.MODID + ".gummy." + sugar.get().name() + "." + flavor.name, "placeholder");
             }
         }
     }

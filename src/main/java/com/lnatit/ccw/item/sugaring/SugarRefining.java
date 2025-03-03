@@ -48,7 +48,7 @@ public class SugarRefining
     public ItemStack makeSugar(ItemStack main, ItemStack extra) {
         Holder<Sugar> holder = sugarFlavors.get(main.getItem());
         if (holder != null) {
-            return Sugar.createSugarItem(holder, Sugar.Type.fromExtra(extra));
+            return Sugar.createSugar(holder, Sugar.Flavor.fromExtra(extra));
         }
         return ItemStack.EMPTY;
     }
