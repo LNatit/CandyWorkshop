@@ -125,13 +125,17 @@ public class Sugar {
         }
     }
 
-    public static IEffectsAcceptor builder(String name) {
+    public enum Tier {
+
+    }
+
+    public static IEffectAcceptor builder(String name) {
         return new Builder(name);
     }
 
-    public static class Builder implements IEffectsAcceptor, IDurationAcceptor, IOptionalAcceptor {
+    public static class Builder implements IEffectFinalizer, IOptionalAcceptor {
         private String name;
-        private List<Holder<MobEffect>> effects;
+        private final List<Holder<MobEffect>> effects = new ArrayList<>();
         private int duration = 0;
         private boolean hasExcited = true;
         private boolean hasBold = true;
@@ -141,9 +145,8 @@ public class Sugar {
         }
 
         @Override
-        @SafeVarargs
-        public final IDurationAcceptor withEffects(Holder<MobEffect>... effect) {
-            this.effects = List.of(effect);
+        public IEffectFinalizer withEffect(Holder<MobEffect> effect) {
+            this.effects.add(effect);
             return this;
         }
 
@@ -167,19 +170,19 @@ public class Sugar {
 
         @Override
         public Sugar build() {
-            return new Sugar(name, effects, duration, hasExcited, hasBold);
+            return new Sugar(name, List.copyOf(effects), duration, hasExcited, hasBold);
         }
     }
 
     public interface INameAcceptor {
-        IEffectsAcceptor withName(String name);
+        IEffectAcceptor withName(String name);
     }
 
-    public interface IEffectsAcceptor {
-        IDurationAcceptor withEffects(Holder<MobEffect>... effect);
+    public interface IEffectAcceptor {
+        IEffectFinalizer withEffect(Holder<MobEffect> effect);
     }
 
-    public interface IDurationAcceptor {
+    public interface IEffectFinalizer extends IEffectAcceptor {
         IOptionalAcceptor withDuration(int duration);
     }
 

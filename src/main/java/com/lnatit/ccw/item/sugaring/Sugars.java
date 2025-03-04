@@ -9,17 +9,17 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Function;
 
-@SuppressWarnings("unchecked")
+/**
+ * @see MobEffects
+ */
 public class Sugars {
     public static final DeferredRegister<Sugar> SUGARS =
             DeferredRegister.create(RegRegistry.SUGAR_KEY, CandyWorkshop.MODID);
 
-//    public static final DeferredHolder<Sugar, Sugar> VANILLA = register("vanilla", null, 0);
-
     public static final DeferredHolder<Sugar, Sugar> SPEED =
             register("speed",
                     builder -> builder
-                            .withEffects(MobEffects.MOVEMENT_SPEED)
+                            .withEffect(MobEffects.MOVEMENT_SPEED)
                             .withDuration(600)
                             .build()
             );
@@ -28,7 +28,7 @@ public class Sugars {
         SUGARS.register(eventBus);
     }
 
-    private static DeferredHolder<Sugar, Sugar> register(String id, Function<Sugar.IEffectsAcceptor, Sugar> props) {
+    private static DeferredHolder<Sugar, Sugar> register(String id, Function<Sugar.IEffectAcceptor, Sugar> props) {
         return SUGARS.register(id, () -> props.apply(Sugar.builder(id)));
     }
 }

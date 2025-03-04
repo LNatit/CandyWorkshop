@@ -43,6 +43,22 @@ public class ItemRegistry {
                     )
             );
     public static final DeferredItem<BlockItem> SUGAR_REFINERY = ITEMS.registerSimpleBlockItem(BlockRegistry.SUGAR_REFINERY);
+    public static final DeferredItem<Item> MILK_CARTON = ITEMS.register(
+            "milk_carton",
+            key -> new Item(
+                    new Item.Properties()
+                            .setId(ResourceKey.create(Registries.ITEM, key))
+            )
+    );
+    // TODO rename
+    public static final DeferredItem<MilkSuckerItem> MILK_SUCKER = ITEMS.register(
+            "suker",
+            key -> new MilkSuckerItem(
+                    new Item.Properties()
+                            .durability(128)
+                            .setId(ResourceKey.create(Registries.ITEM, key))
+            )
+    );
     public static final DeferredItem<Item> MILK_GELATIN = ITEMS.register(
             "milk_gelatin",
             key -> new Item(
