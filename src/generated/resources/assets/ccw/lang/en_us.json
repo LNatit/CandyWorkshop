@@ -5,8 +5,9 @@
   "container.sugar_refinery.pause": "Pause Refining...",
   "container.sugar_refinery.start": "Start Refining...",
   "item.ccw.gummy": "Gummy",
-  "item.ccw.gummy.speed.base": "placeholder",
   "item.ccw.gummy.speed.bold": "placeholder",
   "item.ccw.gummy.speed.excited": "placeholder",
+  "item.ccw.gummy.speed.milky": "placeholder",
+  "item.ccw.gummy.speed.original": "placeholder",
   "itemGroup.ccw.candy": "Candy WorkShop"
 }

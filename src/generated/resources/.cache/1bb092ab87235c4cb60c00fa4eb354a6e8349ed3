@@ -1,1 +1,25 @@
-// 1.21.4	2025-03-02T18:55:02.6718018	CandyWorkshop Recipes
+// 1.21.4	2025-03-11T13:10:19.4857288	CandyWorkshop Recipes
+46548bcc4915fd3a2eef937d85f61a3100790293 data/ccw/advancement/recipes/brewing/blessed_steak.json
+5faa258b441395c48e1a54b73c434f83abc43cc0 data/ccw/advancement/recipes/brewing/calcium_rich_milk.json
+fbab0fef017293e45b38e42fb8723a0d48f6a3b8 data/ccw/advancement/recipes/brewing/defiled_offering.json
+573052a96c62294b10b1a6b7ae61d95a4d39df22 data/ccw/advancement/recipes/brewing/dolphin_cookie.json
+f86068cfef17e6b4b8643a0b2b509c5f078bdd90 data/ccw/advancement/recipes/brewing/energy_carrot.json
+978882cf6af3ae461409638cf5dbfc8cd2e2a893 data/ccw/advancement/recipes/brewing/gold_studded_apple.json
+5eb07c2f9abdeb380ff1af73f087019da8f1bb3d data/ccw/advancement/recipes/brewing/greedy_offering.json
+6dd5025c9d9fb6e24c2e01634448de5925e45cb2 data/ccw/advancement/recipes/brewing/iron_clad_apple.json
+4727ef23c5c5f4ada4bc5309694e5e9e7b8af963 data/ccw/advancement/recipes/brewing/milk_gelatin.json
+e9b1564a32a472470acb10fa49abdafacd7c2f29 data/ccw/advancement/recipes/brewing/phantom_pearl.json
+51f93d71325f494461fcfbf482e1004d26a68483 data/ccw/advancement/recipes/brewing/void_carrot.json
+c387efce00bd7950dfe0efe2f4684edb3be7a2d8 data/ccw/advancement/recipes/brewing/weakness_powder.json
+259c7ed44419f8ad31fe2ca001f358b014bdfc8b data/ccw/recipe/blessed_steak.json
+862085e12ca43b7cc90cfd477caf9e57f4d5fb12 data/ccw/recipe/calcium_rich_milk.json
+b0726dc411746679b86cd9ba94ff8950656628ba data/ccw/recipe/defiled_offering.json
+c7b57dfe4dcabc2435a48707ff585172e043b6b2 data/ccw/recipe/dolphin_cookie.json
+ad024d143ef4cbc2718791fa836fcb51d848bbc0 data/ccw/recipe/energy_carrot.json
+1ae6a0ad4d6862f9728de37e2a1f3682904b5580 data/ccw/recipe/gold_studded_apple.json
+1a9be6ab36f2262c0fefbe5f2053a17015337991 data/ccw/recipe/greedy_offering.json
+f0c606186c4ea6eda7b358e425f888ebce35ed8b data/ccw/recipe/iron_clad_apple.json
+b299f96ed68f063cb4f53783297e9af4c5228fb4 data/ccw/recipe/milk_gelatin.json
+bcf90be44688aa0e4f325830a613f5fc23f99fdc data/ccw/recipe/phantom_pearl.json
+8c8a8e5bef805183b31809203ff02b6951670d70 data/ccw/recipe/void_carrot.json
+e0912631ab071b52327599f45a88e379aca203d5 data/ccw/recipe/weakness_powder.json

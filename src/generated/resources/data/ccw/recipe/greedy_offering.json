@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "minecraft:emerald",
+    "X": "minecraft:bowl"
+  },
+  "pattern": [
+    " # ",
+    "###",
+    " X "
+  ],
+  "result": {
+    "count": 1,
+    "id": "ccw:greedy_offering"
+  }
+}

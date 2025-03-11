@@ -171,6 +171,9 @@ public class ItemRegistry {
                                                  {
                                                      output.accept(Items.MILK_BUCKET);
                                                      output.accept(GUMMY_ITEM);
+                                                     ITEMS.getEntries().forEach(
+                                                             holder -> output.accept(holder.get())
+                                                     );
                                                      parameters.holders()
                                                                .lookup(RegRegistry.SUGAR_KEY)
                                                                .ifPresent(

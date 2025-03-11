@@ -4,10 +4,14 @@ import com.lnatit.emp.data.model.ClientItemModelGenerators;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
+import net.minecraft.core.Holder;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.PackOutput;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Stream;
 
 public class EnhancedModelProvider extends ModelProvider
 {
@@ -30,6 +34,16 @@ public class EnhancedModelProvider extends ModelProvider
     }
 
     protected void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels, ClientItemModelGenerators clientItemModels) {
+    }
+
+    @Override
+    protected Stream<? extends Holder<Block>> getKnownBlocks() {
+        return Stream.of();
+    }
+
+    @Override
+    protected Stream<? extends Holder<Item>> getKnownItems() {
+        return Stream.of();
     }
 
     @Override

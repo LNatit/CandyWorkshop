@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_milk_carton": {
+      "conditions": {
+        "items": [
+          {
+            "items": "ccw:milk_carton"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "ccw:blessed_steak"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_milk_carton"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "ccw:blessed_steak"
+    ]
+  }
+}

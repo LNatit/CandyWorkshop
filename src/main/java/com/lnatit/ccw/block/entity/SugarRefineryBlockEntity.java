@@ -1,6 +1,7 @@
 package com.lnatit.ccw.block.entity;
 
 import com.lnatit.ccw.block.BlockRegistry;
+import com.lnatit.ccw.block.SugarRefineryBlock;
 import com.lnatit.ccw.item.sugaring.Sugar;
 import com.lnatit.ccw.item.sugaring.SugarRefining;
 import com.lnatit.ccw.menu.SugarRefineryMenu;
@@ -63,7 +64,7 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
     }
 
     public IItemHandler accessInventory(@Nullable Direction direction) {
-        return this.data.getInventoryAccess(direction);
+        return this.data.getInventoryAccess(this.getBlockState().getValue(SugarRefineryBlock.FACING), direction);
     }
 
     @Override
@@ -247,16 +248,16 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
             }
         }
 
-        // TODO
-        public IItemHandler getInventoryAccess(@Nullable Direction direction) {
-            return switch (direction) {
-                case UP -> new RangedWrapper(this, 1, 8);
-                case NORTH -> new RangedWrapper(this, 1, 3);
-                case SOUTH -> new RangedWrapper(this, 1, 2);
-                case WEST -> new RangedWrapper(this, 1, 1);
-                case EAST -> new RangedWrapper(this, 1, 0);
-                case null, default -> new RangedWrapper(this, 4, 8);
-            };
+        public IItemHandler getInventoryAccess(Direction facing, @Nullable Direction direction) {
+            if (direction == Direction.UP)
+                return new RangedWrapper(this, 0, 2);
+            if (direction == Direction.DOWN)
+                return new RangedWrapper(this, 4, 8);
+            if (direction == facing.getClockWise())
+                return new RangedWrapper(this, 2, 3);
+            if (direction == facing.getCounterClockWise())
+                return new RangedWrapper(this, 3, 4);
+            return new RangedWrapper(this, 2, 8);
         }
 
         @Override
