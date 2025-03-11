@@ -17,20 +17,17 @@ public class MilkSuckerItem extends Item {
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity interactionTarget, InteractionHand usedHand) {
         if (interactionTarget instanceof Cow) {
-            if (stack.nextDamageWillBreak() || player.getCooldowns().isOnCooldown(stack)) {
+            if (stack.nextDamageWillBreak() || player.getCooldowns().isOnCooldown(stack))
                 return InteractionResult.FAIL;
-            }
 
             int count = 1;
-            if (player.isShiftKeyDown()) {
+            if (player.isShiftKeyDown())
                 count = Math.min(stack.getMaxDamage() - stack.getDamageValue(), 16);
-            }
 
             if (!player.level().isClientSide()) {
                 ItemStack result = new ItemStack(ItemRegistry.CARTON_MILK.get(), count);
-                if (!player.addItem(result)) {
+                if (!player.addItem(result))
                     player.drop(result, false);
-                }
 
                 stack.hurtWithoutBreaking(count, player);
             }

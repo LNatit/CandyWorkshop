@@ -1,3 +1,4 @@
+@Deprecated(forRemoval = true)
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 @FieldsAreNonnullByDefault
