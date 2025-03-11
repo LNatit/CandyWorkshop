@@ -43,6 +43,15 @@ public class ItemRegistry {
                     )
             );
     public static final DeferredItem<BlockItem> SUGAR_REFINERY = ITEMS.registerSimpleBlockItem(BlockRegistry.SUGAR_REFINERY);
+    // TODO rename
+    public static final DeferredItem<MilkSuckerItem> MILK_SUCKER = ITEMS.register(
+            "suker",
+            key -> new MilkSuckerItem(
+                    new Item.Properties()
+                            .durability(128)
+                            .setId(ResourceKey.create(Registries.ITEM, key))
+            )
+    );
     public static final DeferredItem<Item> MILK_CARTON = ITEMS.register(
             "milk_carton",
             key -> new Item(
@@ -50,12 +59,90 @@ public class ItemRegistry {
                             .setId(ResourceKey.create(Registries.ITEM, key))
             )
     );
-    // TODO rename
-    public static final DeferredItem<MilkSuckerItem> MILK_SUCKER = ITEMS.register(
-            "suker",
-            key -> new MilkSuckerItem(
+//    public static final DeferredItem<Item> 糖粉
+    public static final DeferredItem<Item> ENERGY_CARROT = ITEMS.register(
+            "energy_carrot",
+            key -> new Item(
                     new Item.Properties()
-                            .durability(128)
+                            .setId(ResourceKey.create(Registries.ITEM, key))
+            )
+    );
+    public static final DeferredItem<Item> PHANTOM_PEARL = ITEMS.register(
+            "phantom_pearl",
+            key -> new Item(
+                    new Item.Properties()
+                            .setId(ResourceKey.create(Registries.ITEM, key))
+            )
+    );
+    public static final DeferredItem<Item> CALCIUM_RICH_MILK = ITEMS.register(
+            "calcium_rich_milk",
+            key -> new Item(
+                    new Item.Properties()
+                            .setId(ResourceKey.create(Registries.ITEM, key))
+            )
+    );
+    public static final DeferredItem<Item> VOID_CARROT = ITEMS.register(
+            "void_carrot",
+            key -> new Item(
+                    new Item.Properties()
+                            .setId(ResourceKey.create(Registries.ITEM, key))
+            )
+    );
+    public static final DeferredItem<Item> WEAKNESS_POWDER = ITEMS.register(
+            "weakness_powder",
+            key -> new Item(
+                    new Item.Properties()
+                            .setId(ResourceKey.create(Registries.ITEM, key))
+            )
+    );
+    public static final DeferredItem<Item> IRON_CLAD_APPLE = ITEMS.register(
+            "iron_clad_apple",
+            key -> new Item(
+                    new Item.Properties()
+                            .setId(ResourceKey.create(Registries.ITEM, key))
+            )
+    );
+    public static final DeferredItem<Item> GOLD_STUDDED_APPLE = ITEMS.register(
+            "gold_studded_apple",
+            key -> new Item(
+                    new Item.Properties()
+                            .setId(ResourceKey.create(Registries.ITEM, key))
+            )
+    );
+    public static final DeferredItem<Item> BLESSED_STEAK = ITEMS.register(
+            "blessed_steak",
+            key -> new Item(
+                    new Item.Properties()
+                            .setId(ResourceKey.create(Registries.ITEM, key))
+            )
+    );
+    public static final DeferredItem<Item> GREEDY_OFFERING = ITEMS.register(
+            "greedy_offering",
+            key -> new Item(
+                    new Item.Properties()
+                            .craftRemainder(Items.BOWL)
+                            .setId(ResourceKey.create(Registries.ITEM, key))
+            )
+    );
+    public static final DeferredItem<Item> DEFILED_OFFERING = ITEMS.register(
+            "defiled_offering",
+            key -> new Item(
+                    new Item.Properties()
+                            .craftRemainder(Items.BOWL)
+                            .setId(ResourceKey.create(Registries.ITEM, key))
+            )
+    );
+    public static final DeferredItem<Item> DOLPHIN_COOKIE = ITEMS.register(
+            "dolphin_cookie",
+            key -> new Item(
+                    new Item.Properties()
+                            .setId(ResourceKey.create(Registries.ITEM, key))
+            )
+    );
+    public static final DeferredItem<Item> OMINOUS_FLAG = ITEMS.register(
+            "ominous_flag",
+            key -> new Item(
+                    new Item.Properties()
                             .setId(ResourceKey.create(Registries.ITEM, key))
             )
     );
@@ -66,18 +153,6 @@ public class ItemRegistry {
                             .setId(ResourceKey.create(Registries.ITEM, key))
             )
     );
-//    public static final DeferredItem<Item> 能量萝卜;
-//    public static final DeferredItem<Item> 隐身核心;
-//    public static final DeferredItem<Item> 高钙牛奶;
-//    public static final DeferredItem<Item> 黑胡萝卜;
-//    public static final DeferredItem<Item> 虚弱粉;
-//    public static final DeferredItem<Item> 空壳苹果;
-//    public static final DeferredItem<Item> 镶金苹果;
-//    public static final DeferredItem<Item> 神圣肉排;
-//    public static final DeferredItem<Item> 贪婪贡品;
-//    public static final DeferredItem<Item> 亵渎贡品;
-//    public static final DeferredItem<Item> 海豚饼干;
-//    public static final DeferredItem<Item> 挑衅旗帜;
 
     public static final DeferredRegister<CreativeModeTab> TABS =
             DeferredRegister.create(
