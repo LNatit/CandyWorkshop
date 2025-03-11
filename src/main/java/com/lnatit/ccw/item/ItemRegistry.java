@@ -52,7 +52,7 @@ public class ItemRegistry {
                             .setId(ResourceKey.create(Registries.ITEM, key))
             )
     );
-    public static final DeferredItem<Item> MILK_CARTON = ITEMS.register(
+    public static final DeferredItem<Item> CARTON_MILK = ITEMS.register(
             "milk_carton",
             key -> new Item(
                     new Item.Properties()

@@ -1,7 +1,35 @@
-// 1.21.4	2025-03-11T14:59:13.4298646	Model Definitions - ccw
+// 1.21.4	2025-03-11T18:45:30.1702635	Model Definitions - ccw
 2f67aa44e17f1ac5eea579f268f255c06b1923aa assets/ccw/blockstates/sugar_refinery.json
+5c8756f15851d606a5f381228b17cbf6488af02b assets/ccw/items/blessed_steak.json
+0dd62747ee70118bf246deaca2bd84fb4efd91be assets/ccw/items/calcium_rich_milk.json
+c7fc132b726cfe90eb2bb26cfe68d2ab83ff577e assets/ccw/items/defiled_offering.json
+1847a0f0efd5c069de9be8fe75bcb4995bd30c76 assets/ccw/items/dolphin_cookie.json
+3e94212060f57d7bf26e432f678d6d7231b6ac45 assets/ccw/items/energy_carrot.json
+cbcf20b9b8ccebdbf506be1bdc6c71bb3ded07bc assets/ccw/items/gold_studded_apple.json
+204d1bb83400ced3da558ff2c127ca32366d64a6 assets/ccw/items/greedy_offering.json
 60d8fab7616c0c1cf90f7aae667b308199ed4754 assets/ccw/items/gummy.json
+4984dba719598c4c4e2eb2bb9501abc32cf20f02 assets/ccw/items/iron_clad_apple.json
+915f36b24b947a9b13b17f20c7b93c2d7d2cb11a assets/ccw/items/milk_carton.json
+445b7547e71bf2773081e72657653ceaded32643 assets/ccw/items/milk_gelatin.json
+0f6ac735537aff15c420d642a22c69f0d28e6d7b assets/ccw/items/ominous_flag.json
+6430b96eaa30663bc0b9ed82e76752e03f6850eb assets/ccw/items/phantom_pearl.json
 0268085811b3a6ad00032d822db4ad44901e59c0 assets/ccw/items/speed_gummy.json
+f9dcfde23eb0886a7e223b98ac0931b65c50313f assets/ccw/items/void_carrot.json
+82db0ac0774fcb91316b8cb3668746317cd77a77 assets/ccw/items/weakness_powder.json
 f6025b786fd3035b127514e4111895837ea9add1 assets/ccw/models/block/sugar_refinery.json
+bb3507d3ee8c981ea6dac29c879fea356c448d4f assets/ccw/models/item/blessed_steak.json
+1c75951787693389ef741ccf37625250a9657f76 assets/ccw/models/item/calcium_rich_milk.json
+ec8f84f827ca300fce8c26000372d3342a802f79 assets/ccw/models/item/defiled_offering.json
+7d3687ec403b7bec7dfea28110dd04c972e1d015 assets/ccw/models/item/dolphin_cookie.json
+ea60b97e34ca78f1d92842ed2ac84299d9d8bd65 assets/ccw/models/item/energy_carrot.json
+81720fde4182700bedf06051f12a018c4c63fcbc assets/ccw/models/item/gold_studded_apple.json
+55afc2292f5f764726da0668211ab8a677a7ab0e assets/ccw/models/item/greedy_offering.json
 751529b4cad618e920ab0ef5bac03948c892b03b assets/ccw/models/item/gummy.json
+b8cb59a3008ca9a31cfd0902558de3e41c833e70 assets/ccw/models/item/iron_clad_apple.json
+9ebfaef49edf9d39db4a6f308f1f796137c66478 assets/ccw/models/item/milk_carton.json
+38e4e14d2f040f47880da7730d39233b5b96ffed assets/ccw/models/item/milk_gelatin.json
+09623a2a298db900639c109bcc2213f4b9a20dd5 assets/ccw/models/item/ominous_flag.json
+e9c8751ef931c8e7d62201beb7a423d3638e0af5 assets/ccw/models/item/phantom_pearl.json
 734a943d574448e2804e7a288772d9d435053883 assets/ccw/models/item/speed_gummy.json
+b2780fa4a4454566600c06be333af5b05329df97 assets/ccw/models/item/void_carrot.json
+e64a430d84a8ab0a3fbb7a6fa39efce1e42e843c assets/ccw/models/item/weakness_powder.json

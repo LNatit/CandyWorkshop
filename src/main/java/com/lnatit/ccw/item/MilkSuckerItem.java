@@ -27,7 +27,7 @@ public class MilkSuckerItem extends Item {
             }
 
             if (!player.level().isClientSide()) {
-                ItemStack result = new ItemStack(ItemRegistry.MILK_CARTON.get(), count);
+                ItemStack result = new ItemStack(ItemRegistry.CARTON_MILK.get(), count);
                 if (!player.addItem(result)) {
                     player.drop(result, false);
                 }

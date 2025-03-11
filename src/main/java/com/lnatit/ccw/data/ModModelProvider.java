@@ -24,6 +24,21 @@ public class ModModelProvider extends EnhancedModelProvider
 
         itemModels.generateFlatItem(ItemRegistry.GUMMY_ITEM.get(), ModelTemplates.FLAT_ITEM);
 
+        clientItemModels.gen().withId(ItemRegistry.CARTON_MILK).all();
+        clientItemModels.gen().withId(ItemRegistry.ENERGY_CARROT).all();
+        clientItemModels.gen().withId(ItemRegistry.PHANTOM_PEARL).all();
+        clientItemModels.gen().withId(ItemRegistry.CALCIUM_RICH_MILK).all();
+        clientItemModels.gen().withId(ItemRegistry.VOID_CARROT).all();
+        clientItemModels.gen().withId(ItemRegistry.WEAKNESS_POWDER).all();
+        clientItemModels.gen().withId(ItemRegistry.IRON_CLAD_APPLE).all();
+        clientItemModels.gen().withId(ItemRegistry.GOLD_STUDDED_APPLE).all();
+        clientItemModels.gen().withId(ItemRegistry.BLESSED_STEAK).all();
+        clientItemModels.gen().withId(ItemRegistry.GREEDY_OFFERING).all();
+        clientItemModels.gen().withId(ItemRegistry.DEFILED_OFFERING).all();
+        clientItemModels.gen().withId(ItemRegistry.DOLPHIN_COOKIE).all();
+        clientItemModels.gen().withId(ItemRegistry.OMINOUS_FLAG).all();
+        clientItemModels.gen().withId(ItemRegistry.MILK_GELATIN).all();
+
         clientItemModels.gen().withId(Sugars.SPEED.get().getModelId()).all();
     }
 }
