@@ -1,5 +1,4 @@
-// 1.21.4	2025-03-11T18:45:30.1702635	Model Definitions - ccw
-2f67aa44e17f1ac5eea579f268f255c06b1923aa assets/ccw/blockstates/sugar_refinery.json
+// 1.21.4	2025-03-13T11:07:40.255572	Model Definitions - ccw
 5c8756f15851d606a5f381228b17cbf6488af02b assets/ccw/items/blessed_steak.json
 0dd62747ee70118bf246deaca2bd84fb4efd91be assets/ccw/items/calcium_rich_milk.json
 c7fc132b726cfe90eb2bb26cfe68d2ab83ff577e assets/ccw/items/defiled_offering.json
@@ -16,7 +15,6 @@ cbcf20b9b8ccebdbf506be1bdc6c71bb3ded07bc assets/ccw/items/gold_studded_apple.jso
 0268085811b3a6ad00032d822db4ad44901e59c0 assets/ccw/items/speed_gummy.json
 f9dcfde23eb0886a7e223b98ac0931b65c50313f assets/ccw/items/void_carrot.json
 82db0ac0774fcb91316b8cb3668746317cd77a77 assets/ccw/items/weakness_powder.json
-f6025b786fd3035b127514e4111895837ea9add1 assets/ccw/models/block/sugar_refinery.json
 bb3507d3ee8c981ea6dac29c879fea356c448d4f assets/ccw/models/item/blessed_steak.json
 1c75951787693389ef741ccf37625250a9657f76 assets/ccw/models/item/calcium_rich_milk.json
 ec8f84f827ca300fce8c26000372d3342a802f79 assets/ccw/models/item/defiled_offering.json
