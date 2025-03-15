@@ -9,22 +9,15 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.Consumable;
 import net.minecraft.world.item.component.ConsumableListener;
-import net.minecraft.world.item.component.Consumables;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 import java.util.List;
 
 public class GummyItem extends Item {
-    // TODO
-    public static final FoodProperties GUMMY_FOOD = new FoodProperties.Builder().nutrition(1).saturationModifier(0.3F).build();
-    public static final Consumable GUMMY_CONSUMABLE = Consumables.defaultFood().consumeSeconds(0.4f).build();
-
     public GummyItem(Properties properties) {
         super(properties);
     }

@@ -1,15 +1,23 @@
 package com.lnatit.ccw.data;
 
 import com.lnatit.ccw.CandyWorkshop;
+import com.lnatit.ccw.block.BlockRegistry;
 import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.item.sugaring.Sugars;
 import com.lnatit.emp.data.EnhancedModelProvider;
 import com.lnatit.emp.data.model.ClientItemModelGenerators;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.client.data.models.blockstates.Variant;
+import net.minecraft.client.data.models.blockstates.VariantProperties;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.NotNull;
+
+import static net.minecraft.client.data.models.BlockModelGenerators.createHorizontalFacingDispatch;
 
 public class ModModelProvider extends EnhancedModelProvider
 {
@@ -19,8 +27,11 @@ public class ModModelProvider extends EnhancedModelProvider
 
     @Override
     protected void registerModels(BlockModelGenerators blockModels, @NotNull ItemModelGenerators itemModels, @NotNull ClientItemModelGenerators clientItemModels) {
-//        blockModels.createGenericCube(BlockRegistry.SUGAR_REFINERY.get());
-//        blockModels.blockStateOutput.accept();
+        ResourceLocation sugarRefineryModel = BlockRegistry.SUGAR_REFINERY.getId().withPrefix("block/");
+        blockModels.blockStateOutput.accept(
+                        MultiVariantGenerator.multiVariant(BlockRegistry.SUGAR_REFINERY.get(), Variant.variant().with(VariantProperties.MODEL, sugarRefineryModel))
+                                .with(createHorizontalFacingDispatch())
+                );
 
         itemModels.generateFlatItem(ItemRegistry.GUMMY_ITEM.get(), ModelTemplates.FLAT_ITEM);
 

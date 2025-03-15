@@ -1,5 +1,7 @@
 {
 	"credit": "Made with Blockbench",
+	"rendertype": "cutout",
+	"ambientOcclusion": true,
 	"texture_size": [128, 128],
 	"textures": {
 		"0": "ccw:block/sugar_refinery",

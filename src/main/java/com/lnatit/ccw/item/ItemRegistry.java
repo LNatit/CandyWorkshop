@@ -37,7 +37,7 @@ public class ItemRegistry {
                     "gummy",
                     key -> new GummyItem(
                             new Item.Properties()
-                                    .food(GummyItem.GUMMY_FOOD, GummyItem.GUMMY_CONSUMABLE)
+                                    .food(FoodsAndConsumables.GUMMY_FOOD, FoodsAndConsumables.GUMMY_CONSUMABLE)
                                     .component(SUGAR_CONTENTS_DCTYPE, SugarContents.VANILLA)
                                     .setId(ResourceKey.create(Registries.ITEM, key))
                     )
