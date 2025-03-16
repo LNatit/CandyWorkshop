@@ -9,18 +9,18 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-public class BlockRegistry
-{
+public class BlockRegistry {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(CandyWorkshop.MODID);
 
     public static final DeferredBlock<SugarRefineryBlock> SUGAR_REFINERY =
             BLOCKS.registerBlock("sugar_refinery",
-                                 SugarRefineryBlock::new,
-                                 BlockBehaviour.Properties.of()
-                                                          // TODO
+                    SugarRefineryBlock::new,
+                    BlockBehaviour.Properties.of()
+                            // TODO
 //                                                             .mapColor()
-                                                          .requiresCorrectToolForDrops()
-                                                          .strength(3.5F)
+                            .requiresCorrectToolForDrops()
+                            .strength(3.5F)
+                            .noOcclusion()
             );
 
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
@@ -28,8 +28,8 @@ public class BlockRegistry
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SugarRefineryBlockEntity>> SUGAR_REFINERY_BETYPE =
             BLOCK_ENTITIES.register("sugar_refinery",
-                                    () -> new BlockEntityType<>(
-                                            SugarRefineryBlockEntity::new,
-                                            SUGAR_REFINERY.get()
-                                    ));
+                    () -> new BlockEntityType<>(
+                            SugarRefineryBlockEntity::new,
+                            SUGAR_REFINERY.get()
+                    ));
 }
