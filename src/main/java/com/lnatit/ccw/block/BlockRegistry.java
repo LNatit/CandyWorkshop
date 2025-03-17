@@ -5,6 +5,7 @@ import com.lnatit.ccw.block.entity.SugarRefineryBlockEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -16,8 +17,7 @@ public class BlockRegistry {
             BLOCKS.registerBlock("sugar_refinery",
                     SugarRefineryBlock::new,
                     BlockBehaviour.Properties.of()
-                            // TODO
-//                                                             .mapColor()
+                            .mapColor(MapColor.WOOD)
                             .requiresCorrectToolForDrops()
                             .strength(3.5F)
                             .noOcclusion()

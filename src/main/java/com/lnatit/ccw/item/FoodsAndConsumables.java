@@ -6,7 +6,7 @@ import net.minecraft.world.item.component.Consumables;
 
 public class FoodsAndConsumables
 {
-    // TODO
+    // TODO define foodprop and consumable (if default then delete entry)
     public static final FoodProperties GUMMY_FOOD = new FoodProperties.Builder().nutrition(1).saturationModifier(0.3F).build();
     public static final Consumable GUMMY_CONSUMABLE = Consumables.defaultFood().consumeSeconds(0.4f).build();
 

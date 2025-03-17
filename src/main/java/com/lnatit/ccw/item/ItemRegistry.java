@@ -56,6 +56,7 @@ public class ItemRegistry {
             "milk_carton",
             key -> new Item(
                     new Item.Properties()
+                            .food(FoodsAndConsumables.CARTON_MILK_FOOD, FoodsAndConsumables.CARTON_MILK_CONSUMABLE)
                             .setId(ResourceKey.create(Registries.ITEM, key))
             )
     );
@@ -64,6 +65,7 @@ public class ItemRegistry {
             "energy_carrot",
             key -> new Item(
                     new Item.Properties()
+                            .food(FoodsAndConsumables.ENERGY_CARROT_FOOD, FoodsAndConsumables.ENERGY_CARROT_CONSUMABLE)
                             .setId(ResourceKey.create(Registries.ITEM, key))
             )
     );
@@ -78,6 +80,7 @@ public class ItemRegistry {
             "calcium_rich_milk",
             key -> new Item(
                     new Item.Properties()
+                            .food(FoodsAndConsumables.CALCIUM_RICH_MILK_FOOD, FoodsAndConsumables.CALCIUM_RICH_MILK_CONSUMABLE)
                             .setId(ResourceKey.create(Registries.ITEM, key))
             )
     );
@@ -85,6 +88,7 @@ public class ItemRegistry {
             "void_carrot",
             key -> new Item(
                     new Item.Properties()
+                            .food(FoodsAndConsumables.VOID_CARROT_FOOD, FoodsAndConsumables.VOID_CARROT_CONSUMABLE)
                             .setId(ResourceKey.create(Registries.ITEM, key))
             )
     );
@@ -99,6 +103,7 @@ public class ItemRegistry {
             "iron_clad_apple",
             key -> new Item(
                     new Item.Properties()
+                            .food(FoodsAndConsumables.IRON_CLAD_APPLE_FOOD, FoodsAndConsumables.IRON_CLAD_APPLE_CONSUMABLE)
                             .setId(ResourceKey.create(Registries.ITEM, key))
             )
     );
@@ -106,6 +111,7 @@ public class ItemRegistry {
             "gold_studded_apple",
             key -> new Item(
                     new Item.Properties()
+                            .food(FoodsAndConsumables.GOLD_STUDDED_APPLE_FOOD, FoodsAndConsumables.GOLD_STUDDED_APPLE_CONSUMABLE)
                             .setId(ResourceKey.create(Registries.ITEM, key))
             )
     );
@@ -113,6 +119,7 @@ public class ItemRegistry {
             "blessed_steak",
             key -> new Item(
                     new Item.Properties()
+                            .food(FoodsAndConsumables.BLESSED_STEAK_FOOD, FoodsAndConsumables.BLESSED_STEAK_CONSUMABLE)
                             .setId(ResourceKey.create(Registries.ITEM, key))
             )
     );
@@ -136,6 +143,7 @@ public class ItemRegistry {
             "dolphin_cookie",
             key -> new Item(
                     new Item.Properties()
+                            .food(FoodsAndConsumables.DOLPHIN_COOKIE_FOOD, FoodsAndConsumables.DOLPHIN_COOKIE_CONSUMABLE)
                             .setId(ResourceKey.create(Registries.ITEM, key))
             )
     );
