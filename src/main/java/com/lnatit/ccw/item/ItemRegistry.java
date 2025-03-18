@@ -51,6 +51,7 @@ public class ItemRegistry {
                             .setId(ResourceKey.create(Registries.ITEM, key))
             )
     );
+    public static final DeferredItem<Item> MILK_PACKAGING = ITEMS.registerSimpleItem("milk_packaging");
     public static final DeferredItem<Item> CARTON_MILK = ITEMS.register(
             "milk_carton",
             key -> new Item(
@@ -68,13 +69,7 @@ public class ItemRegistry {
                             .setId(ResourceKey.create(Registries.ITEM, key))
             )
     );
-    public static final DeferredItem<Item> PHANTOM_PEARL = ITEMS.register(
-            "phantom_pearl",
-            key -> new Item(
-                    new Item.Properties()
-                            .setId(ResourceKey.create(Registries.ITEM, key))
-            )
-    );
+    public static final DeferredItem<Item> PHANTOM_PEARL = ITEMS.registerSimpleItem("phantom_pearl");
     public static final DeferredItem<Item> CALCIUM_RICH_MILK = ITEMS.register(
             "calcium_rich_milk",
             key -> new Item(
@@ -91,13 +86,7 @@ public class ItemRegistry {
                             .setId(ResourceKey.create(Registries.ITEM, key))
             )
     );
-    public static final DeferredItem<Item> WEAKNESS_POWDER = ITEMS.register(
-            "weakness_powder",
-            key -> new Item(
-                    new Item.Properties()
-                            .setId(ResourceKey.create(Registries.ITEM, key))
-            )
-    );
+    public static final DeferredItem<Item> WEAKNESS_POWDER = ITEMS.registerSimpleItem("weakness_powder");
     public static final DeferredItem<Item> IRON_CLAD_APPLE = ITEMS.register(
             "iron_clad_apple",
             key -> new Item(
@@ -146,20 +135,8 @@ public class ItemRegistry {
                             .setId(ResourceKey.create(Registries.ITEM, key))
             )
     );
-    public static final DeferredItem<Item> OMINOUS_FLAG = ITEMS.register(
-            "ominous_flag",
-            key -> new Item(
-                    new Item.Properties()
-                            .setId(ResourceKey.create(Registries.ITEM, key))
-            )
-    );
-    public static final DeferredItem<Item> MILK_GELATIN = ITEMS.register(
-            "milk_gelatin",
-            key -> new Item(
-                    new Item.Properties()
-                            .setId(ResourceKey.create(Registries.ITEM, key))
-            )
-    );
+    public static final DeferredItem<Item> OMINOUS_FLAG = ITEMS.registerSimpleItem("ominous_flag");
+    public static final DeferredItem<Item> MILK_GELATIN = ITEMS.registerSimpleItem("milk_gelatin");
 
     public static final DeferredRegister<CreativeModeTab> TABS =
             DeferredRegister.create(
