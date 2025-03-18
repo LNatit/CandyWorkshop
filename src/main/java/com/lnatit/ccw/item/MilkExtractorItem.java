@@ -9,9 +9,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-// TODO rename
-public class MilkSuckerItem extends Item {
-    public MilkSuckerItem(Properties properties) {
+public class MilkExtractorItem extends Item {
+    public MilkExtractorItem(Properties properties) {
         super(properties);
     }
 

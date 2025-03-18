@@ -1,4 +1,4 @@
-// 1.21.4	2025-03-18T10:44:04.7521872	CandyWorkshop Recipes
+// 1.21.4	2025-03-18T15:43:49.9686621	CandyWorkshop Recipes
 46548bcc4915fd3a2eef937d85f61a3100790293 data/ccw/advancement/recipes/brewing/blessed_steak.json
 5faa258b441395c48e1a54b73c434f83abc43cc0 data/ccw/advancement/recipes/brewing/calcium_rich_milk.json
 fbab0fef017293e45b38e42fb8723a0d48f6a3b8 data/ccw/advancement/recipes/brewing/defiled_offering.json
@@ -25,4 +25,4 @@ b299f96ed68f063cb4f53783297e9af4c5228fb4 data/ccw/recipe/milk_gelatin.json
 bcf90be44688aa0e4f325830a613f5fc23f99fdc data/ccw/recipe/phantom_pearl.json
 8c8a8e5bef805183b31809203ff02b6951670d70 data/ccw/recipe/void_carrot.json
 e0912631ab071b52327599f45a88e379aca203d5 data/ccw/recipe/weakness_powder.json
-cf07f0af6fb7ecaeaea39b7c0e49478e174edc58 data/minecraft/recipe/repair_sucker.json
+86f0b3dc8e37458e73af16da675a891a8ff044ce data/minecraft/recipe/repair_extractor.json

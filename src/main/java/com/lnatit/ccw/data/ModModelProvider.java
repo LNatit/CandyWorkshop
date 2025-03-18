@@ -38,10 +38,10 @@ public class ModModelProvider extends EnhancedModelProvider
 
         itemModels.generateFlatItem(ItemRegistry.GUMMY_ITEM.get(), ModelTemplates.FLAT_ITEM);
 
-        clientItemModels.gen().withId(ItemRegistry.MILK_SUCKER).withDefaultModelSuffix("_full").modelOnly();
-        clientItemModels.gen().withId(ItemRegistry.MILK_SUCKER).withDefaultModelSuffix("_empty").modelOnly();
+        clientItemModels.gen().withId(ItemRegistry.MILK_EXTRACTOR).withDefaultModelSuffix("_full").modelOnly();
+        clientItemModels.gen().withId(ItemRegistry.MILK_EXTRACTOR).withDefaultModelSuffix("_empty").modelOnly();
         clientItemModels.gen()
-                        .withId(ItemRegistry.MILK_SUCKER)
+                        .withId(ItemRegistry.MILK_EXTRACTOR)
                         .withClientItem(
                             builder -> builder.withUnbaked(
                                     ItemModelUtils.conditional(

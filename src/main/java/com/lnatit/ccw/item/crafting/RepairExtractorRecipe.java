@@ -10,63 +10,63 @@ import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
-public class RepairSuckerRecipe extends CustomRecipe
+public class RepairExtractorRecipe extends CustomRecipe
 {
-    public RepairSuckerRecipe(CraftingBookCategory category) {
+    public RepairExtractorRecipe(CraftingBookCategory category) {
         super(category);
     }
 
     @Override
     public boolean matches(CraftingInput input, Level level) {
-        if (input.ingredientCount() != 2) {
+        if (input.ingredientCount() != 2 || input.ingredientCount() != 3) {
             return false;
         }
 
-        boolean hasSucker = false;
+        boolean hasExtractor = false;
         boolean hasPaper = false;
         for (int i = 0; i < input.size(); i++) {
             ItemStack stack = input.getItem(i);
-            if (stack.is(ItemRegistry.MILK_SUCKER)) {
-                hasSucker = true;
+            if (stack.is(ItemRegistry.MILK_EXTRACTOR)) {
+                hasExtractor = true;
             }
             else if (stack.is(Items.PAPER)) {
                 hasPaper = true;
             }
         }
 
-        return hasSucker && hasPaper;
+        return hasExtractor && hasPaper;
     }
 
     @Override
     public ItemStack assemble(CraftingInput input, HolderLookup.Provider registries) {
-        ItemStack sucker = ItemStack.EMPTY;
-        ItemStack paper = ItemStack.EMPTY;
+        ItemStack extractor = ItemStack.EMPTY;
+        int paperCount = 0;
         for (int i = 0; i < input.size(); i++) {
             ItemStack stack = input.getItem(i);
-            if (stack.is(Items.PAPER))
-                paper = stack;
-            else if (stack.is(ItemRegistry.MILK_SUCKER))
+            if (stack.is(Items.PAPER) && !stack.isEmpty())
+                paperCount += 1;
+            else if (stack.is(ItemRegistry.MILK_EXTRACTOR))
             // avoid modifying the item directly
-                sucker = stack.copy();
+                extractor = stack.copy();
         }
 
-        if (sucker.isEmpty()) {
+        if (extractor.isEmpty()) {
             return ItemStack.EMPTY;
         }
 
-        int damage = sucker.getDamageValue();
-        if (paper.getCount() > 0) {
-            damage -= 32;
+        int damage = extractor.getDamageValue();
+        if (paperCount > 0) {
+            damage -= paperCount * 64;
             if (damage < 0)
                 damage = 0;
         }
-        sucker.setDamageValue(damage);
+        extractor.setDamageValue(damage);
 
-        return sucker;
+        return extractor;
     }
 
     @Override
     public RecipeSerializer<? extends CustomRecipe> getSerializer() {
-        return RecipeRegistry.REPAIR_SUCKER.get();
+        return RecipeRegistry.REPAIR_EXTRACTOR.get();
     }
 }

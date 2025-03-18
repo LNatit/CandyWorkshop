@@ -10,6 +10,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 public class RecipeRegistry {
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS =
             DeferredRegister.create(Registries.RECIPE_SERIALIZER, CandyWorkshop.MODID);
-    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<RepairSuckerRecipe>> REPAIR_SUCKER =
-            RECIPE_SERIALIZERS.register("repair_sucker", () -> new CustomRecipe.Serializer<>(RepairSuckerRecipe::new));
+
+    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<RepairExtractorRecipe>> REPAIR_EXTRACTOR =
+            RECIPE_SERIALIZERS.register("repair_extractor", () -> new CustomRecipe.Serializer<>(RepairExtractorRecipe::new));
 }

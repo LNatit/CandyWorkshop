@@ -21,8 +21,9 @@
   "item.ccw.milk_gelatin": "牛奶凝胶",
   "item.ccw.ominous_flag": "不详旗帜",
   "item.ccw.phantom_pearl": "幻翼珍珠",
-  "item.ccw.sucker": "§m§o不可言说的妙妙工具",
+  "item.ccw.milk_extractor": "§m§o不可言说的妙妙工具",
   "item.ccw.void_carrot": "黑胡萝卜",
   "item.ccw.weakness_powder": "虚弱粉",
-  "itemGroup.ccw.candy": "糖果工坊"
+  "itemGroup.ccw.candy": "糖果工坊",
+  "sound.ccw.plug_off": "Plug-off"
 }

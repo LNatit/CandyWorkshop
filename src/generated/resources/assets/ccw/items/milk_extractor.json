@@ -3,11 +3,11 @@
     "type": "minecraft:condition",
     "on_false": {
       "type": "minecraft:model",
-      "model": "ccw:item/sucker_full"
+      "model": "ccw:item/milk_extractor_full"
     },
     "on_true": {
       "type": "minecraft:model",
-      "model": "ccw:item/sucker_empty"
+      "model": "ccw:item/milk_extractor_empty"
     },
     "property": "minecraft:broken"
   }

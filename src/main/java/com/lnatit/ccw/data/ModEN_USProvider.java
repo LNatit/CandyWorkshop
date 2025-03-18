@@ -24,7 +24,7 @@ public class ModEN_USProvider extends LanguageProvider {
 
         this.add(ItemRegistry.GUMMY_ITEM.get(), "Gummy");
         this.add(ItemRegistry.SUGAR_REFINERY.get(), "Sugar Refinery");
-        this.add(ItemRegistry.MILK_SUCKER.get(), "Untellable Tooldles");
+        this.add(ItemRegistry.MILK_EXTRACTOR.get(), "Untellable Tooldles");
         this.add(ItemRegistry.CARTON_MILK.get(), "Carton Milk");
         this.add(ItemRegistry.ENERGY_CARROT.get(), "Energy Carrot");
         this.add(ItemRegistry.PHANTOM_PEARL.get(), "Phantom Pearl");

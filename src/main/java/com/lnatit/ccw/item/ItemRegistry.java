@@ -43,10 +43,9 @@ public class ItemRegistry {
                     )
             );
     public static final DeferredItem<BlockItem> SUGAR_REFINERY = ITEMS.registerSimpleBlockItem(BlockRegistry.SUGAR_REFINERY);
-    // TODO rename
-    public static final DeferredItem<MilkSuckerItem> MILK_SUCKER = ITEMS.register(
-            "sucker",
-            key -> new MilkSuckerItem(
+    public static final DeferredItem<MilkExtractorItem> MILK_EXTRACTOR = ITEMS.register(
+            "milk_extractor",
+            key -> new MilkExtractorItem(
                     new Item.Properties()
                             .durability(129)
                             .setId(ResourceKey.create(Registries.ITEM, key))
