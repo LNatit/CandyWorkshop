@@ -11,10 +11,11 @@ import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.client.data.models.blockstates.Variant;
 import net.minecraft.client.data.models.blockstates.VariantProperties;
+import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.client.renderer.item.properties.conditional.Broken;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.NotNull;
 
 import static net.minecraft.client.data.models.BlockModelGenerators.createHorizontalFacingDispatch;
@@ -29,11 +30,28 @@ public class ModModelProvider extends EnhancedModelProvider
     protected void registerModels(BlockModelGenerators blockModels, @NotNull ItemModelGenerators itemModels, @NotNull ClientItemModelGenerators clientItemModels) {
         ResourceLocation sugarRefineryModel = BlockRegistry.SUGAR_REFINERY.getId().withPrefix("block/");
         blockModels.blockStateOutput.accept(
-                        MultiVariantGenerator.multiVariant(BlockRegistry.SUGAR_REFINERY.get(), Variant.variant().with(VariantProperties.MODEL, sugarRefineryModel))
-                                .with(createHorizontalFacingDispatch())
-                );
+                MultiVariantGenerator.multiVariant(BlockRegistry.SUGAR_REFINERY.get(),
+                                                   Variant.variant().with(VariantProperties.MODEL, sugarRefineryModel)
+                                     )
+                                     .with(createHorizontalFacingDispatch())
+        );
 
         itemModels.generateFlatItem(ItemRegistry.GUMMY_ITEM.get(), ModelTemplates.FLAT_ITEM);
+
+        clientItemModels.gen().withId(ItemRegistry.MILK_SUCKER).withDefaultModelSuffix("_full").modelOnly();
+        clientItemModels.gen().withId(ItemRegistry.MILK_SUCKER).withDefaultModelSuffix("_empty").modelOnly();
+        clientItemModels.gen()
+                        .withId(ItemRegistry.MILK_SUCKER)
+                        .withClientItem(
+                            builder -> builder.withUnbaked(
+                                    ItemModelUtils.conditional(
+                                            new Broken(),
+                                            ItemModelUtils.plainModel(builder.ModelLocation().withSuffix("_empty")),
+                                            ItemModelUtils.plainModel(builder.ModelLocation().withSuffix("_full"))
+                                    )
+                            ).build()
+                        )
+                        .clientItemOnly();
 
         clientItemModels.gen().withId(ItemRegistry.CARTON_MILK).all();
         clientItemModels.gen().withId(ItemRegistry.ENERGY_CARROT).all();

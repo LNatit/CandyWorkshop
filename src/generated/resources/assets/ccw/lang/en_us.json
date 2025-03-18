@@ -21,8 +21,9 @@
   "item.ccw.milk_gelatin": "Milk Gelatin",
   "item.ccw.ominous_flag": "Ominous Flag",
   "item.ccw.phantom_pearl": "Phantom Pearl",
-  "item.ccw.suker": "Untellable Tooldles",
+  "item.ccw.sucker": "Untellable Tooldles",
   "item.ccw.void_carrot": "Void Carrot",
   "item.ccw.weakness_powder": "Weakness Powder",
-  "itemGroup.ccw.candy": "Candy WorkShop"
+  "itemGroup.ccw.candy": "Candy WorkShop",
+  "sound.ccw.plug_off": "Plug-off"
 }

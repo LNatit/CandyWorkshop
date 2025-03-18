@@ -1,5 +1,6 @@
 package com.lnatit.ccw.item;
 
+import com.lnatit.ccw.misc.SoundRegistry;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -32,6 +33,7 @@ public class MilkSuckerItem extends Item {
                 stack.hurtWithoutBreaking(count, player);
             }
 
+            interactionTarget.playSound(SoundRegistry.PLUG_OFF.get());
             player.getCooldowns().addCooldown(stack, 2 * count);
             return InteractionResult.SUCCESS;
         }

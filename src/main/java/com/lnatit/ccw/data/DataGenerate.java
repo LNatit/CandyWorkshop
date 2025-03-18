@@ -13,5 +13,6 @@ public class DataGenerate
         event.createProvider(ModEN_USProvider::new);
         event.createProvider(ModModelProvider::new);
         event.createProvider(ModRecipeProvider.Runner::new);
+        event.createProvider(ModSoundProvider::new);
     }
 }

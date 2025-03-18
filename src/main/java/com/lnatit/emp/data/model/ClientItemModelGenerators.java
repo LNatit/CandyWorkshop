@@ -168,6 +168,10 @@ public class ClientItemModelGenerators
             this.modelResourceLocation = modelResourceLocation;
         }
 
+        public ResourceLocation ModelLocation() {
+            return this.modelResourceLocation;
+        }
+
         public ClientItemBuilder withModel(ResourceLocation modelResourceLocation) {
             this.modelResourceLocation = modelResourceLocation;
             return this;

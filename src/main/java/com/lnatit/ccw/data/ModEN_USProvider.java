@@ -20,6 +20,7 @@ public class ModEN_USProvider extends LanguageProvider {
         this.add("container.sugar_refinery", "Sugar Refinery");
         this.add("container.sugar_refinery.pause", "Pause Refining...");
         this.add("container.sugar_refinery.start", "Start Refining...");
+        this.add(ModSoundProvider.PLUG_OFF_SUBTITLE, "Plug-off");
 
         this.add(ItemRegistry.GUMMY_ITEM.get(), "Gummy");
         this.add(ItemRegistry.SUGAR_REFINERY.get(), "Sugar Refinery");

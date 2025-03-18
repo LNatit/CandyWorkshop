@@ -1,6 +1,7 @@
 package com.lnatit.ccw.data;
 
 import com.lnatit.ccw.item.ItemRegistry;
+import com.lnatit.ccw.item.crafting.RepairSuckerRecipe;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.component.DataComponentPredicate;
@@ -9,6 +10,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.recipes.SpecialRecipeBuilder;
 import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -27,6 +29,9 @@ public class ModRecipeProvider extends RecipeProvider {
 //        this.shaped(RecipeCategory.MISC, );
 
         // TODO modify unlock requirements
+        SpecialRecipeBuilder.special(RepairSuckerRecipe::new)
+                .save(this.output, "repair_sucker");
+
         this.shaped(RecipeCategory.BREWING, ItemRegistry.ENERGY_CARROT)
                 .define('#', Items.REDSTONE)
                 .define('X', Items.CARROT)

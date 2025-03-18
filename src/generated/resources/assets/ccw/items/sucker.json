@@ -1,0 +1,14 @@
+{
+  "model": {
+    "type": "minecraft:condition",
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "ccw:item/sucker_full"
+    },
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "ccw:item/sucker_empty"
+    },
+    "property": "minecraft:broken"
+  }
+}

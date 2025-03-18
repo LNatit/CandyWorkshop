@@ -1,4 +1,4 @@
-// 1.21.4	2025-03-15T23:33:59.2355192	Model Definitions - ccw
+// 1.21.4	2025-03-18T10:47:16.8249034	Model Definitions - ccw
 a9449129efdcd8d56a9843f6f9f2c11f1c1947fc assets/ccw/blockstates/sugar_refinery.json
 5c8756f15851d606a5f381228b17cbf6488af02b assets/ccw/items/blessed_steak.json
 0dd62747ee70118bf246deaca2bd84fb4efd91be assets/ccw/items/calcium_rich_milk.json
@@ -14,6 +14,7 @@ cbcf20b9b8ccebdbf506be1bdc6c71bb3ded07bc assets/ccw/items/gold_studded_apple.jso
 0f6ac735537aff15c420d642a22c69f0d28e6d7b assets/ccw/items/ominous_flag.json
 6430b96eaa30663bc0b9ed82e76752e03f6850eb assets/ccw/items/phantom_pearl.json
 0268085811b3a6ad00032d822db4ad44901e59c0 assets/ccw/items/speed_gummy.json
+ae55119a4c71c22c0023aace15d725bd0c7c4115 assets/ccw/items/sucker.json
 f9dcfde23eb0886a7e223b98ac0931b65c50313f assets/ccw/items/void_carrot.json
 82db0ac0774fcb91316b8cb3668746317cd77a77 assets/ccw/items/weakness_powder.json
 bb3507d3ee8c981ea6dac29c879fea356c448d4f assets/ccw/models/item/blessed_steak.json
@@ -30,5 +31,7 @@ b8cb59a3008ca9a31cfd0902558de3e41c833e70 assets/ccw/models/item/iron_clad_apple.
 09623a2a298db900639c109bcc2213f4b9a20dd5 assets/ccw/models/item/ominous_flag.json
 e9c8751ef931c8e7d62201beb7a423d3638e0af5 assets/ccw/models/item/phantom_pearl.json
 734a943d574448e2804e7a288772d9d435053883 assets/ccw/models/item/speed_gummy.json
+ca94622cb7637038ad97e81d6caadf20deb653f4 assets/ccw/models/item/sucker_empty.json
+828c075d139a97352385303223ea51c2be38f64f assets/ccw/models/item/sucker_full.json
 b2780fa4a4454566600c06be333af5b05329df97 assets/ccw/models/item/void_carrot.json
 e64a430d84a8ab0a3fbb7a6fa39efce1e42e843c assets/ccw/models/item/weakness_powder.json
