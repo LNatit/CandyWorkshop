@@ -61,7 +61,8 @@ public class ItemRegistry {
                     2
             )
     );
-//    public static final DeferredItem<Item> 糖粉
+    public static final DeferredItem<Item> NETHER_SUGAR = ITEMS.registerSimpleItem("nether_sugar");
+    public static final DeferredItem<Item> ENDER_SUGAR = ITEMS.registerSimpleItem("ender_sugar");
     public static final DeferredItem<Item> ENERGY_CARROT = ITEMS.register(
             "energy_carrot",
             key -> new Item(
