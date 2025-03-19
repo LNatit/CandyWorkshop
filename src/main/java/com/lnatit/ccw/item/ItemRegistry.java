@@ -54,10 +54,11 @@ public class ItemRegistry {
     public static final DeferredItem<Item> MILK_PACKAGING = ITEMS.registerSimpleItem("milk_packaging");
     public static final DeferredItem<Item> CARTON_MILK = ITEMS.register(
             "milk_carton",
-            key -> new Item(
+            key -> new ExtraTooltipItem(
                     new Item.Properties()
                             .food(FoodsAndConsumables.CARTON_MILK_FOOD, FoodsAndConsumables.CARTON_MILK_CONSUMABLE)
-                            .setId(ResourceKey.create(Registries.ITEM, key))
+                            .setId(ResourceKey.create(Registries.ITEM, key)),
+                    2
             )
     );
 //    public static final DeferredItem<Item> 糖粉

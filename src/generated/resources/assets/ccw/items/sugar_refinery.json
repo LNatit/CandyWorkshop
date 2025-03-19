@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "ccw:item/gummy"
+    "model": "ccw:block/sugar_refinery"
   }
 }

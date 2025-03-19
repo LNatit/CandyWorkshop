@@ -7,13 +7,16 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.Consumable;
+import net.minecraft.world.item.component.ConsumableListener;
+import net.minecraft.world.level.Level;
 
 import java.util.Optional;
 import java.util.function.Consumer;
 
-public record SugarContents(Optional<Holder<Sugar>> sugar, Sugar.Flavor flavor) {
+public record SugarContents(Optional<Holder<Sugar>> sugar, Sugar.Flavor flavor) implements ConsumableListener {
     public static final Codec<SugarContents> CODEC = RecordCodecBuilder.create(
             ins -> ins.group(
                             Sugar.CODEC.optionalFieldOf("sugar").forGetter(SugarContents::sugar),
@@ -37,10 +40,6 @@ public record SugarContents(Optional<Holder<Sugar>> sugar, Sugar.Flavor flavor) 
         return is(holder) && this.flavor.equals(type);
     }
 
-    public void applyOn(ServerLevel level, LivingEntity entity) {
-        this.sugar.ifPresent(holder -> holder.value().applyOn(level, entity, this.flavor));
-    }
-
     // *.speed.base
     public Component getName(String descriptionId) {
         return Component.translatable(descriptionId + "." +
@@ -53,5 +52,10 @@ public record SugarContents(Optional<Holder<Sugar>> sugar, Sugar.Flavor flavor) 
         if (this.sugar.isPresent()) {
             //TODO
         }
+    }
+
+    @Override
+    public void onConsume(Level level, LivingEntity entity, ItemStack stack, Consumable consumable) {
+        this.sugar.ifPresent(holder -> holder.value().applyOn(entity, this.flavor));
     }
 }

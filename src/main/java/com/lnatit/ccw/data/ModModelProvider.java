@@ -29,6 +29,7 @@ public class ModModelProvider extends EnhancedModelProvider
     @Override
     protected void registerModels(BlockModelGenerators blockModels, @NotNull ItemModelGenerators itemModels, @NotNull ClientItemModelGenerators clientItemModels) {
         ResourceLocation sugarRefineryModel = BlockRegistry.SUGAR_REFINERY.getId().withPrefix("block/");
+        blockModels.registerSimpleItemModel(ItemRegistry.SUGAR_REFINERY.get(), sugarRefineryModel);
         blockModels.blockStateOutput.accept(
                 MultiVariantGenerator.multiVariant(BlockRegistry.SUGAR_REFINERY.get(),
                                                    Variant.variant().with(VariantProperties.MODEL, sugarRefineryModel)

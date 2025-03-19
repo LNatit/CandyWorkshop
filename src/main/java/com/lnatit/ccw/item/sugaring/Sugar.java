@@ -45,23 +45,25 @@ public class Sugar {
         return name;
     }
 
-    public void applyOn(ServerLevel level, LivingEntity entity, Flavor flavor) {
-        int duration = this.hasBold && flavor == Flavor.BOLD ? 2 * this.duration : this.duration;
-        int amplifier = this.hasExcited && flavor == Flavor.EXCITED ? 1 : 0;
-        if (flavor == Flavor.MILKY) {
-            entity.removeAllEffects();
-        }
+    public void applyOn(LivingEntity entity, Flavor flavor) {
+        if (entity.level() instanceof ServerLevel level) {
+            int duration = this.hasBold && flavor == Flavor.BOLD ? 2 * this.duration : this.duration;
+            int amplifier = this.hasExcited && flavor == Flavor.EXCITED ? 1 : 0;
+            if (flavor == Flavor.MILKY) {
+                entity.removeAllEffects();
+            }
 
-        for (Holder<MobEffect> effect : effects) {
-            // Instantenous effect behaves differently
-            if (effect.value().isInstantenous()) {
-                effect.value().applyInstantenousEffect(level, entity, entity, entity, amplifier, 0.5);
-            } else {
-                MobEffectInstance exist = entity.getEffect(effect);
-                if (exist != null && !exist.isAmbient() && exist.getAmplifier() >= amplifier) {
-                    duration += exist.getDuration();
+            for (Holder<MobEffect> effect : effects) {
+                // Instantenous effect behaves differently
+                if (effect.value().isInstantenous()) {
+                    effect.value().applyInstantenousEffect(level, entity, entity, entity, amplifier, 0.5);
+                } else {
+                    MobEffectInstance exist = entity.getEffect(effect);
+                    if (exist != null && !exist.isAmbient() && exist.getAmplifier() >= amplifier) {
+                        duration += exist.getDuration();
+                    }
+                    entity.addEffect(new MobEffectInstance(effect, duration, amplifier));
                 }
-                entity.addEffect(new MobEffectInstance(effect, duration, amplifier));
             }
         }
     }

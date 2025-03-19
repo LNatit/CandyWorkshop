@@ -149,6 +149,12 @@ public class ModRecipeProvider extends RecipeProvider {
                 .requires(Tags.Items.SLIME_BALLS)
                 .unlockedBy("has_milk_carton", this.has(ItemRegistry.CARTON_MILK))
                 .save(this.output);
+
+//        this.shapeless(RecipeCategory.BREWING, ItemRegistry.MILK_GELATIN, 8)
+//                .requires(Items.MILK_BUCKET)
+//                .requires(Items.SLIME_BALL, 8)
+//                .unlockedBy("has_milk_carton", this.has(ItemRegistry.CARTON_MILK))
+//                .save(this.output);
     }
 
     public static class Runner extends RecipeProvider.Runner {

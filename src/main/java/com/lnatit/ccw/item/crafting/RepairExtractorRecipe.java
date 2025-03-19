@@ -10,44 +10,46 @@ import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
-public class RepairExtractorRecipe extends CustomRecipe
-{
+public class RepairExtractorRecipe extends CustomRecipe {
     public RepairExtractorRecipe(CraftingBookCategory category) {
         super(category);
     }
 
     @Override
     public boolean matches(CraftingInput input, Level level) {
-        if (input.ingredientCount() != 2 || input.ingredientCount() != 3) {
+        if (input.ingredientCount() != 2) {
             return false;
         }
 
         boolean hasExtractor = false;
-        boolean hasPaper = false;
+        boolean hasPackaging = false;
         for (int i = 0; i < input.size(); i++) {
             ItemStack stack = input.getItem(i);
             if (stack.is(ItemRegistry.MILK_EXTRACTOR)) {
                 hasExtractor = true;
-            }
-            else if (stack.is(Items.PAPER)) {
-                hasPaper = true;
+            } else if (stack.is(ItemRegistry.MILK_PACKAGING) || stack.is(Items.PAPER)) {
+                hasPackaging = true;
             }
         }
 
-        return hasExtractor && hasPaper;
+        return hasExtractor && hasPackaging;
     }
 
     @Override
     public ItemStack assemble(CraftingInput input, HolderLookup.Provider registries) {
         ItemStack extractor = ItemStack.EMPTY;
-        int paperCount = 0;
+        int repairCount = 0;
         for (int i = 0; i < input.size(); i++) {
             ItemStack stack = input.getItem(i);
-            if (stack.is(Items.PAPER) && !stack.isEmpty())
-                paperCount += 1;
-            else if (stack.is(ItemRegistry.MILK_EXTRACTOR))
-            // avoid modifying the item directly
-                extractor = stack.copy();
+            if (!stack.isEmpty()) {
+                if (stack.is(Items.PAPER))
+                    repairCount = 32;
+                else if (stack.is(ItemRegistry.MILK_PACKAGING))
+                    repairCount = 128;
+                else if (stack.is(ItemRegistry.MILK_EXTRACTOR))
+                    // avoid modifying the item directly
+                    extractor = stack.copy();
+            }
         }
 
         if (extractor.isEmpty()) {
@@ -55,8 +57,8 @@ public class RepairExtractorRecipe extends CustomRecipe
         }
 
         int damage = extractor.getDamageValue();
-        if (paperCount > 0) {
-            damage -= paperCount * 64;
+        if (repairCount > 0) {
+            damage -= repairCount;
             if (damage < 0)
                 damage = 0;
         }
