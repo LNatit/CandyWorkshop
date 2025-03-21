@@ -54,7 +54,11 @@ public class ModModelProvider extends EnhancedModelProvider
                         )
                         .clientItemOnly();
 
+        clientItemModels.gen().withId(ItemRegistry.MILK_PACKAGING).all();
         clientItemModels.gen().withId(ItemRegistry.CARTON_MILK).all();
+        clientItemModels.gen().withId(ItemRegistry.NETHER_SUGAR).all();
+        clientItemModels.gen().withId(ItemRegistry.ENDER_SUGAR).all();
+
         clientItemModels.gen().withId(ItemRegistry.ENERGY_CARROT).all();
         clientItemModels.gen().withId(ItemRegistry.PHANTOM_PEARL).all();
         clientItemModels.gen().withId(ItemRegistry.CALCIUM_RICH_MILK).all();

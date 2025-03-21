@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "#": "minecraft:bone",
-    "X": "ccw:milk_carton"
+    "X": "ccw:carton_milk"
   },
   "pattern": [
     " # ",

@@ -53,7 +53,7 @@ public class ItemRegistry {
     );
     public static final DeferredItem<Item> MILK_PACKAGING = ITEMS.registerSimpleItem("milk_packaging");
     public static final DeferredItem<Item> CARTON_MILK = ITEMS.register(
-            "milk_carton",
+            "carton_milk",
             key -> new ExtraTooltipItem(
                     new Item.Properties()
                             .food(FoodsAndConsumables.CARTON_MILK_FOOD, FoodsAndConsumables.CARTON_MILK_CONSUMABLE)

@@ -23,9 +23,14 @@ public class ModEN_USProvider extends LanguageProvider {
         this.add(ModSoundProvider.PLUG_OFF_SUBTITLE, "Plug-off");
 
         this.add(ItemRegistry.GUMMY_ITEM.get(), "Gummy");
+
         this.add(ItemRegistry.SUGAR_REFINERY.get(), "Sugar Refinery");
         this.add(ItemRegistry.MILK_EXTRACTOR.get(), "Untellable Tooldles");
+        this.add(ItemRegistry.MILK_PACKAGING.get(), "Milk Packaging");
         this.add(ItemRegistry.CARTON_MILK.get(), "Carton Milk");
+        this.add(ItemRegistry.NETHER_SUGAR.get(), "Nether Sugar");
+        this.add(ItemRegistry.ENDER_SUGAR.get(), "Ender Sugar");
+
         this.add(ItemRegistry.ENERGY_CARROT.get(), "Energy Carrot");
         this.add(ItemRegistry.PHANTOM_PEARL.get(), "Phantom Pearl");
         this.add(ItemRegistry.CALCIUM_RICH_MILK.get(), "Calcium-rich Milk");
@@ -38,7 +43,15 @@ public class ModEN_USProvider extends LanguageProvider {
         this.add(ItemRegistry.DEFILED_OFFERING.get(), "Defiled Offering");
         this.add(ItemRegistry.DOLPHIN_COOKIE.get(), "Dolphin Cookie");
         this.add(ItemRegistry.OMINOUS_FLAG.get(), "Ominous Flag");
+
         this.add(ItemRegistry.MILK_GELATIN.get(), "Milk Gelatin");
+
+        this.add("item.ccw.milk_extractor,desc0", "");
+        this.add("item.ccw.milk_extractor,desc1", "");
+        this.add("item.ccw.milk_extractor,desc2", "");
+
+        this.add("item.ccw.carton_milk,desc0", "");
+        this.add("item.ccw.carton_milk,desc1", "");
 
         for (DeferredHolder<Sugar, ? extends Sugar> sugar : Sugars.SUGARS.getEntries()) {
             for (Sugar.Flavor flavor : sugar.get().getAvailableTypes()) {
