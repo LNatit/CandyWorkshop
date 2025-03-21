@@ -27,7 +27,26 @@ public class ModRecipeProvider extends RecipeProvider
 
     @Override
     protected void buildRecipes() {
-//        this.shaped(RecipeCategory.MISC, );
+        this.shaped(RecipeCategory.MISC, ItemRegistry.MILK_EXTRACTOR)
+                .define('#', Items.GLASS_PANE)
+                .define('U', Items.BUCKET)
+                .define('I', Items.IRON_INGOT)
+                .define('X', ItemRegistry.MILK_PACKAGING)
+                .pattern("#  ")
+                .pattern("UII")
+                .pattern("#XI")
+                .unlockedBy("has_milk", has(Items.MILK_BUCKET))
+                .save(this.output);
+
+        this.shaped(RecipeCategory.MISC, ItemRegistry.MILK_PACKAGING)
+                .define('#', Items.PAPER)
+                .pattern("#")
+                .pattern("#")
+                .pattern("#")
+                .unlockedBy("has_paper", has(Items.PAPER))
+                .save(this.output);
+
+        // TODO do we need to modify count to let a 8 bucket recipe makes sense?
 
         // TODO modify unlock requirements
         SpecialRecipeBuilder.special(RepairExtractorRecipe::new)

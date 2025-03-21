@@ -135,10 +135,12 @@ public class Sugar {
         return new Builder(name);
     }
 
-    public static class Builder implements IEffectFinalizer, IOptionalAcceptor {
-        private String name;
+    public static class Builder implements IEffectAcceptor, IOptionalAcceptor {
+        public static final int DEFAULT_DURATION = 600;
+
+        private final String name;
         private final List<Holder<MobEffect>> effects = new ArrayList<>();
-        private int duration = 0;
+        private int duration = DEFAULT_DURATION;
         private boolean hasExcited = true;
         private boolean hasBold = true;
 
@@ -147,7 +149,7 @@ public class Sugar {
         }
 
         @Override
-        public IEffectFinalizer withEffect(Holder<MobEffect> effect) {
+        public IOptionalAcceptor withEffect(Holder<MobEffect> effect) {
             this.effects.add(effect);
             return this;
         }
@@ -176,19 +178,13 @@ public class Sugar {
         }
     }
 
-    public interface INameAcceptor {
-        IEffectAcceptor withName(String name);
-    }
-
     public interface IEffectAcceptor {
-        IEffectFinalizer withEffect(Holder<MobEffect> effect);
-    }
-
-    public interface IEffectFinalizer extends IEffectAcceptor {
-        IOptionalAcceptor withDuration(int duration);
+        IOptionalAcceptor withEffect(Holder<MobEffect> effect);
     }
 
     public interface IOptionalAcceptor extends IBuilder {
+        IOptionalAcceptor withDuration(int duration);
+
         IBuilder withNoExcited();
 
         IBuilder withNoBold();
