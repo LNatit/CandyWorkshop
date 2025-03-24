@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "ccw:carton_milk",
+    "#ccw:carton_milk",
     "#c:slime_balls"
   ],
   "result": {

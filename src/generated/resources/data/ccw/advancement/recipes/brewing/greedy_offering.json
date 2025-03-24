@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "ccw:carton_milk"
+            "items": "#ccw:carton_milk"
           }
         ]
       },

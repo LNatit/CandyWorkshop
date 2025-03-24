@@ -10,6 +10,9 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.*;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -17,6 +20,9 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import java.util.function.Supplier;
 
 public class ItemRegistry {
+    public static final TagKey<Item> MILK_TAG = tag("c", "drinks/milk");
+    public static final TagKey<Item> CARTON_MILK_TAG = tag("carton_milk");
+
     public static final DeferredRegister.DataComponents DATA_COMPONENTS =
             DeferredRegister.createDataComponents(
                     Registries.DATA_COMPONENT_TYPE,
@@ -171,6 +177,14 @@ public class ItemRegistry {
                                                  }
                                          ).build()
             );
+
+    private static TagKey<Item> tag(String namespace, String name) {
+        return ItemTags.create(ResourceLocation.fromNamespaceAndPath(namespace, name));
+    }
+
+    private static TagKey<Item> tag(String name) {
+        return tag(CandyWorkshop.MODID, name);
+    }
 
     private static void generateSugarTypes(
             CreativeModeTab.Output output,

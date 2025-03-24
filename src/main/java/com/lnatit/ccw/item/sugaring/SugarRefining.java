@@ -13,30 +13,29 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Consumer;
 
 @EventBusSubscriber(modid = CandyWorkshop.MODID)
 public class SugarRefining
 {
-    public static final SugarRefining EMPTY = new SugarRefining(ImmutableList.of());
+    public static final SugarRefining EMPTY = new SugarRefining(List.of(), Set.of());
     public static final int REFINE_TIME = 160;
     private static final List<Consumer<Builder>> customBlendProviders = new ArrayList<>();
-    public static SugarRefining sugarRefining;
+    public static SugarRefining sugarRefining = EMPTY;
 
     private final List<Blend> sugarBlends;
+    private final Set<Item> sugarItems;
 
-    private SugarRefining(List<Blend> sugarBlends) {
+    private SugarRefining(List<Blend> sugarBlends, Set<Item> sugarItems) {
         this.sugarBlends = ImmutableList.copyOf(sugarBlends);
+        this.sugarItems = Set.copyOf(sugarItems);
     }
 
     public boolean isSugar(ItemStack stack) {
-        for (Blend blend : sugarBlends) {
-            if (stack.is(blend.sugar)) {
-                return true;
-            }
-        }
-        return false;
+        return sugarItems.contains(stack.getItem());
     }
 
     public boolean isMain(ItemStack stack) {
@@ -88,9 +87,11 @@ public class SugarRefining
     public static class Builder
     {
         private final List<Blend> sugarBlends = new ArrayList<>();
+        private final Set<Item> sugarItems = new HashSet<>();
 
         public void addBlend(Holder<Sugar> output, Item sugar, Ingredient main) {
             sugarBlends.add(new Blend(sugar, main, output));
+            sugarItems.add(sugar);
         }
 
         public void addBlend(Holder<Sugar> output, Item sugar, Item... main) {
@@ -110,7 +111,7 @@ public class SugarRefining
         }
 
         public SugarRefining build() {
-            return new SugarRefining(this.sugarBlends);
+            return new SugarRefining(this.sugarBlends, this.sugarItems);
         }
     }
 

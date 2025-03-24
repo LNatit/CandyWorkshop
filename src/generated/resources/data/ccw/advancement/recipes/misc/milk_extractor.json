@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_milk_carton": {
+    "has_milk": {
       "conditions": {
         "items": [
           {
-            "items": "#ccw:carton_milk"
+            "items": "minecraft:milk_bucket"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ccw:weakness_powder"
+        "recipe": "ccw:milk_extractor"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_milk_carton"
+      "has_milk"
     ]
   ],
   "rewards": {
     "recipes": [
-      "ccw:weakness_powder"
+      "ccw:milk_extractor"
     ]
   }
 }

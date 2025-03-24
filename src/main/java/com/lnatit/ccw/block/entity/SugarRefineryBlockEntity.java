@@ -2,6 +2,7 @@ package com.lnatit.ccw.block.entity;
 
 import com.lnatit.ccw.block.BlockRegistry;
 import com.lnatit.ccw.block.SugarRefineryBlock;
+import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.item.sugaring.Sugar;
 import com.lnatit.ccw.item.sugaring.SugarRefining;
 import com.lnatit.ccw.menu.SugarRefineryMenu;
@@ -19,7 +20,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -94,6 +94,8 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
     }
 
     public class Data extends ItemStackHandler {
+        public static final int COMMON_MILK_CONSUMPTION = 1;
+        public static final int CARTON_MILK_CONSUMPTION = 8;
         public static final int SUGAR_CONSUMPTION = 8;
         public static final int SUGAR_PRODUCTION = 8;
 
@@ -155,7 +157,7 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
          * @return true if new matched output is different from the old one
          */
         private boolean updateRecipe() {
-            if (!hasEnoughMilk()) {
+            if (!hasEnoughMilkAndSugar()) {
                 scheduledOutput = ItemStack.EMPTY;
                 return false;
             }
@@ -175,16 +177,16 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
             return false;
         }
 
-        private boolean hasEnoughMilk() {
+        private boolean hasEnoughMilkAndSugar() {
             ItemStack milk = this.stacks.get(0);
             ItemStack sugar = this.stacks.get(1);
             if (milk.isEmpty() || sugar.isEmpty())
                 return false;
             // TODO
-            if (!milk.is(Items.MILK_BUCKET))
+            if (!milk.is(ItemRegistry.MILK_TAG) || !SugarRefining.sugarRefining.isSugar(sugar))
                 return false;
 
-            int milkCount = 1;
+            int milkCount = getMilkConsumption(milk);
             int sugarCount = SUGAR_CONSUMPTION;
 
             return milk.getCount() >= milkCount && sugar.getCount() >= sugarCount;
@@ -193,7 +195,7 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
         private void generateOutputs() {
             // consume ingredients
             ItemStack milk = this.stacks.get(0);
-            int milkConsumption = 1;
+            int milkConsumption = getMilkConsumption(milk);
             acceptRemainder(milk.getCraftingRemainder(), milkConsumption);
             milk.shrink(milkConsumption);
 
@@ -264,8 +266,8 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
             return switch (slot) {
-                case 0 -> stack.is(Items.MILK_BUCKET);
-                case 1 -> stack.is(Items.SUGAR);
+                case 0 -> stack.is(ItemRegistry.MILK_TAG);
+                case 1 -> SugarRefining.sugarRefining.isSugar(stack);
                 case 2, 3 -> true;
                 default -> false;
             };
@@ -292,6 +294,10 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
         @Override
         protected void onContentsChanged(int slot) {
             changedExternal = true;
+        }
+
+        private static int getMilkConsumption(ItemStack milk) {
+            return milk.is(ItemRegistry.CARTON_MILK_TAG) ? CARTON_MILK_CONSUMPTION : COMMON_MILK_CONSUMPTION;
         }
     }
 }
