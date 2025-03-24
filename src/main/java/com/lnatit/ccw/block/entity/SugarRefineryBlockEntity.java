@@ -155,12 +155,12 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
          * @return true if new matched output is different from the old one
          */
         private boolean updateRecipe() {
-            if (!hasEnoughMilkAndSugar()) {
+            if (!hasEnoughMilk()) {
                 scheduledOutput = ItemStack.EMPTY;
                 return false;
             }
 
-            ItemStack newOutput = SugarRefining.sugarRefining.makeSugar(this.stacks.get(2), this.stacks.get(3));
+            ItemStack newOutput = SugarRefining.sugarRefining.makeSugar(this.stacks.get(1), this.stacks.get(2), this.stacks.get(3));
             ItemStack output = this.stacks.get(4);
 
             if (!output.isEmpty() && (!ItemStack.isSameItemSameComponents(output, newOutput) ||
@@ -175,12 +175,13 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
             return false;
         }
 
-        private boolean hasEnoughMilkAndSugar() {
+        private boolean hasEnoughMilk() {
             ItemStack milk = this.stacks.get(0);
             ItemStack sugar = this.stacks.get(1);
             if (milk.isEmpty() || sugar.isEmpty())
                 return false;
-            if (!milk.is(Items.MILK_BUCKET) || !sugar.is(Items.SUGAR))
+            // TODO
+            if (!milk.is(Items.MILK_BUCKET))
                 return false;
 
             int milkCount = 1;

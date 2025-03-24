@@ -1,84 +1,120 @@
 package com.lnatit.ccw.item.sugaring;
 
-import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableList;
 import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.item.ItemRegistry;
 import net.minecraft.core.Holder;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Consumer;
 
 @EventBusSubscriber(modid = CandyWorkshop.MODID)
 public class SugarRefining
 {
-    public static final SugarRefining EMPTY = new SugarRefining(ImmutableMap.of());
+    public static final SugarRefining EMPTY = new SugarRefining(ImmutableList.of());
     public static final int REFINE_TIME = 160;
-    private static final List<Consumer<Builder>> customFlavors = new ArrayList<>();
+    private static final List<Consumer<Builder>> customBlendProviders = new ArrayList<>();
     public static SugarRefining sugarRefining;
 
-    private final ImmutableMap<Item, Holder<Sugar>> sugarFlavors;
+    private final List<Blend> sugarBlends;
 
-    private SugarRefining(Map<Item, Holder<Sugar>> sugarFlavors) {
-        this.sugarFlavors = ImmutableMap.copyOf(sugarFlavors);
+    private SugarRefining(List<Blend> sugarBlends) {
+        this.sugarBlends = ImmutableList.copyOf(sugarBlends);
     }
 
-    public boolean isMain(ItemStack itemStack) {
-        return sugarFlavors.containsKey(itemStack.getItem());
+    public boolean isSugar(ItemStack stack) {
+        for (Blend blend : sugarBlends) {
+            if (stack.is(blend.sugar)) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    public boolean isExtra(ItemStack itemStack) {
-        return itemStack.is(Items.COCOA_BEANS) || itemStack.is(Items.HONEY_BOTTLE);
+    public boolean isMain(ItemStack stack) {
+        for (Blend blend : sugarBlends) {
+            if (blend.main.test(stack)) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    @Nullable
-    public Holder<Sugar> getSugar(ItemStack main) {
-        return sugarFlavors.get(main.getItem());
+    public boolean isExtra(ItemStack stack) {
+        return stack.is(Items.COCOA_BEANS)
+                || stack.is(Items.HONEY_BOTTLE)
+                || stack.is(ItemRegistry.MILK_GELATIN);
     }
 
-    public ItemStack makeSugar(ItemStack main, ItemStack extra) {
-        Holder<Sugar> holder = sugarFlavors.get(main.getItem());
-        if (holder != null) {
-            return Sugar.createSugar(holder, Sugar.Flavor.fromExtra(extra));
+    public ItemStack makeSugar(ItemStack sugar, ItemStack main, ItemStack extra) {
+        if (sugar.isEmpty() || main.isEmpty()) {
+            return ItemStack.EMPTY;
+        }
+
+        for (Blend blend : sugarBlends) {
+            if (sugar.is(blend.sugar) && blend.main.test(main)) {
+                return Sugar.createSugar(blend.output, Sugar.Flavor.fromExtra(extra));
+            }
         }
         return ItemStack.EMPTY;
     }
 
-    public static void addModFlavors(Builder builder) {
-        // Add all flavor's recipe here
-        builder.addFlavor(Items.SUGAR, Sugars.SPEED);
+    public static void addModBlends(Builder builder) {
+        // Add all blend's recipe here
+        builder.addOverworldBlend(Sugars.SPEED, Items.SUGAR);
+        // TODO
     }
 
-    public static void addCustomFlavorProviders(Consumer<Builder> consumer) {
-        customFlavors.add(consumer);
+    public static void addCustomBlendProviders(Consumer<Builder> consumer) {
+        customBlendProviders.add(consumer);
     }
 
     @SubscribeEvent()
     public static void bootstrap(ServerAboutToStartEvent event) {
         Builder builder = new Builder();
-        addModFlavors(builder);
-        customFlavors.forEach(p -> p.accept(builder));
+        addModBlends(builder);
+        customBlendProviders.forEach(p -> p.accept(builder));
         sugarRefining = builder.build();
     }
 
-    public static class Builder {
-        private Map<Item, Holder<Sugar>> sugarFlavors = new HashMap<>();
+    public static class Builder
+    {
+        private final List<Blend> sugarBlends = new ArrayList<>();
 
-        private void addFlavor(Item item, Holder<Sugar> sugar) {
-            sugarFlavors.put(item, sugar);
+        public void addBlend(Holder<Sugar> output, Item sugar, Ingredient main) {
+            sugarBlends.add(new Blend(sugar, main, output));
+        }
+
+        public void addBlend(Holder<Sugar> output, Item sugar, Item... main) {
+            addBlend(output, sugar, Ingredient.of(main));
+        }
+
+        public void addOverworldBlend(Holder<Sugar> output, Item... main) {
+            addBlend(output, Items.SUGAR, Ingredient.of(main));
+        }
+
+        public void addNetherBlend(Holder<Sugar> output, Item... main) {
+            addBlend(output, ItemRegistry.NETHER_SUGAR.get(), Ingredient.of(main));
+        }
+
+        public void addEndBlend(Holder<Sugar> output, Item... main) {
+            addBlend(output, ItemRegistry.ENDER_SUGAR.get(), Ingredient.of(main));
         }
 
         public SugarRefining build() {
-            return new SugarRefining(this.sugarFlavors);
+            return new SugarRefining(this.sugarBlends);
         }
+    }
+
+    record Blend(Item sugar, Ingredient main, Holder<Sugar> output)
+    {
     }
 }

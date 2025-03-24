@@ -8,11 +8,13 @@ import net.minecraft.world.item.TooltipFlag;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExtraTooltipItem extends Item {
+public class ExtraTooltipItem extends Item
+{
     private final List<Component> extraTooltip = new ArrayList<>();
 
     public ExtraTooltipItem(Properties properties, int lines) {
         super(properties);
+        lines = 0;
         for (int i = 0; i < lines; i++) {
             extraTooltip.add(
                     Component.translatable(
