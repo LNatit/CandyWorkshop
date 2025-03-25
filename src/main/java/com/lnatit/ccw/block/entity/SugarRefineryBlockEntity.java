@@ -182,7 +182,6 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
             ItemStack sugar = this.stacks.get(1);
             if (milk.isEmpty() || sugar.isEmpty())
                 return false;
-            // TODO
             if (!milk.is(ItemRegistry.MILK_TAG) || !SugarRefining.sugarRefining.isSugar(sugar))
                 return false;
 

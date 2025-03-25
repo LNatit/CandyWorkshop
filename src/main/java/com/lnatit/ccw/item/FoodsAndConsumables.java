@@ -11,7 +11,6 @@ public class FoodsAndConsumables
     public static final FoodProperties GUMMY_FOOD = new FoodProperties.Builder().nutrition(1).saturationModifier(0.3F).build();
     public static final Consumable GUMMY_CONSUMABLE = Consumables.defaultFood().consumeSeconds(0.4f).build();
 
-    public static final FoodProperties CARTON_MILK_FOOD = new FoodProperties.Builder().nutrition(1).saturationModifier(0.3F).build();
     public static final Consumable CARTON_MILK_CONSUMABLE =
             Consumables.defaultFood()
                     .consumeSeconds(0.4f)

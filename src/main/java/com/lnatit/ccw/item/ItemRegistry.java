@@ -7,6 +7,7 @@ import com.lnatit.ccw.item.sugaring.SugarContents;
 import com.lnatit.ccw.misc.RegRegistry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -62,7 +63,7 @@ public class ItemRegistry {
             "carton_milk",
             key -> new ExtraTooltipItem(
                     new Item.Properties()
-                            .food(FoodsAndConsumables.CARTON_MILK_FOOD, FoodsAndConsumables.CARTON_MILK_CONSUMABLE)
+                            .component(DataComponents.CONSUMABLE, FoodsAndConsumables.CARTON_MILK_CONSUMABLE)
                             .setId(ResourceKey.create(Registries.ITEM, key)),
                     2
             )
