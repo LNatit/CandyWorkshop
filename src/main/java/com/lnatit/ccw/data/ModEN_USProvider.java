@@ -5,6 +5,7 @@ import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.item.sugaring.Sugar;
 import com.lnatit.ccw.item.sugaring.Sugars;
 import net.minecraft.data.PackOutput;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
@@ -21,6 +22,7 @@ public class ModEN_USProvider extends LanguageProvider {
         this.add("container.sugar_refinery.pause", "Pause Refining...");
         this.add("container.sugar_refinery.start", "Start Refining...");
         this.add(ModSoundProvider.PLUG_OFF_SUBTITLE, "Plug-off");
+        this.add(Tags.getTagTranslationKey(ItemRegistry.CARTON_MILK_TAG), "Carton Milk");
 
         this.add(ItemRegistry.GUMMY_ITEM.get(), "Gummy");
 
@@ -32,6 +34,8 @@ public class ModEN_USProvider extends LanguageProvider {
         this.add(ItemRegistry.ENDER_SUGAR.get(), "Ender Sugar");
 
         this.add(ItemRegistry.ENERGY_CARROT.get(), "Energy Carrot");
+        // TODO
+        this.add(ItemRegistry.SWEET_MELON_SLICE.get(), "some new melon slice");
         this.add(ItemRegistry.PHANTOM_PEARL.get(), "Phantom Pearl");
         this.add(ItemRegistry.CALCIUM_RICH_MILK.get(), "Calcium-rich Milk");
         this.add(ItemRegistry.VOID_CARROT.get(), "Void Carrot");

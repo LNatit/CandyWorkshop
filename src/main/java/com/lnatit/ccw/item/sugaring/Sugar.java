@@ -127,10 +127,6 @@ public class Sugar {
         }
     }
 
-    public enum Tier {
-
-    }
-
     public static IEffectAcceptor builder(String name) {
         return new Builder(name);
     }

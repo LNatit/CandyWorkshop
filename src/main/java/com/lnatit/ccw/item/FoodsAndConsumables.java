@@ -21,6 +21,9 @@ public class FoodsAndConsumables
     public static final FoodProperties ENERGY_CARROT_FOOD = new FoodProperties.Builder().nutrition(1).saturationModifier(0.3F).build();
     public static final Consumable ENERGY_CARROT_CONSUMABLE = Consumables.defaultFood().build();
 
+    public static final FoodProperties SWEET_LEMON_SLICE_FOOD = new FoodProperties.Builder().nutrition(1).saturationModifier(0.3F).build();
+    public static final Consumable SWEET_LEMON_SLICE_CONSUMABLE = Consumables.defaultFood().build();
+
     public static final FoodProperties CALCIUM_RICH_MILK_FOOD = new FoodProperties.Builder().nutrition(1).saturationModifier(0.3F).build();
     public static final Consumable CALCIUM_RICH_MILK_CONSUMABLE = Consumables.defaultFood().build();
 

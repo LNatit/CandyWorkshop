@@ -4,12 +4,15 @@ import com.google.common.collect.ImmutableList;
 import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.item.ItemRegistry;
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
 
 import java.util.ArrayList;
@@ -69,7 +72,44 @@ public class SugarRefining
     public static void addModBlends(Builder builder) {
         // Add all blend's recipe here
         builder.addOverworldBlend(Sugars.SPEED, Items.SUGAR);
-        // TODO
+        builder.addOverworldBlend(Sugars.BUNNY, Items.RABBIT_FOOT, ItemRegistry.ENERGY_CARROT.get());
+        builder.addOverworldBlend(Sugars.HEALING, Items.GLISTERING_MELON_SLICE);
+        builder.addOverworldBlend(Sugars.POISON, Items.SPIDER_EYE);
+        builder.addOverworldBlend(Sugars.PUFFERFISH, Items.PUFFERFISH);
+        builder.addOverworldBlend(Sugars.NIGHT_VISION, Items.GOLDEN_CARROT);
+        builder.addOverworldBlend(Sugars.STRENGTH, Items.BLAZE_POWDER);
+        builder.addOverworldBlend(Sugars.RECOVERY, Items.GHAST_TEAR, ItemRegistry.SWEET_MELON_SLICE.get());
+        builder.addOverworldBlend(Sugars.FLUTTER, Items.PHANTOM_MEMBRANE);
+        builder.addOverworldBlend(Sugars.SNAIL, Items.SOUL_SAND);
+        builder.addBlend(Sugars.STINKY, Items.SUGAR, tagIngredient(Tags.Items.MUSHROOMS));
+        builder.addOverworldBlend(Sugars.BINDING, ItemRegistry.VOID_CARROT.get());
+        builder.addOverworldBlend(Sugars.WEAKNESS, ItemRegistry.WEAKNESS_POWDER.get());
+        builder.addOverworldBlend(Sugars.BRIGHTNESS, Items.GLOW_BERRIES);
+        builder.addOverworldBlend(Sugars.DARKNESS, Items.BLACK_DYE);
+        builder.addOverworldBlend(Sugars.HUNGER, Items.ROTTEN_FLESH);
+
+        builder.addNetherBlend(Sugars.INVISIBILITY, ItemRegistry.PHANTOM_PEARL.get());
+        builder.addNetherBlend(Sugars.STINGER, Items.CACTUS);
+        builder.addNetherBlend(Sugars.BUG, Items.STONE);
+        builder.addNetherBlend(Sugars.STICKY, Items.SLIME_BLOCK);
+        builder.addNetherBlend(Sugars.BINDING, Items.COBWEB);
+        builder.addNetherBlend(Sugars.GALE, Items.BREEZE_ROD);
+        builder.addNetherBlend(Sugars.REFRESHING, Items.COCOA_BEANS);
+        builder.addNetherBlend(Sugars.LAZY, Items.COBBLESTONE);
+        builder.addNetherBlend(Sugars.SOLID, ItemRegistry.CALCIUM_RICH_MILK.get());
+        builder.addNetherBlend(Sugars.FIREPROOF, Items.OBSIDIAN);
+        builder.addNetherBlend(Sugars.WITHERING, Items.WITHER_ROSE);
+        builder.addNetherBlend(Sugars.RED_HEART, ItemRegistry.IRON_CLAD_APPLE.get());
+        builder.addNetherBlend(Sugars.FLOATING, Items.SHULKER_SHELL);
+
+        builder.addEndBlend(Sugars.GOLDEN_HEART, ItemRegistry.GOLD_STUDDED_APPLE.get());
+        builder.addEndBlend(Sugars.SATIATING, ItemRegistry.BLESSED_STEAK.get());
+        builder.addEndBlend(Sugars.LUCKY, ItemRegistry.GREEDY_OFFERING.get());
+        builder.addEndBlend(Sugars.UNLUCKY, ItemRegistry.DEFILED_OFFERING.get());
+        builder.addEndBlend(Sugars.TIDAL, Items.NAUTILUS_SHELL);
+        builder.addEndBlend(Sugars.FISH_SWIM, ItemRegistry.DOLPHIN_COOKIE.get());
+        builder.addEndBlend(Sugars.TAUNTING, ItemRegistry.OMINOUS_FLAG.get());
+        builder.addEndBlend(Sugars.DISCOUNT, Items.EMERALD_BLOCK);
     }
 
     public static void addCustomBlendProviders(Consumer<Builder> consumer) {
@@ -82,6 +122,10 @@ public class SugarRefining
         addModBlends(builder);
         customBlendProviders.forEach(p -> p.accept(builder));
         sugarRefining = builder.build();
+    }
+
+    private static Ingredient tagIngredient(TagKey<Item> tag) {
+        return Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(tag));
     }
 
     public static class Builder

@@ -77,6 +77,15 @@ public class ItemRegistry {
                             .setId(ResourceKey.create(Registries.ITEM, key))
             )
     );
+    // TODO rename
+    public static final DeferredItem<Item> SWEET_MELON_SLICE = ITEMS.register(
+            "sweet_melon_slice",
+            key -> new Item(
+                    new Item.Properties()
+                            .food(FoodsAndConsumables.SWEET_LEMON_SLICE_FOOD, FoodsAndConsumables.SWEET_LEMON_SLICE_CONSUMABLE)
+                            .setId(ResourceKey.create(Registries.ITEM, key))
+            )
+    );
     public static final DeferredItem<Item> PHANTOM_PEARL = ITEMS.registerSimpleItem("phantom_pearl");
     public static final DeferredItem<Item> CALCIUM_RICH_MILK = ITEMS.register(
             "calcium_rich_milk",
@@ -156,26 +165,26 @@ public class ItemRegistry {
             TABS.register(
                     "candy",
                     () -> CreativeModeTab.builder()
-                                         .title(Component.translatable("itemGroup." + CandyWorkshop.MODID + ".candy"))
-                                         .icon(() -> new ItemStack(Items.MILK_BUCKET))
-                                         .displayItems(
-                                                 (parameters, output) ->
-                                                 {
-                                                     output.accept(Items.MILK_BUCKET);
-                                                     output.accept(GUMMY_ITEM);
-                                                     ITEMS.getEntries().forEach(
-                                                             holder -> output.accept(holder.get())
-                                                     );
-                                                     parameters.holders()
-                                                               .lookup(RegRegistry.SUGAR_KEY)
-                                                               .ifPresent(
-                                                                       lookups -> generateSugarTypes(output,
-                                                                                                     lookups,
-                                                                                                     CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS
-                                                                       )
-                                                               );
-                                                 }
-                                         ).build()
+                            .title(Component.translatable("itemGroup." + CandyWorkshop.MODID + ".candy"))
+                            .icon(() -> new ItemStack(Items.MILK_BUCKET))
+                            .displayItems(
+                                    (parameters, output) ->
+                                    {
+                                        output.accept(Items.MILK_BUCKET);
+                                        output.accept(GUMMY_ITEM);
+                                        ITEMS.getEntries().forEach(
+                                                holder -> output.accept(holder.get())
+                                        );
+                                        parameters.holders()
+                                                .lookup(RegRegistry.SUGAR_KEY)
+                                                .ifPresent(
+                                                        lookups -> generateSugarTypes(output,
+                                                                lookups,
+                                                                CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS
+                                                        )
+                                                );
+                                    }
+                            ).build()
             );
 
     private static TagKey<Item> tag(String namespace, String name) {
