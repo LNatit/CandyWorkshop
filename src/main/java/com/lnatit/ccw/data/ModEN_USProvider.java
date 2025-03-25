@@ -59,7 +59,7 @@ public class ModEN_USProvider extends LanguageProvider {
 
         for (DeferredHolder<Sugar, ? extends Sugar> sugar : Sugars.SUGARS.getEntries()) {
             for (Sugar.Flavor flavor : sugar.get().getAvailableTypes()) {
-                this.add("item." + CandyWorkshop.MODID + ".gummy." + sugar.get().name() + "." + flavor.name, "placeholder");
+                this.add("item." + CandyWorkshop.MODID + ".gummy." + sugar.get().name() + "." + flavor.name, "placeholder:" + sugar.get().name());
             }
         }
     }
