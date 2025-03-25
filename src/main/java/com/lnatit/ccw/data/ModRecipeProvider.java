@@ -1,5 +1,6 @@
 package com.lnatit.ccw.data;
 
+import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.item.crafting.RepairExtractorRecipe;
 import net.minecraft.core.HolderLookup;
@@ -19,8 +20,7 @@ import net.neoforged.neoforge.common.crafting.DataComponentIngredient;
 
 import java.util.concurrent.CompletableFuture;
 
-public class ModRecipeProvider extends RecipeProvider
-{
+public class ModRecipeProvider extends RecipeProvider {
     protected ModRecipeProvider(HolderLookup.Provider registries, RecipeOutput output) {
         super(registries, output);
     }
@@ -46,151 +46,159 @@ public class ModRecipeProvider extends RecipeProvider
                 .unlockedBy("has_paper", has(Items.PAPER))
                 .save(this.output);
 
+//        this.shaped(RecipeCategory.MISC, ItemRegistry.CARTON_MILK, 128) // wtf?
+//                .define('U', Items.MILK_BUCKET)
+//                .define('#', ItemRegistry.MILK_PACKAGING)
+//                .pattern("UUU")
+//                .pattern("U#U")
+//                .pattern("UUU")
+//                .unlockedBy("has_packaging", has(ItemRegistry.MILK_PACKAGING))
+//                .save(this.output);
+
         // TODO do we need to modify count to let a 8 bucket recipe makes sense?
 
         // TODO modify unlock requirements
         SpecialRecipeBuilder.special(RepairExtractorRecipe::new)
-                            .save(this.output, "repair_extractor");
+                .save(this.output, CandyWorkshop.MODID + ":repair_extractor");
 
         this.shapeless(RecipeCategory.BREWING, ItemRegistry.NETHER_SUGAR)
-            .requires(Items.NETHER_WART)
-            .requires(Items.SUGAR, 8)
-            .unlockedBy("has_milk_carton", this.has(ItemRegistry.CARTON_MILK_TAG))
-            .save(this.output);
+                .requires(Items.NETHER_WART)
+                .requires(Items.SUGAR, 8)
+                .unlockedBy("has_milk_carton", this.has(ItemRegistry.CARTON_MILK_TAG))
+                .save(this.output);
 
         this.shapeless(RecipeCategory.BREWING, ItemRegistry.ENDER_SUGAR)
-            .requires(Items.DRAGON_BREATH)
-            .requires(Items.SUGAR, 8)
-            .unlockedBy("has_milk_carton", this.has(ItemRegistry.CARTON_MILK_TAG))
-            .save(this.output);
+                .requires(Items.DRAGON_BREATH)
+                .requires(Items.SUGAR, 8)
+                .unlockedBy("has_milk_carton", this.has(ItemRegistry.CARTON_MILK_TAG))
+                .save(this.output);
 
         this.shaped(RecipeCategory.BREWING, ItemRegistry.ENERGY_CARROT)
-            .define('#', Items.REDSTONE)
-            .define('X', Items.CARROT)
-            .pattern("###")
-            .pattern("#X#")
-            .pattern("###")
-            .unlockedBy("has_milk_carton", this.has(ItemRegistry.CARTON_MILK_TAG))
-            .save(this.output);
+                .define('#', Items.REDSTONE)
+                .define('X', Items.CARROT)
+                .pattern("###")
+                .pattern("#X#")
+                .pattern("###")
+                .unlockedBy("has_milk_carton", this.has(ItemRegistry.CARTON_MILK_TAG))
+                .save(this.output);
 
         this.shapeless(RecipeCategory.BREWING, ItemRegistry.PHANTOM_PEARL)
-            .requires(Items.PHANTOM_MEMBRANE)
-            .requires(Items.ENDER_PEARL)
-            .unlockedBy("has_milk_carton", this.has(ItemRegistry.CARTON_MILK_TAG))
-            .save(this.output);
+                .requires(Items.PHANTOM_MEMBRANE)
+                .requires(Items.ENDER_PEARL)
+                .unlockedBy("has_milk_carton", this.has(ItemRegistry.CARTON_MILK_TAG))
+                .save(this.output);
 
         this.shaped(RecipeCategory.BREWING, ItemRegistry.CALCIUM_RICH_MILK)
-            .define('#', Items.BONE)
-            .define('X', ItemRegistry.CARTON_MILK_TAG)
-            .pattern(" # ")
-            .pattern("#X#")
-            .pattern(" # ")
-            .unlockedBy("has_milk_carton", this.has(ItemRegistry.CARTON_MILK_TAG))
-            .save(this.output);
+                .define('#', Items.BONE)
+                .define('X', ItemRegistry.CARTON_MILK_TAG)
+                .pattern(" # ")
+                .pattern("#X#")
+                .pattern(" # ")
+                .unlockedBy("has_milk_carton", this.has(ItemRegistry.CARTON_MILK_TAG))
+                .save(this.output);
 
         this.shaped(RecipeCategory.BREWING, ItemRegistry.VOID_CARROT)
-            .define('#', Items.BLACK_DYE)
-            .define('X', Items.CARROT)
-            .pattern("###")
-            .pattern("#X#")
-            .pattern("###")
-            .unlockedBy("has_milk_carton", this.has(ItemRegistry.CARTON_MILK_TAG))
-            .save(this.output);
+                .define('#', Items.BLACK_DYE)
+                .define('X', Items.CARROT)
+                .pattern("###")
+                .pattern("#X#")
+                .pattern("###")
+                .unlockedBy("has_milk_carton", this.has(ItemRegistry.CARTON_MILK_TAG))
+                .save(this.output);
 
         this.shapeless(RecipeCategory.BREWING, ItemRegistry.WEAKNESS_POWDER)
-            .requires(Items.BLAZE_POWDER)
-            .requires(Items.FERMENTED_SPIDER_EYE)
-            .unlockedBy("has_milk_carton", this.has(ItemRegistry.CARTON_MILK_TAG))
-            .save(this.output);
+                .requires(Items.BLAZE_POWDER)
+                .requires(Items.FERMENTED_SPIDER_EYE)
+                .unlockedBy("has_milk_carton", this.has(ItemRegistry.CARTON_MILK_TAG))
+                .save(this.output);
 
         this.shaped(RecipeCategory.BREWING, ItemRegistry.IRON_CLAD_APPLE)
-            .define('#', Items.IRON_NUGGET)
-            .define('X', Items.APPLE)
-            .pattern("###")
-            .pattern("#X#")
-            .pattern("###")
-            .unlockedBy("has_milk_carton", this.has(ItemRegistry.CARTON_MILK_TAG))
-            .save(this.output);
+                .define('#', Items.IRON_NUGGET)
+                .define('X', Items.APPLE)
+                .pattern("###")
+                .pattern("#X#")
+                .pattern("###")
+                .unlockedBy("has_milk_carton", this.has(ItemRegistry.CARTON_MILK_TAG))
+                .save(this.output);
 
         this.shaped(RecipeCategory.BREWING, ItemRegistry.GOLD_STUDDED_APPLE)
-            .define('#', Items.GOLD_NUGGET)
-            .define('X', Items.APPLE)
-            .pattern("###")
-            .pattern("#X#")
-            .pattern("###")
-            .unlockedBy("has_milk_carton", this.has(ItemRegistry.CARTON_MILK_TAG))
-            .save(this.output);
+                .define('#', Items.GOLD_NUGGET)
+                .define('X', Items.APPLE)
+                .pattern("###")
+                .pattern("#X#")
+                .pattern("###")
+                .unlockedBy("has_milk_carton", this.has(ItemRegistry.CARTON_MILK_TAG))
+                .save(this.output);
 
         this.shaped(RecipeCategory.BREWING, ItemRegistry.BLESSED_STEAK)
-            .define('#', Items.GOLD_INGOT)
-            .define('X', Items.COOKED_BEEF)
-            .pattern("###")
-            .pattern("#X#")
-            .pattern("###")
-            .unlockedBy("has_milk_carton", this.has(ItemRegistry.CARTON_MILK_TAG))
-            .save(this.output);
+                .define('#', Items.GOLD_INGOT)
+                .define('X', Items.COOKED_BEEF)
+                .pattern("###")
+                .pattern("#X#")
+                .pattern("###")
+                .unlockedBy("has_milk_carton", this.has(ItemRegistry.CARTON_MILK_TAG))
+                .save(this.output);
 
         this.shaped(RecipeCategory.BREWING, ItemRegistry.GREEDY_OFFERING)
-            .define('#', Items.EMERALD)
-            .define('X', Items.BOWL)
-            .pattern(" # ")
-            .pattern("###")
-            .pattern(" X ")
-            .unlockedBy("has_milk_carton", this.has(ItemRegistry.CARTON_MILK_TAG))
-            .save(this.output);
+                .define('#', Items.EMERALD)
+                .define('X', Items.BOWL)
+                .pattern(" # ")
+                .pattern("###")
+                .pattern(" X ")
+                .unlockedBy("has_milk_carton", this.has(ItemRegistry.CARTON_MILK_TAG))
+                .save(this.output);
 
         this.shaped(RecipeCategory.BREWING, ItemRegistry.DEFILED_OFFERING)
-            .define('#', Items.COAL)
-            .define('X', Items.BOWL)
-            .pattern(" # ")
-            .pattern("###")
-            .pattern(" X ")
-            .unlockedBy("has_milk_carton", this.has(ItemRegistry.CARTON_MILK_TAG))
-            .save(this.output);
+                .define('#', Items.COAL)
+                .define('X', Items.BOWL)
+                .pattern(" # ")
+                .pattern("###")
+                .pattern(" X ")
+                .unlockedBy("has_milk_carton", this.has(ItemRegistry.CARTON_MILK_TAG))
+                .save(this.output);
 
         this.shaped(RecipeCategory.BREWING, ItemRegistry.DOLPHIN_COOKIE)
-            .define('#', Tags.Items.FOODS_RAW_FISH)
-            .define('X', Items.COOKIE)
-            .pattern(" # ")
-            .pattern("#X#")
-            .pattern(" # ")
-            .unlockedBy("has_milk_carton", this.has(ItemRegistry.CARTON_MILK_TAG))
-            .save(this.output);
+                .define('#', Tags.Items.FOODS_RAW_FISH)
+                .define('X', Items.COOKIE)
+                .pattern(" # ")
+                .pattern("#X#")
+                .pattern(" # ")
+                .unlockedBy("has_milk_carton", this.has(ItemRegistry.CARTON_MILK_TAG))
+                .save(this.output);
 
         Ingredient ominous_banner = new Ingredient(
                 new DataComponentIngredient(
                         HolderSet.direct(Items.WHITE_BANNER.builtInRegistryHolder()),
                         DataComponentPredicate.allOf(
                                 Raid.getOminousBannerInstance(this.registries.lookupOrThrow(Registries.BANNER_PATTERN))
-                                    .getComponents()
+                                        .getComponents()
                         ),
                         false
                 )
         );
         this.shaped(RecipeCategory.BREWING, ItemRegistry.OMINOUS_FLAG)
-            .define('#', ominous_banner)
-            .define('X', Items.EMERALD)
-            .pattern("# #")
-            .pattern(" X ")
-            .pattern("# #")
-            .unlockedBy("has_milk_carton", this.has(ItemRegistry.CARTON_MILK_TAG))
-            .save(this.output);
+                .define('#', ominous_banner)
+                .define('X', Items.EMERALD)
+                .pattern("# #")
+                .pattern(" X ")
+                .pattern("# #")
+                .unlockedBy("has_milk_carton", this.has(ItemRegistry.CARTON_MILK_TAG))
+                .save(this.output);
 
         this.shapeless(RecipeCategory.BREWING, ItemRegistry.MILK_GELATIN)
-            .requires(ItemRegistry.CARTON_MILK_TAG)
-            .requires(Tags.Items.SLIME_BALLS)
-            .unlockedBy("has_milk_carton", this.has(ItemRegistry.CARTON_MILK_TAG))
-            .save(this.output);
+                .requires(ItemRegistry.CARTON_MILK_TAG)
+                .requires(Tags.Items.SLIME_BALLS)
+                .unlockedBy("has_milk_carton", this.has(ItemRegistry.CARTON_MILK_TAG))
+                .save(this.output);
 
         this.shapeless(RecipeCategory.BREWING, ItemRegistry.MILK_GELATIN, 8)
                 .requires(Items.MILK_BUCKET)
                 .requires(Items.SLIME_BALL, 8)
                 .unlockedBy("has_milk_carton", this.has(ItemRegistry.CARTON_MILK_TAG))
-                .save(this.output, "milk_gelatin_from_milk_bucket");
+                .save(this.output, CandyWorkshop.MODID + ":milk_gelatin_from_milk_bucket");
     }
 
-    public static class Runner extends RecipeProvider.Runner
-    {
+    public static class Runner extends RecipeProvider.Runner {
         protected Runner(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> registries) {
             super(packOutput, registries);
         }

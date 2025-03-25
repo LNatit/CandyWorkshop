@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:milk_gelatin_from_milk_bucket"
+        "recipe": "ccw:milk_gelatin_from_milk_bucket"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:milk_gelatin_from_milk_bucket"
+      "ccw:milk_gelatin_from_milk_bucket"
     ]
   }
 }

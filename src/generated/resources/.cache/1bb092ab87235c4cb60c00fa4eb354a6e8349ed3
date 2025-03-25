@@ -1,4 +1,4 @@
-// 1.21.4	2025-03-24T22:10:15.7399149	CandyWorkshop Recipes
+// 1.21.4	2025-03-25T12:54:59.6630637	CandyWorkshop Recipes
 da02b386fb1b68b6080ca214a11d682407f74e43 data/ccw/advancement/recipes/brewing/blessed_steak.json
 fbc5deb0754d845164d5551e9854ffd98e6fc25c data/ccw/advancement/recipes/brewing/calcium_rich_milk.json
 75fa66f03fd680e0a1f74a71d97ff1f91b3c9e95 data/ccw/advancement/recipes/brewing/defiled_offering.json
@@ -9,6 +9,7 @@ c3a9abfae9b63319f5b936562dc548614b29f00d data/ccw/advancement/recipes/brewing/go
 52ffd2558d9f27fe073f98407ae31ae8748cd245 data/ccw/advancement/recipes/brewing/greedy_offering.json
 a594a6275e8de94ce6f548ef06e2c2a3649c297e data/ccw/advancement/recipes/brewing/iron_clad_apple.json
 297f831133281e02390e23965b2ff6d8d579fd60 data/ccw/advancement/recipes/brewing/milk_gelatin.json
+2d672250ebef313e3142c00d4d8426402165b29b data/ccw/advancement/recipes/brewing/milk_gelatin_from_milk_bucket.json
 c6adf45a2e231ba8337cb9c384cc7ee4d709fe58 data/ccw/advancement/recipes/brewing/nether_sugar.json
 143107c155efed20b65874368121f391430db514 data/ccw/advancement/recipes/brewing/ominous_flag.json
 c34b77af103f74ddaa03d21ea8e427af3be02524 data/ccw/advancement/recipes/brewing/phantom_pearl.json
@@ -27,12 +28,11 @@ ad024d143ef4cbc2718791fa836fcb51d848bbc0 data/ccw/recipe/energy_carrot.json
 f0c606186c4ea6eda7b358e425f888ebce35ed8b data/ccw/recipe/iron_clad_apple.json
 0b438b4753927cbc6fbbf494c69d5e3bbc308a11 data/ccw/recipe/milk_extractor.json
 86c847fec8b9b66496102553dfafc18104df143a data/ccw/recipe/milk_gelatin.json
+588a462977194d593bee43bb3a08b5bf3268cf6a data/ccw/recipe/milk_gelatin_from_milk_bucket.json
 c3c7c5b4e5f6000ede96b9d386e3cb806fa4ff47 data/ccw/recipe/milk_packaging.json
 2ab8a71a42e2fb42f945620ca9e520e94b89172d data/ccw/recipe/nether_sugar.json
 824a9a818caea8373ef0ade5acb9511bafeabc78 data/ccw/recipe/ominous_flag.json
 bcf90be44688aa0e4f325830a613f5fc23f99fdc data/ccw/recipe/phantom_pearl.json
+86f0b3dc8e37458e73af16da675a891a8ff044ce data/ccw/recipe/repair_extractor.json
 8c8a8e5bef805183b31809203ff02b6951670d70 data/ccw/recipe/void_carrot.json
 e0912631ab071b52327599f45a88e379aca203d5 data/ccw/recipe/weakness_powder.json
-a478ca206cf23f0f7dc4c152f42198c58177b1ca data/minecraft/advancement/recipes/brewing/milk_gelatin_from_milk_bucket.json
-588a462977194d593bee43bb3a08b5bf3268cf6a data/minecraft/recipe/milk_gelatin_from_milk_bucket.json
-86f0b3dc8e37458e73af16da675a891a8ff044ce data/minecraft/recipe/repair_extractor.json

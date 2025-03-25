@@ -1,10 +1,6 @@
 {
   "values": [
     "ccw:carton_milk",
-    "ccw:calcium_rich_milk",
-    {
-      "id": "kitchenkarrot:milk",
-      "required": false
-    }
+    "ccw:calcium_rich_milk"
   ]
 }

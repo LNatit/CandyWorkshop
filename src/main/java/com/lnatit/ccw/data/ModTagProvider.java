@@ -5,7 +5,6 @@ import com.lnatit.ccw.item.ItemRegistry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 
@@ -40,7 +39,8 @@ public class ModTagProvider
             this.tag(ItemRegistry.CARTON_MILK_TAG)
                 .add(ItemRegistry.CARTON_MILK.get())
                 .add(ItemRegistry.CALCIUM_RICH_MILK.get())
-                .addOptional(ResourceLocation.parse("kitchenkarrot:milk"));
+//                .addOptional(ResourceLocation.parse("kitchenkarrot:milk"))
+            ;
         }
     }
 }
