@@ -63,7 +63,7 @@ public class SugarRefining
 
         for (Blend blend : sugarBlends) {
             if (sugar.is(blend.sugar) && blend.main.test(main)) {
-                return Sugar.createSugar(blend.output, Sugar.Flavor.fromExtra(extra));
+                return Sugar.createSugar(blend.output, SingleEffectSugar.Flavor.fromExtra(extra));
             }
         }
         return ItemStack.EMPTY;
@@ -79,6 +79,7 @@ public class SugarRefining
         builder.addOverworldBlend(Sugars.NIGHT_VISION, Items.GOLDEN_CARROT);
         builder.addOverworldBlend(Sugars.STRENGTH, Items.BLAZE_POWDER);
         builder.addOverworldBlend(Sugars.RECOVERY, Items.GHAST_TEAR, ItemRegistry.SWEET_MELON_SLICE.get());
+        builder.addOverworldBlend(Sugars.TURTLE, Items.TURTLE_SCUTE);
         builder.addOverworldBlend(Sugars.FLUTTER, Items.PHANTOM_MEMBRANE);
         builder.addOverworldBlend(Sugars.SNAIL, Items.SOUL_SAND);
         builder.addBlend(Sugars.STINKY, Items.SUGAR, tagIngredient(Tags.Items.MUSHROOMS));

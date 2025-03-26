@@ -1,4 +1,4 @@
-// 1.21.4	2025-03-25T22:50:28.0614892	Model Definitions - ccw
+// 1.21.4	2025-03-26T16:44:21.0770654	Model Definitions - ccw
 a9449129efdcd8d56a9843f6f9f2c11f1c1947fc assets/ccw/blockstates/sugar_refinery.json
 bd3e196ca948649c926c64a02cb60df44a96ebaa assets/ccw/items/binding_gummy.json
 5c8756f15851d606a5f381228b17cbf6488af02b assets/ccw/items/blessed_steak.json
@@ -52,6 +52,7 @@ f667874777e6b3d7bfad34f32c1a7d51c11bbae2 assets/ccw/items/strength_gummy.json
 847a4d01c694b6ce57783a8a4ce1542ffdaf4c6d assets/ccw/items/sugar_refinery.json
 8d148b4c1d008ded33e8191f13ac23f746bc6d37 assets/ccw/items/taunting_gummy.json
 c4ce33f0339eb8e3b244b069c57c2222e4edc516 assets/ccw/items/tidal_gummy.json
+d2b70a6befa700e02e8fff8ffe67236c17f76b39 assets/ccw/items/turtle_gummy.json
 57f019bd894f6c3a4b110d60c08aaa75c68597e2 assets/ccw/items/unlucky_gummy.json
 f9dcfde23eb0886a7e223b98ac0931b65c50313f assets/ccw/items/void_carrot.json
 d78bc32e4f8998f668118cae6f0d85d1455d6bd3 assets/ccw/items/weakness_gummy.json
@@ -109,6 +110,7 @@ b4fedddcb52655508e307956959650df1407b899 assets/ccw/models/item/solid_gummy.json
 cb3839d636e87962e3046e7bc33af6f9c310a42b assets/ccw/models/item/strength_gummy.json
 422f31933a9554d1d03066dd91bdb49a697797ee assets/ccw/models/item/taunting_gummy.json
 804fa7a4e5e349d1fd5b48f82f3473eebe4b8f81 assets/ccw/models/item/tidal_gummy.json
+ac65d2157e8f2c2fa9e47f2639f6946c02f0b496 assets/ccw/models/item/turtle_gummy.json
 5f1229fbb78acf153e1dcedc6ae9a5deeada1a4c assets/ccw/models/item/unlucky_gummy.json
 b2780fa4a4454566600c06be333af5b05329df97 assets/ccw/models/item/void_carrot.json
 6951d5cc5bb27d88e23f6fe970348df9e6eed23c assets/ccw/models/item/weakness_gummy.json

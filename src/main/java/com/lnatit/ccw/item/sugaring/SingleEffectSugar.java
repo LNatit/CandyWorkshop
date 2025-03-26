@@ -1,0 +1,111 @@
+package com.lnatit.ccw.item.sugaring;
+
+import net.minecraft.core.Holder;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
+
+import javax.annotation.Nullable;
+
+public class SingleEffectSugar extends Sugar {
+    private final Holder<MobEffect> effect;
+    private final int duration;
+
+    private SingleEffectSugar(String name, Holder<MobEffect> effect, int duration, boolean hasExcited, boolean hasBold) {
+        super(name, hasExcited, hasBold);
+        this.effect = effect;
+        this.duration = duration;
+    }
+
+    @Override
+    public void applyOn(LivingEntity entity, Flavor flavor) {
+        if (entity.level() instanceof ServerLevel level) {
+            int duration = this.hasBold && flavor == Flavor.BOLD ? 2 * this.duration : this.duration;
+            int amplifier = this.hasExcited && flavor == Flavor.EXCITED ? 1 : 0;
+            if (flavor == Flavor.MILKY) {
+                for (Holder<MobEffect> effect : entity.getActiveEffectsMap().keySet())
+                {
+                    if (effect.getKey() != this.effect)
+                        entity.removeEffect(effect);
+                }
+            }
+
+            // Instantenous effect behaves differently
+            if (effect.value().isInstantenous()) {
+                effect.value().applyInstantenousEffect(level, entity, entity, entity, amplifier, 0.5);
+            } else {
+                MobEffectInstance exist = entity.getEffect(effect);
+                if (exist != null && !exist.isAmbient() && exist.getAmplifier() >= amplifier) {
+                    duration += exist.getDuration();
+                }
+                entity.addEffect(new MobEffectInstance(effect, duration, amplifier));
+            }
+        }
+    }
+
+    public static IEffectAcceptor builder(String name) {
+        return new Builder(name);
+    }
+
+    public static class Builder implements IEffectAcceptor, IOptionalAcceptor {
+        public static final int DEFAULT_DURATION = 600;
+
+        private final String name;
+        @Nullable
+        private Holder<MobEffect> effect;
+        private int duration = DEFAULT_DURATION;
+        private boolean hasExcited = true;
+        private boolean hasBold = true;
+
+        private Builder(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public IOptionalAcceptor withEffect(Holder<MobEffect> effect) {
+            this.effect = effect;
+            return this;
+        }
+
+        @Override
+        public IOptionalAcceptor withDuration(int duration) {
+            this.duration = duration;
+            return this;
+        }
+
+        @Override
+        public IBuilder withNoExcited() {
+            this.hasExcited = false;
+            return this;
+        }
+
+        @Override
+        public IBuilder withNoBold() {
+            this.hasBold = false;
+            return this;
+        }
+
+        @Override
+        public SingleEffectSugar build() {
+            assert effect != null;
+            return new SingleEffectSugar(name, effect, duration, hasExcited, hasBold);
+        }
+    }
+
+    public interface IEffectAcceptor {
+        IOptionalAcceptor withEffect(Holder<MobEffect> effect);
+    }
+
+    public interface IOptionalAcceptor extends IBuilder {
+        IOptionalAcceptor withDuration(int duration);
+
+        IBuilder withNoExcited();
+
+        IBuilder withNoBold();
+    }
+
+    public interface IBuilder {
+        SingleEffectSugar build();
+    }
+}

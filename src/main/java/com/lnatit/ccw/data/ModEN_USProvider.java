@@ -2,6 +2,7 @@ package com.lnatit.ccw.data;
 
 import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.item.ItemRegistry;
+import com.lnatit.ccw.item.sugaring.SingleEffectSugar;
 import com.lnatit.ccw.item.sugaring.Sugar;
 import com.lnatit.ccw.item.sugaring.Sugars;
 import net.minecraft.data.PackOutput;
@@ -62,7 +63,7 @@ public class ModEN_USProvider extends LanguageProvider {
         this.add("item.ccw.gummy.milky", "Milky");
 
         for (DeferredHolder<Sugar, ? extends Sugar> sugar : Sugars.SUGARS.getEntries()) {
-            for (Sugar.Flavor flavor : sugar.get().getAvailableTypes()) {
+            for (SingleEffectSugar.Flavor flavor : sugar.get().getAvailableTypes()) {
                 this.add("item." + CandyWorkshop.MODID + ".gummy." + sugar.get().name() + "." + flavor.name, "placeholder:" + sugar.get().name());
             }
         }
