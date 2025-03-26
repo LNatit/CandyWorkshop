@@ -4,10 +4,12 @@ import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.misc.RegRegistry;
 import com.mojang.serialization.Codec;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
@@ -22,7 +24,8 @@ import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 import javax.annotation.Nullable;
 import java.util.*;
 
-public class Sugar {
+public class Sugar
+{
     public static final Codec<Holder<Sugar>> CODEC = RegRegistry.SUGAR.holderByNameCodec();
     public static final StreamCodec<RegistryFriendlyByteBuf, Holder<Sugar>> STREAM_CODEC =
             ByteBufCodecs.holderRegistry(RegRegistry.SUGAR_KEY);
@@ -57,7 +60,8 @@ public class Sugar {
                 // Instantenous effect behaves differently
                 if (effect.value().isInstantenous()) {
                     effect.value().applyInstantenousEffect(level, entity, entity, entity, amplifier, 0.5);
-                } else {
+                }
+                else {
                     MobEffectInstance exist = entity.getEffect(effect);
                     if (exist != null && !exist.isAmbient() && exist.getAmplifier() >= amplifier) {
                         duration += exist.getDuration();
@@ -85,7 +89,8 @@ public class Sugar {
         return ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID, this.name).withSuffix("_gummy");
     }
 
-    public enum Flavor {
+    public enum Flavor
+    {
         ORIGINAL("original"),
         EXCITED("excited"),
         BOLD("bold"),
@@ -99,6 +104,32 @@ public class Sugar {
 
         Flavor(String name) {
             this.name = name;
+        }
+
+        public static Flavor fromExtra(ItemStack extra) {
+            if (extra.is(Items.COCOA_BEANS)) {
+                return EXCITED;
+            }
+            if (extra.is(Items.HONEY_BOTTLE)) {
+                return BOLD;
+            }
+            if (extra.is(ItemRegistry.MILK_GELATIN)) {
+                return MILKY;
+            }
+            return ORIGINAL;
+        }
+
+        @Nullable
+        public static Component descriptionOf(Flavor flavor) {
+            return switch (flavor) {
+                case EXCITED -> Component.translatable("item.ccw.gummy.excited")
+                                         .withStyle(ChatFormatting.DARK_GREEN, ChatFormatting.BOLD);
+                case BOLD -> Component.translatable("item.ccw.gummy.bold")
+                                      .withStyle(ChatFormatting.GOLD, ChatFormatting.BOLD);
+                case MILKY -> Component.translatable("item.ccw.gummy.milky")
+                                       .withStyle(ChatFormatting.WHITE, ChatFormatting.BOLD);
+                default -> null;
+            };
         }
 
         static String toName(Flavor flavor) {
@@ -115,23 +146,14 @@ public class Sugar {
                 default -> null;
             };
         }
-
-        public static Flavor fromExtra(ItemStack extra) {
-            if (extra.is(Items.COCOA_BEANS))
-                return EXCITED;
-            if (extra.is(Items.HONEY_BOTTLE))
-                return BOLD;
-            if (extra.is(ItemRegistry.MILK_GELATIN))
-                return MILKY;
-            return ORIGINAL;
-        }
     }
 
     public static IEffectAcceptor builder(String name) {
         return new Builder(name);
     }
 
-    public static class Builder implements IEffectAcceptor, IOptionalAcceptor {
+    public static class Builder implements IEffectAcceptor, IOptionalAcceptor
+    {
         public static final int DEFAULT_DURATION = 600;
 
         private final String name;
@@ -174,11 +196,13 @@ public class Sugar {
         }
     }
 
-    public interface IEffectAcceptor {
+    public interface IEffectAcceptor
+    {
         IOptionalAcceptor withEffect(Holder<MobEffect> effect);
     }
 
-    public interface IOptionalAcceptor extends IBuilder {
+    public interface IOptionalAcceptor extends IBuilder
+    {
         IOptionalAcceptor withDuration(int duration);
 
         IBuilder withNoExcited();
@@ -186,7 +210,8 @@ public class Sugar {
         IBuilder withNoBold();
     }
 
-    public interface IBuilder {
+    public interface IBuilder
+    {
         Sugar build();
     }
 

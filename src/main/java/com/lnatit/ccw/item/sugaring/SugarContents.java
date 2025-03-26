@@ -30,6 +30,7 @@ public record SugarContents(Optional<Holder<Sugar>> sugar, Sugar.Flavor flavor) 
             SugarContents::flavor,
             SugarContents::new
     );
+
     public static final SugarContents VANILLA = new SugarContents(Optional.empty(), Sugar.Flavor.ORIGINAL);
 
     public boolean is(Holder<Sugar> holder) {
@@ -50,7 +51,10 @@ public record SugarContents(Optional<Holder<Sugar>> sugar, Sugar.Flavor flavor) 
 
     public void addSugarTooltip(Consumer<Component> tooltipAdder, float durationFactor, float ticksPerSecond) {
         if (this.sugar.isPresent()) {
-            //TODO
+            Component desc = Sugar.Flavor.descriptionOf(this.flavor);
+            if (desc != null) {
+                tooltipAdder.accept(desc);
+            }
         }
     }
 
