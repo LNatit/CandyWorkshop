@@ -83,7 +83,7 @@ public class SugarRefining
         builder.addOverworldBlend(Sugars.FLUTTER, Items.PHANTOM_MEMBRANE);
         builder.addOverworldBlend(Sugars.SNAIL, Items.SOUL_SAND);
         builder.addBlend(Sugars.STINKY, Items.SUGAR, tagIngredient(Tags.Items.MUSHROOMS));
-        builder.addOverworldBlend(Sugars.BINDING, ItemRegistry.VOID_CARROT.get());
+        builder.addOverworldBlend(Sugars.BLINDING, ItemRegistry.VOID_CARROT.get());
         builder.addOverworldBlend(Sugars.WEAKNESS, ItemRegistry.WEAKNESS_POWDER.get());
         builder.addOverworldBlend(Sugars.BRIGHTNESS, Items.GLOW_BERRIES);
         builder.addOverworldBlend(Sugars.DARKNESS, Items.BLACK_DYE);
