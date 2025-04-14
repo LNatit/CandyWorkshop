@@ -62,6 +62,7 @@ public class ModModelProvider extends EnhancedModelProvider
         clientItemModels.gen().withId(ItemRegistry.ENDER_SUGAR).all();
 
         clientItemModels.gen().withId(ItemRegistry.ENERGY_CARROT).all();
+        clientItemModels.gen().withId(ItemRegistry.SWEET_MELON_SLICE).all();
         clientItemModels.gen().withId(ItemRegistry.PHANTOM_PEARL).all();
         clientItemModels.gen().withId(ItemRegistry.CALCIUM_RICH_MILK).all();
         clientItemModels.gen().withId(ItemRegistry.VOID_CARROT).all();
