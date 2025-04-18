@@ -1,5 +1,6 @@
 package com.lnatit.ccw.block;
 
+import com.lnatit.ccw.block.entity.IItemStackHandlerContainer;
 import com.lnatit.ccw.block.entity.SugarRefineryBlockEntity;
 import com.lnatit.ccw.misc.StatRegistry;
 import com.mojang.serialization.MapCodec;
@@ -9,6 +10,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -19,11 +21,15 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public class SugarRefineryBlock extends BaseEntityBlock {
+public class SugarRefineryBlock extends BaseEntityBlock
+{
     public static final MapCodec<SugarRefineryBlock> CODEC = simpleCodec(SugarRefineryBlock::new);
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final VoxelShape SHAPE = Block.box(1.0, 0.0, 1.0, 15.0, 7.0, 15.0);
 
     public SugarRefineryBlock(Properties properties) {
         super(properties);
@@ -62,8 +68,14 @@ public class SugarRefineryBlock extends BaseEntityBlock {
     }
 
     @Override
+    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return SHAPE;
+    }
+
+    @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        if (!level.isClientSide() && level.getBlockEntity(pos) instanceof SugarRefineryBlockEntity refineryBlockEntity) {
+        if (!level.isClientSide() && level.getBlockEntity(
+                pos) instanceof SugarRefineryBlockEntity refineryBlockEntity) {
             player.openMenu(refineryBlockEntity);
             player.awardStat(StatRegistry.INTERACT_WITH_SUGAR_REFINERY.get());
         }
@@ -72,7 +84,10 @@ public class SugarRefineryBlock extends BaseEntityBlock {
 
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return level.isClientSide ? null : createTickerHelper(blockEntityType, BlockRegistry.SUGAR_REFINERY_BETYPE.value(), SugarRefineryBlockEntity::serverTick);
+        return level.isClientSide ? null : createTickerHelper(blockEntityType,
+                                                              BlockRegistry.SUGAR_REFINERY_BETYPE.value(),
+                                                              SugarRefineryBlockEntity::serverTick
+        );
     }
 
     @Override
@@ -82,7 +97,10 @@ public class SugarRefineryBlock extends BaseEntityBlock {
     }
 
     @Override
-    protected RenderShape getRenderShape(BlockState state) {
-        return RenderShape.MODEL;
+    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+        if (level.getBlockEntity(pos) instanceof IItemStackHandlerContainer container) {
+            container.onRemove(state, newState, level, pos);
+        }
+        super.onRemove(state, level, pos, newState, movedByPiston);
     }
 }

@@ -28,7 +28,7 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.wrapper.RangedWrapper;
 import org.jetbrains.annotations.Nullable;
 
-public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvider, Nameable {
+public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvider, Nameable, IItemStackHandlerContainer {
     public static final Component DEFAULT_NAME = Component.translatable("container.sugar_refinery");
     private final Data data = new Data();
     @Nullable
@@ -91,6 +91,11 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
                 this.data.getDataAccess(),
                 ContainerLevelAccess.create(this.level, this.worldPosition)
         );
+    }
+
+    @Override
+    public ItemStackHandler getInventory() {
+        return this.data;
     }
 
     public class Data extends ItemStackHandler {

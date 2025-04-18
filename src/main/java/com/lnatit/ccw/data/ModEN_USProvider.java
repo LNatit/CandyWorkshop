@@ -20,14 +20,20 @@ public class ModEN_USProvider extends LanguageProvider {
         this.add("ccw", "Candy Workshop");
         this.add("itemGroup.ccw.candy", "Candy WorkShop");
         this.add("container.sugar_refinery", "Sugar Refinery");
+        this.add("container.drawer_table", "Drawer Table");
         this.add("container.sugar_refinery.pause", "Pause Refining...");
         this.add("container.sugar_refinery.start", "Start Refining...");
         this.add(ModSoundProvider.PLUG_OFF_SUBTITLE, "Plug-off");
         this.add(Tags.getTagTranslationKey(ItemRegistry.CARTON_MILK_TAG), "Carton Milk");
 
+        this.add("stat.ccw.interact_with_sugar_refinery", "Interact With Sugar Refinery");
+        this.add("stat.ccw.open_drawer_table", "Open Drawer Table");
+
         this.add(ItemRegistry.GUMMY_ITEM.get(), "Gummy");
 
         this.add(ItemRegistry.SUGAR_REFINERY.get(), "Sugar Refinery");
+        this.add(ItemRegistry.PLAIN_DRAWER_TABLE.get(), "Plain Drawer Table");
+        this.add(ItemRegistry.DRAWER_TABLE.get(), "Drawer Table");
         this.add(ItemRegistry.MILK_EXTRACTOR.get(), "Untellable Tooldles");
         this.add(ItemRegistry.MILK_PACKAGING.get(), "Milk Packaging");
         this.add(ItemRegistry.CARTON_MILK.get(), "Carton Milk");

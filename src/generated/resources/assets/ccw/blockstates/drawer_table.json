@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "ccw:block/drawer_table",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "ccw:block/drawer_table"
+    },
+    "facing=south": {
+      "model": "ccw:block/drawer_table",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "ccw:block/drawer_table",
+      "y": 270
+    }
+  }
+}

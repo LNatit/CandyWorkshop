@@ -50,6 +50,8 @@ public class ItemRegistry {
                     )
             );
     public static final DeferredItem<BlockItem> SUGAR_REFINERY = ITEMS.registerSimpleBlockItem(BlockRegistry.SUGAR_REFINERY);
+    public static final DeferredItem<BlockItem> PLAIN_DRAWER_TABLE = ITEMS.registerSimpleBlockItem(BlockRegistry.PLAIN_DRAWER_TABLE);
+    public static final DeferredItem<BlockItem> DRAWER_TABLE = ITEMS.registerSimpleBlockItem(BlockRegistry.DRAWER_TABLE);
     public static final DeferredItem<MilkExtractorItem> MILK_EXTRACTOR = ITEMS.register(
             "milk_extractor",
             key -> new MilkExtractorItem(

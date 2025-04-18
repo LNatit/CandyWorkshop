@@ -1,6 +1,7 @@
 package com.lnatit.ccw.data;
 
 import com.lnatit.ccw.CandyWorkshop;
+import com.lnatit.ccw.block.BlockRegistry;
 import com.lnatit.ccw.item.ItemRegistry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -20,7 +21,9 @@ public class ModTagProvider
 
         @Override
         protected void addTags(HolderLookup.Provider provider) {
-
+            this.tag(BlockRegistry.DRAWER_TABLE_TAG)
+                .add(BlockRegistry.PLAIN_DRAWER_TABLE.get())
+                .add(BlockRegistry.DRAWER_TABLE.get());
         }
     }
 

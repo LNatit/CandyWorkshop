@@ -1,6 +1,9 @@
 {
+  "block.ccw.drawer_table": "Drawer Table",
+  "block.ccw.plain_drawer_table": "Plain Drawer Table",
   "block.ccw.sugar_refinery": "Sugar Refinery",
   "ccw": "Candy Workshop",
+  "container.drawer_table": "Drawer Table",
   "container.sugar_refinery": "Sugar Refinery",
   "container.sugar_refinery.pause": "Pause Refining...",
   "container.sugar_refinery.start": "Start Refining...",
@@ -168,5 +171,7 @@
   "item.ccw.weakness_powder": "Weakness Powder",
   "itemGroup.ccw.candy": "Candy WorkShop",
   "sound.ccw.plug_off": "Plug-off",
+  "stat.ccw.interact_with_sugar_refinery": "Interact With Sugar Refinery",
+  "stat.ccw.open_drawer_table": "Open Drawer Table",
   "tag.item.ccw.carton_milk": "Carton Milk"
 }

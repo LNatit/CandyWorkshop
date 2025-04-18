@@ -1,6 +1,8 @@
 package com.lnatit.ccw.block;
 
 import com.lnatit.ccw.block.entity.DrawerTableBlockEntity;
+import com.lnatit.ccw.block.entity.IItemStackHandlerContainer;
+import com.lnatit.ccw.misc.StatRegistry;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -10,15 +12,12 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.function.Supplier;
 
 public class DrawerTableBlock extends BaseEntityBlock
 {
@@ -62,12 +61,33 @@ public class DrawerTableBlock extends BaseEntityBlock
     }
 
     @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        return super.useWithoutItem(state, level, pos, player, hitResult);
+    protected boolean hasAnalogOutputSignal(BlockState state) {
+        return true;
     }
 
     @Override
-    protected RenderShape getRenderShape(BlockState state) {
-        return RenderShape.MODEL;
+    protected int getAnalogOutputSignal(BlockState blockState, Level level, BlockPos pos) {
+        if (level.getBlockEntity(pos) instanceof IItemStackHandlerContainer container) {
+            return container.getAnalogOutput();
+        }
+        return 0;
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        if (!level.isClientSide() && level.getBlockEntity(
+                pos) instanceof DrawerTableBlockEntity drawerTableBlockEntity) {
+            player.openMenu(drawerTableBlockEntity);
+            player.awardStat(StatRegistry.OPEN_DRAWER_TABLE.get());
+        }
+        return InteractionResult.SUCCESS;
+    }
+
+    @Override
+    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+        if (level.getBlockEntity(pos) instanceof IItemStackHandlerContainer container) {
+            container.onRemove(state, newState, level, pos);
+        }
+        super.onRemove(state, level, pos, newState, movedByPiston);
     }
 }

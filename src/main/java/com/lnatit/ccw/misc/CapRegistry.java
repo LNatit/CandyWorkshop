@@ -2,6 +2,7 @@ package com.lnatit.ccw.misc;
 
 import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.block.BlockRegistry;
+import com.lnatit.ccw.block.entity.DrawerTableBlockEntity;
 import com.lnatit.ccw.block.entity.SugarRefineryBlockEntity;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -16,6 +17,12 @@ public class CapRegistry {
                 Capabilities.ItemHandler.BLOCK,
                 BlockRegistry.SUGAR_REFINERY_BETYPE.get(),
                 SugarRefineryBlockEntity::accessInventory
+        );
+
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                BlockRegistry.DRAWER_TABLE_BETYPE.get(),
+                DrawerTableBlockEntity::accessInventory
         );
     }
 }

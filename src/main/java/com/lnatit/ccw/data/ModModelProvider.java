@@ -30,11 +30,29 @@ public class ModModelProvider extends EnhancedModelProvider
 
     @Override
     protected void registerModels(BlockModelGenerators blockModels, @NotNull ItemModelGenerators itemModels, @NotNull ClientItemModelGenerators clientItemModels) {
-        ResourceLocation sugarRefineryModel = BlockRegistry.SUGAR_REFINERY.getId().withPrefix("block/");
-        blockModels.registerSimpleItemModel(ItemRegistry.SUGAR_REFINERY.get(), sugarRefineryModel);
+        ResourceLocation model = BlockRegistry.SUGAR_REFINERY.getId().withPrefix("block/");
+        blockModels.registerSimpleItemModel(ItemRegistry.SUGAR_REFINERY.get(), model);
         blockModels.blockStateOutput.accept(
                 MultiVariantGenerator.multiVariant(BlockRegistry.SUGAR_REFINERY.get(),
-                                                   Variant.variant().with(VariantProperties.MODEL, sugarRefineryModel)
+                                                   Variant.variant().with(VariantProperties.MODEL, model)
+                                     )
+                                     .with(createHorizontalFacingDispatch())
+        );
+
+        model = BlockRegistry.PLAIN_DRAWER_TABLE.getId().withPrefix("block/");
+        blockModels.registerSimpleItemModel(ItemRegistry.PLAIN_DRAWER_TABLE.get(), model);
+        blockModels.blockStateOutput.accept(
+                MultiVariantGenerator.multiVariant(BlockRegistry.PLAIN_DRAWER_TABLE.get(),
+                                                   Variant.variant().with(VariantProperties.MODEL, model)
+                                     )
+                                     .with(createHorizontalFacingDispatch())
+        );
+
+        model = BlockRegistry.DRAWER_TABLE.getId().withPrefix("block/");
+        blockModels.registerSimpleItemModel(ItemRegistry.DRAWER_TABLE.get(), model);
+        blockModels.blockStateOutput.accept(
+                MultiVariantGenerator.multiVariant(BlockRegistry.DRAWER_TABLE.get(),
+                                                   Variant.variant().with(VariantProperties.MODEL, model)
                                      )
                                      .with(createHorizontalFacingDispatch())
         );

@@ -15,4 +15,9 @@ public class StatRegistry {
                     "interact_with_sugar_refinery",
                     () -> ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID, "interact_with_sugar_refinery")
             );
+    public static final DeferredHolder<ResourceLocation, ResourceLocation> OPEN_DRAWER_TABLE =
+            STATS.register(
+                    "open_drawer_table",
+                    () -> ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID, "open_drawer_table")
+            );
 }

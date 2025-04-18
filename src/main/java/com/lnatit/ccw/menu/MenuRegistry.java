@@ -13,4 +13,6 @@ public class MenuRegistry {
 
     public static final DeferredHolder<MenuType<?>, MenuType<SugarRefineryMenu>> SUGAR_REFINERY =
             MENUS.register("sugar_refinery", () -> new MenuType<>(SugarRefineryMenu::new, FeatureFlags.DEFAULT_FLAGS));
+    public static final DeferredHolder<MenuType<?>, MenuType<DrawerTableMenu>> DRAWER_TABLE =
+            MENUS.register("drawer_table", () -> new MenuType<>(DrawerTableMenu::new, FeatureFlags.DEFAULT_FLAGS));
 }
