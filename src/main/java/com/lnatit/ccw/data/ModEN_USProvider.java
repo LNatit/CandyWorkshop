@@ -64,9 +64,9 @@ public class ModEN_USProvider extends LanguageProvider {
         this.add("item.ccw.carton_milk,desc0", "");
         this.add("item.ccw.carton_milk,desc1", "");
 
-        this.add("item.ccw.gummy.excited", "Excited");
-        this.add("item.ccw.gummy.bold", "Bold");
-        this.add("item.ccw.gummy.milky", "Milky");
+        this.add("item.ccw.gummy.excited.prefix", "Excited");
+        this.add("item.ccw.gummy.bold.prefix", "Bold");
+        this.add("item.ccw.gummy.milky.prefix", "Milky");
 
         this.add("item.ccw.gummy.excited.desc", "Excited desc");
         this.add("item.ccw.gummy.bold.desc", "Bold desc");

@@ -121,7 +121,7 @@ public abstract class Sugar
         @Nullable
         public static MutableComponent nameOf(Flavor flavor) {
             return flavor == Flavor.ORIGINAL ? null :
-                    Component.translatable("item.ccw.gummy.".concat(flavor.name)).withStyle(flavor.formatting);
+                    Component.translatable("item.ccw.gummy.".concat(flavor.name).concat(".prefix")).withStyle(flavor.formatting);
         }
 
         @Nullable
