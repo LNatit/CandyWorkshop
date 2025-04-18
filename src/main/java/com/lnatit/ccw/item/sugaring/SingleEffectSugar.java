@@ -1,14 +1,20 @@
 package com.lnatit.ccw.item.sugaring;
 
 import net.minecraft.core.Holder;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
+import net.minecraft.util.StringUtil;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 
 import javax.annotation.Nullable;
+import java.util.function.Consumer;
 
-public class SingleEffectSugar extends Sugar {
+public class SingleEffectSugar extends Sugar
+{
     private final Holder<MobEffect> effect;
     private final int duration;
 
@@ -21,20 +27,21 @@ public class SingleEffectSugar extends Sugar {
     @Override
     public void applyOn(LivingEntity entity, Flavor flavor) {
         if (entity.level() instanceof ServerLevel level) {
-            int duration = this.hasBold && flavor == Flavor.BOLD ? 2 * this.duration : this.duration;
-            int amplifier = this.hasExcited && flavor == Flavor.EXCITED ? 1 : 0;
+            int duration = this.getDuration(flavor);
+            int amplifier = this.getAmplifier(flavor);
             if (flavor == Flavor.MILKY) {
-                for (Holder<MobEffect> effect : entity.getActiveEffectsMap().keySet())
-                {
-                    if (effect.getKey() != this.effect)
+                for (Holder<MobEffect> effect : entity.getActiveEffectsMap().keySet()) {
+                    if (effect.getKey() != this.effect) {
                         entity.removeEffect(effect);
+                    }
                 }
             }
 
             // Instantenous effect behaves differently
             if (effect.value().isInstantenous()) {
                 effect.value().applyInstantenousEffect(level, entity, entity, entity, amplifier, 0.5);
-            } else {
+            }
+            else {
                 MobEffectInstance exist = entity.getEffect(effect);
                 if (exist != null && !exist.isAmbient() && exist.getAmplifier() >= amplifier) {
                     duration += exist.getDuration();
@@ -44,11 +51,45 @@ public class SingleEffectSugar extends Sugar {
         }
     }
 
+    @Override
+    public void addSugarTooltip(Consumer<Component> tooltipAdder, Flavor flavor, float ticksPerSecond) {
+        MutableComponent mutablecomponent = Component.translatable(effect.value().getDescriptionId());
+
+        int amplifier = this.getAmplifier(flavor);
+        if (amplifier > 0) {
+            mutablecomponent = Component.translatable(
+                    "potion.withAmplifier", mutablecomponent,
+                    Component.translatable("potion.potency." + amplifier)
+            );
+        }
+
+        int duration = this.getDuration(flavor);
+        if (duration > 20) {
+            int i = Mth.floor((float) duration);
+            Component result = Component.literal(StringUtil.formatTickDuration(i, ticksPerSecond));
+            mutablecomponent = Component.translatable(
+                    "potion.withDuration", mutablecomponent,
+                    result
+            );
+        }
+
+        tooltipAdder.accept(mutablecomponent.withStyle(effect.value().getCategory().getTooltipFormatting()));
+    }
+
+    private int getDuration(Flavor flavor) {
+        return this.hasBold && flavor == Flavor.BOLD ? 2 * this.duration : this.duration;
+    }
+
+    private int getAmplifier(Flavor flavor) {
+        return this.hasExcited && flavor == Flavor.EXCITED ? 1 : 0;
+    }
+
     public static IEffectAcceptor builder(String name) {
         return new Builder(name);
     }
 
-    public static class Builder implements IEffectAcceptor, IOptionalAcceptor {
+    public static class Builder implements IEffectAcceptor, IOptionalAcceptor
+    {
         public static final int DEFAULT_DURATION = 600;
 
         private final String name;
@@ -93,11 +134,13 @@ public class SingleEffectSugar extends Sugar {
         }
     }
 
-    public interface IEffectAcceptor {
+    public interface IEffectAcceptor
+    {
         IOptionalAcceptor withEffect(Holder<MobEffect> effect);
     }
 
-    public interface IOptionalAcceptor extends IBuilder {
+    public interface IOptionalAcceptor extends IBuilder
+    {
         IOptionalAcceptor withDuration(int duration);
 
         IBuilder withNoExcited();
@@ -105,7 +148,8 @@ public class SingleEffectSugar extends Sugar {
         IBuilder withNoBold();
     }
 
-    public interface IBuilder {
+    public interface IBuilder
+    {
         SingleEffectSugar build();
     }
 }

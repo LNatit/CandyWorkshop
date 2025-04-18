@@ -10,6 +10,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
@@ -20,10 +21,13 @@ import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 
 import javax.annotation.Nullable;
 import java.util.*;
+import java.util.function.Consumer;
 
-public abstract class Sugar {
+public abstract class Sugar
+{
     public static final Codec<Holder<Sugar>> CODEC = RegRegistry.SUGAR.holderByNameCodec();
-    public static final StreamCodec<RegistryFriendlyByteBuf, Holder<Sugar>> STREAM_CODEC = ByteBufCodecs.holderRegistry(RegRegistry.SUGAR_KEY);
+    public static final StreamCodec<RegistryFriendlyByteBuf, Holder<Sugar>> STREAM_CODEC = ByteBufCodecs.holderRegistry(
+            RegRegistry.SUGAR_KEY);
     protected final String name;
     protected final boolean hasExcited;
     protected final boolean hasBold;
@@ -61,6 +65,9 @@ public abstract class Sugar {
 
     public abstract void applyOn(LivingEntity entity, Flavor flavor);
 
+    public void addSugarTooltip(Consumer<Component> tooltipAdder, Flavor flavor, float ticksPerSecond) {
+    }
+
     public List<Flavor> getAvailableTypes() {
         List<Flavor> flavors = new ArrayList<>();
         flavors.add(Flavor.ORIGINAL);
@@ -78,16 +85,24 @@ public abstract class Sugar {
         return ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID, this.name).withSuffix("_gummy");
     }
 
-    public enum Flavor {
-        ORIGINAL("original"), EXCITED("excited"), BOLD("bold"), MILKY("milky");
+    public enum Flavor
+    {
+        ORIGINAL("original", null),
+        EXCITED("excited", ChatFormatting.DARK_GREEN),
+        BOLD("bold", ChatFormatting.GOLD),
+        MILKY("milky", ChatFormatting.WHITE);
 
         public static final Codec<Flavor> CODEC = Codec.stringResolver(Flavor::toName, Flavor::fromName);
-        public static final StreamCodec<FriendlyByteBuf, Flavor> STREAM_CODEC = NeoForgeStreamCodecs.enumCodec(Flavor.class);
+        public static final StreamCodec<FriendlyByteBuf, Flavor> STREAM_CODEC = NeoForgeStreamCodecs.enumCodec(
+                Flavor.class);
 
         public final String name;
+        @Nullable
+        public final ChatFormatting formatting;
 
-        Flavor(String name) {
+        Flavor(String name, @Nullable ChatFormatting formatting) {
             this.name = name;
+            this.formatting = formatting;
         }
 
         public static Flavor fromExtra(ItemStack extra) {
@@ -104,13 +119,16 @@ public abstract class Sugar {
         }
 
         @Nullable
+        public static MutableComponent nameOf(Flavor flavor) {
+            return flavor == Flavor.ORIGINAL ? null :
+                    Component.translatable("item.ccw.gummy.".concat(flavor.name)).withStyle(flavor.formatting);
+        }
+
+        @Nullable
         public static Component descriptionOf(Flavor flavor) {
-            return switch (flavor) {
-                case EXCITED -> Component.translatable("item.ccw.gummy.excited").withStyle(ChatFormatting.DARK_GREEN);
-                case BOLD -> Component.translatable("item.ccw.gummy.bold").withStyle(ChatFormatting.GOLD);
-                case MILKY -> Component.translatable("item.ccw.gummy.milky").withStyle(ChatFormatting.WHITE);
-                default -> null;
-            };
+            return flavor == Flavor.ORIGINAL ? null :
+                    Component.translatable("item.ccw.gummy.".concat(flavor.name).concat(".desc")).withStyle(
+                            flavor.formatting);
         }
 
         static String toName(Flavor flavor) {
