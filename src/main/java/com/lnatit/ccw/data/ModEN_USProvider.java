@@ -29,6 +29,7 @@ public class ModEN_USProvider extends LanguageProvider {
         this.add("stat.ccw.open_drawer_table", "Open Drawer Table");
 
         this.add(ItemRegistry.GUMMY_ITEM.get(), "Gummy");
+        this.add("sugar.withDuration", "%s (+%s)");
 
         this.add(ItemRegistry.SUGAR_REFINERY.get(), "Sugar Refinery");
         this.add(ItemRegistry.PLAIN_DRAWER_TABLE.get(), "Plain Drawer Table");

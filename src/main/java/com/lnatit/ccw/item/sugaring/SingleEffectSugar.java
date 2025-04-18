@@ -68,7 +68,7 @@ public class SingleEffectSugar extends Sugar
             int i = Mth.floor((float) duration);
             Component result = Component.literal(StringUtil.formatTickDuration(i, ticksPerSecond));
             mutablecomponent = Component.translatable(
-                    "potion.withDuration", mutablecomponent,
+                    "sugar.withDuration", mutablecomponent,
                     result
             );
         }
