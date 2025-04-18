@@ -1,4 +1,4 @@
-// 1.21.4	2025-03-25T12:54:59.6630637	CandyWorkshop Recipes
+// 1.21.4	2025-04-18T15:55:17.9619678	CandyWorkshop Recipes
 da02b386fb1b68b6080ca214a11d682407f74e43 data/ccw/advancement/recipes/brewing/blessed_steak.json
 fbc5deb0754d845164d5551e9854ffd98e6fc25c data/ccw/advancement/recipes/brewing/calcium_rich_milk.json
 75fa66f03fd680e0a1f74a71d97ff1f91b3c9e95 data/ccw/advancement/recipes/brewing/defiled_offering.json
@@ -15,12 +15,16 @@ c6adf45a2e231ba8337cb9c384cc7ee4d709fe58 data/ccw/advancement/recipes/brewing/ne
 c34b77af103f74ddaa03d21ea8e427af3be02524 data/ccw/advancement/recipes/brewing/phantom_pearl.json
 cb0a2b6b658d74191ae7cf92170c627f2c0418f0 data/ccw/advancement/recipes/brewing/void_carrot.json
 c8a3d7603b292ef2fb5f49197e19fa3ff3229917 data/ccw/advancement/recipes/brewing/weakness_powder.json
+a53d42cc087146e8315f223a0234b76da82425c6 data/ccw/advancement/recipes/misc/drawer_table.json
 21598a749be20ce8c29eca76113c9bfc1854df88 data/ccw/advancement/recipes/misc/milk_extractor.json
 02c3b013e295a70da133ded2ea85fe719939a69c data/ccw/advancement/recipes/misc/milk_packaging.json
+c884033086433af5c2f0b067c0670118e88ef703 data/ccw/advancement/recipes/misc/plain_drawer_table.json
+3a571c5049b4e15ee5f825c263a0277aeb419a54 data/ccw/advancement/recipes/misc/sugar_refinery.json
 259c7ed44419f8ad31fe2ca001f358b014bdfc8b data/ccw/recipe/blessed_steak.json
 190a70ce5482e47502a46dd12e75eba3ac36dc6c data/ccw/recipe/calcium_rich_milk.json
 b0726dc411746679b86cd9ba94ff8950656628ba data/ccw/recipe/defiled_offering.json
 c7b57dfe4dcabc2435a48707ff585172e043b6b2 data/ccw/recipe/dolphin_cookie.json
+8cac4142b55b9b37ff3f96d8c9ee4dc3deacc83c data/ccw/recipe/drawer_table.json
 695b7e0471be59368d8aa736a49c97867f7d18e3 data/ccw/recipe/ender_sugar.json
 ad024d143ef4cbc2718791fa836fcb51d848bbc0 data/ccw/recipe/energy_carrot.json
 1ae6a0ad4d6862f9728de37e2a1f3682904b5580 data/ccw/recipe/gold_studded_apple.json
@@ -33,6 +37,8 @@ c3c7c5b4e5f6000ede96b9d386e3cb806fa4ff47 data/ccw/recipe/milk_packaging.json
 2ab8a71a42e2fb42f945620ca9e520e94b89172d data/ccw/recipe/nether_sugar.json
 824a9a818caea8373ef0ade5acb9511bafeabc78 data/ccw/recipe/ominous_flag.json
 bcf90be44688aa0e4f325830a613f5fc23f99fdc data/ccw/recipe/phantom_pearl.json
+5461386ad1b033e45f4466169c0f30a6d0a86205 data/ccw/recipe/plain_drawer_table.json
 86f0b3dc8e37458e73af16da675a891a8ff044ce data/ccw/recipe/repair_extractor.json
+10999bbaab233ec5392af95150b0c704bbe8c6e0 data/ccw/recipe/sugar_refinery.json
 8c8a8e5bef805183b31809203ff02b6951670d70 data/ccw/recipe/void_carrot.json
 e0912631ab071b52327599f45a88e379aca203d5 data/ccw/recipe/weakness_powder.json

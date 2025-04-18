@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "#minecraft:planks",
+    "X": "#c:chests"
+  },
+  "pattern": [
+    "###",
+    "#X#",
+    "#X#"
+  ],
+  "result": {
+    "count": 1,
+    "id": "ccw:plain_drawer_table"
+  }
+}
