@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:milk_bucket",
+    "minecraft:paper"
+  ],
+  "result": {
+    "count": 8,
+    "id": "ccw:carton_milk"
+  }
+}

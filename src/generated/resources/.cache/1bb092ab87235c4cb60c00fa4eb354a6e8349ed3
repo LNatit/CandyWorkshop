@@ -1,4 +1,4 @@
-// 1.21.4	2025-04-18T15:55:17.9619678	CandyWorkshop Recipes
+// 1.21.4	2025-05-05T19:33:54.0891668	CandyWorkshop Recipes
 da02b386fb1b68b6080ca214a11d682407f74e43 data/ccw/advancement/recipes/brewing/blessed_steak.json
 fbc5deb0754d845164d5551e9854ffd98e6fc25c data/ccw/advancement/recipes/brewing/calcium_rich_milk.json
 75fa66f03fd680e0a1f74a71d97ff1f91b3c9e95 data/ccw/advancement/recipes/brewing/defiled_offering.json
@@ -15,13 +15,16 @@ c6adf45a2e231ba8337cb9c384cc7ee4d709fe58 data/ccw/advancement/recipes/brewing/ne
 c34b77af103f74ddaa03d21ea8e427af3be02524 data/ccw/advancement/recipes/brewing/phantom_pearl.json
 cb0a2b6b658d74191ae7cf92170c627f2c0418f0 data/ccw/advancement/recipes/brewing/void_carrot.json
 c8a3d7603b292ef2fb5f49197e19fa3ff3229917 data/ccw/advancement/recipes/brewing/weakness_powder.json
+61d2742e192bfcf2acaee83a073993ee068671e9 data/ccw/advancement/recipes/misc/carton_milk.json
 a53d42cc087146e8315f223a0234b76da82425c6 data/ccw/advancement/recipes/misc/drawer_table.json
+10ccb639a9bd98528ee4f0059940f872bdfad6d8 data/ccw/advancement/recipes/misc/milk_carton_from_single_milk_bucket.json
 21598a749be20ce8c29eca76113c9bfc1854df88 data/ccw/advancement/recipes/misc/milk_extractor.json
 02c3b013e295a70da133ded2ea85fe719939a69c data/ccw/advancement/recipes/misc/milk_packaging.json
 c884033086433af5c2f0b067c0670118e88ef703 data/ccw/advancement/recipes/misc/plain_drawer_table.json
 3a571c5049b4e15ee5f825c263a0277aeb419a54 data/ccw/advancement/recipes/misc/sugar_refinery.json
 259c7ed44419f8ad31fe2ca001f358b014bdfc8b data/ccw/recipe/blessed_steak.json
 190a70ce5482e47502a46dd12e75eba3ac36dc6c data/ccw/recipe/calcium_rich_milk.json
+8fe33c2d92b2a75e343a495a727e8c16fb2b3220 data/ccw/recipe/carton_milk.json
 b0726dc411746679b86cd9ba94ff8950656628ba data/ccw/recipe/defiled_offering.json
 c7b57dfe4dcabc2435a48707ff585172e043b6b2 data/ccw/recipe/dolphin_cookie.json
 8cac4142b55b9b37ff3f96d8c9ee4dc3deacc83c data/ccw/recipe/drawer_table.json
@@ -30,6 +33,7 @@ ad024d143ef4cbc2718791fa836fcb51d848bbc0 data/ccw/recipe/energy_carrot.json
 1ae6a0ad4d6862f9728de37e2a1f3682904b5580 data/ccw/recipe/gold_studded_apple.json
 1a9be6ab36f2262c0fefbe5f2053a17015337991 data/ccw/recipe/greedy_offering.json
 f0c606186c4ea6eda7b358e425f888ebce35ed8b data/ccw/recipe/iron_clad_apple.json
+253442edda0495d1ae1f81e5a5e6daf279a96415 data/ccw/recipe/milk_carton_from_single_milk_bucket.json
 0b438b4753927cbc6fbbf494c69d5e3bbc308a11 data/ccw/recipe/milk_extractor.json
 86c847fec8b9b66496102553dfafc18104df143a data/ccw/recipe/milk_gelatin.json
 588a462977194d593bee43bb3a08b5bf3268cf6a data/ccw/recipe/milk_gelatin_from_milk_bucket.json
