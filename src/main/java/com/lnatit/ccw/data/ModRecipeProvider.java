@@ -58,6 +58,18 @@ public class ModRecipeProvider extends RecipeProvider
 //                .save(this.output);
         // TODO do we need to modify count to let a 8 bucket recipe makes sense?
 
+        this.shapeless(RecipeCategory.MISC, ItemRegistry.CARTON_MILK, 8)
+            .requires(Items.MILK_BUCKET)
+            .requires(Items.PAPER)
+            .unlockedBy("has_milk", has(Items.MILK_BUCKET))
+            .save(this.output, CandyWorkshop.MODID + ":milk_carton_from_single_milk_bucket");
+
+        this.shapeless(RecipeCategory.MISC, ItemRegistry.CARTON_MILK, 24)
+            .requires(Items.MILK_BUCKET, 3)
+            .requires(Items.PAPER)
+            .unlockedBy("has_milk", has(Items.MILK_BUCKET))
+            .save(this.output);
+
         // TODO modify unlock requirements
         SpecialRecipeBuilder.special(RepairExtractorRecipe::new)
                             .save(this.output, CandyWorkshop.MODID + ":repair_extractor");

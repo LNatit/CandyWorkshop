@@ -75,6 +75,10 @@ public class DrawerTableBlock extends BaseEntityBlock
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        if (hitResult.getDirection() == Direction.UP) {
+            return InteractionResult.PASS;
+        }
+
         if (!level.isClientSide() && level.getBlockEntity(
                 pos) instanceof DrawerTableBlockEntity drawerTableBlockEntity) {
             player.openMenu(drawerTableBlockEntity);
