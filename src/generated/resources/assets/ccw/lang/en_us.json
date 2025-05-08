@@ -1,4 +1,12 @@
 {
+  "advancements.ccw.cows_choice.description": "adv desc ph",
+  "advancements.ccw.cows_choice.title": "adv name ph",
+  "advancements.ccw.eco_friendly_material.description": "adv desc ph",
+  "advancements.ccw.eco_friendly_material.title": "adv name ph",
+  "advancements.ccw.excessive_extraction.description": "adv desc ph",
+  "advancements.ccw.excessive_extraction.title": "adv name ph",
+  "advancements.ccw.root.description": "adv desc ph",
+  "advancements.ccw.root.title": "adv name ph",
   "block.ccw.drawer_table": "Drawer Table",
   "block.ccw.plain_drawer_table": "Plain Drawer Table",
   "block.ccw.sugar_refinery": "Sugar Refinery",
