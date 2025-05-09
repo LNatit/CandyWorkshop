@@ -8,14 +8,19 @@ import com.lnatit.ccw.item.sugaring.Sugars;
 import net.minecraft.advancements.*;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponentPredicate;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.advancements.AdvancementProvider;
 import net.minecraft.data.advancements.AdvancementSubProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 
 import javax.annotation.Nullable;
@@ -54,8 +59,10 @@ public class ModAdvcmtProvider extends AdvancementProvider
                        new ItemStack(ItemRegistry.SUGAR_REFINERY.asItem()),
                        AdvancementResources.ROOT.name(),
                        AdvancementResources.ROOT.desc(),
-                       // TODO
-                       null,
+                       ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID,
+//                                                             "textures/gui/advancements/backgrounds/ccw.png"
+                                                             "textures/block/pink_wool"
+                       ),
                        AdvancementType.TASK,
                        true,
                        true,
@@ -101,10 +108,26 @@ public class ModAdvcmtProvider extends AdvancementProvider
                        true,
                        false
                )
-               .addCriterion("get_milk_extractor",
-                             InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.MILK_EXTRACTOR)
+               .addCriterion("use_milk_extractor",
+                             PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(
+                                     ItemPredicate.Builder.item().of(
+                                             registries.lookupOrThrow(Registries.ITEM),
+                                             ItemRegistry.MILK_EXTRACTOR.asItem()
+                                     ),
+                                     Optional.of(
+                                             ContextAwarePredicate.create(
+                                                     LootItemEntityPropertyCondition.hasProperties(
+                                                             LootContext.EntityTarget.THIS,
+                                                             EntityPredicate.Builder.entity().of(
+                                                                     registries.lookupOrThrow(Registries.ENTITY_TYPE),
+                                                                     EntityType.COW
+                                                             )
+                                                     ).build()
+                                             )
+                                     )
+                             )
                )
-               .requirements(AdvancementRequirements.allOf(List.of("get_milk_extractor")))
+               .requirements(AdvancementRequirements.allOf(List.of("use_milk_extractor")))
                .save(writer, AdvancementResources.COWCHI.id());
     }
 
@@ -115,7 +138,7 @@ public class ModAdvcmtProvider extends AdvancementProvider
                        new ItemStack(ItemRegistry.CARTON_MILK.asItem()),
                        AdvancementResources.EXCEXT.name(),
                        AdvancementResources.EXCEXT.desc(),
-                       ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID, "textures/gui/advancements/backgrounds/ccw.png"),
+                       null,
                        AdvancementType.CHALLENGE,
                        true,
                        true,

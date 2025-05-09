@@ -1,15 +1,22 @@
 {
   "parent": "ccw:eco_friendly_material",
   "criteria": {
-    "get_milk_extractor": {
+    "use_milk_extractor": {
       "conditions": {
-        "items": [
+        "entity": [
           {
-            "items": "ccw:milk_extractor"
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:cow"
+            }
           }
-        ]
+        ],
+        "item": {
+          "items": "ccw:milk_extractor"
+        }
       },
-      "trigger": "minecraft:inventory_changed"
+      "trigger": "minecraft:player_interacted_with_entity"
     }
   },
   "display": {
@@ -26,7 +33,7 @@
   },
   "requirements": [
     [
-      "get_milk_extractor"
+      "use_milk_extractor"
     ]
   ],
   "sends_telemetry_event": true

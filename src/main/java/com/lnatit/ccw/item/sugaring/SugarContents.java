@@ -18,8 +18,7 @@ import net.minecraft.world.level.Level;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-public record SugarContents(Optional<Holder<Sugar>> sugar,
-                            SingleEffectSugar.Flavor flavor) implements ConsumableListener
+public record SugarContents(Optional<Holder<Sugar>> sugar, Sugar.Flavor flavor) implements ConsumableListener
 {
     public static final Codec<SugarContents> CODEC = RecordCodecBuilder.create(
             ins -> ins.group(

@@ -41,7 +41,7 @@ public class ModEN_USProvider extends LanguageProvider {
         this.add(ItemRegistry.ENDER_SUGAR.get(), "Ender Sugar");
 
         this.add(ItemRegistry.ENERGY_CARROT.get(), "Energy Carrot");
-        // TODO
+
         this.add(ItemRegistry.SWEET_MELON_SLICE.get(), "some new melon slice");
         this.add(ItemRegistry.PHANTOM_PEARL.get(), "Phantom Pearl");
         this.add(ItemRegistry.CALCIUM_RICH_MILK.get(), "Calcium-rich Milk");

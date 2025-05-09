@@ -6,7 +6,6 @@
     }
   },
   "display": {
-    "background": "ccw:textures/gui/advancements/backgrounds/ccw.png",
     "description": {
       "translate": "advancements.ccw.excessive_extraction.description"
     },

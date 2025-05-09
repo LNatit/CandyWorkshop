@@ -12,6 +12,7 @@
     }
   },
   "display": {
+    "background": "ccw:textures/block/pink_wool",
     "description": {
       "translate": "advancements.ccw.root.description"
     },

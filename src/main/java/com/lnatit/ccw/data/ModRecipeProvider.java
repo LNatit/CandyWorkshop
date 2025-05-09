@@ -56,7 +56,6 @@ public class ModRecipeProvider extends RecipeProvider
 //                .pattern("UUU")
 //                .unlockedBy("has_packaging", has(ItemRegistry.MILK_PACKAGING))
 //                .save(this.output);
-        // TODO do we need to modify count to let a 8 bucket recipe makes sense?
 
         this.shapeless(RecipeCategory.MISC, ItemRegistry.CARTON_MILK, 8)
             .requires(Items.MILK_BUCKET)
