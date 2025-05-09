@@ -8,8 +8,6 @@ import com.lnatit.ccw.item.sugaring.Sugars;
 import net.minecraft.advancements.*;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.component.DataComponentMap;
-import net.minecraft.core.component.DataComponentPredicate;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.advancements.AdvancementProvider;
@@ -144,9 +142,20 @@ public class ModAdvcmtProvider extends AdvancementProvider
                        true,
                        false
                )
-               // TODO add criterion
-               .addCriterion("ph", CriteriaTriggers.IMPOSSIBLE.createCriterion(new ImpossibleTrigger.TriggerInstance()))
-               .requirements(AdvancementRequirements.allOf(List.of("ph")))
+               .addCriterion("drain_milk_extractor",
+                             ItemDurabilityTrigger.TriggerInstance.changedDurability(
+                                     Optional.of(
+                                             ItemPredicate.Builder.item()
+                                                                  .of(
+                                                                          registries.lookupOrThrow(Registries.ITEM),
+                                                                          ItemRegistry.MILK_EXTRACTOR.asItem()
+                                                                  )
+                                                                  .build()
+                                     ),
+                                     MinMaxBounds.Ints.atMost(0)
+                             )
+               )
+               .requirements(AdvancementRequirements.allOf(List.of("drain_milk_extractor")))
                .save(writer, AdvancementResources.EXCEXT.id());
     }
 
