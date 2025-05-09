@@ -1,0 +1,28 @@
+{
+  "parent": "ccw:cows_choice",
+  "criteria": {
+    "ph": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "background": "ccw:textures/gui/advancements/backgrounds/ccw.png",
+    "description": {
+      "translate": "advancements.ccw.excessive_extraction.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "ccw:carton_milk"
+    },
+    "title": {
+      "translate": "advancements.ccw.excessive_extraction.title"
+    }
+  },
+  "requirements": [
+    [
+      "ph"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

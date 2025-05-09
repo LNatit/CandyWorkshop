@@ -1,0 +1,34 @@
+{
+  "parent": "ccw:candy_finale",
+  "criteria": {
+    "ph": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.ccw.rainbow_collector.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "components": {
+        "ccw:sugar_contents": {
+          "flavor": "original",
+          "sugar": "ccw:recovery"
+        },
+        "minecraft:item_model": "ccw:recovery_gummy"
+      },
+      "count": 1,
+      "id": "ccw:gummy"
+    },
+    "title": {
+      "translate": "advancements.ccw.rainbow_collector.title"
+    }
+  },
+  "requirements": [
+    [
+      "ph"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

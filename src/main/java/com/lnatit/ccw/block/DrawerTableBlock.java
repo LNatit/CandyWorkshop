@@ -2,15 +2,21 @@ package com.lnatit.ccw.block;
 
 import com.lnatit.ccw.block.entity.DrawerTableBlockEntity;
 import com.lnatit.ccw.block.entity.IItemStackHandlerContainer;
+import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.misc.StatRegistry;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -74,11 +80,15 @@ public class DrawerTableBlock extends BaseEntityBlock
     }
 
     @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        if (hitResult.getDirection() == Direction.UP) {
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        if (stack.is(ItemRegistry.SUGAR_REFINERY) && hitResult.getDirection() == Direction.UP) {
             return InteractionResult.PASS;
         }
+        return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+    }
 
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         if (!level.isClientSide() && level.getBlockEntity(
                 pos) instanceof DrawerTableBlockEntity drawerTableBlockEntity) {
             player.openMenu(drawerTableBlockEntity);

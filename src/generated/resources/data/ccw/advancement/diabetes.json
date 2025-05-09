@@ -1,0 +1,34 @@
+{
+  "parent": "ccw:my_first_candy",
+  "criteria": {
+    "ph": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.ccw.diabetes.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "components": {
+        "ccw:sugar_contents": {
+          "flavor": "original",
+          "sugar": "ccw:stinger"
+        },
+        "minecraft:item_model": "ccw:stinger_gummy"
+      },
+      "count": 1,
+      "id": "ccw:gummy"
+    },
+    "title": {
+      "translate": "advancements.ccw.diabetes.title"
+    }
+  },
+  "requirements": [
+    [
+      "ph"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

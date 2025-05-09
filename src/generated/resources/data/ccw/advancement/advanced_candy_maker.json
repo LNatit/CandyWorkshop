@@ -1,0 +1,33 @@
+{
+  "parent": "ccw:my_first_candy",
+  "criteria": {
+    "ph": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.ccw.advanced_candy_maker.description"
+    },
+    "icon": {
+      "components": {
+        "ccw:sugar_contents": {
+          "flavor": "original",
+          "sugar": "ccw:golden_heart"
+        },
+        "minecraft:item_model": "ccw:golden_heart_gummy"
+      },
+      "count": 1,
+      "id": "ccw:gummy"
+    },
+    "title": {
+      "translate": "advancements.ccw.advanced_candy_maker.title"
+    }
+  },
+  "requirements": [
+    [
+      "ph"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
