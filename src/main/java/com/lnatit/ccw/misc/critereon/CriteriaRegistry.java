@@ -8,11 +8,15 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class CriteriaRegistry
 {
-    public static final DeferredRegister<CriterionTrigger<?>> TRIGGERS = DeferredRegister.create(BuiltInRegistries.TRIGGER_TYPES,
-                                                                                                 CandyWorkshop.MODID
+    public static final DeferredRegister<CriterionTrigger<?>> TRIGGERS = DeferredRegister.create(
+            BuiltInRegistries.TRIGGER_TYPES,
+            CandyWorkshop.MODID
     );
 
-    public static final DeferredHolder<CriterionTrigger<?>, SimpleModTrigger> GET_FLAVORED_SUGAR = TRIGGERS.register("get_flavored_sugar", SimpleModTrigger::new);
-    public static final DeferredHolder<CriterionTrigger<?>, SimpleModTrigger> GET_ALL_SUGAR = TRIGGERS.register("get_all_sugar", SimpleModTrigger::new);
-
+    public static final DeferredHolder<CriterionTrigger<?>, SimpleModTrigger> REFINE_FLAVORED_SUGAR = TRIGGERS.register(
+            "refine_flavored_sugar", SimpleModTrigger::new);
+    public static final DeferredHolder<CriterionTrigger<?>, SimpleModTrigger> COLLECT_ALL_SUGAR = TRIGGERS.register(
+            "collect_all_sugar", SimpleModTrigger::new);
+    public static final DeferredHolder<CriterionTrigger<?>, SimpleModTrigger> DEVELOP_DIABETES = TRIGGERS.register(
+            "develop_diabetes", SimpleModTrigger::new);
 }

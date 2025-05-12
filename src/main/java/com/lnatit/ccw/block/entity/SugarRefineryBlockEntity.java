@@ -6,11 +6,13 @@ import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.item.sugaring.SingleEffectSugar;
 import com.lnatit.ccw.item.sugaring.SugarRefining;
 import com.lnatit.ccw.menu.SugarRefineryMenu;
+import com.lnatit.ccw.misc.critereon.CriteriaRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.Nameable;
@@ -23,6 +25,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.wrapper.RangedWrapper;
@@ -96,6 +99,16 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
     @Override
     public ItemStackHandler getInventory() {
         return this.data;
+    }
+
+    private void refineFlavoredCallback() {
+        int i = worldPosition.getX();
+        int j = worldPosition.getY();
+        int k = worldPosition.getZ();
+        for (ServerPlayer serverplayer : level.getEntitiesOfClass(
+                ServerPlayer.class, new AABB(i, j, k, i, j - 4, k).inflate(10.0, 5.0, 10.0)
+        ))
+            CriteriaRegistry.REFINE_FLAVORED_SUGAR.get().trigger(serverplayer);
     }
 
     public class Data extends ItemStackHandler {
@@ -215,6 +228,7 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
             if (flavor != SingleEffectSugar.Flavor.ORIGINAL) {
                 acceptRemainder(extra.getCraftingRemainder(), 1);
                 extra.shrink(1);
+                SugarRefineryBlockEntity.this.refineFlavoredCallback();
             }
 
             ItemStack output = this.stacks.get(4);

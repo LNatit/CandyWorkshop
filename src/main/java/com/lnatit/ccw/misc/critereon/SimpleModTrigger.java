@@ -24,5 +24,9 @@ public class SimpleModTrigger extends SimpleCriterionTrigger<SimpleModTrigger.Tr
         public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(ins -> ins.group(
                 EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player)
         ).apply(ins, TriggerInstance::new));
+
+        public TriggerInstance() {
+            this(Optional.empty());
+        }
     }
 }

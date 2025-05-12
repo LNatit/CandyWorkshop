@@ -1,8 +1,16 @@
 {
   "parent": "ccw:cows_choice",
   "criteria": {
-    "ph": {
-      "trigger": "minecraft:impossible"
+    "drain_milk_extractor": {
+      "conditions": {
+        "durability": {
+          "max": 0
+        },
+        "item": {
+          "items": "ccw:milk_extractor"
+        }
+      },
+      "trigger": "minecraft:item_durability_changed"
     }
   },
   "display": {
@@ -20,7 +28,7 @@
   },
   "requirements": [
     [
-      "ph"
+      "drain_milk_extractor"
     ]
   ],
   "sends_telemetry_event": true

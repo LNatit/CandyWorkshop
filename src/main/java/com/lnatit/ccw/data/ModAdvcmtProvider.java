@@ -5,6 +5,8 @@ import com.lnatit.ccw.block.BlockRegistry;
 import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.item.sugaring.Sugar;
 import com.lnatit.ccw.item.sugaring.Sugars;
+import com.lnatit.ccw.misc.critereon.CriteriaRegistry;
+import com.lnatit.ccw.misc.critereon.SimpleModTrigger;
 import net.minecraft.advancements.*;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.HolderLookup;
@@ -190,9 +192,12 @@ public class ModAdvcmtProvider extends AdvancementProvider
                        true,
                        false
                )
-               // TODO add criterion
-               .addCriterion("ph", CriteriaTriggers.IMPOSSIBLE.createCriterion(new ImpossibleTrigger.TriggerInstance()))
-               .requirements(AdvancementRequirements.allOf(List.of("ph")))
+               .addCriterion("refine_flavored_sugar",
+                             CriteriaRegistry.REFINE_FLAVORED_SUGAR.get().createCriterion(
+                                     new SimpleModTrigger.TriggerInstance()
+                             )
+               )
+               .requirements(AdvancementRequirements.allOf(List.of("refine_flavored_sugar")))
                .save(writer, AdvancementResources.ADCAMA.id());
     }
 
@@ -249,9 +254,12 @@ public class ModAdvcmtProvider extends AdvancementProvider
                        true,
                        false
                )
-               // TODO
-               .addCriterion("ph", CriteriaTriggers.IMPOSSIBLE.createCriterion(new ImpossibleTrigger.TriggerInstance()))
-               .requirements(AdvancementRequirements.allOf(List.of("ph")))
+               .addCriterion("collect_all_sugar",
+                             CriteriaRegistry.COLLECT_ALL_SUGAR.get().createCriterion(
+                                     new SimpleModTrigger.TriggerInstance()
+                             )
+               )
+               .requirements(AdvancementRequirements.allOf(List.of("collect_all_sugar")))
                .save(writer, AdvancementResources.RAICOL.id());
     }
 
@@ -268,9 +276,12 @@ public class ModAdvcmtProvider extends AdvancementProvider
                        true,
                        false
                )
-               // TODO
-               .addCriterion("ph", CriteriaTriggers.IMPOSSIBLE.createCriterion(new ImpossibleTrigger.TriggerInstance()))
-               .requirements(AdvancementRequirements.allOf(List.of("ph")))
+               .addCriterion("develop_diabetes",
+                             CriteriaRegistry.DEVELOP_DIABETES.get().createCriterion(
+                                     new SimpleModTrigger.TriggerInstance()
+                             )
+               )
+               .requirements(AdvancementRequirements.allOf(List.of("develop_diabetes")))
                .save(writer, AdvancementResources.DIABET.id());
     }
 
