@@ -1,7 +1,6 @@
 package com.lnatit.ccw.misc.data;
 
 import com.lnatit.ccw.item.sugaring.Sugar;
-import com.lnatit.ccw.misc.critereon.CriteriaRegistry;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
@@ -18,18 +17,10 @@ public class SugarStat
 ////            Codec.fieldOf("consume_history").forGetter(o -> o.consume_history)
 //    ).apply(ins, SugarStat::new));
 
-    private int consume_count = 0;
     private Collection<Holder<Sugar>> consume_history = new ArrayList<>();
 
     public static AttachmentType<SugarStat> type() {
         return AttachmentType.builder(SugarStat::new).serialize(CODEC).build();
-    }
-
-    public void increaseCount(ServerPlayer player) {
-        this.consume_count++;
-        if (consume_count >= 100) {
-            CriteriaRegistry.DEVELOP_DIABETES.get().trigger(player);
-        }
     }
 
     public void addHistory(Holder<Sugar> holder, ServerPlayer player) {

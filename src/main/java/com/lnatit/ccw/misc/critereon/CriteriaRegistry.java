@@ -13,10 +13,10 @@ public class CriteriaRegistry
             CandyWorkshop.MODID
     );
 
-    public static final DeferredHolder<CriterionTrigger<?>, SimpleModTrigger> REFINE_FLAVORED_SUGAR = TRIGGERS.register(
-            "refine_flavored_sugar", SimpleModTrigger::new);
-    public static final DeferredHolder<CriterionTrigger<?>, SimpleModTrigger> COLLECT_ALL_SUGAR = TRIGGERS.register(
-            "collect_all_sugar", SimpleModTrigger::new);
-    public static final DeferredHolder<CriterionTrigger<?>, SimpleModTrigger> DEVELOP_DIABETES = TRIGGERS.register(
-            "develop_diabetes", SimpleModTrigger::new);
+    public static final DeferredHolder<CriterionTrigger<?>, SimpleTrigger> REFINE_FLAVORED_SUGAR = TRIGGERS.register(
+            "refine_flavored_sugar", SimpleTrigger::new);
+    public static final DeferredHolder<CriterionTrigger<?>, SimpleTrigger> COLLECT_ALL_SUGAR = TRIGGERS.register(
+            "collect_all_sugar", SimpleTrigger::new);
+    public static final DeferredHolder<CriterionTrigger<?>, NumericTrigger> DEVELOP_DIABETES = TRIGGERS.register(
+            "develop_diabetes", NumericTrigger::new);
 }

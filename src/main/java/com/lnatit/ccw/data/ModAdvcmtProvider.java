@@ -6,7 +6,8 @@ import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.item.sugaring.Sugar;
 import com.lnatit.ccw.item.sugaring.Sugars;
 import com.lnatit.ccw.misc.critereon.CriteriaRegistry;
-import com.lnatit.ccw.misc.critereon.SimpleModTrigger;
+import com.lnatit.ccw.misc.critereon.NumericTrigger;
+import com.lnatit.ccw.misc.critereon.SimpleTrigger;
 import net.minecraft.advancements.*;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.HolderLookup;
@@ -194,7 +195,7 @@ public class ModAdvcmtProvider extends AdvancementProvider
                )
                .addCriterion("refine_flavored_sugar",
                              CriteriaRegistry.REFINE_FLAVORED_SUGAR.get().createCriterion(
-                                     new SimpleModTrigger.TriggerInstance()
+                                     new SimpleTrigger.TriggerInstance()
                              )
                )
                .requirements(AdvancementRequirements.allOf(List.of("refine_flavored_sugar")))
@@ -256,7 +257,7 @@ public class ModAdvcmtProvider extends AdvancementProvider
                )
                .addCriterion("collect_all_sugar",
                              CriteriaRegistry.COLLECT_ALL_SUGAR.get().createCriterion(
-                                     new SimpleModTrigger.TriggerInstance()
+                                     new SimpleTrigger.TriggerInstance()
                              )
                )
                .requirements(AdvancementRequirements.allOf(List.of("collect_all_sugar")))
@@ -278,7 +279,9 @@ public class ModAdvcmtProvider extends AdvancementProvider
                )
                .addCriterion("develop_diabetes",
                              CriteriaRegistry.DEVELOP_DIABETES.get().createCriterion(
-                                     new SimpleModTrigger.TriggerInstance()
+                                     new NumericTrigger.TriggerInstance(
+                                             MinMaxBounds.Ints.atLeast(100)
+                                     )
                              )
                )
                .requirements(AdvancementRequirements.allOf(List.of("develop_diabetes")))

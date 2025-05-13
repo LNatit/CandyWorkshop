@@ -9,7 +9,7 @@ import net.minecraft.server.level.ServerPlayer;
 
 import java.util.Optional;
 
-public class SimpleModTrigger extends SimpleCriterionTrigger<SimpleModTrigger.TriggerInstance>
+public class SimpleTrigger extends SimpleCriterionTrigger<SimpleTrigger.TriggerInstance>
 {
     @Override
     public Codec<TriggerInstance> codec() {
