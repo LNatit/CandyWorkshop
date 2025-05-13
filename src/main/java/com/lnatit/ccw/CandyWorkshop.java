@@ -9,6 +9,7 @@ import com.lnatit.ccw.menu.MenuRegistry;
 import com.lnatit.ccw.misc.SoundRegistry;
 import com.lnatit.ccw.misc.StatRegistry;
 import com.lnatit.ccw.misc.critereon.CriteriaRegistry;
+import com.lnatit.ccw.misc.data.AttachmentRegistry;
 import com.mojang.logging.LogUtils;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -33,5 +34,6 @@ public class CandyWorkshop {
         MenuRegistry.MENUS.register(modEventBus);
         BlockRegistry.BLOCKS.register(modEventBus);
         BlockRegistry.BLOCK_ENTITIES.register(modEventBus);
+        AttachmentRegistry.ATTACHMENT_TYPES.register(modEventBus);
     }
 }

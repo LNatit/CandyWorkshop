@@ -34,6 +34,7 @@ public class Sugars {
             registerSingle("healing",
                     builder -> builder
                             .withEffect(MobEffects.HEAL)
+                            .withDuration(1)
                             .withNoBold()
                             .build()
             );
@@ -86,6 +87,7 @@ public class Sugars {
             registerSingle("stinger",
                     builder -> builder
                             .withEffect(MobEffects.HARM)
+                            .withDuration(1)
                             .withNoBold()
                             .build()
             );

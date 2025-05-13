@@ -11,6 +11,8 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 
 public class SingleEffectSugar extends Sugar
@@ -30,11 +32,13 @@ public class SingleEffectSugar extends Sugar
             int duration = this.getDuration(flavor);
             int amplifier = this.getAmplifier(flavor);
             if (flavor == Flavor.MILKY) {
+                List<Holder<MobEffect>> toRemove =  new ArrayList<>();
                 for (Holder<MobEffect> effect : entity.getActiveEffectsMap().keySet()) {
-                    if (effect.getKey() != this.effect) {
-                        entity.removeEffect(effect);
+                    if (effect != this.effect) {
+                        toRemove.add(effect);
                     }
                 }
+                toRemove.forEach(entity::removeEffect);
             }
 
             // Instantenous effect behaves differently

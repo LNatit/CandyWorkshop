@@ -9,6 +9,7 @@ import net.minecraft.world.effect.MobEffectUtil;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -41,11 +42,13 @@ public class TurtleSugar extends Sugar
                 BOLD_EFFECTS.forEach(effect -> applyEffect(entity, effect));
                 return;
             case MILKY:
+                List<Holder<MobEffect>> toRemove = new ArrayList<>();
                 for (Holder<MobEffect> effect : entity.getActiveEffectsMap().keySet()) {
-                    if (!effect.is(MobEffects.MOVEMENT_SLOWDOWN) && !effect.is(MobEffects.DAMAGE_RESISTANCE)) {
-                        entity.removeEffect(effect);
+                    if (effect != MobEffects.MOVEMENT_SLOWDOWN && effect != MobEffects.DAMAGE_RESISTANCE) {
+                        toRemove.add(effect);
                     }
                 }
+                toRemove.forEach(entity::removeEffect);
             case ORIGINAL:
                 BASE_EFFECTS.forEach(effect -> applyEffect(entity, effect));
         }

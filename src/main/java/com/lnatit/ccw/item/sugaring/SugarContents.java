@@ -1,5 +1,6 @@
 package com.lnatit.ccw.item.sugaring;
 
+import com.lnatit.ccw.misc.data.AttachmentRegistry;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.ChatFormatting;
@@ -9,6 +10,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.Consumable;
@@ -65,6 +67,12 @@ public record SugarContents(Optional<Holder<Sugar>> sugar, Sugar.Flavor flavor) 
 
     @Override
     public void onConsume(Level level, LivingEntity entity, ItemStack stack, Consumable consumable) {
-        this.sugar.ifPresent(holder -> holder.value().applyOn(entity, this.flavor));
+        if (this.sugar.isPresent()) {
+            Holder<Sugar> holder = this.sugar.get();
+            holder.value().applyOn(entity, this.flavor);
+            if (entity instanceof ServerPlayer player) {
+                player.getData(AttachmentRegistry.SUGAR_STAT).addHistory(holder, player);
+            }
+        }
     }
 }
