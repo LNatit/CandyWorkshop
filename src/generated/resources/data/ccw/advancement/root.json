@@ -12,7 +12,7 @@
     }
   },
   "display": {
-    "background": "ccw:textures/gui/advancements/backgrounds/ccw.png",
+    "background": "minecraft:textures/block/pink_wool.png",
     "description": {
       "translate": "advancements.ccw.root.description"
     },

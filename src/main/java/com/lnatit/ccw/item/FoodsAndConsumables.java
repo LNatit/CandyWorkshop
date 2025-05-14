@@ -13,7 +13,7 @@ public class FoodsAndConsumables {
     public static final FoodProperties GUMMY_FOOD =
             new FoodProperties.Builder()
                     .nutrition(1)
-                    .saturationModifier(0.3F)
+                    .saturationModifier(FoodConstants.FOOD_SATURATION_LOW)
                     .build();
     public static final Consumable GUMMY_CONSUMABLE =
             Consumables.defaultFood()
