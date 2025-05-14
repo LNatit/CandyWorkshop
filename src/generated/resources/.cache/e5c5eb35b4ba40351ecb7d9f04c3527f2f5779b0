@@ -1,4 +1,4 @@
-// 1.21.4	2025-05-14T16:24:45.9065355	Advancements
+// 1.21.4	2025-05-14T16:28:11.7879259	Advancements
 52af22a3fdf3044391c955deafdf14f90bec02e5 data/ccw/advancement/advanced_candy_maker.json
 cf7d38fda45624f247cd77d45530bfa750b8e86e data/ccw/advancement/candy_finale.json
 28d1e278d63faaf763568c52acda2357e4b8a96e data/ccw/advancement/cows_choice.json
@@ -10,5 +10,5 @@ f3bef24f4e69936d8f92c0c1ed78c09f374821bb data/ccw/advancement/eco_friendly_mater
 f290ba8060cba76c117b9fd3d5d1cb33097c1211 data/ccw/advancement/my_first_candy.json
 7e33d5df4d7f1e8b5df0c5a78008e309dfd7fb10 data/ccw/advancement/nether_crazy_flavor.json
 f54e6e7fb1368bb79d8af07632d92c9473338690 data/ccw/advancement/rainbow_collector.json
-9c2f8b68f5b5756d9dc8e79bd2bfbf4a8c92277b data/ccw/advancement/root.json
+7a9363de13bdf0711c7f68e0c1c020baa5b19a18 data/ccw/advancement/root.json
 83d6a0e3e244660c135c5f149f783caf70deb8b4 data/ccw/advancement/the_real_candy_workshop.json

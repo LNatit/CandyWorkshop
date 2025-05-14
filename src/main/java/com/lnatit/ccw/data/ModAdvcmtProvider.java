@@ -59,11 +59,11 @@ public class ModAdvcmtProvider extends AdvancementProvider {
                         new ItemStack(ItemRegistry.SUGAR_REFINERY.asItem()),
                         AdvancementResources.ROOT.name(),
                         AdvancementResources.ROOT.desc(),
-//                        ResourceLocation.fromNamespaceAndPath(
-//                                CandyWorkshop.MODID,
-//                                "textures/gui/advancements/backgrounds/ccw.png"
-//                        ),
-                        ResourceLocation.withDefaultNamespace("textures/block/pink_wool.png"),
+                        ResourceLocation.fromNamespaceAndPath(
+                                CandyWorkshop.MODID,
+                                "textures/gui/advancements/backgrounds/ccw.png"
+                        ),
+//                        ResourceLocation.withDefaultNamespace("textures/block/pink_wool.png"),
                         AdvancementType.TASK,
                         true,
                         true,
