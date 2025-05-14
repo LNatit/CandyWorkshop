@@ -6,7 +6,6 @@ import com.lnatit.ccw.misc.StatRegistry;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -88,12 +87,6 @@ public class SugarRefineryBlock extends BaseEntityBlock
                                                               BlockRegistry.SUGAR_REFINERY_BETYPE.value(),
                                                               SugarRefineryBlockEntity::serverTick
         );
-    }
-
-    @Override
-    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-        // TODO: do we need animation?
-        super.animateTick(state, level, pos, random);
     }
 
     @Override

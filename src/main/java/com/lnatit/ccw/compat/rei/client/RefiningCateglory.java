@@ -1,6 +1,7 @@
-package com.lnatit.ccw.compat.rei;
+package com.lnatit.ccw.compat.rei.client;
 
 import com.lnatit.ccw.CandyWorkshop;
+import com.lnatit.ccw.compat.rei.RefiningDisplay;
 import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.menu.client.SugarRefineryScreen;
 import me.shedaniel.math.Point;
@@ -21,9 +22,7 @@ import java.util.List;
 
 public class RefiningCateglory implements DisplayCategory<RefiningDisplay>
 {
-    public static final CategoryIdentifier<RefiningDisplay> REFINING = CategoryIdentifier.of(CandyWorkshop.MODID, "refining");
 
-    // TODO dg
     public static final Component TITLE = Component.translatable("compat.ccw.rei.title");
     public static final Renderer ICON = EntryStacks.of(ItemRegistry.SUGAR_REFINERY);
     // Note: it's a SPRITE!
@@ -34,7 +33,7 @@ public class RefiningCateglory implements DisplayCategory<RefiningDisplay>
 
     @Override
     public CategoryIdentifier<? extends RefiningDisplay> getCategoryIdentifier() {
-        return REFINING;
+        return CandyWorkshopPlugin.REFINING;
     }
 
     @Override
@@ -104,7 +103,7 @@ public class RefiningCateglory implements DisplayCategory<RefiningDisplay>
         // Output(s)
         widgets.add(
                 Widgets.createSlot(new Point(startingPoint.x + 67, startingPoint.y + 39))
-                       .entries(display.getOutputEntries().get(0))
+                       .entries(display.getOutput())
                        .disableBackground()
                        .markOutput()
         );

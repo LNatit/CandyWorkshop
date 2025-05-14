@@ -80,7 +80,6 @@ public class ItemRegistry {
                             .setId(ResourceKey.create(Registries.ITEM, key))
             )
     );
-    // TODO rename
     public static final DeferredItem<Item> SWEET_MELON_SLICE = ITEMS.register(
             "sweet_melon_slice",
             key -> new Item(
