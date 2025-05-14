@@ -118,10 +118,20 @@ public abstract class Sugar
             return ORIGINAL;
         }
 
+        public static ItemStack toExtra(Flavor flavor) {
+            return switch (flavor) {
+                case EXCITED -> new ItemStack(Items.COCOA_BEANS);
+                case BOLD -> new ItemStack(Items.HONEY_BOTTLE);
+                case MILKY -> new ItemStack(Items.MILK_BUCKET);
+                default -> ItemStack.EMPTY;
+            };
+        }
+
         @Nullable
         public static MutableComponent nameOf(Flavor flavor) {
             return flavor == Flavor.ORIGINAL ? null :
-                    Component.translatable("item.ccw.gummy.".concat(flavor.name).concat(".prefix")).withStyle(flavor.formatting);
+                    Component.translatable("item.ccw.gummy.".concat(flavor.name).concat(".prefix")).withStyle(
+                            flavor.formatting);
         }
 
         @Nullable

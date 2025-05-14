@@ -29,6 +29,10 @@ public class SugarRefining
     private static final List<Consumer<Builder>> customBlendProviders = new ArrayList<>();
     public static SugarRefining sugarRefining = EMPTY;
 
+    public List<Blend> getAllBlends() {
+        return sugarBlends;
+    }
+
     private final List<Blend> sugarBlends;
     private final Set<Item> sugarItems;
 
@@ -160,7 +164,7 @@ public class SugarRefining
         }
     }
 
-    record Blend(Item sugar, Ingredient main, Holder<Sugar> output)
+    public record Blend(Item sugar, Ingredient main, Holder<Sugar> output)
     {
     }
 }

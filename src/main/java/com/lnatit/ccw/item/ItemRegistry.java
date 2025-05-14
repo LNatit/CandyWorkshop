@@ -169,7 +169,7 @@ public class ItemRegistry {
                     "candy",
                     () -> CreativeModeTab.builder()
                             .title(Component.translatable("itemGroup." + CandyWorkshop.MODID + ".candy"))
-                            .icon(() -> new ItemStack(Items.MILK_BUCKET))
+                            .icon(() -> new ItemStack(DRAWER_TABLE.asItem()))
                             .displayItems(
                                     (parameters, output) ->
                                     {
