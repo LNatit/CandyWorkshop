@@ -61,8 +61,8 @@ public class ModAdvcmtProvider extends AdvancementProvider
                        AdvancementResources.ROOT.name(),
                        AdvancementResources.ROOT.desc(),
                        ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID,
-//                                                             "textures/gui/advancements/backgrounds/ccw.png"
-                                                             "textures/block/pink_wool"
+                                                             "textures/gui/advancements/backgrounds/ccw.png"
+//                                                             "textures/block/pink_wool"
                        ),
                        AdvancementType.TASK,
                        true,
