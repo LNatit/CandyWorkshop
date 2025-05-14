@@ -29,6 +29,7 @@
   "block.ccw.plain_drawer_table": "Plain Drawer Table",
   "block.ccw.sugar_refinery": "Sugar Refinery",
   "ccw": "Candy Workshop",
+  "compat.ccw.rei.title": "Refining",
   "container.drawer_table": "Drawer Table",
   "container.sugar_refinery": "Sugar Refinery",
   "container.sugar_refinery.pause": "Pause Refining...",

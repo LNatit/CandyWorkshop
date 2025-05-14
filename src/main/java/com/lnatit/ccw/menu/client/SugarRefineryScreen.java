@@ -12,7 +12,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.neoforged.neoforge.client.gui.widget.ExtendedButton;
-import org.jetbrains.annotations.Nullable;
 
 public class SugarRefineryScreen extends AbstractContainerScreen<SugarRefineryMenu> {
     public static final ResourceLocation BACKGROUND_LOCATION =
@@ -72,8 +71,8 @@ public class SugarRefineryScreen extends AbstractContainerScreen<SugarRefineryMe
                     RenderType::guiTextured,
                     ANIMATION_SPRITE,
                     this.leftPos + 72,
-                    this.topPos + 18,
-                    28, 23
+                    this.topPos + 22,
+                    28, 19
             );
         else progress = 0;
 

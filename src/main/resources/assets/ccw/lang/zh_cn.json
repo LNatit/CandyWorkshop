@@ -29,6 +29,7 @@
     "block.ccw.plain_drawer_table": "抽屉台桌",
     "block.ccw.sugar_refinery": "糖果工坊",
     "ccw": "糖果工坊",
+    "compat.ccw.rei.title": "制糖",
     "container.drawer_table": "抽屉工作台",
     "container.sugar_refinery": "制糖机",
     "container.sugar_refinery.pause": "停止工作…",

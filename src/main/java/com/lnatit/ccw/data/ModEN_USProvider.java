@@ -80,5 +80,8 @@ public class ModEN_USProvider extends LanguageProvider {
             this.add(res.nameKey(), "adv name ph");
             this.add(res.descKey(), "adv desc ph");
         }
+
+        // REI Compat
+        this.add("compat.ccw.rei.title", "Refining");
     }
 }

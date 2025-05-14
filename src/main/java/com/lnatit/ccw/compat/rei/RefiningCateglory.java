@@ -2,6 +2,7 @@ package com.lnatit.ccw.compat.rei;
 
 import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.item.ItemRegistry;
+import com.lnatit.ccw.menu.client.SugarRefineryScreen;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.Renderer;
@@ -11,6 +12,7 @@ import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import me.shedaniel.rei.impl.ClientInternals;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
@@ -57,39 +59,51 @@ public class RefiningCateglory implements DisplayCategory<RefiningDisplay>
         // Background
         widgets.add(createRecipeBase(bounds));
         // Progress Bar
-        // TODO add prog & animation
-//        widgets.add(Widgets.createDrawableWidget((graphics, mouseX, mouseY, delta) -> {
+        widgets.add(Widgets.createDrawableWidget((graphics, mouseX, mouseY, delta) -> {
+            graphics.blitSprite(
+                    RenderType::guiTextured,
+                    SugarRefineryScreen.ANIMATION_SPRITE,
+                    startingPoint.x + 61,
+                    startingPoint.y + 5,
+                    28, 19
+            );
 //            int width = Mth.ceil(System.currentTimeMillis() / 250d % 18d);
-//            graphics.blit(RenderType::guiTextured, texture, startingPoint.x + 44, startingPoint.y + 28, 103, 163, width, 4, 256, 256);
-//        }));
+//            graphics.blit(
+//                    RenderType::guiTextured,
+//                    SugarRefineryScreen.PROGRESS_SPRITE,
+//                    startingPoint.x + 62,
+//                    startingPoint.y + 24,
+//                    103,
+//                    163, width, 4, 256, 256);
+        }));
         // Inputs
         widgets.add(
-                Widgets.createSlot(new Point(startingPoint.x + 13, startingPoint.y + 1))
+                Widgets.createSlot(new Point(startingPoint.x + 13, startingPoint.y + 7))
                        .entries(display.getInputEntries().get(0))
                        .disableBackground()
                        .markInput()
         );
         widgets.add(
-                Widgets.createSlot(new Point(startingPoint.x + 38, startingPoint.y + 1))
+                Widgets.createSlot(new Point(startingPoint.x + 38, startingPoint.y + 7))
                        .entries(display.getInputEntries().get(1))
                        .disableBackground()
                        .markInput()
         );
         widgets.add(
-                Widgets.createSlot(new Point(startingPoint.x + 97, startingPoint.y + 1))
+                Widgets.createSlot(new Point(startingPoint.x + 96, startingPoint.y + 7))
                        .entries(display.getInputEntries().get(2))
                        .disableBackground()
                        .markInput()
         );
         widgets.add(
-                Widgets.createSlot(new Point(startingPoint.x + 121, startingPoint.y + 1))
+                Widgets.createSlot(new Point(startingPoint.x + 120, startingPoint.y + 7))
                        .entries(display.getInputEntries().get(3))
                        .disableBackground()
                        .markInput()
         );
         // Output(s)
         widgets.add(
-                Widgets.createSlot(new Point(startingPoint.x + 68, startingPoint.y + 21))
+                Widgets.createSlot(new Point(startingPoint.x + 67, startingPoint.y + 39))
                        .entries(display.getOutputEntries().get(0))
                        .disableBackground()
                        .markOutput()
