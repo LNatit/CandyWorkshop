@@ -4,12 +4,15 @@ import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.compat.rei.RefiningDisplay;
 import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.item.sugaring.SugarRefining;
+import com.lnatit.ccw.menu.SugarRefineryMenu;
 import com.lnatit.ccw.menu.client.SugarRefineryScreen;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
 import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.api.client.registry.screen.ScreenRegistry;
+import me.shedaniel.rei.api.client.registry.transfer.TransferHandlerRegistry;
+import me.shedaniel.rei.api.client.registry.transfer.simple.SimpleTransferHandler;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import me.shedaniel.rei.forge.REIPluginClient;
@@ -39,6 +42,17 @@ public class CandyWorkshopPlugin implements REIClientPlugin
                 new Rectangle(108, 43, 40, 17),
                 SugarRefineryScreen.class,
                 REFINING
+        );
+    }
+
+    @Override
+    public void registerTransferHandlers(TransferHandlerRegistry registry) {
+        registry.register(
+                SimpleTransferHandler.create(
+                        SugarRefineryMenu.class,
+                        REFINING,
+                        new SimpleTransferHandler.IntRange(0, 3)
+                )
         );
     }
 }

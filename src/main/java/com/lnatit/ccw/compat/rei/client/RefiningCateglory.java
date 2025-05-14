@@ -12,7 +12,7 @@ import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import me.shedaniel.rei.impl.ClientInternals;
+import me.shedaniel.rei.impl.client.gui.widget.basewidgets.PanelWidget;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -96,7 +96,7 @@ public class RefiningCateglory implements DisplayCategory<RefiningDisplay>
         );
         widgets.add(
                 Widgets.createSlot(new Point(startingPoint.x + 120, startingPoint.y + 7))
-                       .entries(display.getInputEntries().get(3))
+                       .entries(display.getExtra())
                        .disableBackground()
                        .markInput()
         );
@@ -111,8 +111,8 @@ public class RefiningCateglory implements DisplayCategory<RefiningDisplay>
     }
 
     private static Widget createRecipeBase(Rectangle bounds) {
-        return ClientInternals.getWidgetsProvider()
-                       .createPanelWidget(bounds)
-                       .texture(BACKGROUND, BACKGROUND);
+        PanelWidget base = new PanelWidget(bounds);
+        base.setTexture(BACKGROUND, BACKGROUND);
+        return base;
     }
 }

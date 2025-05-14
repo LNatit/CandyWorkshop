@@ -31,9 +31,9 @@ public class SugarRefineryMenu extends AbstractContainerMenu {
     }
 
     private void addRefinerySlots(IItemHandler contents) {
-        this.addSlot(new SlotItemHandler(contents, 0, 23, 23));
-        this.addSlot(new SlotItemHandler(contents, 1, 48, 23));
-        this.addSlot(new SlotItemHandler(contents, 2, 108, 23));
+        this.addSlot(new InteractiveSlot(contents, 0, 23, 23));
+        this.addSlot(new InteractiveSlot(contents, 1, 48, 23));
+        this.addSlot(new InteractiveSlot(contents, 2, 108, 23));
         this.addSlot(new SlotItemHandler(contents, 3, 132, 23));
 
         this.addSlot(new SlotItemHandler(contents, 4, 78, 56));
@@ -64,5 +64,25 @@ public class SugarRefineryMenu extends AbstractContainerMenu {
     @Override
     public boolean stillValid(Player player) {
         return AbstractContainerMenu.stillValid(this.access, player, BlockRegistry.SUGAR_REFINERY.get());
+    }
+
+    public static class InteractiveSlot extends SlotItemHandler {
+        public InteractiveSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
+            super(itemHandler, index, xPosition, yPosition);
+        }
+
+        // Fxxk REI!
+        @Override
+        public boolean mayPlace(ItemStack stack) {
+            if (stack.isEmpty()) {
+                return true;
+            }
+            return super.mayPlace(stack);
+        }
+
+        @Override
+        public boolean mayPickup(Player playerIn) {
+            return true;
+        }
     }
 }
