@@ -78,19 +78,19 @@ public class RefiningCateglory implements DisplayCategory<RefiningDisplay>
         // Inputs
         widgets.add(
                 Widgets.createSlot(new Point(startingPoint.x + 13, startingPoint.y + 7))
-                       .entries(display.getInputEntries().get(0))
+                       .entries(display.getMilk())
                        .disableBackground()
                        .markInput()
         );
         widgets.add(
                 Widgets.createSlot(new Point(startingPoint.x + 38, startingPoint.y + 7))
-                       .entries(display.getInputEntries().get(1))
+                       .entries(display.getSugar())
                        .disableBackground()
                        .markInput()
         );
         widgets.add(
                 Widgets.createSlot(new Point(startingPoint.x + 96, startingPoint.y + 7))
-                       .entries(display.getInputEntries().get(2))
+                       .entries(display.getMain())
                        .disableBackground()
                        .markInput()
         );

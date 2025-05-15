@@ -51,7 +51,7 @@ public class CandyWorkshopPlugin implements REIClientPlugin
                 SimpleTransferHandler.create(
                         SugarRefineryMenu.class,
                         REFINING,
-                        new SimpleTransferHandler.IntRange(0, 3)
+                        new SimpleTransferHandler.IntRange(0, 4)
                 )
         );
     }
