@@ -14,6 +14,7 @@ public class FoodsAndConsumables {
             new FoodProperties.Builder()
                     .nutrition(1)
                     .saturationModifier(FoodConstants.FOOD_SATURATION_LOW)
+                    .alwaysEdible()
                     .build();
     public static final Consumable GUMMY_CONSUMABLE =
             Consumables.defaultFood()
@@ -21,7 +22,7 @@ public class FoodsAndConsumables {
                     .build();
 
     public static final Consumable CARTON_MILK_CONSUMABLE =
-            Consumables.defaultFood()
+            Consumables.defaultDrink()
                     .consumeSeconds(0.4f)
                     .onConsume(new RemoveRandomStatusEffectsConsumeEffect())
                     .build();
