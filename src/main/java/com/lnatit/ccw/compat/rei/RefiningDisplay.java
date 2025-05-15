@@ -15,6 +15,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.common.util.ConcatenatedListView;
 import org.jetbrains.annotations.Nullable;
 
@@ -39,7 +40,7 @@ public class RefiningDisplay implements Display {
                     RefiningDisplay::new
             ));
 
-    public static final List<EntryIngredient> MILK = List.of(EntryIngredients.of(ItemRegistry.CARTON_MILK));
+    public static final List<EntryIngredient> MILK = Collections.singletonList(milk());
 
     private final List<EntryIngredient> inputs;
     private final EntryIngredient extra;
@@ -60,6 +61,18 @@ public class RefiningDisplay implements Display {
     @Override
     public List<EntryIngredient> getInputEntries() {
         return inputs;
+    }
+
+    public EntryIngredient getMilk() {
+        return inputs.get(0);
+    }
+
+    public EntryIngredient getSugar() {
+        return inputs.get(1);
+    }
+
+    public EntryIngredient getMain() {
+        return inputs.get(2);
     }
 
     public EntryIngredient getExtra() {
@@ -90,20 +103,21 @@ public class RefiningDisplay implements Display {
         return SERIALIZER;
     }
 
-    private static List<EntryIngredient> getMilk() {
-//        var list = List.of(EntryIngredients.ofItemTag(ItemRegistry.MILK_TAG));
-//        list.forEach(i -> {
-//            if (i.)
-//        });
-        // TODO
-        return null;
+    private static EntryIngredient milk() {
+        var milk = EntryIngredients.ofItemTag(ItemRegistry.MILK_TAG);
+        milk.forEach(stack -> {
+            if (stack.getValue() instanceof ItemStack itemStack &&
+                    itemStack.is(ItemRegistry.CARTON_MILK_TAG))
+                itemStack.setCount(8);
+        });
+        return milk;
     }
 
     private static List<EntryIngredient> inputsOf(SugarRefining.Blend blend) {
         EntryIngredient sugar = EntryIngredients.of(blend.sugar(), 8);
         EntryIngredient main = EntryIngredients.ofIngredient(blend.main());
 
-        return ConcatenatedListView.of(MILK, List.of(sugar, main));
+        return ConcatenatedListView.of(MILK, List.of(sugar, main, EntryIngredient.empty()));
     }
 
     private static EntryIngredient extraOf(SugarRefining.Blend blend) {

@@ -34,7 +34,7 @@ public class SugarRefineryMenu extends AbstractContainerMenu {
         this.addSlot(new InteractiveSlot(contents, 0, 23, 23));
         this.addSlot(new InteractiveSlot(contents, 1, 48, 23));
         this.addSlot(new InteractiveSlot(contents, 2, 108, 23));
-        this.addSlot(new SlotItemHandler(contents, 3, 132, 23));
+        this.addSlot(new InteractiveSlot(contents, 3, 132, 23));
 
         this.addSlot(new SlotItemHandler(contents, 4, 78, 56));
 
