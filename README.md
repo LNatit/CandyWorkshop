@@ -1,5 +1,5 @@
-![](img/logo.png)
 # CCW Content Introduction 卡里普索的糖果工坊快速入门
+![](img/logo.png)
 Calypso's Candy Workshop is a lightweight utility mod that lets you craft various gummies with potion effects in a simple and immersive way.  
 Whether you're living a peaceful farm life or embarking into thrilling adventures, bring a pack of gummy along to add a little joy and hope to your journey.  
 _Calypso's Candy Workshop doesn't generate any world content, so you can safely add it to your game at any time._
