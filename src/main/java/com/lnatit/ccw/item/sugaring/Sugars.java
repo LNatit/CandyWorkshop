@@ -192,7 +192,7 @@ public class Sugars {
             registerSingle("satiating",
                     builder -> builder
                             .withEffect(MobEffects.SATURATION)
-                            .withNoExcited() // TODO do we need?
+                            .withNoExcited()
                             .build()
             );
     public static final DeferredHolder<Sugar, SingleEffectSugar> BRIGHTNESS =
@@ -206,28 +206,28 @@ public class Sugars {
             registerSingle("floating",
                     builder -> builder
                             .withEffect(MobEffects.LEVITATION)
-                            .withNoExcited() // TODO do we need?
+                            .withNoExcited()
                             .build()
             );
     public static final DeferredHolder<Sugar, SingleEffectSugar> LUCKY =
             registerSingle("lucky",
                     builder -> builder
                             .withEffect(MobEffects.LUCK)
-                            .withNoExcited() // TODO do we need?
+                            .withNoExcited()
                             .build()
             );
     public static final DeferredHolder<Sugar, SingleEffectSugar> UNLUCKY =
             registerSingle("unlucky",
                     builder -> builder
                             .withEffect(MobEffects.UNLUCK)
-                            .withNoExcited() // TODO do we need?
+                            .withNoExcited()
                             .build()
             );
     public static final DeferredHolder<Sugar, SingleEffectSugar> TIDAL =
             registerSingle("tidal",
                     builder -> builder
                             .withEffect(MobEffects.CONDUIT_POWER)
-                            .withNoExcited() // TODO do we need?
+                            .withNoExcited()
                             .build()
             );
     public static final DeferredHolder<Sugar, SingleEffectSugar> FISH_SWIM =
@@ -240,7 +240,7 @@ public class Sugars {
             registerSingle("taunting",
                     builder -> builder
                             .withEffect(MobEffects.BAD_OMEN)
-                            .withNoExcited() // TODO do we need?
+                            .withNoExcited()
                             .build()
             );
     public static final DeferredHolder<Sugar, SingleEffectSugar> DISCOUNT =
