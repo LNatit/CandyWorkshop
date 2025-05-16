@@ -38,7 +38,7 @@ displayURL="https://github.com/LNatit/CandyWorkshop" #optional
 logoFile="logo.png" #optional
 
 # A text field displayed in the mod UI
-credits="akio, 【:】 and other friends..." #optional
+#credits="akio, 【:】 and other friends..." #optional
 
 # A text field displayed in the mod UI
 authors="${mod_authors}" #optional

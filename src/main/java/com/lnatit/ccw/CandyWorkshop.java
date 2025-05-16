@@ -1,3 +1,8 @@
+/*
+ Copyright (c) 2025 Loci_Natit
+ SPDX-License-Identifier: ARR
+ All rights reserved. Unauthorized use prohibited.
+*/
 package com.lnatit.ccw;
 
 import com.lnatit.ccw.block.BlockRegistry;
@@ -10,16 +15,13 @@ import com.lnatit.ccw.misc.SoundRegistry;
 import com.lnatit.ccw.misc.StatRegistry;
 import com.lnatit.ccw.misc.critereon.CriteriaRegistry;
 import com.lnatit.ccw.misc.data.AttachmentRegistry;
-import com.mojang.logging.LogUtils;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
-import org.slf4j.Logger;
 
 @Mod(CandyWorkshop.MODID)
 public class CandyWorkshop {
     public static final String MODID = "ccw";
-    public static final Logger LOGGER = LogUtils.getLogger();
 
     public CandyWorkshop(IEventBus modEventBus, ModContainer modContainer) {
         Sugars.register(modEventBus);
