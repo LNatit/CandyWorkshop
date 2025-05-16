@@ -116,13 +116,13 @@ A small gummy package that combines carrying and quick consumption features, cur
 **Animation Exchange|动画顾问:** akio  
 **Partial Texture Support|部分贴图支援:** 【:】
 
-↓If you find any bugs, please report them here↓  如有BUG请在此处发布↓  
+↓If you find any bugs, please report them here↓  如有BUG请在此处反馈↓
 [https://github.com/LNatit/CandyWorkshop/issues](https://github.com/LNatit/CandyWorkshop/issues)
 
 
 ## Terms of Use 使用条款
-**Code Section:** Unless otherwise stated, open-sourced under the MIT license  
-**Assets Section:** ARR All Rights Reserved  
+**Code Section:** Unless otherwise stated, open-sourced under the [MIT license](LICENSE-CODE)  
+**Assets Section:** [All Rights Reserved](LICENSE-RESOURCES)
 
-**代码部分：** 除非另有声明否则以MIT协议开源  
-**资源部分：** ARR保留所有权利  
+**代码部分：** 除非另有声明，否则以[MIT协议](LICENSE-CODE)开源  
+**资源部分：** [ARR](LICENSE-RESOURCES)保留所有权利  
