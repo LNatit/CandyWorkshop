@@ -25,8 +25,7 @@ _What makes gummies better than vanilla potions?_
 **Quick consumption/no residue:** Eat them instantly, with no leftovers.  
 
 **Intuitive visuals:** Each gummy has a unique, easily recognizable icon.
-
-**Stacking duration:** Identical effects stack in duration instead of resetting!
+\n**Stacking duration:** Identical effects stack in duration instead of resetting!
 
 相较于原版的药水，糖果们具有哪些优势？
 
