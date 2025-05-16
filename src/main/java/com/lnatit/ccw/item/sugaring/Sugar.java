@@ -122,7 +122,7 @@ public abstract class Sugar
             return switch (flavor) {
                 case EXCITED -> new ItemStack(Items.COCOA_BEANS);
                 case BOLD -> new ItemStack(Items.HONEY_BOTTLE);
-                case MILKY -> new ItemStack(Items.MILK_BUCKET);
+                case MILKY -> new ItemStack(ItemRegistry.MILK_GELATIN.asItem());
                 default -> ItemStack.EMPTY;
             };
         }

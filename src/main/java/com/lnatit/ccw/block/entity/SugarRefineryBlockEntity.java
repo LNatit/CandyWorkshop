@@ -286,7 +286,8 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
             return switch (slot) {
                 case 0 -> stack.is(ItemRegistry.MILK_TAG);
                 case 1 -> SugarRefining.sugarRefining.isSugar(stack);
-                case 2, 3 -> true;
+                case 2 -> SugarRefining.sugarRefining.isMain(stack);
+                case 3 -> SugarRefining.sugarRefining.isExtra(stack);
                 default -> false;
             };
         }

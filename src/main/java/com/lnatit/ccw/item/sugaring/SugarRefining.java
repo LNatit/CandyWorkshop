@@ -102,7 +102,7 @@ public class SugarRefining
         builder.addNetherBlend(Sugars.REFRESHING, Items.COCOA_BEANS);
         builder.addNetherBlend(Sugars.LAZY, Items.COBBLESTONE);
         builder.addNetherBlend(Sugars.SOLID, ItemRegistry.CALCIUM_RICH_MILK.get());
-        builder.addNetherBlend(Sugars.FIREPROOF, Items.OBSIDIAN);
+        builder.addNetherBlend(Sugars.FIREPROOF, Items.MAGMA_CREAM, Items.OBSIDIAN);
         builder.addNetherBlend(Sugars.WITHERING, Items.WITHER_ROSE);
         builder.addNetherBlend(Sugars.RED_HEART, ItemRegistry.IRON_CLAD_APPLE.get());
         builder.addNetherBlend(Sugars.FLOATING, Items.SHULKER_SHELL);
