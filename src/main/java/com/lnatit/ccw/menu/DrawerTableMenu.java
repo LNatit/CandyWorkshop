@@ -62,7 +62,6 @@ public class DrawerTableMenu extends AbstractContainerMenu
                 slot.setChanged();
             }
         }
-
         return result;
     }
 
