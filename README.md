@@ -103,7 +103,7 @@ Eco-friendly packaging means no byproducts when crafting or drinking.
 喝下它只会移除一个状态效果。  
 由于采用可降解材料进行罐装，合成或是饮用不会产生副产物。
 
-### Gummy Gift Box (In Development) 糖果礼盒(开发中)
+### Gummy Gift Box (WIP) 糖果礼盒(开发中)
 A small gummy package that combines carrying and quick consumption features, currently under development.
 
 集携带与快速食用一体的小小糖果包裹，目前正在开发中
