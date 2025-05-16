@@ -17,16 +17,25 @@ _*糖果工坊不会在世界上生成任何东西，这意味着您可以在您
 
 ## Gummy 糖果
 ![](img/img1.png)
+
 _What makes gummies better than vanilla potions?_  
+
 **Stackable:** Stack up to 64 gummies — no more inventory or chest clutter.
+
 **Quick consumption/no residue:** Eat them instantly, with no leftovers.  
+
 **Intuitive visuals:** Each gummy has a unique, easily recognizable icon.
+
 **Stacking duration:** Identical effects stack in duration instead of resetting!
 
 相较于原版的药水，糖果们具有哪些优势？
+
 **可以堆叠：** 堆叠上限为64，不必再担心占用背包或是箱子。
+
 **食用迅速/无残留：** 以极快的速度吃下它们，并且不会留下垃圾。
+
 **直观的外观：** 每个糖果都有独一无二，易于辨认的图标
+
 **食用时间可以堆叠：** 是的，当你食用糖果后，相同效果的时间会被叠加而非刷新！
 
 ## Crafting Gummies 制造糖果
