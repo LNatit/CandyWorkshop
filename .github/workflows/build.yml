@@ -37,14 +37,14 @@ jobs:
           ./gradlew build
 
       - name: Read Properties
-        id: 'properties'
+        id: properties
         uses: christian-draeger/read-properties@1.1.1
         with:
           path: gradle.properties
           properties: 'mod_id mod_name'
 
       - name: Get Version
-        id: var
+        id: version
         run: |
           VERSION=$(./gradlew properties -q | grep "version:" | awk '{print $2}')
           echo "version=$VERSION" >> $GITHUB_OUTPUT
@@ -53,5 +53,4 @@ jobs:
         uses: actions/upload-artifact@v4.3.3
         with:
           name: "${{ steps.properties.outputs.mod_name }} ${{ steps.version.outputs.version }}"
-          path: |
-            build/libs/*.jar
+          path: build/libs/*.jar
