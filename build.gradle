@@ -14,7 +14,7 @@ tasks.named('wrapper', Wrapper).configure {
     distributionType = Wrapper.DistributionType.BIN
 }
 
-var build_version = ""
+var build_version = mod_version
 var build_id = System.getenv("BUILD_ID")
 if (build_id != null)
     build_version = "${mod_version}+b${build_id}"
