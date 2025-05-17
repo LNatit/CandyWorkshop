@@ -47,7 +47,7 @@ jobs:
         id: version
         run: |
           VERSION=$(./gradlew properties -q | grep "mod_version:" | awk "{print $2}")
-          echo $VERSION
+          echo ./gradlew properties -q
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Upload a Build Artifact
