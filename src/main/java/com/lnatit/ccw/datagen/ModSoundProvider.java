@@ -1,4 +1,4 @@
-package com.lnatit.ccw.data;
+package com.lnatit.ccw.datagen;
 
 import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.misc.SoundRegistry;

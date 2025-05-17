@@ -1,6 +1,6 @@
-package com.lnatit.emp.data;
+package com.lnatit.ccw.datagen.emp.data;
 
-import com.lnatit.emp.data.model.ClientItemModelGenerators;
+import com.lnatit.ccw.datagen.emp.data.model.ClientItemModelGenerators;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;

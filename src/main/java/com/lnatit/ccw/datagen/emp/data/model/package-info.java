@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package com.lnatit.emp.data.model;
+package com.lnatit.ccw.datagen.emp.data.model;
 
 import net.minecraft.MethodsReturnNonnullByDefault;
 

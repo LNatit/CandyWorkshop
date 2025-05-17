@@ -1,10 +1,7 @@
-/**
- * TODO exclude datagen codes in build
- */
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 @FieldsAreNonnullByDefault
-package com.lnatit.ccw.data;
+package com.lnatit.ccw.datagen;
 
 import net.minecraft.FieldsAreNonnullByDefault;
 import net.minecraft.MethodsReturnNonnullByDefault;

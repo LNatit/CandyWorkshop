@@ -1,12 +1,12 @@
-package com.lnatit.ccw.data;
+package com.lnatit.ccw.datagen;
 
 import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.block.BlockRegistry;
 import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.item.sugaring.Sugar;
 import com.lnatit.ccw.item.sugaring.Sugars;
-import com.lnatit.emp.data.EnhancedModelProvider;
-import com.lnatit.emp.data.model.ClientItemModelGenerators;
+import com.lnatit.ccw.datagen.emp.data.EnhancedModelProvider;
+import com.lnatit.ccw.datagen.emp.data.model.ClientItemModelGenerators;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;

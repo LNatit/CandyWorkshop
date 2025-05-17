@@ -1,4 +1,4 @@
-package com.lnatit.emp.data.model;
+package com.lnatit.ccw.datagen.emp.data.model;
 
 import net.minecraft.client.data.models.model.ModelTemplate;
 import net.minecraft.client.data.models.model.TextureMapping;
