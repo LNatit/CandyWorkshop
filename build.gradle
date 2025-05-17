@@ -16,9 +16,9 @@ tasks.named('wrapper', Wrapper).configure {
 
 var build_id = System.getenv("BUILD_ID")
 if (build_id != null)
-    mod_version += "+b" + build_id
-
-version = mod_version
+    version = "${mod_version}+b${build_id}"
+else
+    version = mod_version
 group = mod_group_id
 
 repositories {
