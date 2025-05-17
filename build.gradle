@@ -16,9 +16,9 @@ tasks.named('wrapper', Wrapper).configure {
 
 var build_id = System.getenv("BUILD_ID")
 if (build_id != null)
-    version = "${mod_version}+b${build_id}"
-else
-    version = mod_version
+    mod_version += "+b${build_id}"
+
+version = mod_version
 group = mod_group_id
 
 repositories {
@@ -170,7 +170,7 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
             mod_id                 : mod_id,
             mod_name               : mod_name,
             mod_license            : mod_license,
-            mod_version            : version,
+            mod_version            : mod_version,
             mod_authors            : mod_authors,
             mod_description        : mod_description
     ]
