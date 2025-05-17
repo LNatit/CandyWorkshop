@@ -46,7 +46,7 @@ jobs:
       - name: Get Version
         id: version
         run: |
-          VERSION=$(./gradlew properties -q | grep "version:" | awk '{print $2}')
+          VERSION=$(./gradlew properties -q | grep 'mod_version:' | awk '{print $2}')
           echo "$VERSION"
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
