@@ -43,10 +43,11 @@ jobs:
           name: "${{ steps.properties.outputs.mod_name }} ${{ steps.version.outputs.version }}"
           version: ${{ steps.version.outputs.version }}
           version-type: release
-          github-tag: ${{ steps.version.outputs.version }}
+
           github-token: ${{ secrets.GITHUB_TOKEN }}
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
+
           files: build/libs/*.jar
 
           java: ${{ steps.properties.outputs.java_version }}
