@@ -12,6 +12,7 @@ public class DataGenerate
     public static void onGatherData(GatherDataEvent.Client event) {
         event.createProvider(ModAdvcmtProvider::new);
         event.createProvider(ModEN_USProvider::new);
+        event.createProvider(ModLootProvider::new);
         event.createProvider(ModModelProvider::new);
         event.createProvider(ModRecipeProvider.Runner::new);
         event.createProvider(ModSoundProvider::new);

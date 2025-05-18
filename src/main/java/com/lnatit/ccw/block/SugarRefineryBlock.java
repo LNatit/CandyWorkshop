@@ -6,11 +6,14 @@ import com.lnatit.ccw.misc.StatRegistry;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -24,8 +27,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public class SugarRefineryBlock extends BaseEntityBlock
-{
+public class SugarRefineryBlock extends BaseEntityBlock {
     public static final MapCodec<SugarRefineryBlock> CODEC = simpleCodec(SugarRefineryBlock::new);
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final VoxelShape SHAPE = Block.box(1.0, 0.0, 1.0, 15.0, 7.0, 15.0);
@@ -72,6 +74,16 @@ public class SugarRefineryBlock extends BaseEntityBlock
     }
 
     @Override
+    protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess scheduledTickAccess, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random) {
+        return !state.canSurvive(level, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
+    }
+
+    @Override
+    protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+        return !level.isEmptyBlock(pos.below());
+    }
+
+    @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         if (!level.isClientSide() && level.getBlockEntity(
                 pos) instanceof SugarRefineryBlockEntity refineryBlockEntity) {
@@ -84,8 +96,8 @@ public class SugarRefineryBlock extends BaseEntityBlock
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
         return level.isClientSide ? null : createTickerHelper(blockEntityType,
-                                                              BlockRegistry.SUGAR_REFINERY_BETYPE.value(),
-                                                              SugarRefineryBlockEntity::serverTick
+                BlockRegistry.SUGAR_REFINERY_BETYPE.value(),
+                SugarRefineryBlockEntity::serverTick
         );
     }
 
