@@ -19,7 +19,7 @@ jobs:
     env:
       BUILD_ID: ${{ github.run_number }}
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup JDK 21
@@ -41,19 +41,16 @@ jobs:
         uses: christian-draeger/read-properties@1.1.1
         with:
           path: gradle.properties
-          properties: "mod_id mod_name"
+          properties: "mod_id mod_name mod_version"
 
       - name: Get Version
         id: version
         run: |
           VERSION=$(./gradlew properties -q | grep "mod_version:" | awk '{print $2}')
-          echo $(./gradlew properties -q | grep "mod_version:")
           echo "version=$VERSION" >> $GITHUB_OUTPUT
-          printf '%s' "mod_version: 1.0.0" | xxd 
-          printf '%s' "$VERSION" | xxd 
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4.3.3
         with:
-          name: "${{ steps.properties.outputs.mod_name }} ${{ steps.version.outputs.version }}+b${{ github.run_number }}"
+          name: "${{ steps.properties.outputs.mod_name }} ${{ steps.properties.outputs.mod_version }}+b${{ github.run_number }}"
           path: build/libs/*.jar
