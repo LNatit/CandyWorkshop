@@ -30,7 +30,7 @@ jobs:
         uses: christian-draeger/read-properties@1.1.1
         with:
           path: gradle.properties
-          properties: "minecraft_version mod_id mod_name mod_version"
+          properties: "java_version minecraft_version mod_id mod_name mod_version"
 
       - name: Concatenate Mod Version
         id: version
@@ -43,7 +43,9 @@ jobs:
           name: "${{ steps.properties.outputs.mod_name }} ${{ steps.version.outputs.version }}"
           version: ${{ steps.version.outputs.version }}
           version-type: release
+          fail-mode: skip
 
+          java: ${{ steps.properties.outputs.java_version }}
           github-tag: ${{ steps.version.outputs.version }}
 
           github-token: ${{ secrets.GITHUB_TOKEN }}
