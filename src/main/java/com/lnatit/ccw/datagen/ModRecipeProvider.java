@@ -5,7 +5,7 @@ import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.item.crafting.RepairExtractorRecipe;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.component.DataComponentPredicate;
+import net.minecraft.core.component.DataComponentExactPredicate;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -209,7 +209,7 @@ public class ModRecipeProvider extends RecipeProvider
         Ingredient ominous_banner = new Ingredient(
                 new DataComponentIngredient(
                         HolderSet.direct(Items.WHITE_BANNER.builtInRegistryHolder()),
-                        DataComponentPredicate.allOf(
+                        DataComponentExactPredicate.allOf(
                                 Raid.getOminousBannerInstance(this.registries.lookupOrThrow(Registries.BANNER_PATTERN))
                                     .getComponents()
                         ),

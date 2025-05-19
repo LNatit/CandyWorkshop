@@ -10,17 +10,16 @@ import com.lnatit.ccw.datagen.emp.data.model.ClientItemModelGenerators;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
-import net.minecraft.client.data.models.blockstates.Variant;
-import net.minecraft.client.data.models.blockstates.VariantProperties;
 import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.client.renderer.block.model.Variant;
 import net.minecraft.client.renderer.item.properties.conditional.Broken;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import org.jetbrains.annotations.NotNull;
 
-import static net.minecraft.client.data.models.BlockModelGenerators.createHorizontalFacingDispatch;
+import static net.minecraft.client.data.models.BlockModelGenerators.*;
 
 public class ModModelProvider extends EnhancedModelProvider
 {
@@ -33,28 +32,28 @@ public class ModModelProvider extends EnhancedModelProvider
         ResourceLocation model = BlockRegistry.SUGAR_REFINERY.getId().withPrefix("block/");
         blockModels.registerSimpleItemModel(ItemRegistry.SUGAR_REFINERY.get(), model);
         blockModels.blockStateOutput.accept(
-                MultiVariantGenerator.multiVariant(BlockRegistry.SUGAR_REFINERY.get(),
-                                                   Variant.variant().with(VariantProperties.MODEL, model)
+                MultiVariantGenerator.dispatch(BlockRegistry.SUGAR_REFINERY.get(),
+                                               createRotatedVariants(new Variant(model))
                                      )
-                                     .with(createHorizontalFacingDispatch())
+                                     .with(ROTATION_HORIZONTAL_FACING)
         );
 
         model = BlockRegistry.PLAIN_DRAWER_TABLE.getId().withPrefix("block/");
         blockModels.registerSimpleItemModel(ItemRegistry.PLAIN_DRAWER_TABLE.get(), model);
         blockModels.blockStateOutput.accept(
-                MultiVariantGenerator.multiVariant(BlockRegistry.PLAIN_DRAWER_TABLE.get(),
-                                                   Variant.variant().with(VariantProperties.MODEL, model)
+                MultiVariantGenerator.dispatch(BlockRegistry.PLAIN_DRAWER_TABLE.get(),
+                                               createRotatedVariants(new Variant(model))
                                      )
-                                     .with(createHorizontalFacingDispatch())
+                                     .with(ROTATION_HORIZONTAL_FACING)
         );
 
         model = BlockRegistry.DRAWER_TABLE.getId().withPrefix("block/");
         blockModels.registerSimpleItemModel(ItemRegistry.DRAWER_TABLE.get(), model);
         blockModels.blockStateOutput.accept(
-                MultiVariantGenerator.multiVariant(BlockRegistry.DRAWER_TABLE.get(),
-                                                   Variant.variant().with(VariantProperties.MODEL, model)
+                MultiVariantGenerator.dispatch(BlockRegistry.DRAWER_TABLE.get(),
+                                                   createRotatedVariants(new Variant(model))
                                      )
-                                     .with(createHorizontalFacingDispatch())
+                                     .with(ROTATION_HORIZONTAL_FACING)
         );
 
         itemModels.generateFlatItem(ItemRegistry.GUMMY_ITEM.get(), ModelTemplates.FLAT_ITEM);
