@@ -2,7 +2,6 @@ on:
   release:
     types:
       - published
-      - edited
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -36,7 +35,7 @@ jobs:
       - name: Concatenate Mod Version
         id: version
         run: |
-          echo "version=mc${{ steps.properties.outputs.minecraft_version }}-${{ steps.properties.outputs.mod_version }}" >> $GITHUB_OUTPUT
+          echo "version=v${{ steps.properties.outputs.mod_version }}-mc${{ steps.properties.outputs.minecraft_version }}" >> $GITHUB_OUTPUT
 
       - name: Publish To Third Party
         uses: Kir-Antipov/mc-publish@v3.3
@@ -44,6 +43,7 @@ jobs:
           name: "${{ steps.properties.outputs.mod_name }} ${{ steps.version.outputs.version }}"
           version: ${{ steps.version.outputs.version }}
           version-type: release
+          github-tag: ${{ steps.version.outputs.version }}
 
           github-token: ${{ secrets.GITHUB_TOKEN }}
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
