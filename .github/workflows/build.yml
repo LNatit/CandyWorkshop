@@ -8,8 +8,6 @@ on:
       - build.gradle
       - gradle.properties
       - settings.gradle
-    branches:
-      - master
 
 jobs:
   build:
