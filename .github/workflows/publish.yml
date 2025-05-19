@@ -2,6 +2,7 @@ on:
   release:
     types:
       - published
+      - edited
 jobs:
   publish:
     runs-on: ubuntu-latest
