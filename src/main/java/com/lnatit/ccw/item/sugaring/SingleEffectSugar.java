@@ -78,6 +78,8 @@ public class SingleEffectSugar extends Sugar
         }
 
         tooltipAdder.accept(mutablecomponent.withStyle(effect.value().getCategory().getTooltipFormatting()));
+
+        super.addSugarTooltip(tooltipAdder, flavor, ticksPerSecond);
     }
 
     private int getDuration(Flavor flavor) {

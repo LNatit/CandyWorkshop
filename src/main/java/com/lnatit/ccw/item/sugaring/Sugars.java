@@ -21,19 +21,19 @@ public class Sugars {
     public static final DeferredHolder<Sugar, SingleEffectSugar> SPEED =
             registerSingle("speed",
                     builder -> builder
-                            .withEffect(MobEffects.MOVEMENT_SPEED)
+                            .withEffect(MobEffects.SPEED)
                             .build()
             );
     public static final DeferredHolder<Sugar, SingleEffectSugar> BUNNY =
             registerSingle("bunny",
                     builder -> builder
-                            .withEffect(MobEffects.JUMP)
+                            .withEffect(MobEffects.JUMP_BOOST)
                             .build()
             );
     public static final DeferredHolder<Sugar, SingleEffectSugar> HEALING =
             registerSingle("healing",
                     builder -> builder
-                            .withEffect(MobEffects.HEAL)
+                            .withEffect(MobEffects.INSTANT_HEALTH)
                             .withDuration(1)
                             .withNoBold()
                             .build()
@@ -60,7 +60,7 @@ public class Sugars {
     public static final DeferredHolder<Sugar, SingleEffectSugar> STRENGTH =
             registerSingle("strength",
                     builder -> builder
-                            .withEffect(MobEffects.DAMAGE_BOOST)
+                            .withEffect(MobEffects.STRENGTH)
                             .build()
             );
     public static final DeferredHolder<Sugar, SingleEffectSugar> RECOVERY =
@@ -86,7 +86,7 @@ public class Sugars {
     public static final DeferredHolder<Sugar, SingleEffectSugar> STINGER =
             registerSingle("stinger",
                     builder -> builder
-                            .withEffect(MobEffects.HARM)
+                            .withEffect(MobEffects.INSTANT_DAMAGE)
                             .withDuration(1)
                             .withNoBold()
                             .build()
@@ -94,7 +94,7 @@ public class Sugars {
     public static final DeferredHolder<Sugar, SingleEffectSugar> SNAIL =
             registerSingle("snail",
                     builder -> builder
-                            .withEffect(MobEffects.MOVEMENT_SLOWDOWN)
+                            .withEffect(MobEffects.SLOWNESS)
                             .build()
             );
     public static final DeferredHolder<Sugar, SingleEffectSugar> BUG =
@@ -128,26 +128,26 @@ public class Sugars {
     public static final DeferredHolder<Sugar, SingleEffectSugar> REFRESHING =
             registerSingle("refreshing",
                     builder -> builder
-                            .withEffect(MobEffects.DIG_SPEED)
+                            .withEffect(MobEffects.HASTE)
                             .build()
             );
     public static final DeferredHolder<Sugar, SingleEffectSugar> LAZY =
             registerSingle("lazy",
                     builder -> builder
-                            .withEffect(MobEffects.DIG_SLOWDOWN)
+                            .withEffect(MobEffects.MINING_FATIGUE)
                             .build()
             );
     public static final DeferredHolder<Sugar, SingleEffectSugar> STINKY =
             registerSingle("stinky",
                     builder -> builder
-                            .withEffect(MobEffects.CONFUSION)
+                            .withEffect(MobEffects.NAUSEA)
                             .withNoExcited()
                             .build()
             );
     public static final DeferredHolder<Sugar, SingleEffectSugar> SOLID =
             registerSingle("solid",
                     builder -> builder
-                            .withEffect(MobEffects.DAMAGE_RESISTANCE)
+                            .withEffect(MobEffects.RESISTANCE)
                             .build()
             );
     public static final DeferredHolder<Sugar, SingleEffectSugar> FIREPROOF =

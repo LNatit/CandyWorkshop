@@ -16,16 +16,16 @@ import java.util.function.Consumer;
 public class TurtleSugar extends Sugar
 {
     public static final List<MobEffectInstance> BASE_EFFECTS = List.of(
-            new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 3),
-            new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 100, 2)
+            new MobEffectInstance(MobEffects.SLOWNESS, 100, 3),
+            new MobEffectInstance(MobEffects.RESISTANCE, 100, 2)
     );
     public static final List<MobEffectInstance> BOLD_EFFECTS = List.of(
-            new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 200, 3),
-            new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 200, 2)
+            new MobEffectInstance(MobEffects.SLOWNESS, 200, 3),
+            new MobEffectInstance(MobEffects.RESISTANCE, 200, 2)
     );
     public static final List<MobEffectInstance> EXCITED_EFFECTS = List.of(
-            new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 5),
-            new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 100, 3)
+            new MobEffectInstance(MobEffects.SLOWNESS, 100, 5),
+            new MobEffectInstance(MobEffects.RESISTANCE, 100, 3)
     );
 
     public TurtleSugar(String name) {
@@ -44,7 +44,7 @@ public class TurtleSugar extends Sugar
             case MILKY:
                 List<Holder<MobEffect>> toRemove = new ArrayList<>();
                 for (Holder<MobEffect> effect : entity.getActiveEffectsMap().keySet()) {
-                    if (effect != MobEffects.MOVEMENT_SLOWDOWN && effect != MobEffects.DAMAGE_RESISTANCE) {
+                    if (effect != MobEffects.SLOWNESS && effect != MobEffects.RESISTANCE) {
                         toRemove.add(effect);
                     }
                 }
@@ -81,6 +81,8 @@ public class TurtleSugar extends Sugar
             }
 
             tooltipAdder.accept(mutablecomponent.withStyle(holder.value().getCategory().getTooltipFormatting()));
+
+            super.addSugarTooltip(tooltipAdder, flavor, ticksPerSecond);
         }
     }
 

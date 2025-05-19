@@ -39,10 +39,10 @@ public class ItemRegistry {
     public static final DeferredRegister.Items ITEMS =
             DeferredRegister.createItems(CandyWorkshop.MODID);
 
-    public static final DeferredItem<GummyItem> GUMMY_ITEM =
+    public static final DeferredItem<Item> GUMMY_ITEM =
             ITEMS.register(
                     "gummy",
-                    key -> new GummyItem(
+                    key -> new Item(
                             new Item.Properties()
                                     .food(FoodsAndConsumables.GUMMY_FOOD, FoodsAndConsumables.GUMMY_CONSUMABLE)
                                     .component(SUGAR_CONTENTS_DCTYPE, SugarContents.VANILLA)
@@ -63,11 +63,10 @@ public class ItemRegistry {
     public static final DeferredItem<Item> MILK_PACKAGING = ITEMS.registerSimpleItem("milk_packaging");
     public static final DeferredItem<Item> CARTON_MILK = ITEMS.register(
             "carton_milk",
-            key -> new ExtraTooltipItem(
+            key -> new Item(
                     new Item.Properties()
                             .component(DataComponents.CONSUMABLE, FoodsAndConsumables.CARTON_MILK_CONSUMABLE)
-                            .setId(ResourceKey.create(Registries.ITEM, key)),
-                    2
+                            .setId(ResourceKey.create(Registries.ITEM, key))
             )
     );
     public static final DeferredItem<Item> NETHER_SUGAR = ITEMS.registerSimpleItem("nether_sugar");

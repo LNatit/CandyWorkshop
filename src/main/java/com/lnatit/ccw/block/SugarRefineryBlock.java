@@ -1,11 +1,11 @@
 package com.lnatit.ccw.block;
 
-import com.lnatit.ccw.block.entity.IItemStackHandlerContainer;
 import com.lnatit.ccw.block.entity.SugarRefineryBlockEntity;
 import com.lnatit.ccw.misc.StatRegistry;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -102,10 +102,8 @@ public class SugarRefineryBlock extends BaseEntityBlock {
     }
 
     @Override
-    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
-        if (level.getBlockEntity(pos) instanceof IItemStackHandlerContainer container) {
-            container.onRemove(state, newState, level, pos);
-        }
-        super.onRemove(state, level, pos, newState, movedByPiston);
+    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
+        // As we didn't emit redstone signal
+//        level.updateNeighbourForOutputSignal(pos, state.getBlock());
     }
 }

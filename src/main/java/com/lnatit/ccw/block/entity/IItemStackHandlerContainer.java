@@ -8,8 +8,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.ItemStackHandler;
 
-public interface IItemStackHandlerContainer
-{
+public interface IItemStackHandlerContainer {
     ItemStackHandler getInventory();
 
     default int getAnalogOutput() {
@@ -26,12 +25,9 @@ public interface IItemStackHandlerContainer
         return Mth.lerpDiscrete(f, 0, 15);
     }
 
-    default void onRemove(BlockState state, BlockState newState, Level level, BlockPos pos) {
-        if (!state.is(newState.getBlock())) {
-            for (int i = 0; i < getInventory().getSlots(); i++) {
-                Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), getInventory().getStackInSlot(i));
-            }
-            level.updateNeighbourForOutputSignal(pos, state.getBlock());
+    default void onRemove(BlockPos pos, BlockState state, Level level) {
+        for (int i = 0; i < getInventory().getSlots(); i++) {
+            Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), getInventory().getStackInSlot(i));
         }
     }
 }

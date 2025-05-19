@@ -16,6 +16,10 @@
           "flavor": "original",
           "sugar": "ccw:recovery"
         },
+        "minecraft:custom_name": {
+          "color": "white",
+          "translate": "item.ccw.gummy.recovery"
+        },
         "minecraft:item_model": "ccw:recovery_gummy"
       },
       "count": 1,

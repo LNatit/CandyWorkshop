@@ -1,7 +1,7 @@
-// 1.21.4	2025-04-18T15:01:49.1827577	Model Definitions - ccw
-891a55fce1371b267bbdefa9b7a6aa0c12ddb967 assets/ccw/blockstates/drawer_table.json
-04ec2b6c4068084508f8893334f89ebc8dcec25a assets/ccw/blockstates/plain_drawer_table.json
-a9449129efdcd8d56a9843f6f9f2c11f1c1947fc assets/ccw/blockstates/sugar_refinery.json
+// 1.21.5	2025-05-19T23:29:16.6323101	Model Definitions - ccw
+8f71600930147ebda64ae767cedde86bdfaf8f1a assets/ccw/blockstates/drawer_table.json
+8d173b32591f99b2037fbec461b98b7cf4c95ed5 assets/ccw/blockstates/plain_drawer_table.json
+f06de0dfddde774d6ab89d21089b1e1cc6598288 assets/ccw/blockstates/sugar_refinery.json
 bd3e196ca948649c926c64a02cb60df44a96ebaa assets/ccw/items/binding_gummy.json
 5c8756f15851d606a5f381228b17cbf6488af02b assets/ccw/items/blessed_steak.json
 5ba38ce127446c1ff630347988daf5b2414caa12 assets/ccw/items/blinding_gummy.json

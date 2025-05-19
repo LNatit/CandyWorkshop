@@ -15,6 +15,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
@@ -44,6 +45,7 @@ public abstract class Sugar
         }
         ItemStack itemStack = ItemRegistry.GUMMY_ITEM.toStack();
         itemStack.set(ItemRegistry.SUGAR_CONTENTS_DCTYPE, new SugarContents(Optional.of(sugar), flavor));
+        itemStack.set(DataComponents.CUSTOM_NAME, getName(ItemRegistry.GUMMY_ITEM, Optional.of(sugar), flavor));
         itemStack.set(DataComponents.ITEM_MODEL, sugar.value().getModelId());
         return itemStack;
     }
@@ -59,6 +61,18 @@ public abstract class Sugar
         return sugars;
     }
 
+    public static Component getName(Holder<Item> item, Optional<Holder<Sugar>> sugar, Flavor flavor) {
+        // temporary fix
+        Component name = Component.translatable(
+                item.value()
+                        .getDescriptionId()
+                        .concat(".")
+                        .concat(sugar.map(s -> s.value().name()).orElse("vanilla"))
+        ).withStyle(ChatFormatting.WHITE);
+        MutableComponent flavorComponent = Flavor.nameOf(flavor);
+        return flavorComponent == null ? name : flavorComponent.append(" ").append(name);
+    }
+
     public String name() {
         return name;
     }
@@ -66,6 +80,10 @@ public abstract class Sugar
     public abstract void applyOn(LivingEntity entity, Flavor flavor);
 
     public void addSugarTooltip(Consumer<Component> tooltipAdder, Flavor flavor, float ticksPerSecond) {
+        Component desc = Sugar.Flavor.descriptionOf(flavor);
+        if (desc != null) {
+            tooltipAdder.accept(desc);
+        }
     }
 
     public List<Flavor> getAvailableTypes() {

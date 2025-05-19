@@ -22,6 +22,10 @@
           "flavor": "original",
           "sugar": "ccw:red_heart"
         },
+        "minecraft:custom_name": {
+          "color": "white",
+          "translate": "item.ccw.gummy.red_heart"
+        },
         "minecraft:item_model": "ccw:red_heart_gummy"
       },
       "count": 1,

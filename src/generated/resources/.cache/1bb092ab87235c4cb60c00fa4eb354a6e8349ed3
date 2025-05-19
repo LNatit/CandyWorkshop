@@ -1,4 +1,4 @@
-// 1.21.4	2025-05-05T19:33:54.0891668	CandyWorkshop Recipes
+// 1.21.5	2025-05-19T23:29:16.6293088	CandyWorkshop Recipes
 da02b386fb1b68b6080ca214a11d682407f74e43 data/ccw/advancement/recipes/brewing/blessed_steak.json
 fbc5deb0754d845164d5551e9854ffd98e6fc25c data/ccw/advancement/recipes/brewing/calcium_rich_milk.json
 75fa66f03fd680e0a1f74a71d97ff1f91b3c9e95 data/ccw/advancement/recipes/brewing/defiled_offering.json
@@ -39,7 +39,7 @@ f0c606186c4ea6eda7b358e425f888ebce35ed8b data/ccw/recipe/iron_clad_apple.json
 588a462977194d593bee43bb3a08b5bf3268cf6a data/ccw/recipe/milk_gelatin_from_milk_bucket.json
 c3c7c5b4e5f6000ede96b9d386e3cb806fa4ff47 data/ccw/recipe/milk_packaging.json
 2ab8a71a42e2fb42f945620ca9e520e94b89172d data/ccw/recipe/nether_sugar.json
-824a9a818caea8373ef0ade5acb9511bafeabc78 data/ccw/recipe/ominous_flag.json
+fc81cb88db2af725a9b4206328dcd3b5d5b751b9 data/ccw/recipe/ominous_flag.json
 bcf90be44688aa0e4f325830a613f5fc23f99fdc data/ccw/recipe/phantom_pearl.json
 5461386ad1b033e45f4466169c0f30a6d0a86205 data/ccw/recipe/plain_drawer_table.json
 86f0b3dc8e37458e73af16da675a891a8ff044ce data/ccw/recipe/repair_extractor.json

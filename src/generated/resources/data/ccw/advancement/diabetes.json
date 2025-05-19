@@ -21,6 +21,10 @@
           "flavor": "original",
           "sugar": "ccw:stinger"
         },
+        "minecraft:custom_name": {
+          "color": "white",
+          "translate": "item.ccw.gummy.stinger"
+        },
         "minecraft:item_model": "ccw:stinger_gummy"
       },
       "count": 1,

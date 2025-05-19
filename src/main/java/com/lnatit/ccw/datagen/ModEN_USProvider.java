@@ -57,13 +57,6 @@ public class ModEN_USProvider extends LanguageProvider {
 
         this.add(ItemRegistry.MILK_GELATIN.get(), "Milk Gelatin");
 
-        this.add("item.ccw.milk_extractor,desc0", "");
-        this.add("item.ccw.milk_extractor,desc1", "");
-        this.add("item.ccw.milk_extractor,desc2", "");
-
-        this.add("item.ccw.carton_milk,desc0", "");
-        this.add("item.ccw.carton_milk,desc1", "");
-
         this.add("item.ccw.gummy.excited.prefix", "Excited");
         this.add("item.ccw.gummy.bold.prefix", "Bold");
         this.add("item.ccw.gummy.milky.prefix", "Milky");

@@ -34,7 +34,7 @@ public class FoodsAndConsumables {
                     .build();
     public static final Consumable ENERGY_CARROT_CONSUMABLE =
             Consumables.defaultFood()
-                    .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.JUMP, 1200)))
+                    .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.JUMP_BOOST, 1200)))
                     .build();
 
     public static final FoodProperties SWEET_LEMON_SLICE_FOOD =
@@ -54,7 +54,7 @@ public class FoodsAndConsumables {
                     .build();
     public static final Consumable CALCIUM_RICH_MILK_CONSUMABLE =
             Consumables.defaultFood()
-                    .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 1200)))
+                    .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.RESISTANCE, 1200)))
                     .build();
 
     public static final FoodProperties VOID_CARROT_FOOD =

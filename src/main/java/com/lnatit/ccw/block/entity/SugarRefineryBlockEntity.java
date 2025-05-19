@@ -60,10 +60,13 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
-        this.data.deserializeNBT(registries, tag.getCompound("data"));
-        if (tag.contains("CustomName", 8)) {
-            this.name = parseCustomNameSafe(tag.getString("CustomName"), registries);
-        }
+        tag.getCompound("data").ifPresent(t -> this.data.deserializeNBT(registries, t));
+        this.name = parseCustomNameSafe(tag.get("CustomName"), registries);
+    }
+
+    @Override
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        this.onRemove(pos, state, this.level);
     }
 
     public IItemHandler accessInventory(@Nullable Direction direction) {
@@ -305,8 +308,8 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
         @Override
         public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
             super.deserializeNBT(provider, nbt);
-            progress = nbt.getInt("progress");
-            scheduledOutput = ItemStack.parseOptional(provider, nbt.getCompound("scheduled_output"));
+            progress = nbt.getIntOr("progress", 0);
+            scheduledOutput = ItemStack.parse(provider, nbt.getCompoundOrEmpty("scheduled_output")).orElse(ItemStack.EMPTY);
 //            changedExternal = true;
         }
 
