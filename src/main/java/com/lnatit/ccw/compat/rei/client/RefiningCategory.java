@@ -13,14 +13,13 @@ import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import me.shedaniel.rei.impl.client.gui.widget.basewidgets.PanelWidget;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RefiningCateglory implements DisplayCategory<RefiningDisplay>
+public class RefiningCategory implements DisplayCategory<RefiningDisplay>
 {
 
     public static final Component TITLE = Component.translatable("compat.ccw.rei.title");
@@ -60,7 +59,6 @@ public class RefiningCateglory implements DisplayCategory<RefiningDisplay>
         // Progress Bar
         widgets.add(Widgets.createDrawableWidget((graphics, mouseX, mouseY, delta) -> {
             graphics.blitSprite(
-                    RenderType::guiTextured,
                     SugarRefineryScreen.ANIMATION_SPRITE,
                     startingPoint.x + 61,
                     startingPoint.y + 5,

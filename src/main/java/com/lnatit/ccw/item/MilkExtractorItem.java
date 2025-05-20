@@ -6,11 +6,12 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-public class MilkExtractorItem extends ExtraTooltipItem {
+public class MilkExtractorItem extends Item {
     public MilkExtractorItem(Properties properties) {
-        super(properties, 3);
+        super(properties);
     }
 
     @Override

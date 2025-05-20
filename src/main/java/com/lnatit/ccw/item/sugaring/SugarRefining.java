@@ -4,8 +4,6 @@ import com.google.common.collect.ImmutableList;
 import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.item.ItemRegistry;
 import net.minecraft.core.Holder;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -86,7 +84,7 @@ public class SugarRefining
         builder.addOverworldBlend(Sugars.TURTLE, Items.TURTLE_SCUTE);
         builder.addOverworldBlend(Sugars.FLUTTER, Items.PHANTOM_MEMBRANE);
         builder.addOverworldBlend(Sugars.SNAIL, Items.SOUL_SAND);
-        builder.addBlend(Sugars.STINKY, Items.SUGAR, tagIngredient(Tags.Items.MUSHROOMS));
+        builder.addBlend(Sugars.STINKY, Items.SUGAR, Ingredient.of(Tags.Items.MUSHROOMS));
         builder.addOverworldBlend(Sugars.BLINDING, ItemRegistry.VOID_CARROT.get());
         builder.addOverworldBlend(Sugars.WEAKNESS, ItemRegistry.WEAKNESS_POWDER.get());
         builder.addOverworldBlend(Sugars.BRIGHTNESS, Items.GLOW_BERRIES);
@@ -127,10 +125,6 @@ public class SugarRefining
         addModBlends(builder);
         customBlendProviders.forEach(p -> p.accept(builder));
         sugarRefining = builder.build();
-    }
-
-    private static Ingredient tagIngredient(TagKey<Item> tag) {
-        return Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(tag));
     }
 
     public static class Builder

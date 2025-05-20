@@ -7,7 +7,6 @@ package com.lnatit.ccw;
 
 import com.lnatit.ccw.block.BlockRegistry;
 import com.lnatit.ccw.item.ItemRegistry;
-import com.lnatit.ccw.item.coneffect.ConEffRegistry;
 import com.lnatit.ccw.item.crafting.RecipeRegistry;
 import com.lnatit.ccw.item.sugaring.Sugars;
 import com.lnatit.ccw.menu.MenuRegistry;
@@ -28,7 +27,7 @@ public class CandyWorkshop {
         StatRegistry.STATS.register(modEventBus);
         CriteriaRegistry.TRIGGERS.register(modEventBus);
         SoundRegistry.SOUND_EVENTS.register(modEventBus);
-        ConEffRegistry.CONSUME_EFFECTS.register(modEventBus);
+//        ConEffRegistry.CONSUME_EFFECTS.register(modEventBus);
         ItemRegistry.DATA_COMPONENTS.register(modEventBus);
         ItemRegistry.ITEMS.register(modEventBus);
         ItemRegistry.TABS.register(modEventBus);

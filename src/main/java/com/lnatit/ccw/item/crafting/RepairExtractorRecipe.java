@@ -68,6 +68,11 @@ public class RepairExtractorRecipe extends CustomRecipe {
     }
 
     @Override
+    public boolean canCraftInDimensions(int width, int height) {
+        return true;
+    }
+
+    @Override
     public RecipeSerializer<? extends CustomRecipe> getSerializer() {
         return RecipeRegistry.REPAIR_EXTRACTOR.get();
     }

@@ -14,7 +14,7 @@ public class GummyItem extends Item {
     @Override
     public Component getName(ItemStack stack) {
         SugarContents sugarContents = stack.get(ItemRegistry.SUGAR_CONTENTS_DCTYPE);
-        return sugarContents != null ? sugarContents.getName(this.descriptionId) : super.getName(stack);
+        return sugarContents != null ? sugarContents.getName(this.getDescriptionId()) : super.getName(stack);
     }
 
     @Override

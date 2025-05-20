@@ -44,7 +44,6 @@ public abstract class Sugar
         }
         ItemStack itemStack = ItemRegistry.GUMMY_ITEM.toStack();
         itemStack.set(ItemRegistry.SUGAR_CONTENTS_DCTYPE, new SugarContents(Optional.of(sugar), flavor));
-        itemStack.set(DataComponents.ITEM_MODEL, sugar.value().getModelId());
         return itemStack;
     }
 

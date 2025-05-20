@@ -16,6 +16,8 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.Set;
+
 public class BlockRegistry {
     public static final TagKey<Block> DRAWER_TABLE_TAG = tag("drawer_table");
 
@@ -55,15 +57,16 @@ public class BlockRegistry {
             BLOCK_ENTITIES.register("sugar_refinery",
                     () -> new BlockEntityType<>(
                             SugarRefineryBlockEntity::new,
-                            SUGAR_REFINERY.get()
+                            Set.of(SUGAR_REFINERY.get()),
+                            null
                     )
             );
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DrawerTableBlockEntity>> DRAWER_TABLE_BETYPE =
             BLOCK_ENTITIES.register("drawer_table",
                     () -> new BlockEntityType<>(
                             DrawerTableBlockEntity::new,
-                            PLAIN_DRAWER_TABLE.get(),
-                            DRAWER_TABLE.get()
+                            Set.of(PLAIN_DRAWER_TABLE.get(), DRAWER_TABLE.get()),
+                            null
                     )
             );
 

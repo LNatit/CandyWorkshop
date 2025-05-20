@@ -24,14 +24,13 @@ public class CandyWorkshopPlugin implements REIClientPlugin
 
     @Override
     public void registerCategories(CategoryRegistry registry) {
-        registry.add(new RefiningCateglory());
+        registry.add(new RefiningCategory());
         registry.addWorkstations(REFINING, EntryStacks.of(ItemRegistry.SUGAR_REFINERY));
     }
 
     @Override
     public void registerDisplays(DisplayRegistry registry) {
-        registry.beginFiller(SugarRefining.Blend.class)
-                .fill(RefiningDisplay::new);
+        registry.registerFiller(SugarRefining.Blend.class, RefiningDisplay::new);
         // Is it ok to add here? Where to handle the network issues?
         SugarRefining.sugarRefining.getAllBlends().forEach(registry::add);
     }

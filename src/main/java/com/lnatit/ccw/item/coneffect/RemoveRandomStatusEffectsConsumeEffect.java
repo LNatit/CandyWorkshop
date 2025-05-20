@@ -9,6 +9,7 @@ import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.MilkBucketItem;
 import net.minecraft.world.item.consume_effects.ConsumeEffect;
 import net.minecraft.world.level.Level;
 
@@ -17,7 +18,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-public record RemoveRandomStatusEffectsConsumeEffect(int count) implements ConsumeEffect {
+public record RemoveRandomStatusEffectsConsumeEffect(int count) {
     public static final MapCodec<RemoveRandomStatusEffectsConsumeEffect> CODEC = RecordCodecBuilder.mapCodec(
             inst -> inst.group(ExtraCodecs.POSITIVE_INT.optionalFieldOf("count", 1)
                             .forGetter(RemoveRandomStatusEffectsConsumeEffect::count))
@@ -31,12 +32,6 @@ public record RemoveRandomStatusEffectsConsumeEffect(int count) implements Consu
         this(1);
     }
 
-    @Override
-    public Type<? extends ConsumeEffect> getType() {
-        return ConEffRegistry.REMOVE_RANDOM_EFFECTS.get();
-    }
-
-    @Override
     public boolean apply(Level level, ItemStack stack, LivingEntity entity) {
         Collection<MobEffectInstance> effects = entity.getActiveEffects();
         if (effects.isEmpty()) {
@@ -52,5 +47,7 @@ public record RemoveRandomStatusEffectsConsumeEffect(int count) implements Consu
             flag |= entity.removeEffect(list.get(i).getEffect());
         }
         return flag;
+
+        MilkBucketItem
     }
 }

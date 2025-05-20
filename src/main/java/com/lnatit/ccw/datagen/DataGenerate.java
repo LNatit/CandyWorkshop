@@ -9,7 +9,7 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 public class DataGenerate
 {
     @SubscribeEvent
-    public static void onGatherData(GatherDataEvent.Client event) {
+    public static void onGatherData(GatherDataEvent event) {
         event.createProvider(ModAdvcmtProvider::new);
         event.createProvider(ModEN_USProvider::new);
         event.createProvider(ModLootProvider::new);

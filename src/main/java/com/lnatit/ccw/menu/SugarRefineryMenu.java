@@ -12,7 +12,7 @@ import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
 
-public class SugarRefineryMenu extends AbstractContainerMenu {
+public class SugarRefineryMenu extends ModContainerMenu {
     private final DataSlot data;
     private final ContainerLevelAccess access;
 

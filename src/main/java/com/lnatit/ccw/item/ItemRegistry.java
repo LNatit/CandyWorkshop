@@ -7,10 +7,8 @@ import com.lnatit.ccw.item.sugaring.SugarContents;
 import com.lnatit.ccw.misc.RegRegistry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentType;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -44,9 +42,8 @@ public class ItemRegistry {
                     "gummy",
                     key -> new GummyItem(
                             new Item.Properties()
-                                    .food(FoodsAndConsumables.GUMMY_FOOD, FoodsAndConsumables.GUMMY_CONSUMABLE)
+                                    .food(FoodsAndConsumables.GUMMY_FOOD)
                                     .component(SUGAR_CONTENTS_DCTYPE, SugarContents.VANILLA)
-                                    .setId(ResourceKey.create(Registries.ITEM, key))
                     )
             );
     public static final DeferredItem<BlockItem> SUGAR_REFINERY = ITEMS.registerSimpleBlockItem(BlockRegistry.SUGAR_REFINERY);
@@ -57,18 +54,12 @@ public class ItemRegistry {
             key -> new MilkExtractorItem(
                     new Item.Properties()
                             .durability(129)
-                            .setId(ResourceKey.create(Registries.ITEM, key))
             )
     );
     public static final DeferredItem<Item> MILK_PACKAGING = ITEMS.registerSimpleItem("milk_packaging");
     public static final DeferredItem<Item> CARTON_MILK = ITEMS.register(
             "carton_milk",
-            key -> new ExtraTooltipItem(
-                    new Item.Properties()
-                            .component(DataComponents.CONSUMABLE, FoodsAndConsumables.CARTON_MILK_CONSUMABLE)
-                            .setId(ResourceKey.create(Registries.ITEM, key)),
-                    2
-            )
+            key -> new CartonMilkItem(new Item.Properties())
     );
     public static final DeferredItem<Item> NETHER_SUGAR = ITEMS.registerSimpleItem("nether_sugar");
     public static final DeferredItem<Item> ENDER_SUGAR = ITEMS.registerSimpleItem("ender_sugar");
@@ -76,16 +67,14 @@ public class ItemRegistry {
             "energy_carrot",
             key -> new Item(
                     new Item.Properties()
-                            .food(FoodsAndConsumables.ENERGY_CARROT_FOOD, FoodsAndConsumables.ENERGY_CARROT_CONSUMABLE)
-                            .setId(ResourceKey.create(Registries.ITEM, key))
+                            .food(FoodsAndConsumables.ENERGY_CARROT_FOOD)
             )
     );
     public static final DeferredItem<Item> SWEET_MELON_SLICE = ITEMS.register(
             "sweet_melon_slice",
             key -> new Item(
                     new Item.Properties()
-                            .food(FoodsAndConsumables.SWEET_LEMON_SLICE_FOOD, FoodsAndConsumables.SWEET_LEMON_SLICE_CONSUMABLE)
-                            .setId(ResourceKey.create(Registries.ITEM, key))
+                            .food(FoodsAndConsumables.SWEET_LEMON_SLICE_FOOD)
             )
     );
     public static final DeferredItem<Item> PHANTOM_PEARL = ITEMS.registerSimpleItem("phantom_pearl");
@@ -93,16 +82,14 @@ public class ItemRegistry {
             "calcium_rich_milk",
             key -> new Item(
                     new Item.Properties()
-                            .food(FoodsAndConsumables.CALCIUM_RICH_MILK_FOOD, FoodsAndConsumables.CALCIUM_RICH_MILK_CONSUMABLE)
-                            .setId(ResourceKey.create(Registries.ITEM, key))
+                            .food(FoodsAndConsumables.CALCIUM_RICH_MILK_FOOD)
             )
     );
     public static final DeferredItem<Item> VOID_CARROT = ITEMS.register(
             "void_carrot",
             key -> new Item(
                     new Item.Properties()
-                            .food(FoodsAndConsumables.VOID_CARROT_FOOD, FoodsAndConsumables.VOID_CARROT_CONSUMABLE)
-                            .setId(ResourceKey.create(Registries.ITEM, key))
+                            .food(FoodsAndConsumables.VOID_CARROT_FOOD)
             )
     );
     public static final DeferredItem<Item> WEAKNESS_POWDER = ITEMS.registerSimpleItem("weakness_powder");
@@ -110,24 +97,21 @@ public class ItemRegistry {
             "iron_clad_apple",
             key -> new Item(
                     new Item.Properties()
-                            .food(FoodsAndConsumables.IRON_CLAD_APPLE_FOOD, FoodsAndConsumables.IRON_CLAD_APPLE_CONSUMABLE)
-                            .setId(ResourceKey.create(Registries.ITEM, key))
+                            .food(FoodsAndConsumables.IRON_CLAD_APPLE_FOOD)
             )
     );
     public static final DeferredItem<Item> GOLD_STUDDED_APPLE = ITEMS.register(
             "gold_studded_apple",
             key -> new Item(
                     new Item.Properties()
-                            .food(FoodsAndConsumables.GOLD_STUDDED_APPLE_FOOD, FoodsAndConsumables.GOLD_STUDDED_APPLE_CONSUMABLE)
-                            .setId(ResourceKey.create(Registries.ITEM, key))
+                            .food(FoodsAndConsumables.GOLD_STUDDED_APPLE_FOOD)
             )
     );
     public static final DeferredItem<Item> BLESSED_STEAK = ITEMS.register(
             "blessed_steak",
             key -> new Item(
                     new Item.Properties()
-                            .food(FoodsAndConsumables.BLESSED_STEAK_FOOD, FoodsAndConsumables.BLESSED_STEAK_CONSUMABLE)
-                            .setId(ResourceKey.create(Registries.ITEM, key))
+                            .food(FoodsAndConsumables.BLESSED_STEAK_FOOD)
             )
     );
     public static final DeferredItem<Item> GREEDY_OFFERING = ITEMS.register(
@@ -135,7 +119,6 @@ public class ItemRegistry {
             key -> new Item(
                     new Item.Properties()
                             .craftRemainder(Items.BOWL)
-                            .setId(ResourceKey.create(Registries.ITEM, key))
             )
     );
     public static final DeferredItem<Item> DEFILED_OFFERING = ITEMS.register(
@@ -143,15 +126,13 @@ public class ItemRegistry {
             key -> new Item(
                     new Item.Properties()
                             .craftRemainder(Items.BOWL)
-                            .setId(ResourceKey.create(Registries.ITEM, key))
             )
     );
     public static final DeferredItem<Item> DOLPHIN_COOKIE = ITEMS.register(
             "dolphin_cookie",
             key -> new Item(
                     new Item.Properties()
-                            .food(FoodsAndConsumables.DOLPHIN_COOKIE_FOOD, FoodsAndConsumables.DOLPHIN_COOKIE_CONSUMABLE)
-                            .setId(ResourceKey.create(Registries.ITEM, key))
+                            .food(FoodsAndConsumables.DOLPHIN_COOKIE_FOOD)
             )
     );
     public static final DeferredItem<Item> OMINOUS_FLAG = ITEMS.registerSimpleItem("ominous_flag");

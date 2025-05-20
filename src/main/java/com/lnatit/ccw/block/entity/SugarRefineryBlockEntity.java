@@ -213,20 +213,20 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
             // consume ingredients
             ItemStack milk = this.stacks.get(0);
             int milkConsumption = getMilkConsumption(milk);
-            acceptRemainder(milk.getCraftingRemainder(), milkConsumption);
+            acceptRemainder(milk.getCraftingRemainingItem(), milkConsumption);
             milk.shrink(milkConsumption);
 
             ItemStack sugar = this.stacks.get(1);
             sugar.shrink(SUGAR_CONSUMPTION);
 
             ItemStack main = this.stacks.get(2);
-            acceptRemainder(main.getCraftingRemainder(), 1);
+            acceptRemainder(main.getCraftingRemainingItem(), 1);
             main.shrink(1);
 
             ItemStack extra = this.stacks.get(3);
             SingleEffectSugar.Flavor flavor = SingleEffectSugar.Flavor.fromExtra(extra);
             if (flavor != SingleEffectSugar.Flavor.ORIGINAL) {
-                acceptRemainder(extra.getCraftingRemainder(), 1);
+                acceptRemainder(extra.getCraftingRemainingItem(), 1);
                 extra.shrink(1);
                 SugarRefineryBlockEntity.this.refineFlavoredCallback();
             }

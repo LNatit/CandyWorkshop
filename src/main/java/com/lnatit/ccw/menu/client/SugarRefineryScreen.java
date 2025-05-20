@@ -7,7 +7,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -54,7 +53,6 @@ public class SugarRefineryScreen extends AbstractContainerScreen<SugarRefineryMe
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
         guiGraphics.blit(
-                RenderType::guiTextured,
                 BACKGROUND_LOCATION,
                 this.leftPos,
                 this.topPos,
@@ -68,7 +66,6 @@ public class SugarRefineryScreen extends AbstractContainerScreen<SugarRefineryMe
 
         if (progress > 0)
             guiGraphics.blitSprite(
-                    RenderType::guiTextured,
                     ANIMATION_SPRITE,
                     this.leftPos + 72,
                     this.topPos + 22,
@@ -78,7 +75,6 @@ public class SugarRefineryScreen extends AbstractContainerScreen<SugarRefineryMe
 
         progress = -15 * progress / SugarRefining.REFINE_TIME;
         guiGraphics.blitSprite(
-                RenderType::guiTextured,
                 PROGRESS_SPRITE,
                 this.leftPos + 72 - progress,
                 this.topPos + 41,

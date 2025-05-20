@@ -4,7 +4,6 @@ import com.lnatit.ccw.block.BlockRegistry;
 import com.lnatit.ccw.block.entity.DrawerTableBlockEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
@@ -12,7 +11,7 @@ import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
 
-public class DrawerTableMenu extends AbstractContainerMenu
+public class DrawerTableMenu extends ModContainerMenu
 {
     private final ContainerLevelAccess access;
 

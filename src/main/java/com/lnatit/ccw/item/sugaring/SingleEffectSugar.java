@@ -43,7 +43,7 @@ public class SingleEffectSugar extends Sugar
 
             // Instantenous effect behaves differently
             if (effect.value().isInstantenous()) {
-                effect.value().applyInstantenousEffect(level, entity, entity, entity, amplifier, 0.5);
+                effect.value().applyInstantenousEffect(entity, entity, entity, amplifier, 0.5);
             }
             else {
                 MobEffectInstance exist = entity.getEffect(effect);
