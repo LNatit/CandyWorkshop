@@ -9,8 +9,6 @@ import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.MilkBucketItem;
-import net.minecraft.world.item.consume_effects.ConsumeEffect;
 import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
@@ -47,7 +45,5 @@ public record RemoveRandomStatusEffectsConsumeEffect(int count) {
             flag |= entity.removeEffect(list.get(i).getEffect());
         }
         return flag;
-
-        MilkBucketItem
     }
 }

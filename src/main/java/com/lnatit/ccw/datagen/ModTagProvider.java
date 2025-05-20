@@ -8,6 +8,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -15,8 +16,8 @@ public class ModTagProvider
 {
     public static class Blocks extends BlockTagsProvider
     {
-        public Blocks(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-            super(output, lookupProvider, CandyWorkshop.MODID);
+        public Blocks(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
+            super(output, lookupProvider, CandyWorkshop.MODID, existingFileHelper);
         }
 
         @Override
@@ -29,8 +30,8 @@ public class ModTagProvider
 
     public static class Items extends ItemTagsProvider
     {
-        public Items(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTags) {
-            super(output, lookupProvider, blockTags, CandyWorkshop.MODID);
+        public Items(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTags, ExistingFileHelper existingFileHelper) {
+            super(output, lookupProvider, blockTags, CandyWorkshop.MODID, existingFileHelper);
         }
 
         @Override

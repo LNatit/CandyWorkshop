@@ -33,7 +33,7 @@ public class MilkExtractorItem extends Item {
             }
 
             interactionTarget.playSound(SoundRegistry.PLUG_OFF.get());
-            player.getCooldowns().addCooldown(stack, 2 * count);
+            player.getCooldowns().addCooldown(stack.getItem(), 2 * count);
             return InteractionResult.SUCCESS;
         }
         return super.interactLivingEntity(stack, player, interactionTarget, usedHand);

@@ -11,7 +11,6 @@ import com.lnatit.ccw.misc.critereon.SimpleTrigger;
 import net.minecraft.advancements.*;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.advancements.AdvancementProvider;
 import net.minecraft.data.advancements.AdvancementSubProvider;
@@ -73,7 +72,7 @@ public class ModAdvcmtProvider extends AdvancementProvider {
                         InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.SUGAR_REFINERY)
                 )
                 .requirements(AdvancementRequirements.allOf(List.of("get_sugar_refinery")))
-                .save(writer, AdvancementResources.ROOT.id);
+                .save(writer, AdvancementResources.ROOT.id());
     }
 
     private static void genEcoMat(HolderLookup.Provider registries, Consumer<AdvancementHolder> writer) {
@@ -112,7 +111,6 @@ public class ModAdvcmtProvider extends AdvancementProvider {
                 .addCriterion("use_milk_extractor",
                         PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(
                                 ItemPredicate.Builder.item().of(
-                                        registries.lookupOrThrow(Registries.ITEM),
                                         ItemRegistry.MILK_EXTRACTOR.asItem()
                                 ),
                                 Optional.of(
@@ -120,7 +118,6 @@ public class ModAdvcmtProvider extends AdvancementProvider {
                                                 LootItemEntityPropertyCondition.hasProperties(
                                                         LootContext.EntityTarget.THIS,
                                                         EntityPredicate.Builder.entity().of(
-                                                                registries.lookupOrThrow(Registries.ENTITY_TYPE),
                                                                 EntityType.COW
                                                         )
                                                 ).build()
@@ -150,7 +147,6 @@ public class ModAdvcmtProvider extends AdvancementProvider {
                                 Optional.of(
                                         ItemPredicate.Builder.item()
                                                 .of(
-                                                        registries.lookupOrThrow(Registries.ITEM),
                                                         ItemRegistry.MILK_EXTRACTOR.asItem()
                                                 )
                                                 .build()
@@ -349,7 +345,6 @@ public class ModAdvcmtProvider extends AdvancementProvider {
                                                 ContextAwarePredicate.create(
                                                         MatchTool.toolMatches(
                                                                 ItemPredicate.Builder.item().of(
-                                                                        registries.lookupOrThrow(Registries.ITEM),
                                                                         ItemRegistry.SUGAR_REFINERY.asItem()
                                                                 )
                                                         ).build(),
@@ -448,8 +443,8 @@ public class ModAdvcmtProvider extends AdvancementProvider {
             return descKey;
         }
 
-        public ResourceLocation id() {
-            return id;
+        public String id() {
+            return id.toString();
         }
     }
 }

@@ -5,96 +5,70 @@ import com.lnatit.ccw.block.BlockRegistry;
 import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.item.sugaring.Sugar;
 import com.lnatit.ccw.item.sugaring.Sugars;
-import com.lnatit.ccw.datagen.emp.data.EnhancedModelProvider;
-import com.lnatit.ccw.datagen.emp.data.model.ClientItemModelGenerators;
-import net.minecraft.client.data.models.BlockModelGenerators;
-import net.minecraft.client.data.models.ItemModelGenerators;
-import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
-import net.minecraft.client.data.models.blockstates.Variant;
-import net.minecraft.client.data.models.blockstates.VariantProperties;
-import net.minecraft.client.data.models.model.ItemModelUtils;
-import net.minecraft.client.data.models.model.ModelTemplates;
-import net.minecraft.client.renderer.item.properties.conditional.Broken;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
+import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredHolder;
-import org.jetbrains.annotations.NotNull;
 
-import static net.minecraft.client.data.models.BlockModelGenerators.createHorizontalFacingDispatch;
+public class ModModelProvider{
+    public static class Block extends BlockStateProvider {
+        public Block(PackOutput output, ExistingFileHelper existingFileHelper) {
+            super(output, CandyWorkshop.MODID, existingFileHelper);
+        }
 
-public class ModModelProvider extends EnhancedModelProvider
-{
-    public ModModelProvider(PackOutput output) {
-        super(output, CandyWorkshop.MODID);
+        @Override
+        protected void registerStatesAndModels() {
+            ModelFile sugarRefinery = models().withExistingParent("sugar_refinery", this.mcLoc("block/sugar_refinery"));
+            ModelFile plainDrawerTable = models().withExistingParent("plain_drawer_table", this.mcLoc("block/plain_drawer_table"));
+            ModelFile drawerTable = models().withExistingParent("drawer_table", this.mcLoc("block/drawer_table"));
+
+            horizontalFaceBlock(BlockRegistry.SUGAR_REFINERY.get(), sugarRefinery);
+            horizontalFaceBlock(BlockRegistry.PLAIN_DRAWER_TABLE.get(), plainDrawerTable);
+            horizontalFaceBlock(BlockRegistry.DRAWER_TABLE.get(),  drawerTable);
+        }
     }
 
-    @Override
-    protected void registerModels(BlockModelGenerators blockModels, @NotNull ItemModelGenerators itemModels, @NotNull ClientItemModelGenerators clientItemModels) {
-        ResourceLocation model = BlockRegistry.SUGAR_REFINERY.getId().withPrefix("block/");
-        blockModels.registerSimpleItemModel(ItemRegistry.SUGAR_REFINERY.get(), model);
-        blockModels.blockStateOutput.accept(
-                MultiVariantGenerator.multiVariant(BlockRegistry.SUGAR_REFINERY.get(),
-                                                   Variant.variant().with(VariantProperties.MODEL, model)
-                                     )
-                                     .with(createHorizontalFacingDispatch())
-        );
+    public static class Item extends ItemModelProvider {
+        public Item(PackOutput output, ExistingFileHelper existingFileHelper) {
+            super(output, CandyWorkshop.MODID, existingFileHelper);
+        }
 
-        model = BlockRegistry.PLAIN_DRAWER_TABLE.getId().withPrefix("block/");
-        blockModels.registerSimpleItemModel(ItemRegistry.PLAIN_DRAWER_TABLE.get(), model);
-        blockModels.blockStateOutput.accept(
-                MultiVariantGenerator.multiVariant(BlockRegistry.PLAIN_DRAWER_TABLE.get(),
-                                                   Variant.variant().with(VariantProperties.MODEL, model)
-                                     )
-                                     .with(createHorizontalFacingDispatch())
-        );
+        @Override
+        protected void registerModels() {
+            simpleBlockItem(BlockRegistry.SUGAR_REFINERY.get());
+            simpleBlockItem(BlockRegistry.PLAIN_DRAWER_TABLE.get());
+            simpleBlockItem(BlockRegistry.DRAWER_TABLE.get());
 
-        model = BlockRegistry.DRAWER_TABLE.getId().withPrefix("block/");
-        blockModels.registerSimpleItemModel(ItemRegistry.DRAWER_TABLE.get(), model);
-        blockModels.blockStateOutput.accept(
-                MultiVariantGenerator.multiVariant(BlockRegistry.DRAWER_TABLE.get(),
-                                                   Variant.variant().with(VariantProperties.MODEL, model)
-                                     )
-                                     .with(createHorizontalFacingDispatch())
-        );
+            withExistingParent(ItemRegistry.GUMMY_ITEM.getId().toString(), modLoc("item/gummy"));
 
-        itemModels.generateFlatItem(ItemRegistry.GUMMY_ITEM.get(), ModelTemplates.FLAT_ITEM);
+            withExistingParent(ItemRegistry.MILK_PACKAGING.getId().toString(), modLoc("item/milk_packaging"));
+            withExistingParent(ItemRegistry.CARTON_MILK.getId().toString(), modLoc("item/carton_milk"));
+            withExistingParent(ItemRegistry.NETHER_SUGAR.getId().toString(), modLoc("item/nether_sugar"));
+            withExistingParent(ItemRegistry.ENDER_SUGAR.getId().toString(), modLoc("item/ender_sugar"));
 
-        clientItemModels.gen().withId(ItemRegistry.MILK_EXTRACTOR).withDefaultModelSuffix("_full").modelOnly();
-        clientItemModels.gen().withId(ItemRegistry.MILK_EXTRACTOR).withDefaultModelSuffix("_empty").modelOnly();
-        clientItemModels.gen()
-                        .withId(ItemRegistry.MILK_EXTRACTOR)
-                        .withClientItem(
-                            builder -> builder.withUnbaked(
-                                    ItemModelUtils.conditional(
-                                            new Broken(),
-                                            ItemModelUtils.plainModel(builder.ModelLocation().withSuffix("_empty")),
-                                            ItemModelUtils.plainModel(builder.ModelLocation().withSuffix("_full"))
-                                    )
-                            ).build()
-                        )
-                        .clientItemOnly();
+            withExistingParent(ItemRegistry.ENERGY_CARROT.getId().toString(), modLoc("item/energy_carrot"));
+            withExistingParent(ItemRegistry.SWEET_MELON_SLICE.getId().toString(), modLoc("item/sweet_melon_slice"));
+            withExistingParent(ItemRegistry.PHANTOM_PEARL.getId().toString(), modLoc("item/phantom_pearl"));
+            withExistingParent(ItemRegistry.CALCIUM_RICH_MILK.getId().toString(), modLoc("item/calcium_rich_milk"));
+            withExistingParent(ItemRegistry.VOID_CARROT.getId().toString(), modLoc("item/void_carrot"));
+            withExistingParent(ItemRegistry.WEAKNESS_POWDER.getId().toString(), modLoc("item/weakness_powder"));
+            withExistingParent(ItemRegistry.IRON_CLAD_APPLE.getId().toString(), modLoc("item/iron_clad_apple"));
+            withExistingParent(ItemRegistry.GOLD_STUDDED_APPLE.getId().toString(), modLoc("item/gold_studded_apple"));
+            withExistingParent(ItemRegistry.BLESSED_STEAK.getId().toString(), modLoc("item/blessed_steak"));
+            withExistingParent(ItemRegistry.GREEDY_OFFERING.getId().toString(), modLoc("item/greedy_offering"));
+            withExistingParent(ItemRegistry.DEFILED_OFFERING.getId().toString(), modLoc("item/defiled_offering"));
+            withExistingParent(ItemRegistry.DOLPHIN_COOKIE.getId().toString(), modLoc("item/dolphin_cookie"));
+            withExistingParent(ItemRegistry.OMINOUS_FLAG.getId().toString(), modLoc("item/ominous_flag"));
+            withExistingParent(ItemRegistry.MILK_GELATIN.getId().toString(), modLoc("item/milk_gelatin"));
 
-        clientItemModels.gen().withId(ItemRegistry.MILK_PACKAGING).all();
-        clientItemModels.gen().withId(ItemRegistry.CARTON_MILK).all();
-        clientItemModels.gen().withId(ItemRegistry.NETHER_SUGAR).all();
-        clientItemModels.gen().withId(ItemRegistry.ENDER_SUGAR).all();
+            for (DeferredHolder<Sugar, ?> sugar : Sugars.SUGARS.getEntries()) {
+                withExistingParent(sugar.getId().toString(), sugar.value().getModelId());
+            }
 
-        clientItemModels.gen().withId(ItemRegistry.ENERGY_CARROT).all();
-        clientItemModels.gen().withId(ItemRegistry.SWEET_MELON_SLICE).all();
-        clientItemModels.gen().withId(ItemRegistry.PHANTOM_PEARL).all();
-        clientItemModels.gen().withId(ItemRegistry.CALCIUM_RICH_MILK).all();
-        clientItemModels.gen().withId(ItemRegistry.VOID_CARROT).all();
-        clientItemModels.gen().withId(ItemRegistry.WEAKNESS_POWDER).all();
-        clientItemModels.gen().withId(ItemRegistry.IRON_CLAD_APPLE).all();
-        clientItemModels.gen().withId(ItemRegistry.GOLD_STUDDED_APPLE).all();
-        clientItemModels.gen().withId(ItemRegistry.BLESSED_STEAK).all();
-        clientItemModels.gen().withId(ItemRegistry.GREEDY_OFFERING).all();
-        clientItemModels.gen().withId(ItemRegistry.DEFILED_OFFERING).all();
-        clientItemModels.gen().withId(ItemRegistry.DOLPHIN_COOKIE).all();
-        clientItemModels.gen().withId(ItemRegistry.OMINOUS_FLAG).all();
-        clientItemModels.gen().withId(ItemRegistry.MILK_GELATIN).all();
-
-        for (DeferredHolder<Sugar, ?> sugar : Sugars.SUGARS.getEntries())
-            clientItemModels.gen().withId(sugar.get().getModelId()).all();
+            withExistingParent(ItemRegistry.MILK_EXTRACTOR.getId() + "_full", modLoc("item/milk_extractor_full"));
+            withExistingParent(ItemRegistry.MILK_EXTRACTOR.getId() + "_empty", modLoc("item/milk_extractor_empty"));
+        }
     }
 }
