@@ -19,7 +19,7 @@ var build_id = System.getenv("BUILD_ID")
 if (build_id != null)
     build_version = "${mod_version}+b${build_id}"
 
-version = build_version
+version = "v${build_version}-mc${minecraft_version}"
 group = mod_group_id
 
 repositories {

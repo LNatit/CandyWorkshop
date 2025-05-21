@@ -17,7 +17,7 @@ public class MilkExtractorItem extends Item {
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity interactionTarget, InteractionHand usedHand) {
         if (interactionTarget instanceof Cow) {
-            if (stack.nextDamageWillBreak() || player.getCooldowns().isOnCooldown(stack))
+            if (nextDamageWillBreak(stack) || player.getCooldowns().isOnCooldown(stack.getItem()))
                 return InteractionResult.FAIL;
 
             int count = 1;
@@ -29,7 +29,7 @@ public class MilkExtractorItem extends Item {
                 if (!player.addItem(result))
                     player.drop(result, false);
 
-                stack.hurtWithoutBreaking(count, player);
+                stack.hurtAndBreak(1, player, net.minecraft.world.entity.EquipmentSlot.CHEST);
             }
 
             interactionTarget.playSound(SoundRegistry.PLUG_OFF.get());
@@ -37,5 +37,9 @@ public class MilkExtractorItem extends Item {
             return InteractionResult.SUCCESS;
         }
         return super.interactLivingEntity(stack, player, interactionTarget, usedHand);
+    }
+
+    private static boolean nextDamageWillBreak(ItemStack stack) {
+        return stack.getDamageValue() >= stack.getMaxDamage() - 1;
     }
 }
