@@ -2,8 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": "minecraft:black_dye",
-    "X": "minecraft:carrot"
+    "#": {
+      "item": "minecraft:black_dye"
+    },
+    "X": {
+      "item": "minecraft:carrot"
+    }
   },
   "pattern": [
     "###",

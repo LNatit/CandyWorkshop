@@ -6,7 +6,6 @@ import com.lnatit.ccw.misc.RegRegistry;
 import com.mojang.serialization.Codec;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -80,8 +79,14 @@ public abstract class Sugar
         return flavors;
     }
 
+    public ResourceLocation getItemModel() {
+        return ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID, this.name)
+                               .withSuffix("_gummy");
+
+    }
+
     public ResourceLocation getModelId() {
-        return ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID, this.name).withSuffix("_gummy");
+        return getItemModel().withPrefix("item/");
     }
 
     public enum Flavor

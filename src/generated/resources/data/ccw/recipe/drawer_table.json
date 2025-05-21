@@ -2,8 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": "ccw:plain_drawer_table",
-    "X": "minecraft:pink_carpet"
+    "#": {
+      "item": "ccw:plain_drawer_table"
+    },
+    "X": {
+      "item": "minecraft:pink_carpet"
+    }
   },
   "pattern": [
     "X",

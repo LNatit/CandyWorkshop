@@ -2,8 +2,12 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "minecraft:blaze_powder",
-    "minecraft:fermented_spider_eye"
+    {
+      "item": "minecraft:blaze_powder"
+    },
+    {
+      "item": "minecraft:fermented_spider_eye"
+    }
   ],
   "result": {
     "count": 1,

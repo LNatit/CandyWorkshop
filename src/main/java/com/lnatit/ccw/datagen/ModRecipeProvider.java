@@ -119,6 +119,15 @@ public class ModRecipeProvider extends RecipeProvider
             .unlockedBy("has_milk_carton", has(ItemRegistry.CARTON_MILK_TAG))
             .save(output);
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.BREWING, ItemRegistry.SWEET_MELON_SLICE)
+                           .define('#', Items.SUGAR)
+                           .define('X', Items.MELON_SLICE)
+                           .pattern("###")
+                           .pattern("#X#")
+                           .pattern("###")
+                           .unlockedBy("has_milk_carton", has(ItemRegistry.CARTON_MILK_TAG))
+                           .save(output);
+
         ShapelessRecipeBuilder.shapeless(RecipeCategory.BREWING, ItemRegistry.PHANTOM_PEARL)
             .requires(Items.PHANTOM_MEMBRANE)
             .requires(Items.ENDER_PEARL)

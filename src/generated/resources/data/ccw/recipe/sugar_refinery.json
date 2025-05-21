@@ -2,10 +2,18 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": "minecraft:iron_ingot",
-    "/": "#c:rods/wooden",
-    "U": "minecraft:bucket",
-    "X": "#c:stones"
+    "#": {
+      "item": "minecraft:iron_ingot"
+    },
+    "/": {
+      "tag": "c:rods/wooden"
+    },
+    "U": {
+      "item": "minecraft:bucket"
+    },
+    "X": {
+      "tag": "c:stones"
+    }
   },
   "pattern": [
     "U #",

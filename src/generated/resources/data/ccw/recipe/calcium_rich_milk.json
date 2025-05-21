@@ -2,8 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": "minecraft:bone",
-    "X": "#ccw:carton_milk"
+    "#": {
+      "item": "minecraft:bone"
+    },
+    "X": {
+      "tag": "ccw:carton_milk"
+    }
   },
   "pattern": [
     " # ",

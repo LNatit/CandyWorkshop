@@ -3,19 +3,19 @@
   "category": "misc",
   "key": {
     "#": {
-      "item": "minecraft:emerald"
+      "item": "minecraft:sugar"
     },
     "X": {
-      "item": "minecraft:bowl"
+      "item": "minecraft:melon_slice"
     }
   },
   "pattern": [
-    " # ",
     "###",
-    " X "
+    "#X#",
+    "###"
   ],
   "result": {
     "count": 1,
-    "id": "ccw:greedy_offering"
+    "id": "ccw:sweet_melon_slice"
   }
 }

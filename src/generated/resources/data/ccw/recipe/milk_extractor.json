@@ -2,10 +2,18 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": "minecraft:glass_pane",
-    "I": "minecraft:iron_ingot",
-    "U": "minecraft:bucket",
-    "X": "ccw:milk_packaging"
+    "#": {
+      "item": "minecraft:glass_pane"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "U": {
+      "item": "minecraft:bucket"
+    },
+    "X": {
+      "item": "ccw:milk_packaging"
+    }
   },
   "pattern": [
     "#  ",

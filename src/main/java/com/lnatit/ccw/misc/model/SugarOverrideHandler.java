@@ -33,7 +33,7 @@ public class SugarOverrideHandler extends ItemOverrides {
                                 .getModelBakery()
                                 .getBakedTopLevelModels()
                                 .get(
-                                        ModelResourceLocation.inventory(
+                                        ModelResourceLocation.standalone(
                                                 sugar.sugar()
                                                         .get()
                                                         .value()

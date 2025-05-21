@@ -2,8 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": "#c:foods/raw_fish",
-    "X": "minecraft:cookie"
+    "#": {
+      "tag": "c:foods/raw_fish"
+    },
+    "X": {
+      "item": "minecraft:cookie"
+    }
   },
   "pattern": [
     " # ",

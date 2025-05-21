@@ -12,8 +12,6 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -63,7 +61,7 @@ public record SugarContents(Optional<Holder<Sugar>> sugar, Sugar.Flavor flavor)
         }
     }
 
-    public void onConsume(Level level, LivingEntity entity, ItemStack stack) {
+    public void onConsume(LivingEntity entity) {
         if (this.sugar.isPresent()) {
             Holder<Sugar> holder = this.sugar.get();
             holder.value().applyOn(entity, this.flavor);
