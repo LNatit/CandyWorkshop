@@ -1,4 +1,4 @@
-// 1.21.5	2025-05-19T23:29:16.6293088	CandyWorkshop Recipes
+// 1.21.5	2025-05-21T22:10:31.0356624	CandyWorkshop Recipes
 da02b386fb1b68b6080ca214a11d682407f74e43 data/ccw/advancement/recipes/brewing/blessed_steak.json
 fbc5deb0754d845164d5551e9854ffd98e6fc25c data/ccw/advancement/recipes/brewing/calcium_rich_milk.json
 75fa66f03fd680e0a1f74a71d97ff1f91b3c9e95 data/ccw/advancement/recipes/brewing/defiled_offering.json
@@ -13,6 +13,7 @@ a594a6275e8de94ce6f548ef06e2c2a3649c297e data/ccw/advancement/recipes/brewing/ir
 c6adf45a2e231ba8337cb9c384cc7ee4d709fe58 data/ccw/advancement/recipes/brewing/nether_sugar.json
 143107c155efed20b65874368121f391430db514 data/ccw/advancement/recipes/brewing/ominous_flag.json
 c34b77af103f74ddaa03d21ea8e427af3be02524 data/ccw/advancement/recipes/brewing/phantom_pearl.json
+fb8dcb3f8f20efe8e9a0d0ec10f3ca8512d6f6ad data/ccw/advancement/recipes/brewing/sweet_melon_slice.json
 cb0a2b6b658d74191ae7cf92170c627f2c0418f0 data/ccw/advancement/recipes/brewing/void_carrot.json
 c8a3d7603b292ef2fb5f49197e19fa3ff3229917 data/ccw/advancement/recipes/brewing/weakness_powder.json
 61d2742e192bfcf2acaee83a073993ee068671e9 data/ccw/advancement/recipes/misc/carton_milk.json
@@ -44,5 +45,6 @@ bcf90be44688aa0e4f325830a613f5fc23f99fdc data/ccw/recipe/phantom_pearl.json
 5461386ad1b033e45f4466169c0f30a6d0a86205 data/ccw/recipe/plain_drawer_table.json
 86f0b3dc8e37458e73af16da675a891a8ff044ce data/ccw/recipe/repair_extractor.json
 10999bbaab233ec5392af95150b0c704bbe8c6e0 data/ccw/recipe/sugar_refinery.json
+d269b93d8aa13b3f23beeb41fbd86ab4c1cbdbf6 data/ccw/recipe/sweet_melon_slice.json
 8c8a8e5bef805183b31809203ff02b6951670d70 data/ccw/recipe/void_carrot.json
 e0912631ab071b52327599f45a88e379aca203d5 data/ccw/recipe/weakness_powder.json
