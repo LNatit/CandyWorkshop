@@ -122,7 +122,7 @@
 //
 //    private static EntryIngredient extraOf(SugarRefining.Blend blend) {
 //        EntryIngredient.Builder extraBuilder = EntryIngredient.builder();
-//        blend.output().value().getAvailableTypes().forEach(
+//        blend.output().value().getAvailableFlavors().forEach(
 //                flavor -> extraBuilder.add(EntryStacks.of(Sugar.Flavor.toExtra(flavor)))
 //        );
 //        return extraBuilder.build();
@@ -131,7 +131,7 @@
 //    private static EntryIngredient outputOf(SugarRefining.Blend blend) {
 //        Holder<Sugar> sugarHolder = blend.output();
 //        EntryIngredient.Builder outputBuilder = EntryIngredient.builder();
-//        sugarHolder.value().getAvailableTypes().forEach(
+//        sugarHolder.value().getAvailableFlavors().forEach(
 //                flavor -> outputBuilder.add(EntryStacks.of(Sugar.createSugar(sugarHolder, flavor)))
 //        );
 //        return outputBuilder.build();

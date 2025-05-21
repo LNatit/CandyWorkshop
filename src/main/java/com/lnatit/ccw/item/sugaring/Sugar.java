@@ -51,7 +51,7 @@ public abstract class Sugar
             return Set.of();
         }
         Set<ItemStack> sugars = new HashSet<>();
-        for (Flavor flavor : sugar.value().getAvailableTypes()) {
+        for (Flavor flavor : sugar.value().getAvailableFlavors()) {
             sugars.add(Sugar.createSugar(sugar, flavor));
         }
         return sugars;
@@ -66,7 +66,7 @@ public abstract class Sugar
     public void addSugarTooltip(Consumer<Component> tooltipAdder, Flavor flavor, float ticksPerSecond) {
     }
 
-    public List<Flavor> getAvailableTypes() {
+    public List<Flavor> getAvailableFlavors() {
         List<Flavor> flavors = new ArrayList<>();
         flavors.add(Flavor.ORIGINAL);
         if (hasExcited) {
