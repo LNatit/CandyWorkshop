@@ -42,7 +42,6 @@ public class ModelHandler
     @SubscribeEvent
     public static void onModelBake(ModelEvent.ModifyBakingResult event) {
         Map<ResourceLocation, BakedModel> modelMap = event.getModels();
-        // TODO model related issues may occur here
         ModelResourceLocation gummy = new ModelResourceLocation(CandyWorkshop.MODID, "gummy", "inventory");
         modelMap.computeIfPresent(gummy, (k, original) -> SugarOverrideHandler.getModel(original));
     }

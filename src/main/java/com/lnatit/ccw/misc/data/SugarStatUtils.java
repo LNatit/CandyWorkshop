@@ -3,7 +3,7 @@ package com.lnatit.ccw.misc.data;
 import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.item.sugaring.Sugar;
 import com.lnatit.ccw.item.sugaring.Sugars;
-import com.lnatit.ccw.misc.critereon.CriteriaHandler;
+import com.lnatit.ccw.misc.critereon.CriteriaRegistry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
@@ -66,9 +66,9 @@ public class SugarStatUtils
             ListTag history = getConsumeHistory(sugarStats);
             history.add(StringTag.valueOf(sugarId.toString()));
             if (history.size() == Sugars.SUGAR_SUPPLIER.get().getEntries().size()) {
-                CriteriaHandler.COLLECT_ALL_SUGAR.trigger(player);
+                CriteriaRegistry.COLLECT_ALL_SUGAR.trigger(player);
             }
         }
-        CriteriaHandler.DEVELOP_DIABETES.trigger(player, growConsumeCount(sugarStats));
+        CriteriaRegistry.DEVELOP_DIABETES.trigger(player, growConsumeCount(sugarStats));
     }
 }

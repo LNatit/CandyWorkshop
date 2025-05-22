@@ -15,7 +15,7 @@
     "hidden": false,
     "icon": {
       "item": "ccw:gummy",
-      "nbt": "{ccw.sugar:{Flavor:\"ORIGINAL\",Sugar:\"ccw:recovery\"}}"
+      "nbt": "{ccw.sugar:{Flavor:\"original\",Sugar:\"ccw:recovery\"}}"
     },
     "show_toast": true,
     "title": {

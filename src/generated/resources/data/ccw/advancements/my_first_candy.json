@@ -23,7 +23,7 @@
     "hidden": false,
     "icon": {
       "item": "ccw:gummy",
-      "nbt": "{ccw.sugar:{Flavor:\"ORIGINAL\",Sugar:\"ccw:red_heart\"}}"
+      "nbt": "{ccw.sugar:{Flavor:\"original\",Sugar:\"ccw:red_heart\"}}"
     },
     "show_toast": true,
     "title": {

@@ -6,7 +6,7 @@ import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.item.sugaring.Sugar;
 import com.lnatit.ccw.item.sugaring.SugarUtils;
 import com.lnatit.ccw.item.sugaring.Sugars;
-import com.lnatit.ccw.misc.critereon.CriteriaHandler;
+import com.lnatit.ccw.misc.critereon.CriteriaRegistry;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.FrameType;
@@ -147,7 +147,7 @@ public class ModAdvcmtProvider extends AdvancementProvider
                                                           )
                                                           .build()
                                      ,
-                                     MinMaxBounds.Ints.atMost(0)
+                                     MinMaxBounds.Ints.atMost(1)
                              )
                )
                .save(writer, AdvancementResources.EXCEXT.id());
@@ -186,7 +186,7 @@ public class ModAdvcmtProvider extends AdvancementProvider
                        false
                )
                .addCriterion("refine_flavored_sugar",
-                             CriteriaHandler.REFINE_FLAVORED_SUGAR.createInstance(ContextAwarePredicate.ANY)
+                             CriteriaRegistry.REFINE_FLAVORED_SUGAR.createInstance(ContextAwarePredicate.ANY)
                )
                .save(writer, AdvancementResources.ADCAMA.id());
     }
@@ -243,7 +243,7 @@ public class ModAdvcmtProvider extends AdvancementProvider
                        false
                )
                .addCriterion("collect_all_sugar",
-                             CriteriaHandler.COLLECT_ALL_SUGAR.createInstance(ContextAwarePredicate.ANY)
+                             CriteriaRegistry.COLLECT_ALL_SUGAR.createInstance(ContextAwarePredicate.ANY)
                )
                .save(writer, AdvancementResources.RAICOL.id());
     }
@@ -262,7 +262,7 @@ public class ModAdvcmtProvider extends AdvancementProvider
                        false
                )
                .addCriterion("develop_diabetes",
-                             CriteriaHandler.DEVELOP_DIABETES.createInstance(
+                             CriteriaRegistry.DEVELOP_DIABETES.createInstance(
                                      ContextAwarePredicate.ANY,
                                      MinMaxBounds.Ints.atLeast(100)
                              )
