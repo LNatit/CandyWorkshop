@@ -46,7 +46,7 @@ public class CartonMilkItem extends Item
     }
 
     @Override
-    public int getUseDuration(ItemStack stack, LivingEntity entity) {
+    public int getUseDuration(ItemStack stack) {
         return DRINK_DURATION;
     }
 

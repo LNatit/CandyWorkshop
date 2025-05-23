@@ -4,7 +4,6 @@ import com.lnatit.ccw.block.BlockRegistry;
 import com.lnatit.ccw.menu.DrawerTableMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;

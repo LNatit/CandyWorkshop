@@ -2,17 +2,17 @@ package com.lnatit.ccw.item.crafting;
 
 import com.lnatit.ccw.item.ItemRegistry;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
-import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
 public class RepairExtractorRecipe extends CustomRecipe {
-    public RepairExtractorRecipe(CraftingBookCategory category) {
-        super(category);
+    public RepairExtractorRecipe(ResourceLocation id, CraftingBookCategory category) {
+        super(id, category);
     }
 
     @Override

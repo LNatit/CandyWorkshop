@@ -4,12 +4,10 @@ import com.lnatit.ccw.block.entity.DrawerTableBlockEntity;
 import com.lnatit.ccw.block.entity.IItemStackHandlerContainer;
 import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.misc.StatRegistry;
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -28,7 +26,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class DrawerTableBlock extends BaseEntityBlock
 {
-    public static final MapCodec<DrawerTableBlock> CODEC = simpleCodec(DrawerTableBlock::new);
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     public DrawerTableBlock(Properties properties) {
@@ -39,11 +36,6 @@ public class DrawerTableBlock extends BaseEntityBlock
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING);
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
     }
 
     @Override

@@ -3,9 +3,9 @@ package com.lnatit.ccw.item.sugaring;
 import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.misc.RegRegistry;
 import net.minecraft.world.effect.MobEffects;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Function;
 
@@ -16,21 +16,21 @@ import java.util.function.Function;
  */
 public class Sugars {
     public static final DeferredRegister<Sugar> SUGARS =
-            DeferredRegister.create(RegRegistry.SUGAR_KEY, CandyWorkshop.MODID);
+            DeferredRegister.create(RegRegistry.SUGAR_LOCATION, CandyWorkshop.MODID);
 
-    public static final DeferredHolder<Sugar, SingleEffectSugar> SPEED =
+    public static final RegistryObject<SingleEffectSugar> SPEED =
             registerSingle("speed",
                     builder -> builder
                             .withEffect(MobEffects.MOVEMENT_SPEED)
                             .build()
             );
-    public static final DeferredHolder<Sugar, SingleEffectSugar> BUNNY =
+    public static final RegistryObject<SingleEffectSugar> BUNNY =
             registerSingle("bunny",
                     builder -> builder
                             .withEffect(MobEffects.JUMP)
                             .build()
             );
-    public static final DeferredHolder<Sugar, SingleEffectSugar> HEALING =
+    public static final RegistryObject<SingleEffectSugar> HEALING =
             registerSingle("healing",
                     builder -> builder
                             .withEffect(MobEffects.HEAL)
@@ -38,52 +38,52 @@ public class Sugars {
                             .withNoBold()
                             .build()
             );
-    public static final DeferredHolder<Sugar, SingleEffectSugar> POISON =
+    public static final RegistryObject<SingleEffectSugar> POISON =
             registerSingle("poison",
                     builder -> builder
                             .withEffect(MobEffects.POISON)
                             .build()
             );
-    public static final DeferredHolder<Sugar, SingleEffectSugar> PUFFERFISH =
+    public static final RegistryObject<SingleEffectSugar> PUFFERFISH =
             registerSingle("pufferfish",
                     builder -> builder
                             .withEffect(MobEffects.WATER_BREATHING)
                             .build()
             );
-    public static final DeferredHolder<Sugar, SingleEffectSugar> NIGHT_VISION =
+    public static final RegistryObject<SingleEffectSugar> NIGHT_VISION =
             registerSingle("night_vision",
                     builder -> builder
                             .withEffect(MobEffects.NIGHT_VISION)
                             .withNoExcited()
                             .build()
             );
-    public static final DeferredHolder<Sugar, SingleEffectSugar> STRENGTH =
+    public static final RegistryObject<SingleEffectSugar> STRENGTH =
             registerSingle("strength",
                     builder -> builder
                             .withEffect(MobEffects.DAMAGE_BOOST)
                             .build()
             );
-    public static final DeferredHolder<Sugar, SingleEffectSugar> RECOVERY =
+    public static final RegistryObject<SingleEffectSugar> RECOVERY =
             registerSingle("recovery",
                     builder -> builder
                             .withEffect(MobEffects.REGENERATION)
                             .build()
             );
-    public static final DeferredHolder<Sugar, TurtleSugar> TURTLE =
+    public static final RegistryObject<TurtleSugar> TURTLE =
             SUGARS.register("turtle", () -> new TurtleSugar("turtle"));
-    public static final DeferredHolder<Sugar, SingleEffectSugar> FLUTTER =
+    public static final RegistryObject<SingleEffectSugar> FLUTTER =
             registerSingle("flutter",
                     builder -> builder
                             .withEffect(MobEffects.SLOW_FALLING)
                             .build()
             );
-    public static final DeferredHolder<Sugar, SingleEffectSugar> INVISIBILITY =
+    public static final RegistryObject<SingleEffectSugar> INVISIBILITY =
             registerSingle("invisibility",
                     builder -> builder
                             .withEffect(MobEffects.INVISIBILITY)
                             .build()
             );
-    public static final DeferredHolder<Sugar, SingleEffectSugar> STINGER =
+    public static final RegistryObject<SingleEffectSugar> STINGER =
             registerSingle("stinger",
                     builder -> builder
                             .withEffect(MobEffects.HARM)
@@ -91,172 +91,172 @@ public class Sugars {
                             .withNoBold()
                             .build()
             );
-    public static final DeferredHolder<Sugar, SingleEffectSugar> SNAIL =
+    public static final RegistryObject<SingleEffectSugar> SNAIL =
             registerSingle("snail",
                     builder -> builder
                             .withEffect(MobEffects.MOVEMENT_SLOWDOWN)
                             .build()
             );
-    public static final DeferredHolder<Sugar, SingleEffectSugar> BUG =
-            registerSingle("bug",
-                    builder -> builder
-                            .withEffect(MobEffects.INFESTED)
-                            .withNoExcited()
-                            .build()
-            );
-    public static final DeferredHolder<Sugar, SingleEffectSugar> STICKY =
-            registerSingle("sticky",
-                    builder -> builder
-                            .withEffect(MobEffects.OOZING)
-                            .withNoExcited()
-                            .build()
-            );
-    public static final DeferredHolder<Sugar, SingleEffectSugar> BINDING =
-            registerSingle("binding",
-                    builder -> builder
-                            .withEffect(MobEffects.WEAVING)
-                            .withNoExcited()
-                            .build()
-            );
-    public static final DeferredHolder<Sugar, SingleEffectSugar> GALE =
-            registerSingle("gale",
-                    builder -> builder
-                            .withEffect(MobEffects.WIND_CHARGED)
-                            .withNoExcited()
-                            .build()
-            );
-    public static final DeferredHolder<Sugar, SingleEffectSugar> REFRESHING =
+//    public static final RegistryObject<SingleEffectSugar> BUG =
+//            registerSingle("bug",
+//                    builder -> builder
+//                            .withEffect(MobEffects.INFESTED)
+//                            .withNoExcited()
+//                            .build()
+//            );
+//    public static final RegistryObject<SingleEffectSugar> STICKY =
+//            registerSingle("sticky",
+//                    builder -> builder
+//                            .withEffect(MobEffects.OOZING)
+//                            .withNoExcited()
+//                            .build()
+//            );
+//    public static final RegistryObject<SingleEffectSugar> BINDING =
+//            registerSingle("binding",
+//                    builder -> builder
+//                            .withEffect(MobEffects.WEAVING)
+//                            .withNoExcited()
+//                            .build()
+//            );
+//    public static final RegistryObject<SingleEffectSugar> GALE =
+//            registerSingle("gale",
+//                    builder -> builder
+//                            .withEffect(MobEffects.WIND_CHARGED)
+//                            .withNoExcited()
+//                            .build()
+//            );
+    public static final RegistryObject<SingleEffectSugar> REFRESHING =
             registerSingle("refreshing",
                     builder -> builder
                             .withEffect(MobEffects.DIG_SPEED)
                             .build()
             );
-    public static final DeferredHolder<Sugar, SingleEffectSugar> LAZY =
+    public static final RegistryObject<SingleEffectSugar> LAZY =
             registerSingle("lazy",
                     builder -> builder
                             .withEffect(MobEffects.DIG_SLOWDOWN)
                             .build()
             );
-    public static final DeferredHolder<Sugar, SingleEffectSugar> STINKY =
+    public static final RegistryObject<SingleEffectSugar> STINKY =
             registerSingle("stinky",
                     builder -> builder
                             .withEffect(MobEffects.CONFUSION)
                             .withNoExcited()
                             .build()
             );
-    public static final DeferredHolder<Sugar, SingleEffectSugar> SOLID =
+    public static final RegistryObject<SingleEffectSugar> SOLID =
             registerSingle("solid",
                     builder -> builder
                             .withEffect(MobEffects.DAMAGE_RESISTANCE)
                             .build()
             );
-    public static final DeferredHolder<Sugar, SingleEffectSugar> FIREPROOF =
+    public static final RegistryObject<SingleEffectSugar> FIREPROOF =
             registerSingle("fireproof",
                     builder -> builder
                             .withEffect(MobEffects.FIRE_RESISTANCE)
                             .withNoExcited()
                             .build()
             );
-    public static final DeferredHolder<Sugar, SingleEffectSugar> BLINDING =
+    public static final RegistryObject<SingleEffectSugar> BLINDING =
             registerSingle("blinding",
                     builder -> builder
                             .withEffect(MobEffects.BLINDNESS)
                             .withNoExcited()
                             .build()
             );
-    public static final DeferredHolder<Sugar, SingleEffectSugar> WEAKNESS =
+    public static final RegistryObject<SingleEffectSugar> WEAKNESS =
             registerSingle("weakness",
                     builder -> builder
                             .withEffect(MobEffects.WEAKNESS)
                             .build()
             );
-    public static final DeferredHolder<Sugar, SingleEffectSugar> WITHERING =
+    public static final RegistryObject<SingleEffectSugar> WITHERING =
             registerSingle("withering",
                     builder -> builder
                             .withEffect(MobEffects.WITHER)
                             .build()
             );
-    public static final DeferredHolder<Sugar, SingleEffectSugar> RED_HEART =
+    public static final RegistryObject<SingleEffectSugar> RED_HEART =
             registerSingle("red_heart",
                     builder -> builder
                             .withEffect(MobEffects.HEALTH_BOOST)
                             .build()
             );
-    public static final DeferredHolder<Sugar, SingleEffectSugar> GOLDEN_HEART =
+    public static final RegistryObject<SingleEffectSugar> GOLDEN_HEART =
             registerSingle("golden_heart",
                     builder -> builder
                             .withEffect(MobEffects.ABSORPTION)
                             .build()
             );
-    public static final DeferredHolder<Sugar, SingleEffectSugar> SATIATING =
+    public static final RegistryObject<SingleEffectSugar> SATIATING =
             registerSingle("satiating",
                     builder -> builder
                             .withEffect(MobEffects.SATURATION)
                             .withNoExcited()
                             .build()
             );
-    public static final DeferredHolder<Sugar, SingleEffectSugar> BRIGHTNESS =
+    public static final RegistryObject<SingleEffectSugar> BRIGHTNESS =
             registerSingle("brightness",
                     builder -> builder
                             .withEffect(MobEffects.GLOWING)
                             .withNoExcited()
                             .build()
             );
-    public static final DeferredHolder<Sugar, SingleEffectSugar> FLOATING =
+    public static final RegistryObject<SingleEffectSugar> FLOATING =
             registerSingle("floating",
                     builder -> builder
                             .withEffect(MobEffects.LEVITATION)
                             .withNoExcited()
                             .build()
             );
-    public static final DeferredHolder<Sugar, SingleEffectSugar> LUCKY =
+    public static final RegistryObject<SingleEffectSugar> LUCKY =
             registerSingle("lucky",
                     builder -> builder
                             .withEffect(MobEffects.LUCK)
                             .withNoExcited()
                             .build()
             );
-    public static final DeferredHolder<Sugar, SingleEffectSugar> UNLUCKY =
+    public static final RegistryObject<SingleEffectSugar> UNLUCKY =
             registerSingle("unlucky",
                     builder -> builder
                             .withEffect(MobEffects.UNLUCK)
                             .withNoExcited()
                             .build()
             );
-    public static final DeferredHolder<Sugar, SingleEffectSugar> TIDAL =
+    public static final RegistryObject<SingleEffectSugar> TIDAL =
             registerSingle("tidal",
                     builder -> builder
                             .withEffect(MobEffects.CONDUIT_POWER)
                             .withNoExcited()
                             .build()
             );
-    public static final DeferredHolder<Sugar, SingleEffectSugar> FISH_SWIM =
+    public static final RegistryObject<SingleEffectSugar> FISH_SWIM =
             registerSingle("fish_swim",
                     builder -> builder
                             .withEffect(MobEffects.DOLPHINS_GRACE)
                             .build()
             );
-    public static final DeferredHolder<Sugar, SingleEffectSugar> TAUNTING =
+    public static final RegistryObject<SingleEffectSugar> TAUNTING =
             registerSingle("taunting",
                     builder -> builder
                             .withEffect(MobEffects.BAD_OMEN)
                             .withNoExcited()
                             .build()
             );
-    public static final DeferredHolder<Sugar, SingleEffectSugar> DISCOUNT =
+    public static final RegistryObject<SingleEffectSugar> DISCOUNT =
             registerSingle("discount",
                     builder -> builder
                             .withEffect(MobEffects.HERO_OF_THE_VILLAGE)
                             .build()
             );
-    public static final DeferredHolder<Sugar, SingleEffectSugar> DARKNESS =
+    public static final RegistryObject<SingleEffectSugar> DARKNESS =
             registerSingle("darkness",
                     builder -> builder
                             .withEffect(MobEffects.DARKNESS)
                             .withNoExcited()
                             .build()
             );
-    public static final DeferredHolder<Sugar, SingleEffectSugar> HUNGER =
+    public static final RegistryObject<SingleEffectSugar> HUNGER =
             registerSingle("hunger",
                     builder -> builder
                             .withEffect(MobEffects.HUNGER)
@@ -267,7 +267,7 @@ public class Sugars {
         SUGARS.register(eventBus);
     }
 
-    private static DeferredHolder<Sugar, SingleEffectSugar> registerSingle(String id, Function<SingleEffectSugar.IEffectAcceptor, SingleEffectSugar> props) {
+    private static RegistryObject<SingleEffectSugar> registerSingle(String id, Function<SingleEffectSugar.IEffectAcceptor, SingleEffectSugar> props) {
         return SUGARS.register(id, () -> props.apply(SingleEffectSugar.builder(id)));
     }
 }

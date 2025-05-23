@@ -5,7 +5,6 @@ import com.lnatit.ccw.item.sugaring.Sugars;
 import com.lnatit.ccw.misc.critereon.CriteriaRegistry;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
 
 import java.util.ArrayList;
@@ -16,9 +15,9 @@ public class SugarStat {
             Codec.list(Sugar.CODEC).fieldOf("consume_history").forGetter(s -> s.consumeHistory)
     ).apply(ins, SugarStat::new));
 
-    private final List<Holder<Sugar>> consumeHistory;
+    private final List<Sugar> consumeHistory;
 
-    public SugarStat(List<Holder<Sugar>> consumeHistory) {
+    public SugarStat(List<Sugar> consumeHistory) {
         this.consumeHistory = new ArrayList<>(consumeHistory);
     }
 
@@ -30,7 +29,7 @@ public class SugarStat {
         return AttachmentType.builder(() -> new SugarStat()).serialize(CODEC).build();
     }
 
-    public void addHistory(Holder<Sugar> holder, ServerPlayer player) {
+    public void addHistory(Sugar holder, ServerPlayer player) {
         if (!this.consumeHistory.contains(holder)) {
             this.consumeHistory.add(holder);
         }

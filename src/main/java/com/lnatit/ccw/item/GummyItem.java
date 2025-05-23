@@ -32,7 +32,7 @@ public class GummyItem extends Item {
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         SugarContents sugarContents = stack.get(ItemRegistry.SUGAR_CONTENTS_DCTYPE);
         if (sugarContents != null) {
-            sugarContents.addSugarTooltip(tooltipComponents::add, context.tickRate());
+            sugarContents.addSugarTooltip(tooltipComponents::add);
         }
     }
 }

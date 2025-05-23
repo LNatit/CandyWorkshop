@@ -3,15 +3,15 @@ package com.lnatit.ccw.item.sugaring;
 import com.google.common.collect.ImmutableList;
 import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.item.ItemRegistry;
-import net.minecraft.core.Holder;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
+import net.minecraftforge.common.Tags;
+import net.minecraftforge.event.server.ServerAboutToStartEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
 
-@EventBusSubscriber(modid = CandyWorkshop.MODID)
+@Mod.EventBusSubscriber(modid = CandyWorkshop.MODID)
 public class SugarRefining
 {
     public static final SugarRefining EMPTY = new SugarRefining(List.of(), Set.of());
@@ -55,7 +55,7 @@ public class SugarRefining
     public boolean isExtra(ItemStack stack) {
         return stack.is(Items.COCOA_BEANS)
                 || stack.is(Items.HONEY_BOTTLE)
-                || stack.is(ItemRegistry.MILK_GELATIN);
+                || stack.is(ItemRegistry.MILK_GELATIN.get());
     }
 
     public ItemStack makeSugar(ItemStack sugar, ItemStack main, ItemStack extra) {
@@ -81,7 +81,7 @@ public class SugarRefining
         builder.addOverworldBlend(Sugars.NIGHT_VISION, Items.GOLDEN_CARROT);
         builder.addOverworldBlend(Sugars.STRENGTH, Items.BLAZE_POWDER);
         builder.addOverworldBlend(Sugars.RECOVERY, Items.GHAST_TEAR, ItemRegistry.SWEET_MELON_SLICE.get());
-        builder.addOverworldBlend(Sugars.TURTLE, Items.TURTLE_SCUTE);
+        builder.addOverworldBlend(Sugars.TURTLE, Items.SCUTE);
         builder.addOverworldBlend(Sugars.FLUTTER, Items.PHANTOM_MEMBRANE);
         builder.addOverworldBlend(Sugars.SNAIL, Items.SOUL_SAND);
         builder.addBlend(Sugars.STINKY, Items.SUGAR, Ingredient.of(Tags.Items.MUSHROOMS));
@@ -93,10 +93,10 @@ public class SugarRefining
 
         builder.addNetherBlend(Sugars.INVISIBILITY, ItemRegistry.PHANTOM_PEARL.get());
         builder.addNetherBlend(Sugars.STINGER, Items.CACTUS);
-        builder.addNetherBlend(Sugars.BUG, Items.STONE);
-        builder.addNetherBlend(Sugars.STICKY, Items.SLIME_BLOCK);
-        builder.addNetherBlend(Sugars.BINDING, Items.COBWEB);
-        builder.addNetherBlend(Sugars.GALE, Items.BREEZE_ROD);
+//        builder.addNetherBlend(Sugars.BUG, Items.STONE);
+//        builder.addNetherBlend(Sugars.STICKY, Items.SLIME_BLOCK);
+//        builder.addNetherBlend(Sugars.BINDING, Items.COBWEB);
+//        builder.addNetherBlend(Sugars.GALE, Items.BREEZE_ROD);
         builder.addNetherBlend(Sugars.REFRESHING, Items.COCOA_BEANS);
         builder.addNetherBlend(Sugars.LAZY, Items.COBBLESTONE);
         builder.addNetherBlend(Sugars.SOLID, ItemRegistry.CALCIUM_RICH_MILK.get());
@@ -132,24 +132,24 @@ public class SugarRefining
         private final List<Blend> sugarBlends = new ArrayList<>();
         private final Set<Item> sugarItems = new HashSet<>();
 
-        public void addBlend(Holder<Sugar> output, Item sugar, Ingredient main) {
-            sugarBlends.add(new Blend(sugar, main, output));
+        public <T extends Sugar> void addBlend(RegistryObject<T> output, Item sugar, Ingredient main) {
+            sugarBlends.add(new Blend(sugar, main, output.get()));
             sugarItems.add(sugar);
         }
 
-        public void addBlend(Holder<Sugar> output, Item sugar, Item... main) {
+        public <T extends Sugar> void addBlend(RegistryObject<T> output, Item sugar, Item... main) {
             addBlend(output, sugar, Ingredient.of(main));
         }
 
-        public void addOverworldBlend(Holder<Sugar> output, Item... main) {
+        public <T extends Sugar> void addOverworldBlend(RegistryObject<T> output, Item... main) {
             addBlend(output, Items.SUGAR, Ingredient.of(main));
         }
 
-        public void addNetherBlend(Holder<Sugar> output, Item... main) {
+        public <T extends Sugar> void addNetherBlend(RegistryObject<T> output, Item... main) {
             addBlend(output, ItemRegistry.NETHER_SUGAR.get(), Ingredient.of(main));
         }
 
-        public void addEndBlend(Holder<Sugar> output, Item... main) {
+        public <T extends Sugar> void addEndBlend(RegistryObject<T> output, Item... main) {
             addBlend(output, ItemRegistry.ENDER_SUGAR.get(), Ingredient.of(main));
         }
 
@@ -158,7 +158,7 @@ public class SugarRefining
         }
     }
 
-    public record Blend(Item sugar, Ingredient main, Holder<Sugar> output)
+    public record Blend(Item sugar, Ingredient main, Sugar output)
     {
     }
 }

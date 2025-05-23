@@ -8,12 +8,17 @@ import com.lnatit.ccw.item.sugaring.Sugars;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ModelEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Map;
 
-@EventBusSubscriber(modid = CandyWorkshop.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = CandyWorkshop.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModelHandler
 {
     public static final ResourceLocation BROKEN = ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID, "broken");
@@ -29,8 +34,8 @@ public class ModelHandler
 
     @SubscribeEvent
     public static void onModelRegister(ModelEvent.RegisterAdditional event) {
-        for (Holder<Sugar> sugarHolder : Sugars.SUGARS.getEntries()) {
-            event.register(ModelResourceLocation.standalone(sugarHolder.value().getModelId()));
+        for (RegistryObject<Sugar> sugarHolder : Sugars.SUGARS.getEntries()) {
+            event.register(ModelResourceLocation.standalone(sugarHolder.get().getModelId()));
         }
     }
 

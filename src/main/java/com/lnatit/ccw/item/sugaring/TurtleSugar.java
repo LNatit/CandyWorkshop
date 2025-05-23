@@ -1,6 +1,5 @@
 package com.lnatit.ccw.item.sugaring;
 
-import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.effect.MobEffect;
@@ -42,8 +41,8 @@ public class TurtleSugar extends Sugar
                 BOLD_EFFECTS.forEach(effect -> applyEffect(entity, effect));
                 return;
             case MILKY:
-                List<Holder<MobEffect>> toRemove = new ArrayList<>();
-                for (Holder<MobEffect> effect : entity.getActiveEffectsMap().keySet()) {
+                List<MobEffect> toRemove = new ArrayList<>();
+                for (MobEffect effect : entity.getActiveEffectsMap().keySet()) {
                     if (effect != MobEffects.MOVEMENT_SLOWDOWN && effect != MobEffects.DAMAGE_RESISTANCE) {
                         toRemove.add(effect);
                     }
@@ -55,7 +54,7 @@ public class TurtleSugar extends Sugar
     }
 
     @Override
-    public void addSugarTooltip(Consumer<Component> tooltipAdder, Flavor flavor, float ticksPerSecond) {
+    public void addSugarTooltip(Consumer<Component> tooltipAdder, Flavor flavor) {
         List<MobEffectInstance> effects =
                 switch (flavor) {
                     case EXCITED -> EXCITED_EFFECTS;
@@ -65,7 +64,7 @@ public class TurtleSugar extends Sugar
 
         for (MobEffectInstance mobeffectinstance : effects) {
             MutableComponent mutablecomponent = Component.translatable(mobeffectinstance.getDescriptionId());
-            Holder<MobEffect> holder = mobeffectinstance.getEffect();
+            MobEffect effect = mobeffectinstance.getEffect();
             if (mobeffectinstance.getAmplifier() > 0) {
                 mutablecomponent = Component.translatable(
                         "potion.withAmplifier", mutablecomponent,
@@ -76,11 +75,11 @@ public class TurtleSugar extends Sugar
             if (!mobeffectinstance.endsWithin(20)) {
                 mutablecomponent = Component.translatable(
                         "sugar.withDuration", mutablecomponent,
-                        MobEffectUtil.formatDuration(mobeffectinstance, 1.0F, ticksPerSecond)
+                        MobEffectUtil.formatDuration(mobeffectinstance, 1.0F)
                 );
             }
 
-            tooltipAdder.accept(mutablecomponent.withStyle(holder.value().getCategory().getTooltipFormatting()));
+            tooltipAdder.accept(mutablecomponent.withStyle(effect.getCategory().getTooltipFormatting()));
         }
     }
 

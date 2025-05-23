@@ -7,16 +7,12 @@ import com.mojang.serialization.Codec;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -24,9 +20,9 @@ import java.util.function.Consumer;
 
 public abstract class Sugar
 {
-    public static final Codec<Holder<Sugar>> CODEC = RegRegistry.SUGAR.holderByNameCodec();
-    public static final StreamCodec<RegistryFriendlyByteBuf, Holder<Sugar>> STREAM_CODEC = ByteBufCodecs.holderRegistry(
-            RegRegistry.SUGAR_KEY);
+    public static final Codec<Sugar> CODEC = RegRegistry.SUGAR.getCodec();
+//    public static final StreamCodec<FriendlyByteBuf, Sugar> STREAM_CODEC = ByteBufCodecs.holderRegistry(
+//            RegRegistry.SUGAR_KEY);
     protected final String name;
     protected final boolean hasExcited;
     protected final boolean hasBold;
@@ -37,7 +33,7 @@ public abstract class Sugar
         this.hasBold = hasBold;
     }
 
-    public static ItemStack createSugar(@Nullable Holder<Sugar> sugar, Flavor flavor) {
+    public static ItemStack createSugar(@Nullable Sugar sugar, Flavor flavor) {
         if (sugar == null) {
             return ItemStack.EMPTY;
         }
@@ -52,7 +48,7 @@ public abstract class Sugar
         }
         Set<ItemStack> sugars = new HashSet<>();
         for (Flavor flavor : sugar.value().getAvailableFlavors()) {
-            sugars.add(Sugar.createSugar(sugar, flavor));
+            sugars.add(Sugar.createSugar(sugar.get(), flavor));
         }
         return sugars;
     }
@@ -63,7 +59,7 @@ public abstract class Sugar
 
     public abstract void applyOn(LivingEntity entity, Flavor flavor);
 
-    public void addSugarTooltip(Consumer<Component> tooltipAdder, Flavor flavor, float ticksPerSecond) {
+    public void addSugarTooltip(Consumer<Component> tooltipAdder, Flavor flavor) {
     }
 
     public List<Flavor> getAvailableFlavors() {

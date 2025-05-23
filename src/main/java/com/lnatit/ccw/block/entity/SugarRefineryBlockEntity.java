@@ -306,7 +306,7 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
         public void deserializeNBT(CompoundTag nbt) {
             super.deserializeNBT(nbt);
             progress = nbt.getInt("progress");
-            scheduledOutput = ItemStack.(nbt.getCompound("scheduled_output"));
+            scheduledOutput = ItemStack.of(nbt.getCompound("scheduled_output"));
 //            changedExternal = true;
         }
 

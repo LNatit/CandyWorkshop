@@ -1,6 +1,5 @@
 package com.lnatit.ccw.item.sugaring;
 
-import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
@@ -17,10 +16,10 @@ import java.util.function.Consumer;
 
 public class SingleEffectSugar extends Sugar
 {
-    private final Holder<MobEffect> effect;
+    private final MobEffect effect;
     private final int duration;
 
-    private SingleEffectSugar(String name, Holder<MobEffect> effect, int duration, boolean hasExcited, boolean hasBold) {
+    private SingleEffectSugar(String name, MobEffect effect, int duration, boolean hasExcited, boolean hasBold) {
         super(name, hasExcited, hasBold);
         this.effect = effect;
         this.duration = duration;
@@ -28,12 +27,12 @@ public class SingleEffectSugar extends Sugar
 
     @Override
     public void applyOn(LivingEntity entity, Flavor flavor) {
-        if (entity.level() instanceof ServerLevel level) {
+        if (entity.level() instanceof ServerLevel) {
             int duration = this.getDuration(flavor);
             int amplifier = this.getAmplifier(flavor);
             if (flavor == Flavor.MILKY) {
-                List<Holder<MobEffect>> toRemove =  new ArrayList<>();
-                for (Holder<MobEffect> effect : entity.getActiveEffectsMap().keySet()) {
+                List<MobEffect> toRemove =  new ArrayList<>();
+                for (MobEffect effect : entity.getActiveEffectsMap().keySet()) {
                     if (effect != this.effect) {
                         toRemove.add(effect);
                     }
@@ -42,8 +41,8 @@ public class SingleEffectSugar extends Sugar
             }
 
             // Instantenous effect behaves differently
-            if (effect.value().isInstantenous()) {
-                effect.value().applyInstantenousEffect(entity, entity, entity, amplifier, 0.5);
+            if (effect.isInstantenous()) {
+                effect.applyInstantenousEffect(entity, entity, entity, amplifier, 0.5);
             }
             else {
                 MobEffectInstance exist = entity.getEffect(effect);
@@ -56,8 +55,8 @@ public class SingleEffectSugar extends Sugar
     }
 
     @Override
-    public void addSugarTooltip(Consumer<Component> tooltipAdder, Flavor flavor, float ticksPerSecond) {
-        MutableComponent mutablecomponent = Component.translatable(effect.value().getDescriptionId());
+    public void addSugarTooltip(Consumer<Component> tooltipAdder, Flavor flavor) {
+        MutableComponent mutablecomponent = Component.translatable(effect.getDescriptionId());
 
         int amplifier = this.getAmplifier(flavor);
         if (amplifier > 0) {
@@ -70,14 +69,14 @@ public class SingleEffectSugar extends Sugar
         int duration = this.getDuration(flavor);
         if (duration > 20) {
             int i = Mth.floor((float) duration);
-            Component result = Component.literal(StringUtil.formatTickDuration(i, ticksPerSecond));
+            Component result = Component.literal(StringUtil.formatTickDuration(i));
             mutablecomponent = Component.translatable(
                     "sugar.withDuration", mutablecomponent,
                     result
             );
         }
 
-        tooltipAdder.accept(mutablecomponent.withStyle(effect.value().getCategory().getTooltipFormatting()));
+        tooltipAdder.accept(mutablecomponent.withStyle(effect.getCategory().getTooltipFormatting()));
     }
 
     private int getDuration(Flavor flavor) {
@@ -98,7 +97,7 @@ public class SingleEffectSugar extends Sugar
 
         private final String name;
         @Nullable
-        private Holder<MobEffect> effect;
+        private MobEffect effect;
         private int duration = DEFAULT_DURATION;
         private boolean hasExcited = true;
         private boolean hasBold = true;
@@ -108,7 +107,7 @@ public class SingleEffectSugar extends Sugar
         }
 
         @Override
-        public IOptionalAcceptor withEffect(Holder<MobEffect> effect) {
+        public IOptionalAcceptor withEffect(MobEffect effect) {
             this.effect = effect;
             return this;
         }
@@ -140,7 +139,7 @@ public class SingleEffectSugar extends Sugar
 
     public interface IEffectAcceptor
     {
-        IOptionalAcceptor withEffect(Holder<MobEffect> effect);
+        IOptionalAcceptor withEffect(MobEffect effect);
     }
 
     public interface IOptionalAcceptor extends IBuilder
