@@ -6,7 +6,7 @@ import net.minecraft.world.Containers;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.minecraftforge.items.ItemStackHandler;
 
 public interface IItemStackHandlerContainer
 {
@@ -23,7 +23,7 @@ public interface IItemStackHandlerContainer
             }
         }
         f /= (float) size;
-        return Mth.lerpDiscrete(f, 0, 15);
+        return Mth.lerpInt(f, 0, 15);
     }
 
     default void onRemove(BlockState state, BlockState newState, Level level, BlockPos pos) {

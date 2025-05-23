@@ -7,9 +7,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
-import net.neoforged.neoforge.items.SlotItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.SlotItemHandler;
 
 public class DrawerTableMenu extends ModContainerMenu
 {
@@ -68,7 +68,7 @@ public class DrawerTableMenu extends ModContainerMenu
     public boolean stillValid(Player player) {
         return this.access.evaluate(
                 (level, pos) -> level.getBlockState(pos).is(BlockRegistry.DRAWER_TABLE_TAG) &&
-                        player.canInteractWithBlock(pos, 4.0),
+                        pos.closerToCenterThan(player.position(), 4.0),
                 true
         );
     }

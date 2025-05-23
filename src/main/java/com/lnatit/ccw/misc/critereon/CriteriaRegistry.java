@@ -3,8 +3,7 @@ package com.lnatit.ccw.misc.critereon;
 import com.lnatit.ccw.CandyWorkshop;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import net.minecraftforge.registries.DeferredRegister;
 
 public class CriteriaRegistry
 {

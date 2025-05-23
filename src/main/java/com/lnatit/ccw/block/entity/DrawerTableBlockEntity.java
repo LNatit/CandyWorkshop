@@ -15,6 +15,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
@@ -38,20 +39,20 @@ public class DrawerTableBlockEntity extends BlockEntity implements MenuProvider,
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
-        tag.put("inventory", this.inventory.serializeNBT(registries));
+    protected void saveAdditional(CompoundTag tag) {
+        super.saveAdditional(tag);
+        tag.put("inventory", this.inventory.serializeNBT());
         if (this.name != null) {
-            tag.putString("CustomName", Component.Serializer.toJson(this.name, registries));
+            tag.putString("CustomName", Component.Serializer.toJson(this.name));
         }
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        this.inventory.deserializeNBT(registries, tag.getCompound("inventory"));
+    public void load(CompoundTag tag) {
+        super.load(tag);
+        this.inventory.deserializeNBT(tag.getCompound("inventory"));
         if (tag.contains("CustomName", 8)) {
-            this.name = parseCustomNameSafe(tag.getString("CustomName"), registries);
+            this.name = Component.Serializer.fromJson(tag.getString("CustomName"));
         }
     }
 

@@ -3,7 +3,6 @@ package com.lnatit.ccw.item;
 import com.lnatit.ccw.misc.SoundRegistry;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.player.Player;
@@ -30,7 +29,7 @@ public class MilkExtractorItem extends Item {
                 if (!player.addItem(result))
                     player.drop(result, false);
 
-                stack.hurtAndBreak(count, player, usedHand == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
+                stack.hurtAndBreak(count, player, p -> p.broadcastBreakEvent(usedHand));
             }
 
             interactionTarget.playSound(SoundRegistry.PLUG_OFF.get());

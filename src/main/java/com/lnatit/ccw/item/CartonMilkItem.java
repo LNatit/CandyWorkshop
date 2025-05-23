@@ -8,7 +8,10 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUtils;
+import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 
@@ -35,7 +38,7 @@ public class CartonMilkItem extends Item
 
         if (player != null) {
             player.awardStat(Stats.ITEM_USED.get(this));
-            stack.consume(1, player);
+            stack.shrink(1);
         }
 
         livingEntity.gameEvent(GameEvent.DRINK);
@@ -58,19 +61,19 @@ public class CartonMilkItem extends Item
     }
 
     private static boolean removeRandomEffect(LivingEntity entity) {
-    Collection<MobEffectInstance> effects = entity.getActiveEffects();
-    if (effects.isEmpty()) {
-        return false;
-    }
+        Collection<MobEffectInstance> effects = entity.getActiveEffects();
+        if (effects.isEmpty()) {
+            return false;
+        }
 
-    boolean flag = false;
-    List<MobEffectInstance> list = new ArrayList<>(effects);
-    // 洗牌算法（Fisher-Yates Shuffle）
-    for (int i = list.size() - 1; i >= list.size() - 1; i--) {
-        int j = entity.getRandom().nextInt(i + 1);
-        Collections.swap(list, i, j);
-        flag |= entity.removeEffect(list.get(i).getEffect());
+        boolean flag = false;
+        List<MobEffectInstance> list = new ArrayList<>(effects);
+        // 洗牌算法（Fisher-Yates Shuffle）
+        for (int i = list.size() - 1; i >= list.size() - 1; i--) {
+            int j = entity.getRandom().nextInt(i + 1);
+            Collections.swap(list, i, j);
+            flag |= entity.removeEffect(list.get(i).getEffect());
+        }
+        return flag;
     }
-    return flag;
-}
 }

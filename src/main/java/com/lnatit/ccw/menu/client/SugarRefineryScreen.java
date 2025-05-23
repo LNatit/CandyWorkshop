@@ -10,7 +10,7 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.neoforged.neoforge.client.gui.widget.ExtendedButton;
+import net.minecraftforge.client.gui.widget.ExtendedButton;
 
 public class SugarRefineryScreen extends AbstractContainerScreen<SugarRefineryMenu> {
     public static final ResourceLocation BACKGROUND_LOCATION =
@@ -65,19 +65,21 @@ public class SugarRefineryScreen extends AbstractContainerScreen<SugarRefineryMe
         int progress = this.menu.getProgress();
 
         if (progress > 0)
-            guiGraphics.blitSprite(
+            guiGraphics.blit(
                     ANIMATION_SPRITE,
                     this.leftPos + 72,
                     this.topPos + 22,
+                    0, 0,
                     28, 19
             );
         else progress = 0;
 
         progress = -15 * progress / SugarRefining.REFINE_TIME;
-        guiGraphics.blitSprite(
+        guiGraphics.blit(
                 PROGRESS_SPRITE,
                 this.leftPos + 72 - progress,
                 this.topPos + 41,
+                0, 0,
                 28 + progress * 2, 1
         );
     }
@@ -89,7 +91,8 @@ public class SugarRefineryScreen extends AbstractContainerScreen<SugarRefineryMe
         button.setTooltip(this.menu.getProgress() >= 0 ? START : PAUSE);
     }
 
-    private static class InvisibleButton extends ExtendedButton {
+    private static class InvisibleButton extends ExtendedButton
+    {
         public InvisibleButton(int xPos, int yPos, OnPress handler) {
             super(xPos, yPos, 32, 23, Component.empty(), handler);
         }

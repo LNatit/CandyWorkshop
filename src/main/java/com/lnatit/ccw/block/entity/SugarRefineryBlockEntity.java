@@ -9,7 +9,6 @@ import com.lnatit.ccw.menu.SugarRefineryMenu;
 import com.lnatit.ccw.misc.critereon.CriteriaRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -26,9 +25,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
-import net.neoforged.neoforge.items.wrapper.RangedWrapper;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.wrapper.RangedWrapper;
 import org.jetbrains.annotations.Nullable;
 
 public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvider, Nameable, IItemStackHandlerContainer {
@@ -49,20 +48,20 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
-        tag.put("data", this.data.serializeNBT(registries));
+    protected void saveAdditional(CompoundTag tag) {
+        super.saveAdditional(tag);
+        tag.put("data", this.data.serializeNBT());
         if (this.name != null) {
-            tag.putString("CustomName", Component.Serializer.toJson(this.name, registries));
+            tag.putString("CustomName", Component.Serializer.toJson(this.name));
         }
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        this.data.deserializeNBT(registries, tag.getCompound("data"));
+    public void load(CompoundTag tag) {
+        super.load(tag);
+        this.data.deserializeNBT(tag.getCompound("data"));
         if (tag.contains("CustomName", 8)) {
-            this.name = parseCustomNameSafe(tag.getString("CustomName"), registries);
+            this.name = Component.Serializer.fromJson(tag.getString("CustomName"));
         }
     }
 
@@ -111,7 +110,8 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
             CriteriaRegistry.REFINE_FLAVORED_SUGAR.get().trigger(serverplayer);
     }
 
-    public class Data extends ItemStackHandler {
+    public class Data extends ItemStackHandler
+    {
         public static final int COMMON_MILK_CONSUMPTION = 1;
         public static final int CARTON_MILK_CONSUMPTION = 8;
         public static final int SUGAR_CONSUMPTION = 8;
@@ -183,12 +183,12 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
             ItemStack newOutput = SugarRefining.sugarRefining.makeSugar(this.stacks.get(1), this.stacks.get(2), this.stacks.get(3));
             ItemStack output = this.stacks.get(4);
 
-            if (!output.isEmpty() && (!ItemStack.isSameItemSameComponents(output, newOutput) ||
+            if (!output.isEmpty() && (!ItemStack.isSameItemSameTags(output, newOutput) ||
                     output.getCount() + newOutput.getCount() > output.getMaxStackSize())) {
                 newOutput = ItemStack.EMPTY;
             }
 
-            if (!ItemStack.isSameItemSameComponents(scheduledOutput, newOutput)) {
+            if (!ItemStack.isSameItemSameTags(scheduledOutput, newOutput)) {
                 scheduledOutput = newOutput;
                 return true;
             }
@@ -248,7 +248,7 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
                 if (stack.isEmpty()) {
                     this.stacks.set(i, remainder);
                     return;
-                } else if (ItemStack.isSameItemSameComponents(stack, remainder)) {
+                } else if (ItemStack.isSameItemSameTags(stack, remainder)) {
                     int consume = Math.min(stack.getMaxStackSize() - stack.getCount(), count);
                     stack.grow(consume);
                     this.stacks.set(i, stack);
@@ -293,20 +293,20 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
         }
 
         @Override
-        public CompoundTag serializeNBT(HolderLookup.Provider provider) {
-            CompoundTag tag = super.serializeNBT(provider);
+        public CompoundTag serializeNBT() {
+            CompoundTag tag = super.serializeNBT();
             tag.putInt("progress", progress);
             if (!scheduledOutput.isEmpty()) {
-                tag.put("scheduled_output", scheduledOutput.save(provider));
+                tag.put("scheduled_output", scheduledOutput.save(new CompoundTag()));
             }
             return tag;
         }
 
         @Override
-        public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
-            super.deserializeNBT(provider, nbt);
+        public void deserializeNBT(CompoundTag nbt) {
+            super.deserializeNBT(nbt);
             progress = nbt.getInt("progress");
-            scheduledOutput = ItemStack.parseOptional(provider, nbt.getCompound("scheduled_output"));
+            scheduledOutput = ItemStack.(nbt.getCompound("scheduled_output"));
 //            changedExternal = true;
         }
 
