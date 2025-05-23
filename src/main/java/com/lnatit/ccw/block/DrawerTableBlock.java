@@ -44,12 +44,12 @@ public class DrawerTableBlock extends BaseEntityBlock
     }
 
     @Override
-    protected BlockState rotate(BlockState state, Rotation rotation) {
+    public BlockState rotate(BlockState state, Rotation rotation) {
         return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
 
     @Override
-    protected BlockState mirror(BlockState state, Mirror mirror) {
+    public BlockState mirror(BlockState state, Mirror mirror) {
         return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
@@ -60,12 +60,12 @@ public class DrawerTableBlock extends BaseEntityBlock
     }
 
     @Override
-    protected boolean hasAnalogOutputSignal(BlockState state) {
+    public boolean hasAnalogOutputSignal(BlockState state) {
         return true;
     }
 
     @Override
-    protected int getAnalogOutputSignal(BlockState blockState, Level level, BlockPos pos) {
+    public int getAnalogOutputSignal(BlockState blockState, Level level, BlockPos pos) {
         if (level.getBlockEntity(pos) instanceof IItemStackHandlerContainer container) {
             return container.getAnalogOutput();
         }
@@ -73,17 +73,13 @@ public class DrawerTableBlock extends BaseEntityBlock
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (stack.is(ItemRegistry.SUGAR_REFINERY) && hitResult.getDirection() == Direction.UP) {
-            return ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        ItemStack stack = player.getItemInHand(hand);
+        if (stack.is(ItemRegistry.SUGAR_REFINERY.get()) && hit.getDirection() == Direction.UP) {
+            return InteractionResult.PASS;
         }
-        return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
-    }
 
-    @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        if (!level.isClientSide() && level.getBlockEntity(
-                pos) instanceof DrawerTableBlockEntity drawerTableBlockEntity) {
+        if (!level.isClientSide() && level.getBlockEntity(pos) instanceof DrawerTableBlockEntity drawerTableBlockEntity) {
             player.openMenu(drawerTableBlockEntity);
             player.awardStat(StatRegistry.OPEN_DRAWER_TABLE.get());
         }
@@ -91,7 +87,7 @@ public class DrawerTableBlock extends BaseEntityBlock
     }
 
     @Override
-    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
         if (level.getBlockEntity(pos) instanceof IItemStackHandlerContainer container) {
             container.onRemove(state, newState, level, pos);
         }

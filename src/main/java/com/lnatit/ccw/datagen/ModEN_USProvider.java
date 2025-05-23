@@ -5,11 +5,11 @@ import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.item.sugaring.Sugar;
 import com.lnatit.ccw.item.sugaring.Sugars;
 import net.minecraft.data.PackOutput;
-import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.common.data.LanguageProvider;
-import net.neoforged.neoforge.registries.DeferredHolder;
+import net.minecraftforge.common.data.LanguageProvider;
+import net.minecraftforge.registries.RegistryObject;
 
-public class ModEN_USProvider extends LanguageProvider {
+public class ModEN_USProvider extends LanguageProvider
+{
     public ModEN_USProvider(PackOutput output) {
         super(output, CandyWorkshop.MODID, "en_us");
     }
@@ -23,7 +23,7 @@ public class ModEN_USProvider extends LanguageProvider {
         this.add("container.sugar_refinery.pause", "Pause Refining...");
         this.add("container.sugar_refinery.start", "Start Refining...");
         this.add(ModSoundProvider.PLUG_OFF_SUBTITLE, "Plug-off");
-        this.add(Tags.getTagTranslationKey(ItemRegistry.CARTON_MILK_TAG), "Carton Milk");
+//        this.add(Tags.getTagTranslationKey(ItemRegistry.CARTON_MILK_TAG), "Carton Milk");
 
         this.add("stat.ccw.interact_with_sugar_refinery", "Interact With Sugar Refinery");
         this.add("stat.ccw.open_drawer_table", "Open Drawer Table");
@@ -72,7 +72,7 @@ public class ModEN_USProvider extends LanguageProvider {
         this.add("item.ccw.gummy.bold.desc", "Bold desc");
         this.add("item.ccw.gummy.milky.desc", "Milky desc");
 
-        for (DeferredHolder<Sugar, ? extends Sugar> sugar : Sugars.SUGARS.getEntries()) {
+        for (RegistryObject<Sugar> sugar : Sugars.SUGARS.getEntries()) {
             this.add("item." + CandyWorkshop.MODID + ".gummy." + sugar.get().name(), "placeholder:" + sugar.get().name());
         }
 

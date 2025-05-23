@@ -9,7 +9,6 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.client.model.BakedModelWrapper;
 import org.jetbrains.annotations.Nullable;
 
 public class SugarOverrideHandler extends ItemOverrides {
@@ -24,7 +23,7 @@ public class SugarOverrideHandler extends ItemOverrides {
 
     @Override
     public @Nullable BakedModel resolve(BakedModel model, ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity entity, int seed) {
-        if (stack.is(ItemRegistry.GUMMY_ITEM)) {
+        if (stack.is(ItemRegistry.GUMMY_ITEM.get())) {
             SugarContents sugar = stack.get(ItemRegistry.SUGAR_CONTENTS_DCTYPE.get());
             if (sugar != null && sugar.sugar().isPresent()) {
                 BakedModel bakedModel =

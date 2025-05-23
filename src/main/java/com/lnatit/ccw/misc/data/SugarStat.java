@@ -2,7 +2,7 @@ package com.lnatit.ccw.misc.data;
 
 import com.lnatit.ccw.item.sugaring.Sugar;
 import com.lnatit.ccw.item.sugaring.Sugars;
-import com.lnatit.ccw.misc.critereon.CriteriaRegistry;
+import com.lnatit.ccw.misc.critereon.CriteriaHandler;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.server.level.ServerPlayer;
@@ -35,7 +35,7 @@ public class SugarStat {
         }
 
         if (this.consumeHistory.size() == Sugars.SUGARS.getEntries().size()) {
-            CriteriaRegistry.COLLECT_ALL_SUGAR.get().trigger(player);
+            CriteriaHandler.COLLECT_ALL_SUGAR.trigger(player);
         }
     }
 }

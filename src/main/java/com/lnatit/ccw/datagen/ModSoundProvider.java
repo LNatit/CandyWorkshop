@@ -3,9 +3,9 @@ package com.lnatit.ccw.datagen;
 import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.misc.SoundRegistry;
 import net.minecraft.data.PackOutput;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.neoforged.neoforge.common.data.SoundDefinition;
-import net.neoforged.neoforge.common.data.SoundDefinitionsProvider;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.common.data.SoundDefinition;
+import net.minecraftforge.common.data.SoundDefinitionsProvider;
 
 public class ModSoundProvider extends SoundDefinitionsProvider
 {

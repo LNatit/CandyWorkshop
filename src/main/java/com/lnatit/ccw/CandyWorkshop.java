@@ -12,7 +12,6 @@ import com.lnatit.ccw.item.sugaring.Sugars;
 import com.lnatit.ccw.menu.MenuRegistry;
 import com.lnatit.ccw.misc.SoundRegistry;
 import com.lnatit.ccw.misc.StatRegistry;
-import com.lnatit.ccw.misc.critereon.CriteriaRegistry;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;

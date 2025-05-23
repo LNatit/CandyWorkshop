@@ -25,9 +25,9 @@ public class RepairExtractorRecipe extends CustomRecipe {
         boolean hasPackaging = false;
         for (int i = 0; i < input.size(); i++) {
             ItemStack stack = input.getItem(i);
-            if (stack.is(ItemRegistry.MILK_EXTRACTOR)) {
+            if (stack.is(ItemRegistry.MILK_EXTRACTOR.get())) {
                 hasExtractor = true;
-            } else if (stack.is(ItemRegistry.MILK_PACKAGING) || stack.is(Items.PAPER)) {
+            } else if (stack.is(ItemRegistry.MILK_PACKAGING.get()) || stack.is(Items.PAPER)) {
                 hasPackaging = true;
             }
         }
@@ -44,9 +44,9 @@ public class RepairExtractorRecipe extends CustomRecipe {
             if (!stack.isEmpty()) {
                 if (stack.is(Items.PAPER))
                     repairCount = 32;
-                else if (stack.is(ItemRegistry.MILK_PACKAGING))
+                else if (stack.is(ItemRegistry.MILK_PACKAGING.get()))
                     repairCount = 128;
-                else if (stack.is(ItemRegistry.MILK_EXTRACTOR))
+                else if (stack.is(ItemRegistry.MILK_EXTRACTOR.get()))
                     // avoid modifying the item directly
                     extractor = stack.copy();
             }

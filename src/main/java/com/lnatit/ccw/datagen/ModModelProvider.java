@@ -8,11 +8,11 @@ import com.lnatit.ccw.item.sugaring.Sugars;
 import com.lnatit.ccw.misc.model.ModelHandler;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
-import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
-import net.neoforged.neoforge.client.model.generators.ModelFile;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.neoforged.neoforge.registries.DeferredHolder;
+import net.minecraftforge.client.model.generators.BlockStateProvider;
+import net.minecraftforge.client.model.generators.ItemModelProvider;
+import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.RegistryObject;
 
 public class ModModelProvider
 {
@@ -70,7 +70,7 @@ public class ModModelProvider
             basicItem(ItemRegistry.OMINOUS_FLAG.getId());
             basicItem(ItemRegistry.MILK_GELATIN.getId());
 
-            for (DeferredHolder<Sugar, ?> sugar : Sugars.SUGARS.getEntries()) {
+            for (RegistryObject<Sugar> sugar : Sugars.SUGARS.getEntries()) {
                 basicItem(sugar.get().getItemModel());
             }
 

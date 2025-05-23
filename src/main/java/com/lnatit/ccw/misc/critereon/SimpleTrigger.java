@@ -1,32 +1,39 @@
 package com.lnatit.ccw.misc.critereon;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.advancements.critereon.ContextAwarePredicate;
-import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
+import com.google.gson.JsonObject;
+import net.minecraft.advancements.critereon.*;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-
-import java.util.Optional;
 
 public class SimpleTrigger extends SimpleCriterionTrigger<SimpleTrigger.TriggerInstance>
 {
+    private final ResourceLocation id;
+
+    public SimpleTrigger(ResourceLocation id) {
+        this.id = id;
+    }
+
     @Override
-    public Codec<TriggerInstance> codec() {
-        return TriggerInstance.CODEC;
+    public ResourceLocation getId() {
+        return id;
     }
 
     public void trigger(ServerPlayer player) {
         this.trigger(player, instance -> true);
     }
 
-    public record TriggerInstance(Optional<ContextAwarePredicate> player) implements SimpleCriterionTrigger.SimpleInstance {
-        public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(ins -> ins.group(
-                EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player)
-        ).apply(ins, TriggerInstance::new));
-
-        public TriggerInstance() {
-            this(Optional.empty());
-        }
+    @Override
+    protected TriggerInstance createInstance(JsonObject json, ContextAwarePredicate predicate, DeserializationContext deserializationContext) {
+        return new ;
     }
+
+    public static final class TriggerInstance extends AbstractCriterionTriggerInstance
+        {
+            private final ContextAwarePredicate player;
+
+            public TriggerInstance(ResourceLocation criterion, ContextAwarePredicate player) {
+                super(criterion, player);
+                this.player = player;
+            }
+        }
 }

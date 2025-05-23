@@ -112,7 +112,7 @@ public abstract class Sugar
             if (extra.is(Items.HONEY_BOTTLE)) {
                 return BOLD;
             }
-            if (extra.is(ItemRegistry.MILK_GELATIN)) {
+            if (extra.is(ItemRegistry.MILK_GELATIN.get())) {
                 return MILKY;
             }
             return ORIGINAL;

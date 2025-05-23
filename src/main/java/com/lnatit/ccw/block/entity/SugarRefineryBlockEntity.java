@@ -6,7 +6,7 @@ import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.item.sugaring.SingleEffectSugar;
 import com.lnatit.ccw.item.sugaring.SugarRefining;
 import com.lnatit.ccw.menu.SugarRefineryMenu;
-import com.lnatit.ccw.misc.critereon.CriteriaRegistry;
+import com.lnatit.ccw.misc.critereon.CriteriaHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -107,7 +107,7 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
         for (ServerPlayer serverplayer : level.getEntitiesOfClass(
                 ServerPlayer.class, new AABB(i, j, k, i, j - 4, k).inflate(10.0, 5.0, 10.0)
         ))
-            CriteriaRegistry.REFINE_FLAVORED_SUGAR.get().trigger(serverplayer);
+            CriteriaHandler.REFINE_FLAVORED_SUGAR.trigger(serverplayer);
     }
 
     public class Data extends ItemStackHandler

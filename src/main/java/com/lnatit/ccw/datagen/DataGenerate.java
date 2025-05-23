@@ -44,7 +44,7 @@ public class DataGenerate
         );
         generator.addProvider(
                 event.includeServer(),
-                new ModRecipeProvider(output, lookupProvider)
+                new ModRecipeProvider(output)
         );
         generator.addProvider(
                 event.includeServer(),
