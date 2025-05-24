@@ -25,12 +25,17 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.RangedWrapper;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvider, Nameable, IItemStackHandlerContainer {
+public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvider, Nameable, IItemStackHandlerContainer
+{
     public static final Component DEFAULT_NAME = Component.translatable("container.sugar_refinery");
     private final Data data = new Data();
     @Nullable
@@ -43,8 +48,9 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
     public static void serverTick(Level level, BlockPos pos, BlockState state, SugarRefineryBlockEntity refinery) {
         if (level.isClientSide()) return;
 
-        if (refinery.data.tick())
+        if (refinery.data.tick()) {
             refinery.setChanged();
+        }
     }
 
     @Override
@@ -65,8 +71,10 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
         }
     }
 
-    public IItemHandler accessInventory(@Nullable Direction direction) {
-        return this.data.getInventoryAccess(this.getBlockState().getValue(SugarRefineryBlock.FACING), direction);
+    @Override
+    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+        return ForgeCapabilities.ITEM_HANDLER.orEmpty(cap, LazyOptional.of(
+                () -> this.data.getInventoryAccess(this.getBlockState().getValue(SugarRefineryBlock.FACING), side)));
     }
 
     @Override
@@ -106,8 +114,9 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
         int k = worldPosition.getZ();
         for (ServerPlayer serverplayer : level.getEntitiesOfClass(
                 ServerPlayer.class, new AABB(i, j, k, i, j - 4, k).inflate(10.0, 5.0, 10.0)
-        ))
+        )) {
             CriteriaHandler.REFINE_FLAVORED_SUGAR.trigger(serverplayer);
+        }
     }
 
     public class Data extends ItemStackHandler
@@ -126,7 +135,8 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
         }
 
         private DataSlot getDataAccess() {
-            return new DataSlot() {
+            return new DataSlot()
+            {
                 @Override
                 public int get() {
                     return scheduledOutput.isEmpty() ? ~progress : progress;
@@ -137,7 +147,8 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
                     if (value < 0) {
                         scheduledOutput = ItemStack.EMPTY;
                         progress = 0;
-                    } else {
+                    }
+                    else {
                         changedExternal = true;
                     }
                 }
@@ -148,8 +159,9 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
             boolean flag = false;
             if (changedExternal) {
                 // match recipe
-                if (updateRecipe())
+                if (updateRecipe()) {
                     progress = 0;
+                }
                 changedExternal = false;
                 flag = true;
             }
@@ -180,7 +192,9 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
                 return false;
             }
 
-            ItemStack newOutput = SugarRefining.sugarRefining.makeSugar(this.stacks.get(1), this.stacks.get(2), this.stacks.get(3));
+            ItemStack newOutput = SugarRefining.sugarRefining.makeSugar(this.stacks.get(1), this.stacks.get(2),
+                                                                        this.stacks.get(3)
+            );
             ItemStack output = this.stacks.get(4);
 
             if (!output.isEmpty() && (!ItemStack.isSameItemSameTags(output, newOutput) ||
@@ -198,10 +212,12 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
         private boolean hasEnoughMilkAndSugar() {
             ItemStack milk = this.stacks.get(0);
             ItemStack sugar = this.stacks.get(1);
-            if (milk.isEmpty() || sugar.isEmpty())
+            if (milk.isEmpty() || sugar.isEmpty()) {
                 return false;
-            if (!milk.is(ItemRegistry.MILK_TAG) || !SugarRefining.sugarRefining.isSugar(sugar))
+            }
+            if (!milk.is(ItemRegistry.MILK_TAG) || !SugarRefining.sugarRefining.isSugar(sugar)) {
                 return false;
+            }
 
             int milkCount = getMilkConsumption(milk);
             int sugarCount = SUGAR_CONSUMPTION;
@@ -235,7 +251,8 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
             if (output.isEmpty()) {
                 scheduledOutput.setCount(SUGAR_PRODUCTION);
                 this.stacks.set(4, scheduledOutput);
-            } else {
+            }
+            else {
                 output.grow(SUGAR_PRODUCTION);
             }
             scheduledOutput = ItemStack.EMPTY;
@@ -248,7 +265,8 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
                 if (stack.isEmpty()) {
                     this.stacks.set(i, remainder);
                     return;
-                } else if (ItemStack.isSameItemSameTags(stack, remainder)) {
+                }
+                else if (ItemStack.isSameItemSameTags(stack, remainder)) {
                     int consume = Math.min(stack.getMaxStackSize() - stack.getCount(), count);
                     stack.grow(consume);
                     this.stacks.set(i, stack);
@@ -270,14 +288,18 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
         }
 
         public IItemHandler getInventoryAccess(Direction facing, @Nullable Direction direction) {
-            if (direction == Direction.UP)
+            if (direction == Direction.UP) {
                 return new RangedWrapper(this, 0, 2);
-            if (direction == Direction.DOWN)
+            }
+            if (direction == Direction.DOWN) {
                 return new RangedWrapper(this, 4, 8);
-            if (direction == facing.getClockWise())
+            }
+            if (direction == facing.getClockWise()) {
                 return new RangedWrapper(this, 2, 3);
-            if (direction == facing.getCounterClockWise())
+            }
+            if (direction == facing.getCounterClockWise()) {
                 return new RangedWrapper(this, 3, 4);
+            }
             return new RangedWrapper(this, 2, 8);
         }
 

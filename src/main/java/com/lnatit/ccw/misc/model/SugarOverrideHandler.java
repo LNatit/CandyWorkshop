@@ -6,14 +6,16 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.client.model.BakedModelWrapper;
 import org.jetbrains.annotations.Nullable;
 
-public class SugarOverrideHandler extends ItemOverrides {
+public class SugarOverrideHandler extends ItemOverrides
+{
     public static BakedModel getModel(BakedModel model) {
-        return new BakedModelWrapper<>(model) {
+        return new BakedModelWrapper<>(model)
+        {
             @Override
             public ItemOverrides getOverrides() {
                 return new SugarOverrideHandler();
@@ -28,18 +30,15 @@ public class SugarOverrideHandler extends ItemOverrides {
             if (sugar != null && sugar.sugar().isPresent()) {
                 BakedModel bakedModel =
                         Minecraft.getInstance()
-                                .getModelManager()
-                                .getModelBakery()
-                                .getBakedTopLevelModels()
-                                .get(
-                                        ModelResourceLocation.standalone(
-                                                sugar.sugar()
-                                                        .get()
-                                                        .value()
-                                                        .getModelId()
-                                        )
-                                );
-                return bakedModel.getOverrides().resolve(bakedModel, stack,  level, entity, seed);
+                                 .getModelManager()
+                                 .getModelBakery()
+                                 .getBakedTopLevelModels()
+                                 .get(
+                                         sugar.sugar()
+                                              .get()
+                                              .getModelId()
+                                 );
+                return bakedModel.getOverrides().resolve(bakedModel, stack, level, entity, seed);
             }
         }
 

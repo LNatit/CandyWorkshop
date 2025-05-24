@@ -6,8 +6,6 @@ import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.item.sugaring.Sugar;
 import com.lnatit.ccw.item.sugaring.Sugars;
 import com.lnatit.ccw.misc.critereon.CriteriaHandler;
-import com.lnatit.ccw.misc.critereon.NumericTrigger;
-import com.lnatit.ccw.misc.critereon.SimpleTrigger;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.FrameType;
@@ -187,9 +185,7 @@ public class ModAdvcmtProvider extends AdvancementProvider
                        false
                )
                .addCriterion("refine_flavored_sugar",
-                             CriteriaHandler.REFINE_FLAVORED_SUGAR.createInstance(
-                                     new SimpleTrigger.TriggerInstance()
-                             )
+                             CriteriaHandler.REFINE_FLAVORED_SUGAR.createInstance(ContextAwarePredicate.ANY)
                )
                .save(writer, AdvancementResources.ADCAMA.id());
     }
@@ -246,9 +242,7 @@ public class ModAdvcmtProvider extends AdvancementProvider
                        false
                )
                .addCriterion("collect_all_sugar",
-                             CriteriaHandler.COLLECT_ALL_SUGAR.get().createCriterion(
-                                     new SimpleTrigger.TriggerInstance()
-                             )
+                             CriteriaHandler.COLLECT_ALL_SUGAR.createInstance(ContextAwarePredicate.ANY)
                )
                .save(writer, AdvancementResources.RAICOL.id());
     }
@@ -267,10 +261,9 @@ public class ModAdvcmtProvider extends AdvancementProvider
                        false
                )
                .addCriterion("develop_diabetes",
-                             CriteriaHandler.DEVELOP_DIABETES.createCriterion(
-                                     new NumericTrigger.TriggerInstance(
-                                             MinMaxBounds.Ints.atLeast(100)
-                                     )
+                             CriteriaHandler.DEVELOP_DIABETES.createInstance(
+                                     ContextAwarePredicate.ANY,
+                                     MinMaxBounds.Ints.atLeast(100)
                              )
                )
                .save(writer, AdvancementResources.DIABET.id());
@@ -328,23 +321,22 @@ public class ModAdvcmtProvider extends AdvancementProvider
                        false
                )
                .addCriterion("place_candy_workshop",
-                             CriteriaTriggers.ITEM_USED_ON_BLOCK.createInstance(
-                                     new ItemUsedOnLocationTrigger.TriggerInstance(
-                                             ,
-                                             ContextAwarePredicate.ANY,
-                                             ContextAwarePredicate.create(
-                                                     MatchTool.toolMatches(
-                                                             ItemPredicate.Builder.item().of(
-                                                                     ItemRegistry.SUGAR_REFINERY.get()
-                                                             )
-                                                     ).build(),
-                                                     LootItemBlockStatePropertyCondition
-                                                             .hasBlockStateProperties(
-                                                                     BlockRegistry.DRAWER_TABLE.get()
-                                                             ).build()
-                                             )
+                             new ItemUsedOnLocationTrigger.TriggerInstance(
+                                     CriteriaTriggers.ITEM_USED_ON_BLOCK.getId(),
+                                     ContextAwarePredicate.ANY,
+                                     ContextAwarePredicate.create(
+                                             MatchTool.toolMatches(
+                                                     ItemPredicate.Builder.item().of(
+                                                             ItemRegistry.SUGAR_REFINERY.get()
+                                                     )
+                                             ).build(),
+                                             LootItemBlockStatePropertyCondition
+                                                     .hasBlockStateProperties(
+                                                             BlockRegistry.DRAWER_TABLE.get()
+                                                     ).build()
                                      )
                              )
+                             
                )
                .save(writer, AdvancementResources.TRCAWO.id());
     }

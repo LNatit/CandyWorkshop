@@ -24,7 +24,11 @@ public class SimpleTrigger extends SimpleCriterionTrigger<SimpleTrigger.TriggerI
 
     @Override
     protected TriggerInstance createInstance(JsonObject json, ContextAwarePredicate predicate, DeserializationContext deserializationContext) {
-        return new ;
+        return new TriggerInstance(id, predicate);
+    }
+
+    public TriggerInstance createInstance(ContextAwarePredicate player) {
+        return new TriggerInstance(id, player);
     }
 
     public static final class TriggerInstance extends AbstractCriterionTriggerInstance

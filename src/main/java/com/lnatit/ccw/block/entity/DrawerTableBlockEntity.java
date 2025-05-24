@@ -14,8 +14,12 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class DrawerTableBlockEntity extends BlockEntity implements MenuProvider, Nameable, IItemStackHandlerContainer
@@ -55,8 +59,9 @@ public class DrawerTableBlockEntity extends BlockEntity implements MenuProvider,
         }
     }
 
-    public IItemHandler accessInventory(@Nullable Direction direction) {
-        return this.inventory;
+    @Override
+    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap) {
+        return ForgeCapabilities.ITEM_HANDLER.orEmpty(cap, LazyOptional.of(() -> inventory));
     }
 
     @Override

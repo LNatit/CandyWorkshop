@@ -24,7 +24,11 @@ public class NumericTrigger extends SimpleCriterionTrigger<NumericTrigger.Trigge
 
     @Override
     protected TriggerInstance createInstance(JsonObject json, ContextAwarePredicate predicate, DeserializationContext deserializationContext) {
-        return new TriggerInstance();
+        return new TriggerInstance(id, predicate, MinMaxBounds.Ints.fromJson(json.get("count")));
+    }
+
+    public TriggerInstance createInstance(ContextAwarePredicate player, MinMaxBounds.Ints count) {
+        return new TriggerInstance(id, player, count);
     }
 
     public static final class TriggerInstance extends AbstractCriterionTriggerInstance
@@ -32,8 +36,8 @@ public class NumericTrigger extends SimpleCriterionTrigger<NumericTrigger.Trigge
         private final ContextAwarePredicate player;
         private final MinMaxBounds.Ints count;
 
-        public TriggerInstance(ResourceLocation id, ContextAwarePredicate player, MinMaxBounds.Ints count) {
-            super(id, player);
+        public TriggerInstance(ResourceLocation criterion, ContextAwarePredicate player, MinMaxBounds.Ints count) {
+            super(criterion, player);
             this.player = player;
             this.count = count;
         }

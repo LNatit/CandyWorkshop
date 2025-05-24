@@ -35,13 +35,14 @@ public class ModelHandler
     @SubscribeEvent
     public static void onModelRegister(ModelEvent.RegisterAdditional event) {
         for (RegistryObject<Sugar> sugarHolder : Sugars.SUGARS.getEntries()) {
-            event.register(ModelResourceLocation.(sugarHolder.get().getModelId()));
+            event.register(sugarHolder.get().getModelId());
         }
     }
 
     @SubscribeEvent
     public static void onModelBake(ModelEvent.ModifyBakingResult event) {
         Map<ResourceLocation, BakedModel> modelMap = event.getModels();
+        // TODO model related issues may occur here
         ModelResourceLocation gummy = new ModelResourceLocation(CandyWorkshop.MODID, "gummy", "inventory");
         modelMap.computeIfPresent(gummy, (k, original) -> SugarOverrideHandler.getModel(original));
     }

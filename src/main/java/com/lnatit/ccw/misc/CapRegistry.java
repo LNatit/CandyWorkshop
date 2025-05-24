@@ -4,24 +4,23 @@ import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.block.BlockRegistry;
 import com.lnatit.ccw.block.entity.DrawerTableBlockEntity;
 import com.lnatit.ccw.block.entity.SugarRefineryBlockEntity;
-import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = CandyWorkshop.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CapRegistry {
     @SubscribeEvent
-    public static void registerCapabilities(final RegisterCapabilitiesEvent event) {
-        event.registerBlockEntity(
-                Capabilities.ItemHandler.BLOCK,
-                BlockRegistry.SUGAR_REFINERY_BETYPE.get(),
-                SugarRefineryBlockEntity::accessInventory
-        );
+    public static void attachCapabilities(final AttachCapabilitiesEvent<BlockEntity> event) {
+        if (event.getObject() instanceof SugarRefineryBlockEntity inst)
+        {
+            event.addCapability(BlockRegistry.SUGAR_REFINERY_BETYPE.getId(), inst);
+        }
 
-        event.registerBlockEntity(
-                Capabilities.ItemHandler.BLOCK,
-                BlockRegistry.DRAWER_TABLE_BETYPE.get(),
-                DrawerTableBlockEntity::accessInventory
-        );
+        if (event.getObject() instanceof DrawerTableBlockEntity inst)
+        {
+            event.addCapability(BlockRegistry.DRAWER_TABLE_BETYPE.getId(), inst);
+        }
     }
 }

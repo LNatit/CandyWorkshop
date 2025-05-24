@@ -6,7 +6,6 @@ import com.lnatit.ccw.misc.RegRegistry;
 import com.mojang.serialization.Codec;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -37,7 +36,7 @@ public abstract class Sugar
         if (sugar == null) {
             return ItemStack.EMPTY;
         }
-        ItemStack itemStack = ItemRegistry.GUMMY_ITEM.toStack();
+        ItemStack itemStack = new ItemStack(ItemRegistry.GUMMY_ITEM.get());
         itemStack.set(ItemRegistry.SUGAR_CONTENTS_DCTYPE, new SugarContents(Optional.of(sugar), flavor));
         return itemStack;
     }
@@ -93,8 +92,6 @@ public abstract class Sugar
         MILKY("milky", ChatFormatting.WHITE);
 
         public static final Codec<Flavor> CODEC = Codec.stringResolver(Flavor::toName, Flavor::fromName);
-        public static final StreamCodec<FriendlyByteBuf, Flavor> STREAM_CODEC = NeoForgeStreamCodecs.enumCodec(
-                Flavor.class);
 
         public final String name;
         @Nullable
@@ -122,7 +119,7 @@ public abstract class Sugar
             return switch (flavor) {
                 case EXCITED -> new ItemStack(Items.COCOA_BEANS);
                 case BOLD -> new ItemStack(Items.HONEY_BOTTLE);
-                case MILKY -> new ItemStack(ItemRegistry.MILK_GELATIN.asItem());
+                case MILKY -> new ItemStack(ItemRegistry.MILK_GELATIN.get());
                 default -> ItemStack.EMPTY;
             };
         }
