@@ -32,22 +32,13 @@ public abstract class Sugar
         this.hasBold = hasBold;
     }
 
-    public static ItemStack createSugar(@Nullable Sugar sugar, Flavor flavor) {
-        if (sugar == null) {
-            return ItemStack.EMPTY;
-        }
-        ItemStack itemStack = new ItemStack(ItemRegistry.GUMMY_ITEM.get());
-        itemStack.set(ItemRegistry.SUGAR_CONTENTS_DCTYPE, new SugarContents(Optional.of(sugar), flavor));
-        return itemStack;
-    }
-
     public static Collection<ItemStack> createAllFlavors(@Nullable Holder<Sugar> sugar) {
         if (sugar == null) {
             return Set.of();
         }
         Set<ItemStack> sugars = new HashSet<>();
         for (Flavor flavor : sugar.value().getAvailableFlavors()) {
-            sugars.add(Sugar.createSugar(sugar.get(), flavor));
+            sugars.add(SugarUtils.createSugar(sugar.get(), flavor));
         }
         return sugars;
     }
@@ -91,7 +82,7 @@ public abstract class Sugar
         BOLD("bold", ChatFormatting.GOLD),
         MILKY("milky", ChatFormatting.WHITE);
 
-        public static final Codec<Flavor> CODEC = Codec.stringResolver(Flavor::toName, Flavor::fromName);
+//        public static final Codec<Flavor> CODEC = Codec.stringResolver(Flavor::toName, Flavor::fromName);
 
         public final String name;
         @Nullable

@@ -4,6 +4,7 @@ import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.block.BlockRegistry;
 import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.item.sugaring.Sugar;
+import com.lnatit.ccw.item.sugaring.SugarUtils;
 import com.lnatit.ccw.item.sugaring.Sugars;
 import com.lnatit.ccw.misc.critereon.CriteriaHandler;
 import net.minecraft.advancements.Advancement;
@@ -156,7 +157,7 @@ public class ModAdvcmtProvider extends AdvancementProvider
         Advancement.Builder builder = Advancement.Builder.advancement();
         builder.parent(AdvancementResources.MYFICA.parent())
                .display(
-                       Sugar.createSugar(Sugars.RED_HEART.get(), Sugar.Flavor.ORIGINAL),
+                       SugarUtils.createSugar(Sugars.RED_HEART.get(), Sugar.Flavor.ORIGINAL),
                        AdvancementResources.MYFICA.name(),
                        AdvancementResources.MYFICA.desc(),
                        null,
@@ -175,7 +176,7 @@ public class ModAdvcmtProvider extends AdvancementProvider
         Advancement.Builder builder = Advancement.Builder.advancement();
         builder.parent(AdvancementResources.ADCAMA.parent())
                .display(
-                       Sugar.createSugar(Sugars.GOLDEN_HEART.get(), Sugar.Flavor.ORIGINAL),
+                       SugarUtils.createSugar(Sugars.GOLDEN_HEART.get(), Sugar.Flavor.ORIGINAL),
                        AdvancementResources.ADCAMA.name(),
                        AdvancementResources.ADCAMA.desc(),
                        null,
@@ -232,7 +233,7 @@ public class ModAdvcmtProvider extends AdvancementProvider
         Advancement.Builder builder = Advancement.Builder.advancement();
         builder.parent(AdvancementResources.RAICOL.parent())
                .display(
-                       Sugar.createSugar(Sugars.RECOVERY.get(), Sugar.Flavor.ORIGINAL),
+                       SugarUtils.createSugar(Sugars.RECOVERY.get(), Sugar.Flavor.ORIGINAL),
                        AdvancementResources.RAICOL.name(),
                        AdvancementResources.RAICOL.desc(),
                        null,
@@ -251,7 +252,7 @@ public class ModAdvcmtProvider extends AdvancementProvider
         Advancement.Builder builder = Advancement.Builder.advancement();
         builder.parent(AdvancementResources.DIABET.parent())
                .display(
-                       Sugar.createSugar(Sugars.STINGER.get(), Sugar.Flavor.ORIGINAL),
+                       SugarUtils.createSugar(Sugars.STINGER.get(), Sugar.Flavor.ORIGINAL),
                        AdvancementResources.DIABET.name(),
                        AdvancementResources.DIABET.desc(),
                        null,
@@ -336,7 +337,7 @@ public class ModAdvcmtProvider extends AdvancementProvider
                                                      ).build()
                                      )
                              )
-                             
+
                )
                .save(writer, AdvancementResources.TRCAWO.id());
     }

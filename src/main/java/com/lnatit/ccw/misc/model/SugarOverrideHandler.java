@@ -1,7 +1,8 @@
 package com.lnatit.ccw.misc.model;
 
 import com.lnatit.ccw.item.ItemRegistry;
-import com.lnatit.ccw.item.sugaring.SugarContents;
+import com.lnatit.ccw.item.sugaring.Sugar;
+import com.lnatit.ccw.item.sugaring.SugarUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
@@ -10,6 +11,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.model.BakedModelWrapper;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 public class SugarOverrideHandler extends ItemOverrides
 {
@@ -26,18 +29,14 @@ public class SugarOverrideHandler extends ItemOverrides
     @Override
     public @Nullable BakedModel resolve(BakedModel model, ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity entity, int seed) {
         if (stack.is(ItemRegistry.GUMMY_ITEM.get())) {
-            SugarContents sugar = stack.get(ItemRegistry.SUGAR_CONTENTS_DCTYPE.get());
-            if (sugar != null && sugar.sugar().isPresent()) {
+            Optional<Sugar> sugar = SugarUtils.getSugar(stack);
+            if (sugar.isPresent()) {
                 BakedModel bakedModel =
                         Minecraft.getInstance()
                                  .getModelManager()
                                  .getModelBakery()
                                  .getBakedTopLevelModels()
-                                 .get(
-                                         sugar.sugar()
-                                              .get()
-                                              .getModelId()
-                                 );
+                                 .get(sugar.get().getModelId());
                 return bakedModel.getOverrides().resolve(bakedModel, stack, level, entity, seed);
             }
         }

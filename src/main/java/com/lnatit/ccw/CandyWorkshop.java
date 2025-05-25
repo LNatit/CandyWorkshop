@@ -24,7 +24,7 @@ public class CandyWorkshop {
         IEventBus modEventBus = context.getModEventBus();
         Sugars.register(modEventBus);
         StatRegistry.STATS.register(modEventBus);
-        CriteriaRegistry.TRIGGERS.register(modEventBus);
+//        CriteriaRegistry.TRIGGERS.register(modEventBus);
         SoundRegistry.SOUND_EVENTS.register(modEventBus);
 //        ConEffRegistry.CONSUME_EFFECTS.register(modEventBus);
 //        ItemRegistry.DATA_COMPONENTS.register(modEventBus);
@@ -34,6 +34,6 @@ public class CandyWorkshop {
         MenuRegistry.MENUS.register(modEventBus);
         BlockRegistry.BLOCKS.register(modEventBus);
         BlockRegistry.BLOCK_ENTITIES.register(modEventBus);
-//        AttachmentRegistry.ATTACHMENT_TYPES.register(modEventBus);
+//        DataHandler.ATTACHMENT_TYPES.register(modEventBus);
     }
 }

@@ -65,7 +65,7 @@ public class SugarRefining
 
         for (Blend blend : sugarBlends) {
             if (sugar.is(blend.sugar) && blend.main.test(main)) {
-                return Sugar.createSugar(blend.output, SingleEffectSugar.Flavor.fromExtra(extra));
+                return SugarUtils.createSugar(blend.output, SingleEffectSugar.Flavor.fromExtra(extra));
             }
         }
         return ItemStack.EMPTY;
