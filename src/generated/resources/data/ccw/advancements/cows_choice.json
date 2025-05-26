@@ -1,0 +1,46 @@
+{
+  "parent": "ccw:eco_friendly_material",
+  "criteria": {
+    "use_milk_extractor": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:cow"
+            }
+          }
+        ],
+        "item": {
+          "items": [
+            "ccw:milk_extractor"
+          ]
+        }
+      },
+      "trigger": "minecraft:player_interacted_with_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.ccw.cows_choice.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "ccw:milk_extractor",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.ccw.cows_choice.title"
+    }
+  },
+  "requirements": [
+    [
+      "use_milk_extractor"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -33,6 +33,10 @@ public class ModModelProvider
             horizontalBlock(BlockRegistry.SUGAR_REFINERY.get(), sugarRefinery);
             horizontalBlock(BlockRegistry.PLAIN_DRAWER_TABLE.get(), plainDrawerTable);
             horizontalBlock(BlockRegistry.DRAWER_TABLE.get(), drawerTable);
+
+            simpleBlockItem(BlockRegistry.SUGAR_REFINERY.get(), sugarRefinery);
+            simpleBlockItem(BlockRegistry.PLAIN_DRAWER_TABLE.get(), plainDrawerTable);
+            simpleBlockItem(BlockRegistry.DRAWER_TABLE.get(), drawerTable);
         }
     }
 
@@ -44,10 +48,6 @@ public class ModModelProvider
 
         @Override
         protected void registerModels() {
-            simpleBlockItem(BlockRegistry.SUGAR_REFINERY.get());
-            simpleBlockItem(BlockRegistry.PLAIN_DRAWER_TABLE.get());
-            simpleBlockItem(BlockRegistry.DRAWER_TABLE.get());
-
             basicItem(ItemRegistry.GUMMY_ITEM.getId());
 
             basicItem(ItemRegistry.MILK_PACKAGING.getId());

@@ -2,7 +2,7 @@ package com.lnatit.ccw.datagen;
 
 import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.item.ItemRegistry;
-import com.lnatit.ccw.item.crafting.RepairExtractorRecipe;
+import com.lnatit.ccw.item.crafting.RecipeRegistry;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.tags.ItemTags;
@@ -63,7 +63,7 @@ public class ModRecipeProvider extends RecipeProvider
             .save(output);
 
         // TODO modify unlock requirements
-        SpecialRecipeBuilder.special(RepairExtractorRecipe::new)
+        SpecialRecipeBuilder.special(RecipeRegistry.REPAIR_EXTRACTOR.get())
                             .save(output, CandyWorkshop.MODID + ":repair_extractor");
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.SUGAR_REFINERY.get())

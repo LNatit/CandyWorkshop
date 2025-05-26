@@ -1,8 +1,9 @@
 package com.lnatit.ccw.item.crafting;
 
 import com.lnatit.ccw.item.ItemRegistry;
-import net.minecraft.core.HolderLookup;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
@@ -16,15 +17,19 @@ public class RepairExtractorRecipe extends CustomRecipe {
     }
 
     @Override
-    public boolean matches(CraftingInput input, Level level) {
-        if (input.ingredientCount() != 2) {
-            return false;
-        }
-
+    public boolean matches(CraftingContainer container, Level level) {
+        int ingredientCount = 0;
         boolean hasExtractor = false;
         boolean hasPackaging = false;
-        for (int i = 0; i < input.size(); i++) {
-            ItemStack stack = input.getItem(i);
+        for (int i = 0; i < container.getItems().size(); i++) {
+            ItemStack stack = container.getItem(i);
+            if (!stack.isEmpty()) {
+                ingredientCount++;
+                if (ingredientCount > 2) {
+                    return false;
+                }
+            }
+
             if (stack.is(ItemRegistry.MILK_EXTRACTOR.get())) {
                 hasExtractor = true;
             } else if (stack.is(ItemRegistry.MILK_PACKAGING.get()) || stack.is(Items.PAPER)) {
@@ -36,11 +41,11 @@ public class RepairExtractorRecipe extends CustomRecipe {
     }
 
     @Override
-    public ItemStack assemble(CraftingInput input, HolderLookup.Provider registries) {
+    public ItemStack assemble(CraftingContainer container, RegistryAccess registryAccess) {
         ItemStack extractor = ItemStack.EMPTY;
         int repairCount = 0;
-        for (int i = 0; i < input.size(); i++) {
-            ItemStack stack = input.getItem(i);
+        for (int i = 0; i < container.getItems().size(); i++) {
+            ItemStack stack = container.getItem(i);
             if (!stack.isEmpty()) {
                 if (stack.is(Items.PAPER))
                     repairCount = 32;

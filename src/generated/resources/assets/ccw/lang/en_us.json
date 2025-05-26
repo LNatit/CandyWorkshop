@@ -46,12 +46,10 @@
   "item.ccw.gold_studded_apple": "Gold-studded Apple",
   "item.ccw.greedy_offering": "Greedy Offering",
   "item.ccw.gummy": "Gummy",
-  "item.ccw.gummy.binding": "placeholder:binding",
   "item.ccw.gummy.blinding": "placeholder:blinding",
   "item.ccw.gummy.bold.desc": "Bold desc",
   "item.ccw.gummy.bold.prefix": "Bold",
   "item.ccw.gummy.brightness": "placeholder:brightness",
-  "item.ccw.gummy.bug": "placeholder:bug",
   "item.ccw.gummy.bunny": "placeholder:bunny",
   "item.ccw.gummy.darkness": "placeholder:darkness",
   "item.ccw.gummy.discount": "placeholder:discount",
@@ -61,7 +59,6 @@
   "item.ccw.gummy.fish_swim": "placeholder:fish_swim",
   "item.ccw.gummy.floating": "placeholder:floating",
   "item.ccw.gummy.flutter": "placeholder:flutter",
-  "item.ccw.gummy.gale": "placeholder:gale",
   "item.ccw.gummy.golden_heart": "placeholder:golden_heart",
   "item.ccw.gummy.healing": "placeholder:healing",
   "item.ccw.gummy.hunger": "placeholder:hunger",
@@ -80,7 +77,6 @@
   "item.ccw.gummy.snail": "placeholder:snail",
   "item.ccw.gummy.solid": "placeholder:solid",
   "item.ccw.gummy.speed": "placeholder:speed",
-  "item.ccw.gummy.sticky": "placeholder:sticky",
   "item.ccw.gummy.stinger": "placeholder:stinger",
   "item.ccw.gummy.stinky": "placeholder:stinky",
   "item.ccw.gummy.strength": "placeholder:strength",
@@ -107,6 +103,5 @@
   "sound.ccw.plug_off": "Plug-off",
   "stat.ccw.interact_with_sugar_refinery": "Interact With Sugar Refinery",
   "stat.ccw.open_drawer_table": "Open Drawer Table",
-  "sugar.withDuration": "%s (+%s)",
-  "tag.item.ccw.carton_milk": "Carton Milk"
+  "sugar.withDuration": "%s (+%s)"
 }

@@ -1,0 +1,38 @@
+{
+  "parent": "ccw:nether_crazy_flavor",
+  "criteria": {
+    "get_ender_sugar": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "ccw:ender_sugar"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.ccw.candy_finale.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "ccw:ender_sugar"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.ccw.candy_finale.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_ender_sugar"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

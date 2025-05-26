@@ -3,8 +3,7 @@ package com.lnatit.ccw.item;
 import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.block.BlockRegistry;
 import com.lnatit.ccw.item.sugaring.Sugar;
-import com.lnatit.ccw.misc.RegRegistry;
-import net.minecraft.core.HolderLookup;
+import com.lnatit.ccw.item.sugaring.Sugars;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -142,13 +141,9 @@ public class ItemRegistry {
                                         ITEMS.getEntries().forEach(
                                                 holder -> output.accept(holder.get())
                                         );
-                                        parameters.holders()
-                                                .lookup(RegRegistry.SUGAR_KEY)
-                                                .ifPresent(
-                                                        lookups -> generateSugarTypes(output,
-                                                                lookups,
-                                                                CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS
-                                                        )
+                                        Sugars.SUGAR_SUPPLIER.get()
+                                                .forEach(
+                                                        sugar -> output.acceptAll(Sugar.createAllFlavors(sugar))
                                                 );
                                     }
                             ).build()
@@ -168,17 +163,5 @@ public class ItemRegistry {
 
     private static TagKey<Item> tag(String name) {
         return tag(CandyWorkshop.MODID, name);
-    }
-
-    private static void generateSugarTypes(
-            CreativeModeTab.Output output,
-            HolderLookup<Sugar> sugars,
-            CreativeModeTab.TabVisibility visibility
-    ) {
-        sugars.listElements()
-                // if FeatureElement implemented, we need to filter the map
-//                .filter()
-                .map(Sugar::createAllFlavors)
-                .forEach(result -> output.acceptAll(result, visibility));
     }
 }

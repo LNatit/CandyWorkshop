@@ -9,7 +9,7 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = CandyWorkshop.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = CandyWorkshop.MODID)
 public class CapRegistry {
     @SubscribeEvent
     public static void attachCapabilities(final AttachCapabilitiesEvent<BlockEntity> event) {

@@ -1,0 +1,39 @@
+{
+  "parent": "ccw:cows_choice",
+  "criteria": {
+    "drain_milk_extractor": {
+      "conditions": {
+        "durability": {
+          "max": 0
+        },
+        "item": {
+          "items": [
+            "ccw:milk_extractor"
+          ]
+        }
+      },
+      "trigger": "minecraft:item_durability_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.ccw.excessive_extraction.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "ccw:carton_milk"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.ccw.excessive_extraction.title"
+    }
+  },
+  "requirements": [
+    [
+      "drain_milk_extractor"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

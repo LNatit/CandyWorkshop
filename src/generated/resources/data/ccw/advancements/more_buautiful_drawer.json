@@ -1,0 +1,38 @@
+{
+  "parent": "ccw:drawer_tables",
+  "criteria": {
+    "get_drawer_table": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "ccw:drawer_table"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.ccw.more_buautiful_drawer.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "ccw:drawer_table"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.ccw.more_buautiful_drawer.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_drawer_table"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

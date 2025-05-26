@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "ccw:plain_drawer_table"
+    },
+    "X": {
+      "item": "minecraft:pink_carpet"
+    }
+  },
+  "pattern": [
+    "X",
+    "#"
+  ],
+  "result": {
+    "item": "ccw:drawer_table"
+  },
+  "show_notification": true
+}

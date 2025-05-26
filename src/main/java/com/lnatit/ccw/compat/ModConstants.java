@@ -9,11 +9,9 @@ public class ModConstants
 {
     public static final Component TITLE = Component.translatable("compat.ccw.rei.title");
 
-
-    // Note: it's a SPRITE!
     public static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(
             CandyWorkshop.MODID,
-            "compat/refining"
+            "textures/gui/sprites/compat/refining.png"
     );
     public static final ResourceLocation ANIMATION_SPRITE = SugarRefineryScreen.ANIMATION_SPRITE;
 }

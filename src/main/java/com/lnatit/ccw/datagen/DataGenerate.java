@@ -48,7 +48,7 @@ public class DataGenerate
         );
         generator.addProvider(
                 event.includeServer(),
-                new ModLootProvider(output, lookupProvider)
+                new ModLootProvider(output)
         );
         var blockTags = new ModTagProvider.Blocks(output, lookupProvider, existingFileHelper);
         generator.addProvider(

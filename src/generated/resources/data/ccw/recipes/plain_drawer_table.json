@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "minecraft:planks"
+    },
+    "X": {
+      "tag": "forge:chests"
+    }
+  },
+  "pattern": [
+    "###",
+    "#X#",
+    "#X#"
+  ],
+  "result": {
+    "item": "ccw:plain_drawer_table"
+  },
+  "show_notification": true
+}

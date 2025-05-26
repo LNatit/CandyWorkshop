@@ -1,0 +1,38 @@
+{
+  "parent": "ccw:advanced_candy_maker",
+  "criteria": {
+    "get_nether_sugar": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "ccw:nether_sugar"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.ccw.nether_crazy_flavor.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "ccw:nether_sugar"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.ccw.nether_crazy_flavor.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_nether_sugar"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

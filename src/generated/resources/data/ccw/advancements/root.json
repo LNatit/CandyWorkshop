@@ -1,0 +1,38 @@
+{
+  "criteria": {
+    "get_sugar_refinery": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "ccw:sugar_refinery"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "background": "ccw:textures/gui/advancements/backgrounds/ccw.png",
+    "description": {
+      "translate": "advancements.ccw.root.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "ccw:sugar_refinery"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.ccw.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_sugar_refinery"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

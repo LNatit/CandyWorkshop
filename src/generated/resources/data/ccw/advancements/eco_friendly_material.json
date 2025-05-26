@@ -1,0 +1,38 @@
+{
+  "parent": "ccw:root",
+  "criteria": {
+    "get_milk_packaging": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "ccw:milk_packaging"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.ccw.eco_friendly_material.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "ccw:milk_packaging"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.ccw.eco_friendly_material.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_milk_packaging"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

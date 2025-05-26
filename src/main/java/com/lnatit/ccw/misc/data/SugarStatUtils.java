@@ -2,7 +2,7 @@ package com.lnatit.ccw.misc.data;
 
 import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.item.sugaring.Sugar;
-import com.lnatit.ccw.misc.RegRegistry;
+import com.lnatit.ccw.item.sugaring.Sugars;
 import com.lnatit.ccw.misc.critereon.CriteriaHandler;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -33,7 +33,7 @@ public class SugarStatUtils
         return 0;
     }
 
-    private static int growConsumeCount(CompoundTag sugarStats) {\
+    private static int growConsumeCount(CompoundTag sugarStats) {
         int count = getConsumeCount(sugarStats) + 1;
         sugarStats.putInt(TAG_COUNT, count);
         return count;
@@ -61,10 +61,13 @@ public class SugarStatUtils
 
     public static void record(ServerPlayer player, Sugar sugar) {
         CompoundTag sugarStats = getSugarStats(player);
-        ResourceLocation sugarId = RegRegistry.SUGAR.getKey(sugar);
+        ResourceLocation sugarId = Sugars.SUGAR_SUPPLIER.get().getKey(sugar);
         if (sugarId != null) {
             ListTag history = getConsumeHistory(sugarStats);
             history.add(StringTag.valueOf(sugarId.toString()));
+            if (history.size() == Sugars.SUGAR_SUPPLIER.get().getEntries().size()) {
+                CriteriaHandler.COLLECT_ALL_SUGAR.trigger(player);
+            }
         }
         CriteriaHandler.DEVELOP_DIABETES.trigger(player, growConsumeCount(sugarStats));
     }

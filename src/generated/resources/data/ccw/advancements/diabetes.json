@@ -1,0 +1,31 @@
+{
+  "parent": "ccw:my_first_candy",
+  "criteria": {
+    "develop_diabetes": {
+      "conditions": {},
+      "trigger": "ccw:develop_diabetes"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.ccw.diabetes.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "ccw:gummy",
+      "nbt": "{ccw.sugar:{Flavor:\"ORIGINAL\",Sugar:\"ccw:stinger\"}}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.ccw.diabetes.title"
+    }
+  },
+  "requirements": [
+    [
+      "develop_diabetes"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

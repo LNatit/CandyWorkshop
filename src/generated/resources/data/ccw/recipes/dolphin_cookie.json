@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "minecraft:fishes"
+    },
+    "X": {
+      "item": "minecraft:cookie"
+    }
+  },
+  "pattern": [
+    " # ",
+    "#X#",
+    " # "
+  ],
+  "result": {
+    "item": "ccw:dolphin_cookie"
+  },
+  "show_notification": true
+}

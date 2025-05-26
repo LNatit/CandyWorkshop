@@ -2,7 +2,6 @@ package com.lnatit.ccw.item.sugaring;
 
 import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.item.ItemRegistry;
-import com.lnatit.ccw.misc.RegRegistry;
 import com.lnatit.ccw.misc.data.SugarStatUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -28,13 +27,13 @@ public class SugarUtils
     public static CompoundTag getSugarContents(ItemStack stack) {
         CompoundTag tag = stack.getOrCreateTag();
         if (tag.contains(TAG_ROOT, Tag.TAG_COMPOUND)) {
-            return tag.getCompound(TAG_SUGAR);
+            return tag.getCompound(TAG_ROOT);
         }
         return new CompoundTag();
     }
 
     private static Optional<Sugar> getSugar(ResourceLocation id) {
-        return Optional.ofNullable(RegRegistry.SUGAR.getValue(id));
+        return Optional.ofNullable(Sugars.SUGAR_SUPPLIER.get().getValue(id));
     }
 
     private static Optional<Sugar> getSugar(String id) {
@@ -53,11 +52,11 @@ public class SugarUtils
     }
 
     private static Sugar.Flavor getFlavor(String flavor) {
-        return Sugar.Flavor.valueOf(flavor);
+        return Sugar.Flavor.fromNameSafe(flavor);
     }
 
     private static Sugar.Flavor getFlavor(CompoundTag sugarContents) {
-        if (sugarContents.contains(TAG_SUGAR, Tag.TAG_STRING)) {
+        if (sugarContents.contains(TAG_FLAVOR, Tag.TAG_STRING)) {
             return getFlavor(sugarContents.getString(TAG_FLAVOR));
         }
         return Sugar.Flavor.ORIGINAL;
@@ -105,11 +104,11 @@ public class SugarUtils
 
     public static Tag of(@Nullable Sugar sugar, Sugar.Flavor flavor) {
         CompoundTag tag = new CompoundTag();
-        ResourceLocation sugarId = RegRegistry.SUGAR.getKey(sugar);
+        ResourceLocation sugarId = Sugars.SUGAR_SUPPLIER.get().getKey(sugar);
         if (sugar != null && sugarId != null) {
             tag.putString(TAG_SUGAR, sugarId.toString());
         }
-        tag.putString(TAG_FLAVOR, flavor.name());
+        tag.putString(TAG_FLAVOR, Sugar.Flavor.toName(flavor));
         return tag;
     }
 

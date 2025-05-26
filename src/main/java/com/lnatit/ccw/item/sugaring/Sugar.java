@@ -2,10 +2,7 @@ package com.lnatit.ccw.item.sugaring;
 
 import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.item.ItemRegistry;
-import com.lnatit.ccw.misc.RegRegistry;
-import com.mojang.serialization.Codec;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -19,7 +16,7 @@ import java.util.function.Consumer;
 
 public abstract class Sugar
 {
-    public static final Codec<Sugar> CODEC = RegRegistry.SUGAR.getCodec();
+//    public static final Codec<Sugar> CODEC = Sugars.SUGAR.getCodec();
 //    public static final StreamCodec<FriendlyByteBuf, Sugar> STREAM_CODEC = ByteBufCodecs.holderRegistry(
 //            RegRegistry.SUGAR_KEY);
     protected final String name;
@@ -32,13 +29,13 @@ public abstract class Sugar
         this.hasBold = hasBold;
     }
 
-    public static Collection<ItemStack> createAllFlavors(@Nullable Holder<Sugar> sugar) {
+    public static Collection<ItemStack> createAllFlavors(@Nullable Sugar sugar) {
         if (sugar == null) {
             return Set.of();
         }
         Set<ItemStack> sugars = new HashSet<>();
-        for (Flavor flavor : sugar.value().getAvailableFlavors()) {
-            sugars.add(SugarUtils.createSugar(sugar.get(), flavor));
+        for (Flavor flavor : sugar.getAvailableFlavors()) {
+            sugars.add(SugarUtils.createSugar(sugar, flavor));
         }
         return sugars;
     }
@@ -82,7 +79,7 @@ public abstract class Sugar
         BOLD("bold", ChatFormatting.GOLD),
         MILKY("milky", ChatFormatting.WHITE);
 
-//        public static final Codec<Flavor> CODEC = Codec.stringResolver(Flavor::toName, Flavor::fromName);
+//        public static final Codec<Flavor> CODEC = Codec.stringResolver(Flavor::toName, Flavor::fromNameSafe);
 
         public final String name;
         @Nullable
@@ -129,18 +126,16 @@ public abstract class Sugar
                             flavor.formatting);
         }
 
-        static String toName(Flavor flavor) {
+        public static String toName(Flavor flavor) {
             return flavor.name;
         }
 
-        @Nullable
-        static Flavor fromName(String name) {
+        public static Flavor fromNameSafe(String name) {
             return switch (name) {
-                case "original" -> ORIGINAL;
                 case "excited" -> EXCITED;
                 case "bold" -> BOLD;
                 case "milky" -> MILKY;
-                default -> null;
+                default -> ORIGINAL;
             };
         }
     }

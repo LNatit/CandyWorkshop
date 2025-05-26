@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:coal"
+    },
+    "X": {
+      "item": "minecraft:bowl"
+    }
+  },
+  "pattern": [
+    " # ",
+    "###",
+    " X "
+  ],
+  "result": {
+    "item": "ccw:defiled_offering"
+  },
+  "show_notification": true
+}

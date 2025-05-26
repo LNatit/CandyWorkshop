@@ -1,0 +1,31 @@
+{
+  "parent": "ccw:my_first_candy",
+  "criteria": {
+    "refine_flavored_sugar": {
+      "conditions": {},
+      "trigger": "ccw:refine_flavored_sugar"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.ccw.advanced_candy_maker.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "ccw:gummy",
+      "nbt": "{ccw.sugar:{Flavor:\"ORIGINAL\",Sugar:\"ccw:golden_heart\"}}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.ccw.advanced_candy_maker.title"
+    }
+  },
+  "requirements": [
+    [
+      "refine_flavored_sugar"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

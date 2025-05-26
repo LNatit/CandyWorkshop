@@ -1,22 +1,25 @@
 package com.lnatit.ccw.item.sugaring;
 
 import com.lnatit.ccw.CandyWorkshop;
-import com.lnatit.ccw.misc.RegRegistry;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraftforge.registries.*;
 
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * @see MobEffects
  * Bold: extended
  * Excited: amplified
  */
+
 public class Sugars {
+    public static final ResourceLocation SUGAR_LOCATION = ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID, "sugar");
+    public static final RegistryBuilder<Sugar> SUGAR_BUILDER = RegistryBuilder.of(SUGAR_LOCATION);
     public static final DeferredRegister<Sugar> SUGARS =
-            DeferredRegister.create(RegRegistry.SUGAR_LOCATION, CandyWorkshop.MODID);
+            DeferredRegister.create(SUGAR_LOCATION, CandyWorkshop.MODID);
 
     public static final RegistryObject<SingleEffectSugar> SPEED =
             registerSingle("speed",
@@ -262,6 +265,8 @@ public class Sugars {
                             .withEffect(MobEffects.HUNGER)
                             .build()
             );
+
+    public static Supplier<IForgeRegistry<Sugar>> SUGAR_SUPPLIER = SUGARS.makeRegistry(() -> SUGAR_BUILDER);
 
     public static void register(IEventBus eventBus) {
         SUGARS.register(eventBus);

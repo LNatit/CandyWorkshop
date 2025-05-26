@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:iron_ingot"
+    },
+    "/": {
+      "tag": "forge:rods/wooden"
+    },
+    "U": {
+      "item": "minecraft:bucket"
+    },
+    "X": {
+      "tag": "forge:stone"
+    }
+  },
+  "pattern": [
+    "U #",
+    "X/X",
+    " X "
+  ],
+  "result": {
+    "item": "ccw:sugar_refinery"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,31 @@
+{
+  "parent": "ccw:candy_finale",
+  "criteria": {
+    "collect_all_sugar": {
+      "conditions": {},
+      "trigger": "ccw:collect_all_sugar"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.ccw.rainbow_collector.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "ccw:gummy",
+      "nbt": "{ccw.sugar:{Flavor:\"ORIGINAL\",Sugar:\"ccw:recovery\"}}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.ccw.rainbow_collector.title"
+    }
+  },
+  "requirements": [
+    [
+      "collect_all_sugar"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
