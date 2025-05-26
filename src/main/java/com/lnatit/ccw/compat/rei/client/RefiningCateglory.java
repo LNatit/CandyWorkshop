@@ -1,6 +1,6 @@
 package com.lnatit.ccw.compat.rei.client;
 
-import com.lnatit.ccw.CandyWorkshop;
+import com.lnatit.ccw.compat.ModConstants;
 import com.lnatit.ccw.compat.rei.RefiningDisplay;
 import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.menu.client.SugarRefineryScreen;
@@ -15,7 +15,6 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 import me.shedaniel.rei.impl.client.gui.widget.basewidgets.PanelWidget;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,11 +24,6 @@ public class RefiningCateglory implements DisplayCategory<RefiningDisplay>
 
     public static final Component TITLE = Component.translatable("compat.ccw.rei.title");
     public static final Renderer ICON = EntryStacks.of(ItemRegistry.SUGAR_REFINERY);
-    // Note: it's a SPRITE!
-    public static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(
-            CandyWorkshop.MODID,
-            "rei/refining"
-    );
 
     @Override
     public CategoryIdentifier<? extends RefiningDisplay> getCategoryIdentifier() {
@@ -61,7 +55,7 @@ public class RefiningCateglory implements DisplayCategory<RefiningDisplay>
         widgets.add(Widgets.createDrawableWidget((graphics, mouseX, mouseY, delta) -> {
             graphics.blitSprite(
                     RenderType::guiTextured,
-                    SugarRefineryScreen.ANIMATION_SPRITE,
+                    ModConstants.ANIMATION_SPRITE,
                     startingPoint.x + 61,
                     startingPoint.y + 5,
                     28, 19
@@ -112,7 +106,7 @@ public class RefiningCateglory implements DisplayCategory<RefiningDisplay>
 
     private static Widget createRecipeBase(Rectangle bounds) {
         PanelWidget base = new PanelWidget(bounds);
-        base.setTexture(BACKGROUND, BACKGROUND);
+        base.setTexture(ModConstants.BACKGROUND_SPRITE, ModConstants.BACKGROUND_SPRITE);
         return base;
     }
 }
