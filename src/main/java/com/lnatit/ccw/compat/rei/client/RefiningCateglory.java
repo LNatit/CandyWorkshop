@@ -3,7 +3,6 @@ package com.lnatit.ccw.compat.rei.client;
 import com.lnatit.ccw.compat.ModConstants;
 import com.lnatit.ccw.compat.rei.RefiningDisplay;
 import com.lnatit.ccw.item.ItemRegistry;
-import com.lnatit.ccw.menu.client.SugarRefineryScreen;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.Renderer;
