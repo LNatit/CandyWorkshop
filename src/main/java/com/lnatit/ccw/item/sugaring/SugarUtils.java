@@ -70,7 +70,7 @@ public class SugarUtils
         CompoundTag sugaContents = getSugarContents(stack);
         // temporary fix
         Component name = Component.translatable(
-                descriptionId.concat(".").concat(getSugar(sugaContents).map(Sugar::name).orElse("vanilla"))
+                descriptionId.concat(getSugar(sugaContents).map(sugar -> ".".concat(sugar.name())).orElse(""))
         ).withStyle(ChatFormatting.WHITE);
         MutableComponent flavor = Sugar.Flavor.nameOf(getFlavor(sugaContents));
         return flavor == null ? name : flavor.append(" ").append(name);
