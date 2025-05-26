@@ -137,6 +137,10 @@ public class ItemRegistry {
                                     (parameters, output) ->
                                     {
                                         output.accept(Items.MILK_BUCKET);
+                                        output.accept(CARTON_MILK.get());
+                                        output.accept(Items.SUGAR);
+                                        output.accept(NETHER_SUGAR.get());
+                                        output.accept(ENDER_SUGAR.get());
                                         output.accept(GUMMY_ITEM.get());
                                         ITEMS.getEntries().forEach(
                                                 holder -> output.accept(holder.get())
