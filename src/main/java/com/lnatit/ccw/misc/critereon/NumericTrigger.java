@@ -33,17 +33,22 @@ public class NumericTrigger extends SimpleCriterionTrigger<NumericTrigger.Trigge
 
     public static final class TriggerInstance extends AbstractCriterionTriggerInstance
     {
-        private final ContextAwarePredicate player;
         private final MinMaxBounds.Ints count;
 
         public TriggerInstance(ResourceLocation criterion, ContextAwarePredicate player, MinMaxBounds.Ints count) {
             super(criterion, player);
-            this.player = player;
             this.count = count;
         }
 
         public boolean matches(int count) {
             return this.count.matches(count);
+        }
+
+        @Override
+        public JsonObject serializeToJson(SerializationContext conditions) {
+            JsonObject jsonObject = super.serializeToJson(conditions);
+            jsonObject.add("count", this.count.serializeToJson());
+            return jsonObject;
         }
     }
 }

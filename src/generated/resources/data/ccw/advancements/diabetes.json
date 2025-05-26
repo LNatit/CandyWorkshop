@@ -2,7 +2,11 @@
   "parent": "ccw:my_first_candy",
   "criteria": {
     "develop_diabetes": {
-      "conditions": {},
+      "conditions": {
+        "count": {
+          "min": 100
+        }
+      },
       "trigger": "ccw:develop_diabetes"
     }
   },

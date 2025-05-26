@@ -20,10 +20,10 @@ public class SugarStatUtils
 
     private static CompoundTag getSugarStats(ServerPlayer player) {
         CompoundTag tag = player.getPersistentData();
-        if (tag.contains(TAG_ROOT, Tag.TAG_COMPOUND)) {
-            return tag.getCompound(TAG_ROOT);
+        if (!tag.contains(TAG_ROOT, Tag.TAG_COMPOUND)) {
+            tag.put(TAG_ROOT, new CompoundTag());
         }
-        return new CompoundTag();
+        return tag.getCompound(TAG_ROOT);
     }
 
     private static int getConsumeCount(CompoundTag sugarStats) {
@@ -47,7 +47,7 @@ public class SugarStatUtils
         if (!sugarStats.contains(TAG_HISTORY, Tag.TAG_LIST)) {
             sugarStats.put(TAG_HISTORY, new ListTag());
         }
-        return sugarStats.getList(TAG_HISTORY, Tag.TAG_LIST);
+        return sugarStats.getList(TAG_HISTORY, Tag.TAG_STRING);
     }
 
     private static int getConsumeHistories(CompoundTag sugarStats) {
@@ -64,9 +64,12 @@ public class SugarStatUtils
         ResourceLocation sugarId = Sugars.SUGAR_SUPPLIER.get().getKey(sugar);
         if (sugarId != null) {
             ListTag history = getConsumeHistory(sugarStats);
-            history.add(StringTag.valueOf(sugarId.toString()));
-            if (history.size() == Sugars.SUGAR_SUPPLIER.get().getEntries().size()) {
-                CriteriaRegistry.COLLECT_ALL_SUGAR.trigger(player);
+            Tag sugarEntry = StringTag.valueOf(sugarId.toString());
+            if (!history.contains(sugarEntry)) {
+                history.add(sugarEntry);
+                if (history.size() == Sugars.SUGAR_SUPPLIER.get().getEntries().size()) {
+                    CriteriaRegistry.COLLECT_ALL_SUGAR.trigger(player);
+                }
             }
         }
         CriteriaRegistry.DEVELOP_DIABETES.trigger(player, growConsumeCount(sugarStats));
