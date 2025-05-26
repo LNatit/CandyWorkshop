@@ -2,6 +2,7 @@ package com.lnatit.ccw.compat;
 
 import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.menu.client.SugarRefineryScreen;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
@@ -13,5 +14,5 @@ public class ModConstants
             CandyWorkshop.MODID,
             "textures/gui/sprites/compat/refining.png"
     );
-    public static final ResourceLocation ANIMATION_SPRITE = SugarRefineryScreen.ANIMATION_SPRITE;
+    public static final TextureAtlasSprite ANIMATION_SPRITE = SugarRefineryScreen.ANIMATION;
 }

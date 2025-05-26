@@ -25,7 +25,7 @@ public class RefiningCategory extends AbstractRecipeCategory<RefiningRecipe>
     @Override
     public void draw(RefiningRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         guiGraphics.blit(ModConstants.BACKGROUND, 0, 0, 0, 0, 150, 66, 150, 66);
-        guiGraphics.blit(ModConstants.ANIMATION_SPRITE, 61, 5, 0, 0, 28, 19, 28, 19);
+        guiGraphics.blit(61, 5, 0, 28, 19, ModConstants.ANIMATION_SPRITE);
     }
 
     @Override

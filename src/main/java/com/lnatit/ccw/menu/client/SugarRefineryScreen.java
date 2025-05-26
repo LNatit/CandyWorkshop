@@ -3,13 +3,16 @@ package com.lnatit.ccw.menu.client;
 import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.item.sugaring.SugarRefining;
 import com.lnatit.ccw.menu.SugarRefineryMenu;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraftforge.client.gui.widget.ExtendedButton;
 
 public class SugarRefineryScreen extends AbstractContainerScreen<SugarRefineryMenu> {
@@ -17,8 +20,12 @@ public class SugarRefineryScreen extends AbstractContainerScreen<SugarRefineryMe
             ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID, "textures/gui/container/sugar_refinery.png");
     public static final ResourceLocation ANIMATION_SPRITE =
             ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID, "textures/gui/sprites/container/sugar_refinery/stirring.png");
-    public static final ResourceLocation PROGRESS_SPRITE =
+    public static final ResourceLocation PROGRESS_LOCATION =
             ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID, "textures/gui/sprites/container/sugar_refinery/progress.png");
+    public static final TextureAtlasSprite ANIMATION = Minecraft.getInstance().getTextureAtlas(
+            InventoryMenu.BLOCK_ATLAS).apply(
+            ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID, "textures/gui/sprites/container/sugar_refinery/stirring.png")
+    );
     public static final Tooltip PAUSE = Tooltip.create(Component.translatable("container.sugar_refinery.pause"));
     public static final Tooltip START = Tooltip.create(Component.translatable("container.sugar_refinery.start"));
     public static final int WIDTH = 176;
@@ -76,7 +83,7 @@ public class SugarRefineryScreen extends AbstractContainerScreen<SugarRefineryMe
 
         progress = -15 * progress / SugarRefining.REFINE_TIME;
         guiGraphics.blit(
-                PROGRESS_SPRITE,
+                PROGRESS_LOCATION,
                 this.leftPos + 72 - progress,
                 this.topPos + 41,
                 0, 0,
