@@ -1,6 +1,7 @@
 package com.lnatit.ccw.compat.jei;
 
 import com.lnatit.ccw.CandyWorkshop;
+import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.item.sugaring.SugarRefining;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -9,6 +10,7 @@ import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
+import mezz.jei.api.registration.ISubtypeRegistration;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.List;
@@ -23,6 +25,11 @@ public class CandyWorkshopPlugin implements IModPlugin
     @Override
     public ResourceLocation getPluginUid() {
         return UID;
+    }
+
+    @Override
+    public void registerItemSubtypes(ISubtypeRegistration registration) {
+        registration.registerSubtypeInterpreter(ItemRegistry.GUMMY_ITEM.get(), GummySubtypeInterpreter.INSTANCE);
     }
 
     @Override
