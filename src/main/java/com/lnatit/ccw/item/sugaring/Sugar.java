@@ -66,8 +66,7 @@ public abstract class Sugar
         Component name = Component.translatable(
                 item.value()
                         .getDescriptionId()
-                        .concat(".")
-                        .concat(sugar.map(s -> s.value().name()).orElse("vanilla"))
+                        .concat(sugar.map(s -> ".".concat(s.value().name())).orElse(""))
         ).withStyle(ChatFormatting.WHITE);
         MutableComponent flavorComponent = Flavor.nameOf(flavor);
         return flavorComponent == null ? name : flavorComponent.append(" ").append(name);
