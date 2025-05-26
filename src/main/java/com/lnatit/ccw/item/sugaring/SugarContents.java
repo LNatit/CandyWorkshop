@@ -45,7 +45,7 @@ public record SugarContents(Optional<Holder<Sugar>> sugar, Sugar.Flavor flavor)
     public Component getName(String descriptionId) {
         // temporary fix
         Component name = Component.translatable(
-                descriptionId.concat(".").concat(this.sugar.map(s -> s.value().name()).orElse("vanilla"))
+                descriptionId.concat(this.sugar.map(s -> ".".concat(s.value().name())).orElse(""))
         ).withStyle(ChatFormatting.WHITE);
         MutableComponent flavor = Sugar.Flavor.nameOf(this.flavor);
         return flavor == null ? name : flavor.append(" ").append(name);
