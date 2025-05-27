@@ -17,6 +17,6 @@ public class CriteriaRegistry
 
     private static <T extends CriterionTrigger<?>> T registerTrigger(Function<ResourceLocation, T> constructor, String name) {
         return CriteriaTriggers.register(
-                constructor.apply(ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID, name)));
+                constructor.apply(new ResourceLocation(CandyWorkshop.MODID, name)));
     }
 }

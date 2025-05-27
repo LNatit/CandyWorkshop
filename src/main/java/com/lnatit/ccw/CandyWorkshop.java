@@ -21,7 +21,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 public class CandyWorkshop {
     public static final String MODID = "ccw";
 
-    public CandyWorkshop(FMLJavaModLoadingContext context) {
+    public CandyWorkshop() {
+        FMLJavaModLoadingContext context = FMLJavaModLoadingContext.get();
         IEventBus modEventBus = context.getModEventBus();
         Sugars.register(modEventBus);
         StatRegistry.STATS.register(modEventBus);

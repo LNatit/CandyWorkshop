@@ -13,11 +13,11 @@ public class StatRegistry {
     public static final RegistryObject<ResourceLocation> INTERACT_WITH_SUGAR_REFINERY =
             STATS.register(
                     "interact_with_sugar_refinery",
-                    () -> ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID, "interact_with_sugar_refinery")
+                    () -> new ResourceLocation(CandyWorkshop.MODID, "interact_with_sugar_refinery")
             );
     public static final RegistryObject<ResourceLocation> OPEN_DRAWER_TABLE =
             STATS.register(
                     "open_drawer_table",
-                    () -> ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID, "open_drawer_table")
+                    () -> new ResourceLocation(CandyWorkshop.MODID, "open_drawer_table")
             );
 }

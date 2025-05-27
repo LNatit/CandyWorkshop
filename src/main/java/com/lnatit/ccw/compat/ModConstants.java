@@ -14,7 +14,7 @@ public class ModConstants
 
     public static final TextureAtlasSprite BACKGROUND_SPRITE =
             Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(
-                    ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID, "gui/compat/refining")
+                    new ResourceLocation(CandyWorkshop.MODID, "gui/compat/refining")
             );
     public static final TextureAtlasSprite ANIMATION_SPRITE = SugarRefineryScreen.ANIMATION_SPRITE;
 }

@@ -8,8 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 public class DrawerTableScreen extends AbstractContainerScreen<DrawerTableMenu> {
-    private static final ResourceLocation CONTAINER_BACKGROUND = ResourceLocation.withDefaultNamespace(
-            "textures/gui/container/generic_54.png");
+    private static final ResourceLocation CONTAINER_BACKGROUND = new ResourceLocation("textures/gui/container/generic_54.png");
 
     public DrawerTableScreen(DrawerTableMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);

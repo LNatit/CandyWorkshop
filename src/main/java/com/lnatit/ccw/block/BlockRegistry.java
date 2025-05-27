@@ -75,7 +75,7 @@ public class BlockRegistry {
     }
 
     private static TagKey<Block> tag(String namespace, String name) {
-        return BlockTags.create(ResourceLocation.fromNamespaceAndPath(namespace, name));
+        return BlockTags.create(new ResourceLocation(namespace, name));
     }
 
     private static TagKey<Block> tag(String name) {

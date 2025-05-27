@@ -16,8 +16,8 @@ import java.util.function.Supplier;
  */
 
 public class Sugars {
-    public static final ResourceLocation SUGAR_LOCATION = ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID, "sugar");
-    public static final RegistryBuilder<Sugar> SUGAR_BUILDER = RegistryBuilder.of(SUGAR_LOCATION);
+    public static final ResourceLocation SUGAR_LOCATION = new ResourceLocation(CandyWorkshop.MODID, "sugar");
+    public static final RegistryBuilder<Sugar> SUGAR_BUILDER = builder();
     public static final DeferredRegister<Sugar> SUGARS =
             DeferredRegister.create(SUGAR_LOCATION, CandyWorkshop.MODID);
 
@@ -267,6 +267,12 @@ public class Sugars {
             );
 
     public static Supplier<IForgeRegistry<Sugar>> SUGAR_SUPPLIER = SUGARS.makeRegistry(() -> SUGAR_BUILDER);
+
+    private static RegistryBuilder<Sugar> builder() {
+        RegistryBuilder<Sugar> builder = new RegistryBuilder<Sugar>();
+        builder.setName(SUGAR_LOCATION);
+        return builder;
+    }
 
     public static void register(IEventBus eventBus) {
         SUGARS.register(eventBus);

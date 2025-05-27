@@ -11,7 +11,7 @@
 //    @Override
 //    public void registerDisplaySerializer(DisplaySerializerRegistry registry) {
 //        registry.register(
-//                ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID, "default/refining"),
+//                new ResourceLocation(CandyWorkshop.MODID, "default/refining"),
 //                RefiningDisplay.SERIALIZER
 //                );
 //    }

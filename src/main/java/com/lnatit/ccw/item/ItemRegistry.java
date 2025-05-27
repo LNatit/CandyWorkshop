@@ -162,7 +162,7 @@ public class ItemRegistry {
     }
 
     private static TagKey<Item> tag(String namespace, String name) {
-        return ItemTags.create(ResourceLocation.fromNamespaceAndPath(namespace, name));
+        return ItemTags.create(new ResourceLocation(namespace, name));
     }
 
     private static TagKey<Item> tag(String name) {

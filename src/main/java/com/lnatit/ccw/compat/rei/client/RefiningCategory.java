@@ -25,7 +25,7 @@
 //    public static final Component TITLE = Component.translatable("compat.ccw.rei.title");
 //    public static final Renderer ICON = EntryStacks.of(ItemRegistry.SUGAR_REFINERY);
 //    // Note: it's a SPRITE!
-//    public static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(
+//    public static final ResourceLocation BACKGROUND = new ResourceLocation(
 //            CandyWorkshop.MODID,
 //            "rei/refining"
 //    );

@@ -18,7 +18,7 @@ import java.util.List;
 @JeiPlugin
 public class CandyWorkshopPlugin implements IModPlugin
 {
-    public static ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID, CandyWorkshop.MODID);
+    public static ResourceLocation UID = new ResourceLocation(CandyWorkshop.MODID, CandyWorkshop.MODID);
 
     public static final RecipeType<RefiningRecipe> REFINING = RecipeType.create(CandyWorkshop.MODID, "refining", RefiningRecipe.class);
 

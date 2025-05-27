@@ -21,7 +21,7 @@ import java.util.Map;
 @Mod.EventBusSubscriber(modid = CandyWorkshop.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModelHandler
 {
-    public static final ResourceLocation BROKEN = ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID, "broken");
+    public static final ResourceLocation BROKEN = new ResourceLocation(CandyWorkshop.MODID, "broken");
 
     @SubscribeEvent
     public static void onPropertyRegister(FMLClientSetupEvent event) {

@@ -18,14 +18,14 @@ import net.minecraftforge.client.gui.widget.ExtendedButton;
 public class SugarRefineryScreen extends AbstractContainerScreen<SugarRefineryMenu>
 {
     public static final ResourceLocation BACKGROUND_LOCATION =
-            ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID, "textures/gui/container/sugar_refinery.png");
+            new ResourceLocation(CandyWorkshop.MODID, "textures/gui/container/sugar_refinery.png");
     public static final TextureAtlasSprite PROGRESS_SPRITE =
             Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(
-                    ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID, "gui/container/sugar_refinery/progress")
+                    new ResourceLocation(CandyWorkshop.MODID, "gui/container/sugar_refinery/progress")
             );
     public static final TextureAtlasSprite ANIMATION_SPRITE =
             Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(
-                    ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID, "gui/container/sugar_refinery/stirring")
+                    new ResourceLocation(CandyWorkshop.MODID, "gui/container/sugar_refinery/stirring")
             );
     public static final Tooltip PAUSE = Tooltip.create(Component.translatable("container.sugar_refinery.pause"));
     public static final Tooltip START = Tooltip.create(Component.translatable("container.sugar_refinery.start"));

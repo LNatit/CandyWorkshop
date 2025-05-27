@@ -63,7 +63,7 @@ public abstract class Sugar
     }
 
     public ResourceLocation getItemModel() {
-        return ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID, this.name)
+        return new ResourceLocation(CandyWorkshop.MODID, this.name)
                                .withSuffix("_gummy");
 
     }

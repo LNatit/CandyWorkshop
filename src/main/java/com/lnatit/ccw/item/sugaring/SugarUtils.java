@@ -37,7 +37,11 @@ public class SugarUtils
     }
 
     private static Optional<Sugar> getSugar(String id) {
-        return getSugar(ResourceLocation.parse(id));
+        ResourceLocation rl = ResourceLocation.tryParse(id);
+        if (rl == null) {
+            return Optional.empty();
+        }
+        return getSugar(rl);
     }
 
     private static Optional<Sugar> getSugar(CompoundTag sugarContents) {

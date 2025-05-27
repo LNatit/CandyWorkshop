@@ -16,6 +16,6 @@ public class SoundRegistry
 
     public static final RegistryObject<SoundEvent> PLUG_OFF = SOUND_EVENTS.register(
             "plug_off",
-            () -> createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(CandyWorkshop.MODID, "plug_off"))
+            () -> createVariableRangeEvent(new ResourceLocation(CandyWorkshop.MODID, "plug_off"))
     );
 }
