@@ -3,10 +3,12 @@ package com.lnatit.ccw.item.sugaring;
 import com.lnatit.ccw.misc.data.AttachmentRegistry;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerPlayer;
@@ -46,6 +48,15 @@ public record SugarContents(Optional<Holder<Sugar>> sugar,
 
     public boolean is(Holder<Sugar> holder, SingleEffectSugar.Flavor type) {
         return is(holder) && this.flavor.equals(type);
+    }
+
+    public Component getName(String descriptionId) {
+        // temporary fix
+        Component name = Component.translatable(
+                descriptionId.concat(sugar.map(s -> ".".concat(s.value().name())).orElse(""))
+        ).withStyle(ChatFormatting.WHITE);
+        MutableComponent flavorComponent = Sugar.Flavor.nameOf(flavor);
+        return flavorComponent == null ? name : flavorComponent.append(" ").append(name);
     }
 
     @Override

@@ -45,7 +45,6 @@ public abstract class Sugar
         }
         ItemStack itemStack = ItemRegistry.GUMMY_ITEM.toStack();
         itemStack.set(ItemRegistry.SUGAR_CONTENTS_DCTYPE, new SugarContents(Optional.of(sugar), flavor));
-        itemStack.set(DataComponents.CUSTOM_NAME, getName(ItemRegistry.GUMMY_ITEM, Optional.of(sugar), flavor));
         itemStack.set(DataComponents.ITEM_MODEL, sugar.value().getModelId());
         return itemStack;
     }
@@ -59,17 +58,6 @@ public abstract class Sugar
             sugars.add(Sugar.createSugar(sugar, flavor));
         }
         return sugars;
-    }
-
-    public static Component getName(Holder<Item> item, Optional<Holder<Sugar>> sugar, Flavor flavor) {
-        // temporary fix
-        Component name = Component.translatable(
-                item.value()
-                        .getDescriptionId()
-                        .concat(sugar.map(s -> ".".concat(s.value().name())).orElse(""))
-        ).withStyle(ChatFormatting.WHITE);
-        MutableComponent flavorComponent = Flavor.nameOf(flavor);
-        return flavorComponent == null ? name : flavorComponent.append(" ").append(name);
     }
 
     public String name() {

@@ -42,7 +42,7 @@ public class ItemRegistry {
     public static final DeferredItem<Item> GUMMY_ITEM =
             ITEMS.register(
                     "gummy",
-                    key -> new Item(
+                    key -> new GummyItem(
                             new Item.Properties()
                                     .food(FoodsAndConsumables.GUMMY_FOOD, FoodsAndConsumables.GUMMY_CONSUMABLE)
                                     .component(SUGAR_CONTENTS_DCTYPE, SugarContents.VANILLA)
