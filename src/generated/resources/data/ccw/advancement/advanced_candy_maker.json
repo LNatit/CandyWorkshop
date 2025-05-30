@@ -15,10 +15,6 @@
           "flavor": "original",
           "sugar": "ccw:golden_heart"
         },
-        "minecraft:custom_name": {
-          "color": "white",
-          "translate": "item.ccw.gummy.golden_heart"
-        },
         "minecraft:item_model": "ccw:golden_heart_gummy"
       },
       "count": 1,

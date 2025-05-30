@@ -118,6 +118,8 @@ processResources {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     // Exclude datagen caches
     exclude ".cache"
+    // Also for unused assets
+    exclude "assets/ccw/unused"
 }
 
 // Sets up a dependency configuration called 'localRuntime'.

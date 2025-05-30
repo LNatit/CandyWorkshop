@@ -12,7 +12,7 @@
     }
   },
   "display": {
-    "background": "ccw:textures/gui/advancements/backgrounds/ccw.png",
+    "background": "ccw:gui/advancements/backgrounds/ccw",
     "description": {
       "translate": "advancements.ccw.root.description"
     },

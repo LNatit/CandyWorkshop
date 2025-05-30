@@ -9,7 +9,7 @@ public class ModConstants
     // Note: it's a SPRITE!
     public static final ResourceLocation BACKGROUND_SPRITE = ResourceLocation.fromNamespaceAndPath(
             CandyWorkshop.MODID,
-            "rei/refining"
+            "compat/refining"
     );
     public static final ResourceLocation ANIMATION_SPRITE = SugarRefineryScreen.ANIMATION_SPRITE;
 }
