@@ -6,6 +6,7 @@
 package com.lnatit.ccw;
 
 import com.lnatit.ccw.block.BlockRegistry;
+import com.lnatit.ccw.compat.apothesis.ApothSugars;
 import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.item.crafting.RecipeRegistry;
 import com.lnatit.ccw.item.sugaring.Sugars;
@@ -16,6 +17,7 @@ import com.lnatit.ccw.misc.critereon.CriteriaRegistry;
 import com.lnatit.ccw.misc.data.AttachmentRegistry;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
 
 @Mod(CandyWorkshop.MODID)
@@ -23,6 +25,11 @@ public class CandyWorkshop {
     public static final String MODID = "ccw";
 
     public CandyWorkshop(IEventBus modEventBus, ModContainer modContainer) {
+        if (ModList.get().isLoaded("apothic_attributes")) {
+            ApothSugars.init();
+        }
+
+
         Sugars.register(modEventBus);
         StatRegistry.STATS.register(modEventBus);
         CriteriaRegistry.TRIGGERS.register(modEventBus);
