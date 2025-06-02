@@ -1,4 +1,4 @@
-// 1.20.1	2025-05-26T11:09:33.3038782	Recipes
+// 1.20.1	2025-06-02T11:44:44.1311127	Recipes
 e6f3ccb6e5e4d96043e674d59d5558185acb0c86 data/ccw/advancements/recipes/brewing/blessed_steak.json
 d65013495892fbb2a6b5a22a58ef5f1ca29b6163 data/ccw/advancements/recipes/brewing/calcium_rich_milk.json
 6928f9450ccd07b4d46e0abb5209011d52c71428 data/ccw/advancements/recipes/brewing/defiled_offering.json
@@ -29,7 +29,7 @@ e3f68e69dbb88c4c9384c2f5372499c596183189 data/ccw/recipes/calcium_rich_milk.json
 e90932934708ad3a4150b7d483d94bc94fe52e4f data/ccw/recipes/defiled_offering.json
 817cf6a4194b8b24a5c0397e546c88411fa3eb06 data/ccw/recipes/dolphin_cookie.json
 d0d55f63ba21fa09e61bff4a982539a670c0b82b data/ccw/recipes/drawer_table.json
-0d950005e1bb25e6a72fcc08c2477e77aab72e18 data/ccw/recipes/ender_sugar.json
+21bece7354aea2caec57bc8b14667908bddb285a data/ccw/recipes/ender_sugar.json
 ed512e873ac8cb13e4414cb62fce99e1817598e5 data/ccw/recipes/energy_carrot.json
 69cfd6bdbdd0828262c57f716e8a762e5cb06920 data/ccw/recipes/gold_studded_apple.json
 ff0b4ce44c9769becfcccb60e02e9f24bc86630c data/ccw/recipes/greedy_offering.json
@@ -39,7 +39,7 @@ f30097aa694e367ed0492c189bbc5e692d74121d data/ccw/recipes/milk_extractor.json
 669954479062cca456b8355fddd8d32658ed5e56 data/ccw/recipes/milk_gelatin.json
 a3a35cb1115bab7d1b95ffa7389e674a230d2235 data/ccw/recipes/milk_gelatin_from_milk_bucket.json
 26da66849a07862a1944ab27a519d3e6a8ebfa6d data/ccw/recipes/milk_packaging.json
-ac91a6940dd4fc58a57f91b12789c33662794339 data/ccw/recipes/nether_sugar.json
+cbffe2ad41e73ada165bdbfc413a3808a199f851 data/ccw/recipes/nether_sugar.json
 89618a6b6ec5b00285ad8024fad8a95e7a94c2ad data/ccw/recipes/ominous_flag.json
 5a8563960c1c5293d56747664359e959f43a798b data/ccw/recipes/phantom_pearl.json
 1290fe54c3d82cf471260514f7b351fcc3f99bea data/ccw/recipes/plain_drawer_table.json

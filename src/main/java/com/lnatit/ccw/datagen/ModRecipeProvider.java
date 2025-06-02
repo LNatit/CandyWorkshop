@@ -94,13 +94,13 @@ public class ModRecipeProvider extends RecipeProvider
             .unlockedBy("has_plain_drawer_table", has(ItemRegistry.PLAIN_DRAWER_TABLE.get()))
             .save(output);
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.BREWING, ItemRegistry.NETHER_SUGAR.get())
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BREWING, ItemRegistry.NETHER_SUGAR.get(), 8)
             .requires(Items.NETHER_WART)
             .requires(Items.SUGAR, 8)
             .unlockedBy("has_milk_carton", has(ItemRegistry.CARTON_MILK_TAG))
             .save(output);
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.BREWING, ItemRegistry.ENDER_SUGAR.get())
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BREWING, ItemRegistry.ENDER_SUGAR.get(), 8)
             .requires(Items.DRAGON_BREATH)
             .requires(Items.SUGAR, 8)
             .unlockedBy("has_milk_carton", has(ItemRegistry.CARTON_MILK_TAG))
