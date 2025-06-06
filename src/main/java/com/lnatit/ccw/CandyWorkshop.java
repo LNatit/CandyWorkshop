@@ -6,7 +6,6 @@
 package com.lnatit.ccw;
 
 import com.lnatit.ccw.block.BlockRegistry;
-import com.lnatit.ccw.compat.CompatManager;
 import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.item.crafting.RecipeRegistry;
 import com.lnatit.ccw.item.sugaring.Sugars;
