@@ -40,6 +40,6 @@ public class CandyWorkshop {
         BlockRegistry.BLOCKS.register(modEventBus);
         BlockRegistry.BLOCK_ENTITIES.register(modEventBus);
         AttachmentRegistry.ATTACHMENT_TYPES.register(modEventBus);
-        CompatManager.loadCompats();
+//        CompatManager.loadCompats();
     }
 }
