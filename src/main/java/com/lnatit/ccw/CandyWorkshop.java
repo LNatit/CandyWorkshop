@@ -6,6 +6,7 @@
 package com.lnatit.ccw;
 
 import com.lnatit.ccw.block.BlockRegistry;
+import com.lnatit.ccw.compat.CompatManager;
 import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.item.crafting.RecipeRegistry;
 import com.lnatit.ccw.item.sugaring.Sugars;
@@ -39,6 +40,6 @@ public class CandyWorkshop {
         BlockRegistry.BLOCKS.register(modEventBus);
         BlockRegistry.BLOCK_ENTITIES.register(modEventBus);
         AttachmentRegistry.ATTACHMENT_TYPES.register(modEventBus);
-//        CompatManager.loadCompats();
+        CompatManager.loadCompats();
     }
 }

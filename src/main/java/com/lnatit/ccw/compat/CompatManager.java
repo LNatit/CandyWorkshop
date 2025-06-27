@@ -11,6 +11,7 @@ import java.util.List;
 public class CompatManager
 {
     private static final List<Entry> COMPATS = List.of(
+            new Entry("farmersdelight", "com.lnatit.ccw.compat.farmersdelight.FarmersDelightCompats"),
             new Entry("apothic_attributes", "com.lnatit.ccw.compat.apothesis.ApothSugars")
     );
 
