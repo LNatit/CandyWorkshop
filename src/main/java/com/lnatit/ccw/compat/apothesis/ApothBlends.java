@@ -21,7 +21,6 @@ public class ApothBlends {
         builder.addOverworldBlend(ApothSugars.SUNDERING, EROSION_SHELL.get());
         builder.addOverworldBlend(ApothSugars.VITALITY, VITALITY_BERRY.get());
 
-//        builder.addNetherBlend(ApothSugars.BLEEDING, BROADHEAD_ARROW);
         builder.addNetherBlend(ApothSugars.KNOWLEDGE, KNOWLEDGE_BOTTLE.get());
     }
 }
