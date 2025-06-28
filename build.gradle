@@ -141,8 +141,13 @@ dependencies {
     implementation("curse.maven:farmersdelight-398521:6597295")
 
     // Apothesis
-    compileOnly("curse.maven:placebo-283644:6446766-sources")
-    compileOnly("curse.maven:apoattr-898963:6514649-sources")
+    implementation("curse.maven:patchouli-306770:6164617")
+    implementation("curse.maven:placebo-283644:6446766-sources")
+    implementation("curse.maven:apoattr-898963:6514649-sources")
+    implementation("curse.maven:apoench-1063926:6631673-sources")
+    implementation("curse.maven:apospaw-986583:6689771-sources")
+    implementation("curse.maven:apotheosis-313970:6545942-sources")
+
 //    implementation "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
 }
 
