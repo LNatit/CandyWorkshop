@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "ccw:item/fish_swim_gummy"
-  }
+    "parent": "minecraft:item/generated",
+    "textures": {
+        "layer0": "ccw:item/fish_swim_gummy"
+    }
 }

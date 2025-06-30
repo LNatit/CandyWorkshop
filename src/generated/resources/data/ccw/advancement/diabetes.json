@@ -1,38 +1,38 @@
 {
-  "parent": "ccw:my_first_candy",
-  "criteria": {
-    "develop_diabetes": {
-      "conditions": {
-        "count": {
-          "min": 100
+    "parent": "ccw:my_first_candy",
+    "criteria": {
+        "develop_diabetes": {
+            "conditions": {
+                "count": {
+                    "min": 100
+                }
+            },
+            "trigger": "ccw:develop_diabetes"
         }
-      },
-      "trigger": "ccw:develop_diabetes"
-    }
-  },
-  "display": {
-    "description": {
-      "translate": "advancements.ccw.diabetes.description"
     },
-    "frame": "challenge",
-    "icon": {
-      "components": {
-        "ccw:sugar_contents": {
-          "flavor": "original",
-          "sugar": "ccw:stinger"
+    "display": {
+        "description": {
+            "translate": "advancements.ccw.diabetes.description"
+        },
+        "frame": "challenge",
+        "icon": {
+            "components": {
+                "ccw:sugar_contents": {
+                    "flavor": "original",
+                    "sugar": "ccw:stinger"
+                }
+            },
+            "count": 1,
+            "id": "ccw:gummy"
+        },
+        "title": {
+            "translate": "advancements.ccw.diabetes.title"
         }
-      },
-      "count": 1,
-      "id": "ccw:gummy"
     },
-    "title": {
-      "translate": "advancements.ccw.diabetes.title"
-    }
-  },
-  "requirements": [
-    [
-      "develop_diabetes"
-    ]
-  ],
-  "sends_telemetry_event": true
+    "requirements": [
+        [
+            "develop_diabetes"
+        ]
+    ],
+    "sends_telemetry_event": true
 }

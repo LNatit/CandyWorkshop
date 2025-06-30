@@ -1,21 +1,21 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "misc",
-  "key": {
-    "#": {
-      "item": "minecraft:redstone"
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+        "#": {
+            "item": "minecraft:redstone"
+        },
+        "X": {
+            "item": "minecraft:carrot"
+        }
     },
-    "X": {
-      "item": "minecraft:carrot"
+    "pattern": [
+        "###",
+        "#X#",
+        "###"
+    ],
+    "result": {
+        "count": 1,
+        "id": "ccw:energy_carrot"
     }
-  },
-  "pattern": [
-    "###",
-    "#X#",
-    "###"
-  ],
-  "result": {
-    "count": 1,
-    "id": "ccw:energy_carrot"
-  }
 }

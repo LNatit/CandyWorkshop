@@ -1,4 +1,4 @@
 {
-  "type": "ccw:repair_extractor",
-  "category": "misc"
+    "type": "ccw:repair_extractor",
+    "category": "misc"
 }

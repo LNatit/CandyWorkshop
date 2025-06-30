@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "ccw:item/nether_sugar"
-  }
+    "parent": "minecraft:item/generated",
+    "textures": {
+        "layer0": "ccw:item/nether_sugar"
+    }
 }

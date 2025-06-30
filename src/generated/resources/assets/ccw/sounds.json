@@ -1,9 +1,9 @@
 {
-  "plug_off": {
-    "replace": true,
-    "sounds": [
-      "ccw:plug_off"
-    ],
-    "subtitle": "sound.ccw.plug_off"
-  }
+    "plug_off": {
+        "replace": true,
+        "sounds": [
+            "ccw:plug_off"
+        ],
+        "subtitle": "sound.ccw.plug_off"
+    }
 }

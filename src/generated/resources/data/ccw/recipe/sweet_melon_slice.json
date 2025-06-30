@@ -1,21 +1,21 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "misc",
-  "key": {
-    "#": {
-      "item": "minecraft:sugar"
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+        "#": {
+            "item": "minecraft:sugar"
+        },
+        "X": {
+            "item": "minecraft:melon_slice"
+        }
     },
-    "X": {
-      "item": "minecraft:melon_slice"
+    "pattern": [
+        "###",
+        "#X#",
+        "###"
+    ],
+    "result": {
+        "count": 1,
+        "id": "ccw:sweet_melon_slice"
     }
-  },
-  "pattern": [
-    "###",
-    "#X#",
-    "###"
-  ],
-  "result": {
-    "count": 1,
-    "id": "ccw:sweet_melon_slice"
-  }
 }

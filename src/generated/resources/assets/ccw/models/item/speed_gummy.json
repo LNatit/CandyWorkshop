@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "ccw:item/speed_gummy"
-  }
+    "parent": "minecraft:item/generated",
+    "textures": {
+        "layer0": "ccw:item/speed_gummy"
+    }
 }

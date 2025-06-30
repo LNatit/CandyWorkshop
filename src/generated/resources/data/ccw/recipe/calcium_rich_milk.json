@@ -1,21 +1,21 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "misc",
-  "key": {
-    "#": {
-      "item": "minecraft:bone"
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+        "#": {
+            "item": "minecraft:bone"
+        },
+        "X": {
+            "tag": "ccw:carton_milk"
+        }
     },
-    "X": {
-      "tag": "ccw:carton_milk"
+    "pattern": [
+        " # ",
+        "#X#",
+        " # "
+    ],
+    "result": {
+        "count": 1,
+        "id": "ccw:calcium_rich_milk"
     }
-  },
-  "pattern": [
-    " # ",
-    "#X#",
-    " # "
-  ],
-  "result": {
-    "count": 1,
-    "id": "ccw:calcium_rich_milk"
-  }
 }

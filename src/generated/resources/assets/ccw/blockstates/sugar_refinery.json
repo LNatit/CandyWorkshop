@@ -1,19 +1,19 @@
 {
-  "variants": {
-    "facing=east": {
-      "model": "ccw:block/sugar_refinery",
-      "y": 90
-    },
-    "facing=north": {
-      "model": "ccw:block/sugar_refinery"
-    },
-    "facing=south": {
-      "model": "ccw:block/sugar_refinery",
-      "y": 180
-    },
-    "facing=west": {
-      "model": "ccw:block/sugar_refinery",
-      "y": 270
+    "variants": {
+        "facing=east": {
+            "model": "ccw:block/sugar_refinery",
+            "y": 90
+        },
+        "facing=north": {
+            "model": "ccw:block/sugar_refinery"
+        },
+        "facing=south": {
+            "model": "ccw:block/sugar_refinery",
+            "y": 180
+        },
+        "facing=west": {
+            "model": "ccw:block/sugar_refinery",
+            "y": 270
+        }
     }
-  }
 }

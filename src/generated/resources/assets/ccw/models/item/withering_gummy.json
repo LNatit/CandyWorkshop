@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "ccw:item/withering_gummy"
-  }
+    "parent": "minecraft:item/generated",
+    "textures": {
+        "layer0": "ccw:item/withering_gummy"
+    }
 }

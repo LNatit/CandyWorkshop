@@ -1,32 +1,32 @@
 {
-  "parent": "minecraft:recipes/root",
-  "criteria": {
-    "has_plain_drawer_table": {
-      "conditions": {
-        "items": [
-          {
-            "items": "ccw:plain_drawer_table"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+        "has_plain_drawer_table": {
+            "conditions": {
+                "items": [
+                    {
+                        "items": "ccw:plain_drawer_table"
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        },
+        "has_the_recipe": {
+            "conditions": {
+                "recipe": "ccw:drawer_table"
+            },
+            "trigger": "minecraft:recipe_unlocked"
+        }
     },
-    "has_the_recipe": {
-      "conditions": {
-        "recipe": "ccw:drawer_table"
-      },
-      "trigger": "minecraft:recipe_unlocked"
+    "requirements": [
+        [
+            "has_the_recipe",
+            "has_plain_drawer_table"
+        ]
+    ],
+    "rewards": {
+        "recipes": [
+            "ccw:drawer_table"
+        ]
     }
-  },
-  "requirements": [
-    [
-      "has_the_recipe",
-      "has_plain_drawer_table"
-    ]
-  ],
-  "rewards": {
-    "recipes": [
-      "ccw:drawer_table"
-    ]
-  }
 }

@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "ccw:item/milk_gelatin"
-  }
+    "parent": "minecraft:item/generated",
+    "textures": {
+        "layer0": "ccw:item/milk_gelatin"
+    }
 }

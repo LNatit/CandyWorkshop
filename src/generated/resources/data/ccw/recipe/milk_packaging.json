@@ -1,18 +1,18 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "misc",
-  "key": {
-    "#": {
-      "item": "minecraft:paper"
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+        "#": {
+            "item": "minecraft:paper"
+        }
+    },
+    "pattern": [
+        "#",
+        "#",
+        "#"
+    ],
+    "result": {
+        "count": 1,
+        "id": "ccw:milk_packaging"
     }
-  },
-  "pattern": [
-    "#",
-    "#",
-    "#"
-  ],
-  "result": {
-    "count": 1,
-    "id": "ccw:milk_packaging"
-  }
 }

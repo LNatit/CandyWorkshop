@@ -1,33 +1,33 @@
 {
-  "criteria": {
-    "get_sugar_refinery": {
-      "conditions": {
-        "items": [
-          {
-            "items": "ccw:sugar_refinery"
-          }
+    "criteria": {
+        "get_sugar_refinery": {
+            "conditions": {
+                "items": [
+                    {
+                        "items": "ccw:sugar_refinery"
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        }
+    },
+    "display": {
+        "background": "ccw:textures/gui/advancements/backgrounds/ccw.png",
+        "description": {
+            "translate": "advancements.ccw.root.description"
+        },
+        "icon": {
+            "count": 1,
+            "id": "ccw:sugar_refinery"
+        },
+        "title": {
+            "translate": "advancements.ccw.root.title"
+        }
+    },
+    "requirements": [
+        [
+            "get_sugar_refinery"
         ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    }
-  },
-  "display": {
-    "background": "ccw:textures/gui/advancements/backgrounds/ccw.png",
-    "description": {
-      "translate": "advancements.ccw.root.description"
-    },
-    "icon": {
-      "count": 1,
-      "id": "ccw:sugar_refinery"
-    },
-    "title": {
-      "translate": "advancements.ccw.root.title"
-    }
-  },
-  "requirements": [
-    [
-      "get_sugar_refinery"
-    ]
-  ],
-  "sends_telemetry_event": true
+    ],
+    "sends_telemetry_event": true
 }

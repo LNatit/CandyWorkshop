@@ -1,33 +1,33 @@
 {
-  "parent": "ccw:drawer_tables",
-  "criteria": {
-    "get_drawer_table": {
-      "conditions": {
-        "items": [
-          {
-            "items": "ccw:drawer_table"
-          }
+    "parent": "ccw:drawer_tables",
+    "criteria": {
+        "get_drawer_table": {
+            "conditions": {
+                "items": [
+                    {
+                        "items": "ccw:drawer_table"
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        }
+    },
+    "display": {
+        "description": {
+            "translate": "advancements.ccw.more_buautiful_drawer.description"
+        },
+        "icon": {
+            "count": 1,
+            "id": "ccw:drawer_table"
+        },
+        "title": {
+            "translate": "advancements.ccw.more_buautiful_drawer.title"
+        }
+    },
+    "requirements": [
+        [
+            "get_drawer_table"
         ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    }
-  },
-  "display": {
-    "description": {
-      "translate": "advancements.ccw.more_buautiful_drawer.description"
-    },
-    "icon": {
-      "count": 1,
-      "id": "ccw:drawer_table"
-    },
-    "title": {
-      "translate": "advancements.ccw.more_buautiful_drawer.title"
-    }
-  },
-  "requirements": [
-    [
-      "get_drawer_table"
-    ]
-  ],
-  "sends_telemetry_event": true
+    ],
+    "sends_telemetry_event": true
 }

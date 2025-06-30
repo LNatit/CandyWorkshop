@@ -1,32 +1,32 @@
 {
-  "parent": "ccw:my_first_candy",
-  "criteria": {
-    "refine_flavored_sugar": {
-      "trigger": "ccw:refine_flavored_sugar"
-    }
-  },
-  "display": {
-    "description": {
-      "translate": "advancements.ccw.advanced_candy_maker.description"
-    },
-    "icon": {
-      "components": {
-        "ccw:sugar_contents": {
-          "flavor": "original",
-          "sugar": "ccw:golden_heart"
+    "parent": "ccw:my_first_candy",
+    "criteria": {
+        "refine_flavored_sugar": {
+            "trigger": "ccw:refine_flavored_sugar"
         }
-      },
-      "count": 1,
-      "id": "ccw:gummy"
     },
-    "title": {
-      "translate": "advancements.ccw.advanced_candy_maker.title"
-    }
-  },
-  "requirements": [
-    [
-      "refine_flavored_sugar"
-    ]
-  ],
-  "sends_telemetry_event": true
+    "display": {
+        "description": {
+            "translate": "advancements.ccw.advanced_candy_maker.description"
+        },
+        "icon": {
+            "components": {
+                "ccw:sugar_contents": {
+                    "flavor": "original",
+                    "sugar": "ccw:golden_heart"
+                }
+            },
+            "count": 1,
+            "id": "ccw:gummy"
+        },
+        "title": {
+            "translate": "advancements.ccw.advanced_candy_maker.title"
+        }
+    },
+    "requirements": [
+        [
+            "refine_flavored_sugar"
+        ]
+    ],
+    "sends_telemetry_event": true
 }

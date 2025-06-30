@@ -1,21 +1,21 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "misc",
-  "key": {
-    "#": {
-      "item": "minecraft:coal"
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+        "#": {
+            "item": "minecraft:coal"
+        },
+        "X": {
+            "item": "minecraft:bowl"
+        }
     },
-    "X": {
-      "item": "minecraft:bowl"
+    "pattern": [
+        " # ",
+        "###",
+        " X "
+    ],
+    "result": {
+        "count": 1,
+        "id": "ccw:defiled_offering"
     }
-  },
-  "pattern": [
-    " # ",
-    "###",
-    " X "
-  ],
-  "result": {
-    "count": 1,
-    "id": "ccw:defiled_offering"
-  }
 }

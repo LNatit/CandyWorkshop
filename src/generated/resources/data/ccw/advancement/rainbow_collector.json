@@ -1,33 +1,33 @@
 {
-  "parent": "ccw:candy_finale",
-  "criteria": {
-    "collect_all_sugar": {
-      "trigger": "ccw:collect_all_sugar"
-    }
-  },
-  "display": {
-    "description": {
-      "translate": "advancements.ccw.rainbow_collector.description"
-    },
-    "frame": "challenge",
-    "icon": {
-      "components": {
-        "ccw:sugar_contents": {
-          "flavor": "original",
-          "sugar": "ccw:recovery"
+    "parent": "ccw:candy_finale",
+    "criteria": {
+        "collect_all_sugar": {
+            "trigger": "ccw:collect_all_sugar"
         }
-      },
-      "count": 1,
-      "id": "ccw:gummy"
     },
-    "title": {
-      "translate": "advancements.ccw.rainbow_collector.title"
-    }
-  },
-  "requirements": [
-    [
-      "collect_all_sugar"
-    ]
-  ],
-  "sends_telemetry_event": true
+    "display": {
+        "description": {
+            "translate": "advancements.ccw.rainbow_collector.description"
+        },
+        "frame": "challenge",
+        "icon": {
+            "components": {
+                "ccw:sugar_contents": {
+                    "flavor": "original",
+                    "sugar": "ccw:recovery"
+                }
+            },
+            "count": 1,
+            "id": "ccw:gummy"
+        },
+        "title": {
+            "translate": "advancements.ccw.rainbow_collector.title"
+        }
+    },
+    "requirements": [
+        [
+            "collect_all_sugar"
+        ]
+    ],
+    "sends_telemetry_event": true
 }
