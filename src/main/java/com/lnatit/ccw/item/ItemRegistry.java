@@ -15,7 +15,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ItemRegistry {
-    public static final TagKey<Item> MILK_TAG = tag("c", "drinks/milk");
+    public static final TagKey<Item> MILK_TAG = tag("forge", "milk");
     public static final TagKey<Item> CARTON_MILK_TAG = tag("carton_milk");
 
     public static final DeferredRegister<Item> ITEMS =
