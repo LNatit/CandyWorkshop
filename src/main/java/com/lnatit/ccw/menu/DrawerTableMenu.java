@@ -68,7 +68,7 @@ public class DrawerTableMenu extends ModContainerMenu
     public boolean stillValid(Player player) {
         return this.access.evaluate(
                 (level, pos) -> level.getBlockState(pos).is(BlockRegistry.DRAWER_TABLE_TAG) &&
-                        pos.closerToCenterThan(player.position(), 4.0),
+                        pos.closerToCenterThan(player.position(), 8.0),
                 true
         );
     }
