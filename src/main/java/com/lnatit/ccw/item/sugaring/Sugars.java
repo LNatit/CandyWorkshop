@@ -72,8 +72,19 @@ public class Sugars {
                             .withEffect(MobEffects.REGENERATION)
                             .build()
             );
-    public static final RegistryObject<TurtleSugar> TURTLE =
-            SUGARS.register("turtle", () -> new TurtleSugar("turtle"));
+    public static final RegistryObject<MultipleEffectSugar> TURTLE =
+            SUGARS.register("turtle",
+                            () -> new MultipleEffectSugar("turtle", true, true,
+                                                          new MultipleEffectSugar.Effect(
+                                                                  MobEffects.MOVEMENT_SLOWDOWN, 100, 200, 3,
+                                                                  5
+                                                          ),
+                                                          new MultipleEffectSugar.Effect(
+                                                                  MobEffects.DAMAGE_RESISTANCE, 100, 200, 2,
+                                                                  3
+                                                          )
+                            )
+            );
     public static final RegistryObject<SingleEffectSugar> FLUTTER =
             registerSingle("flutter",
                     builder -> builder
@@ -269,7 +280,7 @@ public class Sugars {
     public static Supplier<IForgeRegistry<Sugar>> SUGAR_SUPPLIER = SUGARS.makeRegistry(() -> SUGAR_BUILDER);
 
     private static RegistryBuilder<Sugar> builder() {
-        RegistryBuilder<Sugar> builder = new RegistryBuilder<Sugar>();
+        RegistryBuilder<Sugar> builder = new RegistryBuilder<>();
         builder.setName(SUGAR_LOCATION);
         return builder;
     }
@@ -278,7 +289,7 @@ public class Sugars {
         SUGARS.register(eventBus);
     }
 
-    private static RegistryObject<SingleEffectSugar> registerSingle(String id, Function<SingleEffectSugar.IEffectAcceptor, SingleEffectSugar> props) {
+    public static RegistryObject<SingleEffectSugar> registerSingle(String id, Function<SingleEffectSugar.IEffectAcceptor, SingleEffectSugar> props) {
         return SUGARS.register(id, () -> props.apply(SingleEffectSugar.builder(id)));
     }
 }

@@ -2,10 +2,13 @@ package com.lnatit.ccw.datagen;
 
 import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.block.BlockRegistry;
+import com.lnatit.ccw.compat.farmersdelight.FarmersDelightCompats;
 import com.lnatit.ccw.item.ItemRegistry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -45,6 +48,10 @@ public class ModTagProvider
                 .add(ItemRegistry.CALCIUM_RICH_MILK.get())
 //                .addOptional(ResourceLocation.parse("kitchenkarrot:milk"))
             ;
+
+            this.tag(ItemTags.create(new ResourceLocation("farmersdelight", "meals")))
+                .add(FarmersDelightCompats.GLAZED_MEAT_RICE.get())
+                .add(FarmersDelightCompats.SWEET_HARVEST_SOUP.get());
         }
     }
 }

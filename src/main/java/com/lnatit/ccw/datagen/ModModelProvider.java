@@ -2,6 +2,8 @@ package com.lnatit.ccw.datagen;
 
 import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.block.BlockRegistry;
+import com.lnatit.ccw.compat.apothesis.ApothBlends;
+import com.lnatit.ccw.compat.farmersdelight.FarmersDelightCompats;
 import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.item.sugaring.Sugar;
 import com.lnatit.ccw.item.sugaring.Sugars;
@@ -85,6 +87,16 @@ public class ModModelProvider
                             ModelHandler.BROKEN,
                             1.0f
                     ).end();
+
+            // Compats below
+            // Apotheosis
+            basicItem(ApothBlends.MALIGNANT_BERRY.get());
+            basicItem(ApothBlends.KNOWLEDGE_BOTTLE.get());
+            basicItem(ApothBlends.EROSION_SHELL.get());
+            basicItem(ApothBlends.VITALITY_BERRY.get());
+            // FarmersDelight
+            basicItem(FarmersDelightCompats.GLAZED_MEAT_RICE.get());
+            basicItem(FarmersDelightCompats.SWEET_HARVEST_SOUP.get());
         }
     }
 }

@@ -157,7 +157,7 @@ public class ItemRegistry {
         return ITEMS.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties()));
     }
 
-    private static RegistryObject<Item> registerSimpleItem(String id) {
+    public static RegistryObject<Item> registerSimpleItem(String id) {
         return ITEMS.register(id, () -> new Item(new Item.Properties()));
     }
 

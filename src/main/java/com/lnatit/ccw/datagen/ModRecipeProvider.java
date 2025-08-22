@@ -1,18 +1,24 @@
 package com.lnatit.ccw.datagen;
 
 import com.lnatit.ccw.CandyWorkshop;
+import com.lnatit.ccw.compat.farmersdelight.FarmersDelightCompats;
 import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.item.crafting.RecipeRegistry;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.StrictNBTIngredient;
+import vectorwing.farmersdelight.client.recipebook.CookingPotRecipeBookTab;
+import vectorwing.farmersdelight.common.tag.ForgeTags;
+import vectorwing.farmersdelight.data.builder.CookingPotRecipeBuilder;
 
 import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 public class ModRecipeProvider extends RecipeProvider
 {
@@ -229,5 +235,56 @@ public class ModRecipeProvider extends RecipeProvider
             .requires(Items.SLIME_BALL, 8)
             .unlockedBy("has_milk_carton", has(ItemRegistry.CARTON_MILK_TAG))
             .save(output, CandyWorkshop.MODID + ":milk_gelatin_from_milk_bucket");
+
+        // Compats below
+        // Apotheosis
+//        ShapelessRecipeBuilder.shapeless(RecipeCategory.BREWING, ApothBlends.KNOWLEDGE_BOTTLE.get())
+//                .requires(Apoth.Items.GEM_DUST.value())
+//                .requires(Items.EXPERIENCE_BOTTLE)
+//                .unlockedBy("has_gem_dust", has(Apoth.Items.GEM_DUST.value()))
+//                .save(output);
+//
+//        ShapelessRecipeBuilder.shapeless(RecipeCategory.BREWING, ApothBlends.VITALITY_BERRY.get())
+//                .requires(Apoth.Items.GEM_DUST.value())
+//                .requires(Items.SWEET_BERRIES)
+//                .unlockedBy("has_gem_dust", has(Apoth.Items.GEM_DUST.value()))
+//                .save(output);
+//
+//        ShapelessRecipeBuilder.shapeless(RecipeCategory.BREWING, ApothBlends.MALIGNANT_BERRY.get())
+//                .requires(Apoth.Items.GEM_DUST.value())
+//                .requires(Items.FERMENTED_SPIDER_EYE)
+//                .requires(Items.SWEET_BERRIES)
+//                .unlockedBy("has_gem_dust", has(Apoth.Items.GEM_DUST.value()))
+//                .save(output);
+//
+//        ShapelessRecipeBuilder.shapeless(RecipeCategory.BREWING, ApothBlends.EROSION_SHELL.get())
+//                .requires(Apoth.Items.GEM_DUST.value())
+//                .requires(Items.FERMENTED_SPIDER_EYE)
+//                .requires(Items.SHULKER_SHELL)
+//                .unlockedBy("has_gem_dust", has(Apoth.Items.GEM_DUST.value()))
+//                .save(output);
+
+        // FarmersDelight
+        CookingPotRecipeBuilder.cookingPotRecipe(FarmersDelightCompats.GLAZED_MEAT_RICE.get(), 1, 200, 1.0F)
+                               .addIngredient(ItemRegistry.GUMMY_ITEM.get())
+                               .addIngredient(Ingredient.fromValues(Stream.of(
+                        new Ingredient.TagValue(ForgeTags.RAW_CHICKEN),
+                        new Ingredient.TagValue(ForgeTags.RAW_PORK),
+                        new Ingredient.TagValue(ForgeTags.RAW_BEEF)
+                )))
+                               .addIngredient(ForgeTags.CROPS_RICE)
+                               .addIngredient(ForgeTags.SALAD_INGREDIENTS)
+                               .unlockedBy("has_gummy", has(ItemRegistry.GUMMY_ITEM.get()))
+                               .setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
+                               .build(output);
+
+        CookingPotRecipeBuilder.cookingPotRecipe(FarmersDelightCompats.SWEET_HARVEST_SOUP.get(), 1, 200, 1.0F)
+                .addIngredient(ItemRegistry.GUMMY_ITEM.get())
+                .addIngredient(ItemTags.create(new ResourceLocation("c", "foods/fruit")))
+                .addIngredient(ForgeTags.SALAD_INGREDIENTS)
+                .addIngredient(ForgeTags.MILK)
+                .unlockedBy("has_gummy", has(ItemRegistry.GUMMY_ITEM.get()))
+                .setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
+                .build(output);
     }
 }
