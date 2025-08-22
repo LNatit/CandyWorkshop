@@ -147,7 +147,7 @@ public class ItemRegistry {
                                         );
                                         Sugars.SUGAR_SUPPLIER.get()
                                                 .forEach(
-                                                        sugar -> output.acceptAll(Sugar.createAllFlavors(sugar))
+                                                        sugar -> output.accept(Sugar.createSugar(sugar))
                                                 );
                                     }
                             ).build()

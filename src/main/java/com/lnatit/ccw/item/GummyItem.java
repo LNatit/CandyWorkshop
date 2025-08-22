@@ -2,7 +2,10 @@ package com.lnatit.ccw.item;
 
 import com.lnatit.ccw.item.sugaring.SugarUtils;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -28,6 +31,17 @@ public class GummyItem extends Item
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity livingEntity) {
         SugarUtils.consume(livingEntity, stack);
         return super.finishUsingItem(stack, level, livingEntity);
+    }
+
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
+        if (usedHand == InteractionHand.MAIN_HAND && player.isCreative() && player.isShiftKeyDown()) {
+            ItemStack itemstack = player.getItemInHand(usedHand).copy();
+            itemstack = SugarUtils.cycleFlavor(itemstack);
+            if (!itemstack.isEmpty())
+                return InteractionResultHolder.success(itemstack);
+        }
+        return super.use(level, player, usedHand);
     }
 
     @Override

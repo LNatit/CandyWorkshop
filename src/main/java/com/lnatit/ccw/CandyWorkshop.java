@@ -28,6 +28,7 @@ public class CandyWorkshop {
     public CandyWorkshop() {
         FMLJavaModLoadingContext context = FMLJavaModLoadingContext.get();
         IEventBus modEventBus = context.getModEventBus();
+        CompatManager.loadCompats();
         Sugars.register(modEventBus);
         StatRegistry.STATS.register(modEventBus);
         SoundRegistry.SOUND_EVENTS.register(modEventBus);
@@ -38,6 +39,5 @@ public class CandyWorkshop {
         BlockRegistry.BLOCKS.register(modEventBus);
         BlockRegistry.BLOCK_ENTITIES.register(modEventBus);
         CriteriaRegistry.init();
-        CompatManager.loadCompats();
     }
 }

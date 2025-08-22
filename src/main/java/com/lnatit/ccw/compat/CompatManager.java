@@ -12,7 +12,7 @@ public class CompatManager
 {
     private static final List<Entry> COMPATS = List.of(
             new Entry("farmersdelight", "com.lnatit.ccw.compat.farmersdelight.FarmersDelightCompats"),
-            new Entry("apothic_attributes", "com.lnatit.ccw.compat.apothesis.ApothSugars"),
+            new Entry("attributeslib", "com.lnatit.ccw.compat.apothesis.ApothSugars"),
             new Entry("apotheosis", "com.lnatit.ccw.compat.apothesis.ApothBlends"),
             new Entry("youkaishomecoming", "com.lnatit.ccw.compat.youkaishomecoming.YoukaisHomecomingCompats"),
             new Entry("fruitsdelight", "com.lnatit.ccw.compat.fruitsdelight.FruitsDelightCompats")

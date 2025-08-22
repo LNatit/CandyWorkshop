@@ -69,6 +69,29 @@ public class SugarUtils
     public static Sugar.Flavor getFlavor(ItemStack stack) {
         return getFlavor(getSugarContents(stack));
     }
+    
+    private static Sugar.Flavor nextFlavor(Sugar sugar, Sugar.Flavor current) {
+        List<Sugar.Flavor> flavors = sugar.getAvailableFlavors();
+        int index = flavors.indexOf(current);
+        if (index == -1) {
+            return Sugar.Flavor.ORIGINAL;
+        }
+        if (index == flavors.size() - 1) {
+            index = -1;
+        }
+        return flavors.get(++index);
+    }
+    
+    public static ItemStack cycleFlavor(ItemStack stack) {
+        CompoundTag sugarContents = getSugarContents(stack);
+        Optional<Sugar> sugar = getSugar(sugarContents);
+        if (sugar.isPresent()) {
+            Sugar.Flavor flavor = nextFlavor(sugar.get(), getFlavor(sugarContents));
+            sugarContents.putString(TAG_FLAVOR, Sugar.Flavor.toName(flavor));
+            return stack;
+        }
+        return ItemStack.EMPTY;
+    }
 
     public static Component getName(String descriptionId, ItemStack stack) {
         CompoundTag sugaContents = getSugarContents(stack);

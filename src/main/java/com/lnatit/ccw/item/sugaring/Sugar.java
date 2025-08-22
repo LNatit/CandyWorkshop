@@ -29,6 +29,13 @@ public abstract class Sugar
         this.hasBold = hasBold;
     }
 
+    public static ItemStack createSugar(@Nullable Sugar sugar) {
+        if (sugar == null) {
+            return ItemStack.EMPTY;
+        }
+        return SugarUtils.createSugar(sugar, Flavor.ORIGINAL);
+    }
+
     public static Collection<ItemStack> createAllFlavors(@Nullable Sugar sugar) {
         if (sugar == null) {
             return Set.of();

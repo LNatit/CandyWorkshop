@@ -1,9 +1,11 @@
 package com.lnatit.ccw.datagen;
 
 import com.lnatit.ccw.CandyWorkshop;
+import com.lnatit.ccw.compat.apothesis.ApothBlends;
 import com.lnatit.ccw.compat.farmersdelight.FarmersDelightCompats;
 import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.item.crafting.RecipeRegistry;
+import dev.shadowsoffire.apotheosis.adventure.Adventure;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
@@ -238,31 +240,31 @@ public class ModRecipeProvider extends RecipeProvider
 
         // Compats below
         // Apotheosis
-//        ShapelessRecipeBuilder.shapeless(RecipeCategory.BREWING, ApothBlends.KNOWLEDGE_BOTTLE.get())
-//                .requires(Apoth.Items.GEM_DUST.value())
-//                .requires(Items.EXPERIENCE_BOTTLE)
-//                .unlockedBy("has_gem_dust", has(Apoth.Items.GEM_DUST.value()))
-//                .save(output);
-//
-//        ShapelessRecipeBuilder.shapeless(RecipeCategory.BREWING, ApothBlends.VITALITY_BERRY.get())
-//                .requires(Apoth.Items.GEM_DUST.value())
-//                .requires(Items.SWEET_BERRIES)
-//                .unlockedBy("has_gem_dust", has(Apoth.Items.GEM_DUST.value()))
-//                .save(output);
-//
-//        ShapelessRecipeBuilder.shapeless(RecipeCategory.BREWING, ApothBlends.MALIGNANT_BERRY.get())
-//                .requires(Apoth.Items.GEM_DUST.value())
-//                .requires(Items.FERMENTED_SPIDER_EYE)
-//                .requires(Items.SWEET_BERRIES)
-//                .unlockedBy("has_gem_dust", has(Apoth.Items.GEM_DUST.value()))
-//                .save(output);
-//
-//        ShapelessRecipeBuilder.shapeless(RecipeCategory.BREWING, ApothBlends.EROSION_SHELL.get())
-//                .requires(Apoth.Items.GEM_DUST.value())
-//                .requires(Items.FERMENTED_SPIDER_EYE)
-//                .requires(Items.SHULKER_SHELL)
-//                .unlockedBy("has_gem_dust", has(Apoth.Items.GEM_DUST.value()))
-//                .save(output);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BREWING, ApothBlends.KNOWLEDGE_BOTTLE.get())
+                .requires(Adventure.Items.GEM_DUST.get())
+                .requires(Items.EXPERIENCE_BOTTLE)
+                .unlockedBy("has_gem_dust", has(Adventure.Items.GEM_DUST.get()))
+                .save(output);
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BREWING, ApothBlends.VITALITY_BERRY.get())
+                .requires(Adventure.Items.GEM_DUST.get())
+                .requires(Items.SWEET_BERRIES)
+                .unlockedBy("has_gem_dust", has(Adventure.Items.GEM_DUST.get()))
+                .save(output);
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BREWING, ApothBlends.MALIGNANT_BERRY.get())
+                .requires(Adventure.Items.GEM_DUST.get())
+                .requires(Items.FERMENTED_SPIDER_EYE)
+                .requires(Items.SWEET_BERRIES)
+                .unlockedBy("has_gem_dust", has(Adventure.Items.GEM_DUST.get()))
+                .save(output);
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BREWING, ApothBlends.EROSION_SHELL.get())
+                .requires(Adventure.Items.GEM_DUST.get())
+                .requires(Items.FERMENTED_SPIDER_EYE)
+                .requires(Items.SHULKER_SHELL)
+                .unlockedBy("has_gem_dust", has(Adventure.Items.GEM_DUST.get()))
+                .save(output);
 
         // FarmersDelight
         CookingPotRecipeBuilder.cookingPotRecipe(FarmersDelightCompats.GLAZED_MEAT_RICE.get(), 1, 200, 1.0F)
