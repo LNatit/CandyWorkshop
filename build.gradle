@@ -63,7 +63,6 @@ legacyForge {
 
         configureEach {
             systemProperty 'forge.logging.markers', 'REGISTRIES'
-//            systemProperty 'mixin.env.disableRefMap', 'TRUE'
 
             logLevel = org.slf4j.event.Level.DEBUG
         }
@@ -112,11 +111,8 @@ dependencies {
     modImplementation("curse.maven:farmersdelight-398521:6597298")
 
     // Apothesis
-//    implementation("curse.maven:patchouli-306770:6164575")
     modImplementation("curse.maven:placebo-283644:6274231-sources")
     modImplementation("curse.maven:apoattr-898963:5634071-sources")
-//    implementation("curse.maven:apoench-1063926:6631673-sources")
-//    implementation("curse.maven:apospaw-986583:6689771-sources")
     modImplementation("curse.maven:apotheosis-313970:6461960-sources")
 
     // Youkais Homecoming
@@ -129,6 +125,14 @@ dependencies {
     modImplementation("fruitsdelight:fruitsdelight:1.0.22")
     // for datagen issue
     modRuntimeOnly("curse.maven:cuisine-delight-893541:6677944")
+
+    // Farmers Respite
+    // it just break other's AT
+    modCompileOnly("curse.maven:blueprint-382216:6408581")
+    modCompileOnly("curse.maven:farmersrespite-551453:5543547")
+
+    // Neapolitan
+    modCompileOnly("curse.maven:neapolitan-382016:6248885")
 
 //    implementation "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
 }

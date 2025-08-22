@@ -15,7 +15,9 @@ public class CompatManager
             new Entry("attributeslib", "com.lnatit.ccw.compat.apothesis.ApothSugars"),
             new Entry("apotheosis", "com.lnatit.ccw.compat.apothesis.ApothBlends"),
             new Entry("youkaishomecoming", "com.lnatit.ccw.compat.youkaishomecoming.YoukaisHomecomingCompats"),
-            new Entry("fruitsdelight", "com.lnatit.ccw.compat.fruitsdelight.FruitsDelightCompats")
+            new Entry("fruitsdelight", "com.lnatit.ccw.compat.fruitsdelight.FruitsDelightCompats"),
+            new Entry("farmersrespite", "com.lnatit.ccw.compat.farmersrespite.FarmersRespiteCompats"),
+            new Entry("neapolitan", "com.lnatit.ccw.compat.neapolitan.NeapolitanCompats")
     );
 
     public static void loadCompats() {
