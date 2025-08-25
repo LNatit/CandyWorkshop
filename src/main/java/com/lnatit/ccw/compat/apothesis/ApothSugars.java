@@ -30,6 +30,12 @@ public class ApothSugars {
                     .withEffect(ALObjects.MobEffects.VITALITY.get())
                     .build()
     );
+    public static final RegistryObject<SingleEffectSugar> BLEEDING = Sugars.registerSingle(
+            "bleeding",
+            builder -> builder
+                    .withEffect(ALObjects.MobEffects.BLEEDING.get())
+                    .build()
+    );
 
     public static void init() {}
 }

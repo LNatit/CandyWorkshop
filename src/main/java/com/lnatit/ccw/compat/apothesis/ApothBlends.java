@@ -2,6 +2,7 @@ package com.lnatit.ccw.compat.apothesis;
 
 import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.item.sugaring.SugarRefining;
+import dev.shadowsoffire.apotheosis.Apoth;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -21,5 +22,6 @@ public class ApothBlends {
         builder.addOverworldBlend(ApothSugars.VITALITY, VITALITY_BERRY.get());
 
         builder.addNetherBlend(ApothSugars.KNOWLEDGE, KNOWLEDGE_BOTTLE.get());
+        builder.addNetherBlend(ApothSugars.BLEEDING, Apoth.Items.BROADHEAD_ARROW.get());
     }
 }
