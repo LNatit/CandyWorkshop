@@ -8,7 +8,6 @@ import com.lnatit.ccw.item.crafting.RecipeRegistry;
 import dev.shadowsoffire.apotheosis.adventure.Adventure;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.item.Items;
@@ -282,7 +281,7 @@ public class ModRecipeProvider extends RecipeProvider
 
         CookingPotRecipeBuilder.cookingPotRecipe(FarmersDelightCompats.SWEET_HARVEST_SOUP.get(), 1, 200, 1.0F)
                 .addIngredient(ItemRegistry.GUMMY_ITEM.get())
-                .addIngredient(ItemTags.create(new ResourceLocation("c", "foods/fruit")))
+                .addIngredient(ModTagProvider.Items.FORGE_FRUITS)
                 .addIngredient(ForgeTags.SALAD_INGREDIENTS)
                 .addIngredient(ForgeTags.MILK)
                 .unlockedBy("has_gummy", has(ItemRegistry.GUMMY_ITEM.get()))

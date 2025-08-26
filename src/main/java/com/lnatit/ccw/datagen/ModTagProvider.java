@@ -9,6 +9,8 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -33,6 +35,8 @@ public class ModTagProvider
 
     public static class Items extends ItemTagsProvider
     {
+        public static TagKey<Item> FORGE_FRUITS = ItemTags.create(new ResourceLocation("forge", "fruits"));
+
         public Items(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTags, ExistingFileHelper existingFileHelper) {
             super(output, lookupProvider, blockTags, CandyWorkshop.MODID, existingFileHelper);
         }
@@ -48,6 +52,11 @@ public class ModTagProvider
                 .add(ItemRegistry.CALCIUM_RICH_MILK.get())
 //                .addOptional(ResourceLocation.parse("kitchenkarrot:milk"))
             ;
+
+            this.tag(FORGE_FRUITS)
+                    .add(net.minecraft.world.item.Items.APPLE)
+                    .add(net.minecraft.world.item.Items.SWEET_BERRIES)
+                    .add(net.minecraft.world.item.Items.GLOW_BERRIES);
 
             this.tag(ItemTags.create(new ResourceLocation("farmersdelight", "meals")))
                 .add(FarmersDelightCompats.GLAZED_MEAT_RICE.get())

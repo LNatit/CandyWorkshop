@@ -1,4 +1,4 @@
-// 1.20.1	2025-08-22T18:27:58.8369686	Recipes
+// 1.20.1	2025-08-26T11:23:22.2636642	Recipes
 e6f3ccb6e5e4d96043e674d59d5558185acb0c86 data/ccw/advancements/recipes/brewing/blessed_steak.json
 d65013495892fbb2a6b5a22a58ef5f1ca29b6163 data/ccw/advancements/recipes/brewing/calcium_rich_milk.json
 6928f9450ccd07b4d46e0abb5209011d52c71428 data/ccw/advancements/recipes/brewing/defiled_offering.json
@@ -59,4 +59,4 @@ de0f9ac892b2fb6070ae68c649cb79c4281d197e data/ccw/recipes/void_carrot.json
 a26e45a0e6fdd4bca4ea36a237658acc2e5a4b52 data/farmersdelight/advancements/recipes/cooking/glazed_meat_rice.json
 cd933781e4e5e5d0c97612ccb48f59681730ef70 data/farmersdelight/advancements/recipes/cooking/sweet_harvest_soup.json
 53a1ce5c81b4dd21da2161d4afb40ca33f2fc02d data/farmersdelight/recipes/cooking/glazed_meat_rice.json
-59accd8937631d2ed1356188714fadce8c0db819 data/farmersdelight/recipes/cooking/sweet_harvest_soup.json
+b7117614919895aef4c1d761cc98aaeea9839fb0 data/farmersdelight/recipes/cooking/sweet_harvest_soup.json
