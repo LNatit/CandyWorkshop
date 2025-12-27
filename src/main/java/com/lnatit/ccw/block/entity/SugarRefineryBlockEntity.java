@@ -34,8 +34,9 @@ import net.minecraftforge.items.wrapper.RangedWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvider, Nameable, IItemStackHandlerContainer
-{
+import java.util.Optional;
+
+public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvider, Nameable, IItemStackHandlerContainer {
     public static final Component DEFAULT_NAME = Component.translatable("container.sugar_refinery");
     private final Data data = new Data();
     @Nullable
@@ -48,9 +49,10 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
     public static void serverTick(Level level, BlockPos pos, BlockState state, SugarRefineryBlockEntity refinery) {
         if (level.isClientSide()) return;
 
-        if (refinery.data.tick()) {
+        Optional<IItemHandler> drawer = level.getBlockEntity(pos.below(), BlockRegistry.DRAWER_TABLE_BETYPE.get())
+                .map(DrawerTableBlockEntity::getInventory);
+        if (refinery.data.tick(drawer.orElse(null)))
             refinery.setChanged();
-        }
     }
 
     @Override
@@ -119,8 +121,7 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
         }
     }
 
-    public class Data extends ItemStackHandler
-    {
+    public class Data extends ItemStackHandler {
         public static final int COMMON_MILK_CONSUMPTION = 1;
         public static final int CARTON_MILK_CONSUMPTION = 8;
         public static final int SUGAR_CONSUMPTION = 8;
@@ -135,8 +136,7 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
         }
 
         private DataSlot getDataAccess() {
-            return new DataSlot()
-            {
+            return new DataSlot() {
                 @Override
                 public int get() {
                     return scheduledOutput.isEmpty() ? ~progress : progress;
@@ -147,21 +147,19 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
                     if (value < 0) {
                         scheduledOutput = ItemStack.EMPTY;
                         progress = 0;
-                    }
-                    else {
+                    } else {
                         changedExternal = true;
                     }
                 }
             };
         }
 
-        private boolean tick() {
+        private boolean tick(@Nullable IItemHandler drawer) {
             boolean flag = false;
             if (changedExternal) {
                 // match recipe
-                if (updateRecipe()) {
+                if (updateRecipe())
                     progress = 0;
-                }
                 changedExternal = false;
                 flag = true;
             }
@@ -174,7 +172,7 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
             if (progress >= SugarRefining.REFINE_TIME) {
                 progress = 0;
                 // generate the outputs
-                generateOutputs();
+                generateOutputs(drawer);
                 // the flag is set during output generation
                 changedExternal = true;
                 flag = true;
@@ -193,7 +191,7 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
             }
 
             ItemStack newOutput = SugarRefining.sugarRefining.makeSugar(this.stacks.get(1), this.stacks.get(2),
-                                                                        this.stacks.get(3)
+                    this.stacks.get(3)
             );
             ItemStack output = this.stacks.get(4);
 
@@ -212,12 +210,10 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
         private boolean hasEnoughMilkAndSugar() {
             ItemStack milk = this.stacks.get(0);
             ItemStack sugar = this.stacks.get(1);
-            if (milk.isEmpty() || sugar.isEmpty()) {
+            if (milk.isEmpty() || sugar.isEmpty())
                 return false;
-            }
-            if (!milk.is(ItemRegistry.MILK_TAG) || !SugarRefining.sugarRefining.isSugar(sugar)) {
+            if (!milk.is(ItemRegistry.MILK_TAG) || !SugarRefining.sugarRefining.isSugar(sugar))
                 return false;
-            }
 
             int milkCount = getMilkConsumption(milk);
             int sugarCount = SUGAR_CONSUMPTION;
@@ -225,24 +221,24 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
             return milk.getCount() >= milkCount && sugar.getCount() >= sugarCount;
         }
 
-        private void generateOutputs() {
+        private void generateOutputs(@Nullable IItemHandler drawer) {
             // consume ingredients
             ItemStack milk = this.stacks.get(0);
             int milkConsumption = getMilkConsumption(milk);
-            acceptRemainder(milk.getCraftingRemainingItem(), milkConsumption);
+            acceptRemainder(milk.getCraftingRemainingItem(), milkConsumption, drawer);
             milk.shrink(milkConsumption);
 
             ItemStack sugar = this.stacks.get(1);
             sugar.shrink(SUGAR_CONSUMPTION);
 
             ItemStack main = this.stacks.get(2);
-            acceptRemainder(main.getCraftingRemainingItem(), 1);
+            acceptRemainder(main.getCraftingRemainingItem(), 1, drawer);
             main.shrink(1);
 
             ItemStack extra = this.stacks.get(3);
             SingleEffectSugar.Flavor flavor = SingleEffectSugar.Flavor.fromExtra(extra);
             if (flavor != SingleEffectSugar.Flavor.ORIGINAL) {
-                acceptRemainder(extra.getCraftingRemainingItem(), 1);
+                acceptRemainder(extra.getCraftingRemainingItem(), 1, drawer);
                 extra.shrink(1);
                 SugarRefineryBlockEntity.this.refineFlavoredCallback();
             }
@@ -250,23 +246,23 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
             ItemStack output = this.stacks.get(4);
             if (output.isEmpty()) {
                 scheduledOutput.setCount(SUGAR_PRODUCTION);
-                this.stacks.set(4, scheduledOutput);
-            }
-            else {
+                output = scheduledOutput;
+            } else {
                 output.grow(SUGAR_PRODUCTION);
             }
+            this.stacks.set(4, drain(output, drawer));
             scheduledOutput = ItemStack.EMPTY;
         }
 
-        private void acceptRemainder(ItemStack remainder, int count) {
+        private void acceptRemainder(ItemStack remainder, int count, @Nullable IItemHandler drawer) {
             remainder.setCount(count);
+            remainder = drain(remainder, drawer);
             for (int i = 5; i < 8; i++) {
                 ItemStack stack = this.stacks.get(i);
                 if (stack.isEmpty()) {
                     this.stacks.set(i, remainder);
                     return;
-                }
-                else if (ItemStack.isSameItemSameTags(stack, remainder)) {
+                } else if (ItemStack.isSameItemSameTags(stack, remainder)) {
                     int consume = Math.min(stack.getMaxStackSize() - stack.getCount(), count);
                     stack.grow(consume);
                     this.stacks.set(i, stack);
@@ -287,19 +283,27 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
             }
         }
 
+        private ItemStack drain(ItemStack stack, @Nullable IItemHandler to) {
+            if (to == null)
+                return stack;
+
+            for (int i = 0; i < to.getSlots(); i++) {
+                stack = to.insertItem(i, stack, false);
+            }
+            if (stack.isEmpty())
+                return ItemStack.EMPTY;
+            return stack;
+        }
+
         public IItemHandler getInventoryAccess(Direction facing, @Nullable Direction direction) {
-            if (direction == Direction.UP) {
+            if (direction == Direction.UP)
                 return new RangedWrapper(this, 0, 2);
-            }
-            if (direction == Direction.DOWN) {
+            if (direction == Direction.DOWN)
                 return new RangedWrapper(this, 4, 8);
-            }
-            if (direction == facing.getClockWise()) {
+            if (direction == facing.getClockWise())
                 return new RangedWrapper(this, 2, 3);
-            }
-            if (direction == facing.getCounterClockWise()) {
+            if (direction == facing.getCounterClockWise())
                 return new RangedWrapper(this, 3, 4);
-            }
             return new RangedWrapper(this, 2, 8);
         }
 
