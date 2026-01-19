@@ -22,6 +22,7 @@ public class ApothBlends {
         builder.addOverworldBlend(ApothSugars.VITALITY, VITALITY_BERRY.get());
 
         builder.addNetherBlend(ApothSugars.KNOWLEDGE, KNOWLEDGE_BOTTLE.get());
-        builder.addNetherBlend(ApothSugars.BLEEDING, Apoth.Items.BROADHEAD_ARROW.get());
+        // Disabling Village module will remove the arrow item, so we have to check for its presence
+        Apoth.Items.BROADHEAD_ARROW.ifPresent(i -> builder.addNetherBlend(ApothSugars.BLEEDING, i));
     }
 }

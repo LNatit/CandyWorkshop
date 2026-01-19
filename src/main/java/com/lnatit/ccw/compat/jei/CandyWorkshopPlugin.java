@@ -8,6 +8,7 @@ import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
@@ -44,5 +45,10 @@ public class CandyWorkshopPlugin implements IModPlugin
         List<RefiningRecipe> recipes =
                 SugarRefining.sugarRefining.getAllBlends().stream().map(RefiningRecipe::new).toList();
         registration.addRecipes(REFINING, recipes);
+    }
+
+    @Override
+    public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
+        registration.addRecipeCatalyst(ItemRegistry.SUGAR_REFINERY.get(), REFINING);
     }
 }
