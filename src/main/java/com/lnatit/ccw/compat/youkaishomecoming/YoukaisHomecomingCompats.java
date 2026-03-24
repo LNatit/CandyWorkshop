@@ -29,11 +29,11 @@ public class YoukaisHomecomingCompats
                                    () -> new Sugar(Sugar.Type.OVERWORLD,
                                                    Ingredient.of(YHTea.OOLONG.leaves))
             );
-    public static final DeferredHolder<Sugar, Sugar> YOUKAI_COFFEE =
-            Sugars.SUGARS.register("youkai_coffee",
-                                   () -> new Sugar(Sugar.Type.OVERWORLD,
-                                                   Ingredient.of(YHItems.COFFEE_POWDER))
-            );
+//    public static final DeferredHolder<Sugar, Sugar> YOUKAI_COFFEE =
+//            Sugars.SUGARS.register("youkai_coffee",
+//                                   () -> new Sugar(Sugar.Type.OVERWORLD,
+//                                                   Ingredient.of(YHItems.COFFEE_POWDER))
+//            );
     public static final DeferredHolder<Sugar, Sugar> UDUMBARA =
             Sugars.SUGARS.register("udumbara",
                                    () -> new Sugar(Sugar.Type.OVERWORLD,

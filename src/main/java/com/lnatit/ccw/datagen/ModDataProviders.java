@@ -345,9 +345,9 @@ public class ModDataProviders extends DatapackBuiltinEntriesProvider
                           Effect.simple(YHEffects.SOBER))
                 .defaultBold()
 
-                .register(YoukaisHomecomingCompats.YOUKAI_COFFEE,
-                          Effect.simple(YHEffects.CAFFEINATED),
-                          Effect.simple(YHEffects.SOBER))
+//                .register(YoukaisHomecomingCompats.YOUKAI_COFFEE,
+//                          Effect.simple(YHEffects.CAFFEINATED),
+//                          Effect.simple(YHEffects.SOBER))
                 .defaultBold()
 
                 .register(YoukaisHomecomingCompats.UDUMBARA, Effect.simple(YHEffects.UDUMBARA))

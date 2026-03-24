@@ -187,9 +187,9 @@ dependencies {
     // No src to download
     implementation("l2core:l2core:3.0.8+3")
     // https://www.curseforge.com/minecraft/mc-mods/gensokyo-delight-youkais-feasts/files
-//    implementation("curse.maven:gensokyo-delight-youkais-feasts-1309991:7798640")
+    implementation("curse.maven:gensokyo-delight-youkais-feasts-1309991:7798640")
     // https://modrinth.com/mod/youkaishomecoming/versions?g=1.21.1
-    implementation("youkaishomecoming:youkaishomecoming:3.0.8")
+//    implementation("youkaishomecoming:youkaishomecoming:3.0.8")
 
 //    implementation "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
 }
