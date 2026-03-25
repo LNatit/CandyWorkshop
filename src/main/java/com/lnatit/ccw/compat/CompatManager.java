@@ -16,7 +16,7 @@ public class CompatManager
                     new Entry("fruitsdelight", "com.lnatit.ccw.compat.FruitsDelightCompats"),
                     new Entry("kaleidoscope_cookery", "com.lnatit.ccw.compat.CookeryCompat"),
                     new Entry("neapolitan", "com.lnatit.ccw.compat.NeapolitanCompats"),
-//                    new Entry("youkaisfeasts", "com.lnatit.ccw.compat.youkaishomecoming.YoukaisHomecomingCompats"),
+//                    new Entry("youkaisfeasts", "com.lnatit.ccw.compat.YoukaisFeastsCompats"),
                     new Entry("youkaishomecoming", "com.lnatit.ccw.compat.YoukaisHomecomingCompats"));
 
     public static void loadCompats() {

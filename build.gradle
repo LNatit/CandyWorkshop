@@ -159,18 +159,6 @@ neoForge {
 
 configurations {
     runtimeClasspath.extendsFrom localRuntime
-
-    // 让 datagen 继承 main 的外部依赖
-    datagenImplementation.extendsFrom implementation
-    datagenCompileOnly.extendsFrom compileOnly
-    datagenRuntimeOnly.extendsFrom runtimeOnly
-
-    // 动态让所有 compat 源集继承 main 的外部依赖
-    compats.each { suffix, name ->
-        getByName("${name}Implementation").extendsFrom implementation
-        getByName("${name}CompileOnly").extendsFrom compileOnly
-        getByName("${name}RuntimeOnly").extendsFrom runtimeOnly
-    }
 }
 
 dependencies {
@@ -222,11 +210,14 @@ dependencies {
     // Youkais Feasts (isolated sourceSet - shares package names with YoukaisHomecoming)
     // https://www.curseforge.com/minecraft/mc-mods/gensokyo-delight-youkais-feasts/files
     youkaisFeastsImplementation("curse.maven:gensokyo-delight-youkais-feasts-1309991:7798640")
+    // l2core is compileOnly on main but must be on the runtime classpath for compat data gen runs
+    youkaisFeastsRuntimeOnly("l2core:l2core:3.0.8+3")
 
     // Youkais Homecoming (isolated sourceSet - shares package names with YoukaisFeasts)
     // No src to download
     // https://modrinth.com/mod/youkaishomecoming/versions?g=1.21.1
     youkaisHomecomingImplementation("youkaishomecoming:youkaishomecoming:3.0.8")
+    youkaisHomecomingRuntimeOnly("l2core:l2core:3.0.8+3")
 
 //    implementation "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
     // 让 IDE 明确识别：datagen 依赖于 main 的代码
