@@ -133,6 +133,10 @@ neoForge {
     mods {
         "${mod_id}" {
             sourceSet(sourceSets.main)
+            sourceSet(sourceSets.datagen)
+            compats.each { suffix, name ->
+                sourceSet(sourceSets[name])
+            }
         }
     }
 }

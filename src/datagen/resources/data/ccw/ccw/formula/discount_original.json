@@ -1,0 +1,11 @@
+{
+    "effects": [
+        {
+            "duration": 600,
+            "amplifier": 0,
+            "mob_effect": "minecraft:hero_of_the_village"
+        }
+    ],
+    "flavor": "ccw:original",
+    "sugar": "ccw:discount"
+}

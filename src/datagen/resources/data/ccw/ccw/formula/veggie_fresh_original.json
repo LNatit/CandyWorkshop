@@ -1,0 +1,17 @@
+{
+    "neoforge:conditions": [
+        {
+            "type": "neoforge:mod_loaded",
+            "modid": "kaleidoscope_cookery"
+        }
+    ],
+    "effects": [
+        {
+            "duration": 600,
+            "amplifier": 0,
+            "mob_effect": "kaleidoscope_cookery:preservation"
+        }
+    ],
+    "flavor": "ccw:original",
+    "sugar": "ccw:veggie_fresh"
+}

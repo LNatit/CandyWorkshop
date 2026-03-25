@@ -1,0 +1,17 @@
+{
+    "neoforge:conditions": [
+        {
+            "type": "neoforge:mod_loaded",
+            "modid": "neapolitan"
+        }
+    ],
+    "effects": [
+        {
+            "duration": 1200,
+            "amplifier": 0,
+            "mob_effect": "neapolitan:vanilla_scent"
+        }
+    ],
+    "flavor": "ccw:bold",
+    "sugar": "ccw:vanilla"
+}

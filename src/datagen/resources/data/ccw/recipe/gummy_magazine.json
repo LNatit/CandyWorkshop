@@ -1,0 +1,24 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+        "#": {
+            "item": "ccw:carametal"
+        },
+        "C": {
+            "item": "minecraft:chest"
+        },
+        "S": {
+            "item": "minecraft:iron_trapdoor"
+        }
+    },
+    "pattern": [
+        "#S#",
+        "#C#",
+        "###"
+    ],
+    "result": {
+        "count": 1,
+        "id": "ccw:gummy_magazine"
+    }
+}

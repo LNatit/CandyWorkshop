@@ -1,0 +1,11 @@
+{
+    "effects": [
+        {
+            "duration": 1200,
+            "amplifier": 0,
+            "mob_effect": "minecraft:absorption"
+        }
+    ],
+    "flavor": "ccw:bold",
+    "sugar": "ccw:golden_heart"
+}

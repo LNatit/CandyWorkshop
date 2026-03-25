@@ -1,0 +1,24 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+        "#": {
+            "item": "ccw:carametal"
+        },
+        "C": {
+            "item": "minecraft:diamond"
+        },
+        "S": {
+            "tag": "ccw:nether_sugar"
+        }
+    },
+    "pattern": [
+        "#S#",
+        "#C#",
+        "###"
+    ],
+    "result": {
+        "count": 1,
+        "id": "ccw:nether_smithing_wafer"
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "neoforge:conditions": [
+        {
+            "type": "neoforge:mod_loaded",
+            "modid": "fruitsdelight"
+        }
+    ],
+    "effects": [
+        {
+            "duration": 600,
+            "amplifier": 0,
+            "mob_effect": "fruitsdelight:rage_aura"
+        }
+    ],
+    "flavor": "ccw:original",
+    "sugar": "ccw:mango"
+}

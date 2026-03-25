@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:smithing_transform",
+    "addition": {
+        "item": "minecraft:netherite_ingot"
+    },
+    "base": {
+        "item": "ccw:gummy_magazine"
+    },
+    "result": {
+        "count": 1,
+        "id": "ccw:nether_magazine"
+    },
+    "template": {
+        "item": "ccw:nether_smithing_wafer"
+    }
+}
