@@ -1,0 +1,27 @@
+{
+    "neoforge:conditions": [
+        {
+            "type": "neoforge:mod_loaded",
+            "modid": "youkaishomecoming"
+        }
+    ],
+    "effects": [
+        {
+            "duration": 600,
+            "amplifier": 0,
+            "mob_effect": "youkaishomecoming:tea_polyphenols"
+        },
+        {
+            "duration": 600,
+            "amplifier": 0,
+            "mob_effect": "youkaishomecoming:thick"
+        },
+        {
+            "duration": 600,
+            "amplifier": 0,
+            "mob_effect": "youkaishomecoming:sober"
+        }
+    ],
+    "flavor": "ccw:original",
+    "sugar": "ccw:black_tea"
+}

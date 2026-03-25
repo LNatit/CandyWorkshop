@@ -1,4 +1,4 @@
-package com.lnatit.ccw.compat.kaleidoscope;
+package com.lnatit.ccw.compat;
 
 import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.item.sugaring.Flavor;

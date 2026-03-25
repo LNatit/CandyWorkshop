@@ -1,10 +1,10 @@
 package com.lnatit.ccw.datagen;
 
-import com.lnatit.ccw.compat.apothesis.ApothesisCompats;
-import com.lnatit.ccw.compat.farmersdelight.FarmersDelightCompats;
-import com.lnatit.ccw.compat.fruitsdelight.FruitsDelightCompats;
-import com.lnatit.ccw.compat.kaleidoscope.CookeryCompat;
-import com.lnatit.ccw.compat.neapolitan.NeapolitanCompats;
+import com.lnatit.ccw.compat.ApothesisCompats;
+import com.lnatit.ccw.compat.FarmersDelightCompats;
+import com.lnatit.ccw.compat.FruitsDelightCompats;
+import com.lnatit.ccw.compat.CookeryCompat;
+import com.lnatit.ccw.compat.NeapolitanCompats;
 import com.lnatit.ccw.data.Effect;
 import com.lnatit.ccw.item.sugaring.Sugars;
 import com.teamabnormals.neapolitan.core.registry.NeapolitanMobEffects;

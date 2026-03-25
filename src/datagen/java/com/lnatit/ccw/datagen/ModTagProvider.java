@@ -2,7 +2,7 @@ package com.lnatit.ccw.datagen;
 
 import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.block.BlockRegistry;
-import com.lnatit.ccw.compat.farmersdelight.FarmersDelightCompats;
+import com.lnatit.ccw.compat.FarmersDelightCompats;
 import com.lnatit.ccw.item.ItemRegistry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;

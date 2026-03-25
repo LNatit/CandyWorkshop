@@ -1,8 +1,8 @@
 package com.lnatit.ccw.datagen;
 
 import com.lnatit.ccw.CandyWorkshop;
-import com.lnatit.ccw.compat.apothesis.ApothesisCompats;
-import com.lnatit.ccw.compat.farmersdelight.FarmersDelightCompats;
+import com.lnatit.ccw.compat.ApothesisCompats;
+import com.lnatit.ccw.compat.FarmersDelightCompats;
 import com.lnatit.ccw.item.GummyGlazerItem;
 import com.lnatit.ccw.item.GummyMagazineItem;
 import com.lnatit.ccw.item.ItemRegistry;

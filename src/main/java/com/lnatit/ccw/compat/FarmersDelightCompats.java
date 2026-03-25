@@ -1,4 +1,4 @@
-package com.lnatit.ccw.compat.farmersdelight;
+package com.lnatit.ccw.compat;
 
 import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.item.sugaring.Sugar;

@@ -1,6 +1,6 @@
 package com.lnatit.ccw.datagen;
 
-import com.lnatit.ccw.compat.youkaishomecoming.YoukaisHomecomingCompats;
+import com.lnatit.ccw.compat.YoukaisHomecomingCompats;
 import com.lnatit.ccw.data.Effect;
 import dev.xkmc.youkaishomecoming.init.registrate.YHEffects;
 import net.minecraft.core.HolderLookup;

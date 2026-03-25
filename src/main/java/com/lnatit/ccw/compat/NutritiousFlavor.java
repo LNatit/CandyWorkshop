@@ -1,4 +1,4 @@
-package com.lnatit.ccw.compat.kaleidoscope;
+package com.lnatit.ccw.compat;
 
 import com.github.ysbbbbbb.kaleidoscopecookery.init.ModItems;
 import com.lnatit.ccw.item.FoodsAndConsumables;

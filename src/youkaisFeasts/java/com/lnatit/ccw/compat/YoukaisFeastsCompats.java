@@ -1,4 +1,4 @@
-package com.lnatit.ccw.compat.youkaisfeasts;
+package com.lnatit.ccw.compat;
 
 import com.lnatit.ccw.item.sugaring.Sugar;
 import com.lnatit.ccw.item.sugaring.Sugars;
