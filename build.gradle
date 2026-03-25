@@ -48,8 +48,8 @@ sourceSets {
         java { srcDir 'src/datagen/java' }
         resources {
             srcDirs = ['src/datagen/resources',
-                       'src/youkaisFeasts/resources',
-                       'src/youkaisHomecoming/resources']
+                       'src/datagen/resources_yf',
+                       'src/datagen/resources_yh']
         }
     }
 
@@ -101,14 +101,14 @@ neoForge {
         data {
             data()
             sourceSet = project.sourceSets.datagen
-            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/datagen/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
         }
 
         dataYf {
             data()
             sourceSet = project.sourceSets.youkaisFeasts
             programArguments.addAll '--mod', project.mod_id, '--all',
-                    '--output', file('src/generated_yf/resources/').getAbsolutePath(),
+                    '--output', file('src/datagen/resources_yf/').getAbsolutePath(),
                     '--existing', file('src/main/resources/').getAbsolutePath()
         }
 
@@ -116,7 +116,7 @@ neoForge {
             data()
             sourceSet = project.sourceSets.youkaisHomecoming
             programArguments.addAll '--mod', project.mod_id, '--all',
-                    '--output', file('src/generated_yh/resources/').getAbsolutePath(),
+                    '--output', file('src/datagen/resources_yh/').getAbsolutePath(),
                     '--existing', file('src/main/resources/').getAbsolutePath()
         }
 
