@@ -1,8 +1,0 @@
-// 1.21.1	2026-03-12T17:26:12.9931353	Tags for minecraft:item mod id ccw
-ef6b9fcd21308d450c6e04b364c521694db6d21f data/ccw/tags/item/carton_milk.json
-95dd5f1c5b24f3c270c08d5fb8294f85956c07b8 data/ccw/tags/item/ender_sugar.json
-712b021167934a41460f90940d0cb7188ba0d0e8 data/ccw/tags/item/nether_sugar.json
-e78c1565fcd29217870736109453b34b3d4755f3 data/ccw/tags/item/overworld_sugar.json
-ef6b9fcd21308d450c6e04b364c521694db6d21f data/c/tags/item/drinks/milk.json
-ef6b9fcd21308d450c6e04b364c521694db6d21f data/c/tags/item/foods/milk.json
-7b449885227a46ca99e0997ed4ea770678b113c2 data/farmersdelight/tags/item/meals.json

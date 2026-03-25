@@ -23,21 +23,23 @@ public class DataGenerate
 
         generator.addProvider(
                 event.includeServer(),
-                new ModDataProviders(output, lookupProvider)
+                new CandyWorkshopData(output, lookupProvider)
         );
 
         generator.addProvider(
                 event.includeClient(),
-                new ModModelProvider.Block(output, existingFileHelper)
+                new CandyWorkshopBlocks(output, existingFileHelper)
         );
         generator.addProvider(
                 event.includeClient(),
-                new ModModelProvider.Item(output, existingFileHelper)
+                new CandyWorkshopItems(output, existingFileHelper)
         );
+
         generator.addProvider(
                 event.includeClient(),
-                new ModEN_USProvider(output)
+                new CandyWorkshopLang(output)
         );
+
         generator.addProvider(
                 event.includeClient(),
                 new ModSoundProvider(output, existingFileHelper)
@@ -47,20 +49,24 @@ public class DataGenerate
                 event.includeServer(),
                 new ModAdvcmtProvider(output, lookupProvider)
         );
+
         generator.addProvider(
                 event.includeServer(),
                 new ModRecipeProvider(output, lookupProvider)
         );
+
         generator.addProvider(
                 event.includeServer(),
                 new ModLootProvider(output, lookupProvider)
         );
+
         var blockTags = new ModTagProvider.BlockTags(output, lookupProvider, existingFileHelper);
         generator.addProvider(
                 event.includeServer(),
                 blockTags
 
         );
+
         generator.addProvider(
                 event.includeServer(),
                 new ModTagProvider.ItemTags(output, lookupProvider, blockTags.contentsGetter(), existingFileHelper)

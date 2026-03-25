@@ -1,6 +1,0 @@
-{
-    "parent": "minecraft:item/generated",
-    "textures": {
-        "layer0": "ccw:item/sweet_and_sour_meat_sauce"
-    }
-}
