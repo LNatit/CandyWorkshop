@@ -286,8 +286,8 @@ tasks.named('processResources', ProcessResources).configure {
 
 tasks.named('jar', Jar).configure {
     it.duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-dependsOn mergeLangFilesTask
-   // compats.each { suffix, name -> from sourceSets.named(name).get().output}
+    dependsOn mergeLangFilesTask
+    compats.each { suffix, name -> from sourceSets.named(name).get().output}
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
