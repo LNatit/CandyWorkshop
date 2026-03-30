@@ -49,17 +49,18 @@ def compats = ["YF": "youkaisFeasts",
 sourceSets {
     datagen {
         resources {
-            compats.each { suffix, name -> srcDirs += "src/datagen/resources_${suffix.toLowerCase()}"
+            srcDir 'src/generated/resources'
+            compats.each { suffix, name -> srcDirs += "src/generated/resources/_${suffix.toLowerCase()}"
             }
         }
-        compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
-        runtimeClasspath += sourceSets.main.output + sourceSets.main.runtimeClasspath
+//        compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
+//        runtimeClasspath += sourceSets.main.output + sourceSets.main.runtimeClasspath
     }
 
     compats.each { suffix, name ->
         create("${name}") {
-            compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
-            runtimeClasspath += sourceSets.main.output + sourceSets.main.runtimeClasspath
+//            compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
+//            runtimeClasspath += sourceSets.main.output + sourceSets.main.runtimeClasspath
         }
     }
 
@@ -78,6 +79,10 @@ neoForge {
     parchment {
         mappingsVersion = project.parchment_mappings_version
         minecraftVersion = project.parchment_minecraft_version
+    }
+
+    addModdingDependenciesTo(project.sourceSets.datagen)
+    compats.each { suffix, name -> addModdingDependenciesTo(project.sourceSets[name])
     }
 
     // This line is optional. Access Transformers are automatically detected
@@ -104,7 +109,7 @@ neoForge {
             data()
             sourceSet = project.sourceSets.datagen
             programArguments.addAll '--mod', project.mod_id, '--all',
-                    '--output', file('src/datagen/resources/').getAbsolutePath(),
+                    '--output', file('src/generated/resources/').getAbsolutePath(),
                     '--existing', file('src/main/resources/').getAbsolutePath()
         }
 
@@ -113,7 +118,7 @@ neoForge {
             create("data${suffix}") {
                 data()
                 sourceSet = sourceSets[name]
-                def outputDir = file("src/datagen/resources_${suffix.toLowerCase()}/").getAbsolutePath()
+                def outputDir = file("src/generated/resources_${suffix.toLowerCase()}/").getAbsolutePath()
                 def compatResDir = file("src/${name}/resources/").getAbsolutePath()
                 def mainResDir = file('src/main/resources/').getAbsolutePath()
                 programArguments.addAll '--mod', project.mod_id, '--all',
@@ -131,34 +136,57 @@ neoForge {
 
     mods {
         "${mod_id}" {
-            sourceSet(sourceSets.main)
+            sourceSet sourceSets.main
+            sourceSet sourceSets.datagen
+            compats.each { _, name -> sourceSet sourceSets[name] }
 
-            def taskNames = gradle.startParameter.taskNames
-
-            boolean isDataGen = taskNames.any { taskArg ->
-                // 将 ":runData" 这样的参数按 ":" 分割并取最后一部分，得到干净的任务名
-                def cleanTaskName = taskArg.split(':').last()
-                return cleanTaskName == 'runData'
-            }
-            if (isDataGen) sourceSet(sourceSets.datagen)
-
-            compats.each { suffix, name ->
-                // 目标任务名，例如 "rundatayf" (全小写方便比较)
-                def targetTask = "runData${suffix}"
-                // 严格匹配逻辑：
-                boolean isStrictMatch = taskNames.any { taskArg ->
-                    // 将 ":runDataYF" 这样的参数按 ":" 分割并取最后一部分，得到干净的任务名
-                    def cleanTaskName = taskArg.split(':').last()
-                    return cleanTaskName == targetTask
-                }
-                if (isStrictMatch) sourceSet(sourceSets[name])
-            }
+//            def taskNames = gradle.startParameter.taskNames
+//
+//            boolean isDataGen = taskNames.any { taskArg ->
+//                // 将 ":runData" 这样的参数按 ":" 分割并取最后一部分，得到干净的任务名
+//                def cleanTaskName = taskArg.split(':').last()
+//                return cleanTaskName == 'runData'
+//            }
+//            if (isDataGen) sourceSet(sourceSets.datagen)
+//
+//            compats.each { suffix, name ->
+//                // 目标任务名，例如 "rundatayf" (全小写方便比较)
+//                def targetTask = "runData${suffix}"
+//                // 严格匹配逻辑：
+//                boolean isStrictMatch = taskNames.any { taskArg ->
+//                    // 将 ":runDataYF" 这样的参数按 ":" 分割并取最后一部分，得到干净的任务名
+//                    def cleanTaskName = taskArg.split(':').last()
+//                    return cleanTaskName == targetTask
+//                }
+//                if (isStrictMatch) sourceSet(sourceSets[name])
+//            }
+//
+//            if (taskNames.isEmpty() || taskNames.contains("idea") || taskNames.contains("prepareworkspace") || taskNames.contains("build")) {
+//                sourceSet(sourceSets.datagen)
+//                compats.each { _, name -> sourceSet(sourceSets[name]) }
+//            }
         }
     }
 }
 
 configurations {
     runtimeClasspath.extendsFrom localRuntime
+
+    datagenImplementation.extendsFrom implementation
+    datagenCompileOnly.extendsFrom compileOnly
+    datagenRuntimeOnly.extendsFrom runtimeOnly
+
+    compats.each { suffix, name ->
+        "${name}Implementation" {
+            extendsFrom implementation
+        }
+        "${name}CompileOnly" {
+            extendsFrom compileOnly
+        }
+        "${name}RuntimeOnly" {
+            extendsFrom runtimeOnly
+        }
+    }
 }
 
 dependencies {
@@ -216,30 +244,29 @@ dependencies {
     // Youkais Homecoming (isolated sourceSet - shares package names with YoukaisFeasts)
     // No src to download
     // https://modrinth.com/mod/youkaishomecoming/versions?g=1.21.1
+    youkaisHomecomingImplementation("l2core:l2core:3.0.8+3")
     youkaisHomecomingImplementation("youkaishomecoming:youkaishomecoming:3.0.8")
-    youkaisHomecomingRuntimeOnly("l2core:l2core:3.0.8+3")
 
 //    implementation "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
     // 让 IDE 明确识别：datagen 依赖于 main 的代码
     datagenImplementation sourceSets.main.output
 
     // 让 IDE 明确识别：各个 compat 隔离模块也依赖于 main 的代码
-    compats.each { suffix, name ->
-        "${name}Implementation"(sourceSets.main.output)
+    compats.each { suffix, name -> "${name}Implementation"(sourceSets.main.output)
     }
 }
 
 def langRelPath = "assets/${mod_id}/lang/en_us.json"
 def mergeLangFilesTask = tasks.register('mergeLangFiles', MergeLangTask) {
-    sources.from([file('src/datagen/resources'),
-                  *compats.collect { s, _ -> file("src/datagen/resources_${s.toLowerCase()}") }]
+    sources.from([file('src/generated/resources'),
+                  *compats.collect { s, _ -> file("src/generated/resources_${s.toLowerCase()}") }]
             .collect { new File(it, langRelPath) })
     outputFile = layout.projectDirectory.file("src/main/resources/${langRelPath}")
     outputs.upToDateWhen { false }
 }
 
-(['runData'] + compats.collect { s, _ -> "runData${s}" }).each { taskName -> tasks.named(taskName).configure { finalizedBy mergeLangFilesTask }
-}
+//(['runData'] + compats.collect { s, _ -> "runData${s}" }).each { taskName -> tasks.named(taskName).configure { finalizedBy mergeLangFilesTask }
+//}
 
 tasks.named('processResources', ProcessResources).configure {
     dependsOn mergeLangFilesTask            // ensure merge runs before packaging
@@ -258,6 +285,8 @@ tasks.named('processResources', ProcessResources).configure {
 }
 
 tasks.named('jar', Jar).configure {
+    it.duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
     compats.each { suffix, name -> from sourceSets.named(name).get().output
     }
 }

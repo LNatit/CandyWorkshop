@@ -12,7 +12,7 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 import java.util.concurrent.CompletableFuture;
 
 @EventBusSubscriber(modid = CandyWorkshop.MODID, bus = EventBusSubscriber.Bus.MOD)
-public class DataGenerate
+public class ModData
 {
     @SubscribeEvent
     public static void onGatherData(GatherDataEvent event) {

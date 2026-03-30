@@ -12,7 +12,7 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 import java.util.concurrent.CompletableFuture;
 
 @EventBusSubscriber(modid = CandyWorkshop.MODID)
-public class DataGenerate
+public class YHData
 {
     @SubscribeEvent
     public static void onGatherData(GatherDataEvent event) {
@@ -23,7 +23,7 @@ public class DataGenerate
 
         generator.addProvider(
                 event.includeServer(),
-                new YoukaisFeastsData(output, lookupProvider)
+                new YoukaisHomecomingData(output, lookupProvider)
         );
     }
 }
