@@ -269,7 +269,7 @@ def mergeLangFilesTask = tasks.register('mergeLangFiles', MergeLangTask) {
 //}
 
 tasks.named('processResources', ProcessResources).configure {
-    dependsOn mergeLangFilesTask            // ensure merge runs before packaging
+  //  dependsOn mergeLangFilesTask            // ensure merge runs before packaging
     from sourceSets.main.resources          // ← contains the merged en_us.json
     compats.each { suffix, name ->
         from(sourceSets.named(name).map { it.resources }) {
@@ -286,9 +286,8 @@ tasks.named('processResources', ProcessResources).configure {
 
 tasks.named('jar', Jar).configure {
     it.duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-
-    compats.each { suffix, name -> from sourceSets.named(name).get().output
-    }
+dependsOn mergeLangFilesTask
+   // compats.each { suffix, name -> from sourceSets.named(name).get().output}
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
