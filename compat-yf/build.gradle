@@ -1,0 +1,30 @@
+plugins {
+    id 'java-library'
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDir 'src/generated/resources'
+        }
+    }
+}
+
+dependencies {
+    implementation project(':core')
+
+    // Youkais Feasts (shares package names with YoukaisHomecoming)
+    // https://www.curseforge.com/minecraft/mc-mods/gensokyo-delight-youkais-feasts/files
+    implementation("curse.maven:gensokyo-delight-youkais-feasts-1309991:7798640")
+    // l2core is compileOnly on core but must be on the runtime classpath for compat data gen runs
+    runtimeOnly("l2core:l2core:3.0.8+3")
+}
+
+tasks.named('processResources', ProcessResources).configure {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    exclude '.cache'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}

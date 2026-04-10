@@ -1,0 +1,30 @@
+plugins {
+    id 'java-library'
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDir 'src/generated/resources'
+        }
+    }
+}
+
+dependencies {
+    implementation project(':core')
+
+    // Youkais Homecoming (shares package names with YoukaisFeasts)
+    // No src to download
+    // https://modrinth.com/mod/youkaishomecoming/versions?g=1.21.1
+    implementation("l2core:l2core:3.0.8+3")
+    implementation("youkaishomecoming:youkaishomecoming:3.0.8")
+}
+
+tasks.named('processResources', ProcessResources).configure {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    exclude '.cache'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
