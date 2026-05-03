@@ -69,7 +69,7 @@ public class DrawerTableBlock extends BaseEntityBlock
     }
 
     @Override
-    protected int getAnalogOutputSignal(BlockState blockState, Level level, BlockPos pos) {
+    protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos, Direction direction) {
         if (level.getBlockEntity(pos) instanceof IItemStackHandlerContainer container) {
             return container.getAnalogOutput();
         }

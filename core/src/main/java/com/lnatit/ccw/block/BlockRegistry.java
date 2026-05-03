@@ -26,7 +26,7 @@ public interface BlockRegistry {
     DeferredBlock<SugarRefineryBlock> SUGAR_REFINERY =
             BLOCKS.registerBlock("sugar_refinery",
                     SugarRefineryBlock::new,
-                    BlockBehaviour.Properties.of()
+                                 () -> BlockBehaviour.Properties.of()
                             .mapColor(MapColor.COLOR_BLACK)
                             .strength(1.5F)
                             .noOcclusion()
@@ -34,7 +34,7 @@ public interface BlockRegistry {
     DeferredBlock<DrawerTableBlock> PLAIN_DRAWER_TABLE =
             BLOCKS.registerBlock("plain_drawer_table",
                     DrawerTableBlock::new,
-                    BlockBehaviour.Properties.of()
+                                 () -> BlockBehaviour.Properties.of()
                             .mapColor(MapColor.WOOD)
                             .strength(2.5F)
                             .sound(SoundType.WOOD)
@@ -43,7 +43,7 @@ public interface BlockRegistry {
     DeferredBlock<DrawerTableBlock> DRAWER_TABLE =
             BLOCKS.registerBlock("drawer_table",
                     DrawerTableBlock::new,
-                    BlockBehaviour.Properties.of()
+                                 () -> BlockBehaviour.Properties.of()
                             .mapColor(MapColor.WOOD)
                             .strength(2.5F)
                             .sound(SoundType.WOOD)
@@ -57,16 +57,14 @@ public interface BlockRegistry {
             BLOCK_ENTITIES.register("sugar_refinery",
                     () -> new BlockEntityType<>(
                             SugarRefineryBlockEntity::new,
-                            Set.of(SUGAR_REFINERY.get()),
-                            null
+                            Set.of(SUGAR_REFINERY.get())
                     )
             );
     DeferredHolder<BlockEntityType<?>, BlockEntityType<DrawerTableBlockEntity>> DRAWER_TABLE_BETYPE =
             BLOCK_ENTITIES.register("drawer_table",
                     () -> new BlockEntityType<>(
                             DrawerTableBlockEntity::new,
-                            Set.of(PLAIN_DRAWER_TABLE.get(), DRAWER_TABLE.get()),
-                            null
+                            Set.of(PLAIN_DRAWER_TABLE.get(), DRAWER_TABLE.get())
                     )
             );
 
