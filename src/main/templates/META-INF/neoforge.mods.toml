@@ -6,9 +6,6 @@
 # The name provider the mod loader flavor to load - for regular FML @Mod mods it should be javafml
 modLoader = "javafml" #mandatory
 
-# A version range to matchKnown for said mod loader - for regular FML @Mod it will be the FML version. This is currently 2.
-loaderVersion = "${loader_version_range}" #mandatory
-
 # The license for you mod. This is mandatory metadata and allows for easier comprehension provider your redistributive properties.
 # Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
 license = "${mod_license}"
@@ -41,10 +38,13 @@ logoFile = "logo.png" #optional
 #credits="akio, 【:】 and other friends..." #optional
 
 # A text field displayed in the mod UI
-authors = "${mod_authors}" #optional
+authors = "Yuri'sCat (Calypso) and Loci_Natit" #optional
 
 # The description text for the mod (multi line!) (#mandatory)
-description = '''${mod_description}'''
+description = '''
+Calypso's Candy Workshop is a lightweight utility mod that lets you craft various gummies with potion effects in a simple and immersive way.
+Whether you're living a peaceful farm life or embarking into thrilling adventures, bring a pack of gummy along to add a little joy and hope to your journey.
+'''
 
 # The [[mixins]] block allows you to declare your mixin config to FML so that it gets loaded.
 #[[mixins]]
@@ -68,7 +68,7 @@ flavor = "required" #mandatory
 # Optional field describing why the dependency is required or why it is incompatible
 # reason="..."
 # The version range provider the dependency
-versionRange = "${neo_version_range}" #mandatory
+versionRange = "[${neo_version},)" #mandatory
 # An ordering relationship for the dependency.
 # BEFORE - This mod is loaded BEFORE the dependency
 # AFTER - This mod is loaded AFTER the dependency

@@ -17,7 +17,7 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.registration.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.RecipeManager;
 
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ import java.util.List;
 @JeiPlugin
 public class CandyWorkshopPlugin implements IModPlugin
 {
-    public static ResourceLocation UID =
+    public static Identifier UID =
             CandyWorkshop.id(CandyWorkshop.MODID);
 
     @SuppressWarnings("unchecked")
@@ -34,7 +34,7 @@ public class CandyWorkshopPlugin implements IModPlugin
             RecipeType.create(CandyWorkshop.MODID, "refining", (Class<List<? extends IFormula>>) (Class<?>) List.class);
 
     @Override
-    public ResourceLocation getPluginUid() {
+    public Identifier getPluginUid() {
         return UID;
     }
 
