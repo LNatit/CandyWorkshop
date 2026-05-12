@@ -2,7 +2,7 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'idea'
-    id 'net.neoforged.moddev' version '2.0.88' apply false
+    id 'net.neoforged.moddev' version '2.0.141'
 }
 
 tasks.named('wrapper', Wrapper).configure {
@@ -11,9 +11,8 @@ tasks.named('wrapper', Wrapper).configure {
 
 var buildVersion = mod_version
 var buildId = System.getenv('BUILD_ID')
-if (buildId != null) {
+if (buildId != null)
     buildVersion = "${mod_version}+b${buildId}"
-}
 
 version = "v${buildVersion}-mc${minecraft_version}"
 group = mod_group_id
@@ -46,22 +45,18 @@ subprojects {
     apply plugin: 'net.neoforged.moddev'
     apply plugin: 'idea'
 
-    java.toolchain.languageVersion = JavaLanguageVersion.of(java_version)
+    java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 
     sourceSets {
         generated.resources { srcDir 'src/generated/resources' }
     }
 
-    tasks.withType(ProcessResources).configureEach {
-        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-        exclude '.cache'
-        exclude 'assets/ccw/unused'
-    }
-
-
     processResources {
         from sourceSets.main.resources      // main first → wins on DuplicatesStrategy.EXCLUDE
         from sourceSets.generated.resources // generated second
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        exclude '.cache'
+        exclude 'assets/ccw/unused'
     }
 
     configurations {
@@ -79,36 +74,30 @@ subprojects {
     neoForge {
         version = project.neo_version
 
-        parchment {
-            mappingsVersion = project.parchment_mappings_version
-            minecraftVersion = project.parchment_minecraft_version
-        }
-
+//        parchment {
+//            mappingsVersion = project.parchment_mappings_version
+//            minecraftVersion = project.parchment_minecraft_version
+//        }
     }
 
-    def templatesDir = file('src/main/templates')
-    if (templatesDir.exists()) {
-        var generateModMetadata = tasks.register('generateModMetadata', ProcessResources) {
-            var replaceProperties = [minecraft_version      : minecraft_version,
-                                     minecraft_version_range: minecraft_version_range,
-                                     neo_version            : neo_version,
-                                     neo_version_range      : neo_version_range,
-                                     loader_version_range   : loader_version_range,
-                                     mod_id                 : mod_id,
-                                     mod_name               : mod_name,
-                                     mod_license            : mod_license,
-                                     mod_version            : buildVersion,
-                                     mod_authors            : mod_authors,
-                                     mod_description        : mod_description]
-            inputs.properties replaceProperties
-            expand replaceProperties
-            from templatesDir
-            into 'build/generated/sources/modMetadata'
-        }
-
-        sourceSets.main.resources.srcDir generateModMetadata
-        neoForge.ideSyncTask generateModMetadata
+    var generateModMetadata = tasks.register('generateModMetadata', ProcessResources) {
+        var replaceProperties = [
+                minecraft_version      : minecraft_version,
+                minecraft_version_range: minecraft_version_range,
+                neo_version            : neo_version,
+                mod_id                 : mod_id,
+                mod_name               : mod_name,
+                mod_license            : mod_license,
+                mod_version            : mod_version,
+        ]
+        inputs.properties replaceProperties
+        expand replaceProperties
+        from "src/main/templates"
+        into 'build/generated/sources/modMetadata'
     }
+
+    sourceSets.main.resources.srcDir generateModMetadata
+    neoForge.ideSyncTask generateModMetadata
 
     tasks.withType(JavaCompile).configureEach {
         options.encoding = 'UTF-8'
@@ -134,12 +123,12 @@ def compatProjects = [
 
 // activeCompats must be defined BEFORE apply from: so the applied script can reference it via ext.
 ext.activeCompats = [
-        project(':compat-apotheosis'),
-        project(':compat-farmersdelight'),
-        project(':compat-fruitsdelight'),
-        project(':compat-kaleidoscope'),
-        project(':compat-neapolitan'),
-        project(':compat-youkaisfeasts'),
+//        project(':compat-apotheosis'),
+//        project(':compat-farmersdelight'),
+//        project(':compat-fruitsdelight'),
+//        project(':compat-kaleidoscope'),
+//        project(':compat-neapolitan'),
+//        project(':compat-youkaisfeasts'),
 //        project(':compat-youkaishomecoming')
 ]
 
@@ -216,7 +205,7 @@ project(':data') {
 
         runs {
             data {
-                data()
+                clientData()
                 programArguments.addAll '--mod', project.mod_id, '--all',
                         '--output', rootProject.project(':core').file('src/generated/resources/').getAbsolutePath(),
                         '--existing', rootProject.project(':core').file('src/main/resources/').getAbsolutePath()
@@ -364,7 +353,7 @@ configure(compatProjects) {
             }
 
             data {
-                data()
+                clientData()
                 programArguments.addAll '--mod', project.mod_id, '--all',
                         '--output', file('src/generated/resources/').getAbsolutePath(),
                         '--existing', rootProject.project(':core').file('src/main/resources/').getAbsolutePath(),
