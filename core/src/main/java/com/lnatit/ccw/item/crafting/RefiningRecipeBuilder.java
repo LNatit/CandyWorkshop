@@ -1,21 +1,20 @@
 package com.lnatit.ccw.item.crafting;
 
-import com.lnatit.ccw.data.IFormula;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.resources.Identifier;
-import net.minecraft.world.item.Item;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import org.jetbrains.annotations.Nullable;
 
 public class RefiningRecipeBuilder implements RecipeBuilder
 {
     protected SizedIngredient milk;
-    protected SizedIngredient sugar = SizedIngredient.of(Items.SUGAR, IFormula.SUGAR_CONSUMPTION);
+    protected SizedIngredient sugar;
+//    {SizedIngredient.of(Items.SUGAR, IFormula.SUGAR_CONSUMPTION);}
     protected Ingredient main;
     protected Ingredient extra;
     protected ItemStack result;
@@ -49,17 +48,17 @@ public class RefiningRecipeBuilder implements RecipeBuilder
     }
 
     @Override
-    public Item getResult() {
-        return this.result.getItem();
+    public ResourceKey<Recipe<?>> defaultId() {
+        return RecipeBuilder.getDefaultRecipeId(this.result);
     }
 
     @Override
-    public void save(RecipeOutput recipeOutput, Identifier Identifier) {
-        saveInternal(this.milk, recipeOutput, Identifier);
+    public void save(RecipeOutput recipeOutput, ResourceKey<Recipe<?>> location) {
+        saveInternal(this.milk, recipeOutput, location);
     }
 
-    private void saveInternal(SizedIngredient milk, RecipeOutput recipeOutput, Identifier Identifier) {
+    private void saveInternal(SizedIngredient milk, RecipeOutput recipeOutput, ResourceKey<Recipe<?>> location) {
         RefiningRecipe recipe = new RefiningRecipe(milk, this.sugar, this.main, this.extra, this.result);
-        recipeOutput.accept(Identifier, recipe, null);
+        recipeOutput.accept(location, recipe, null);
     }
 }

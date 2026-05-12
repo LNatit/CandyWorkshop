@@ -16,6 +16,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.neoforged.fml.loading.FMLEnvironment;
 
@@ -93,20 +94,21 @@ public class GummyMagazineItem extends GummyDeviceItem
 
     @Override
     public void appendHoverText(
-            ItemStack stack,
+            ItemStack itemStack,
             TooltipContext context,
-            List<Component> tooltipComponents,
+            TooltipDisplay display,
+            java.util.function.Consumer<Component> builder,
             TooltipFlag tooltipFlag
     ) {
-        tooltipComponents.add(DESC_1);
-        tooltipComponents.add(DESC_2);
+        builder.accept(DESC_1);
+        builder.accept(DESC_2);
         if (FMLEnvironment.getDist().isClient() && Screen.hasShiftDown()) {
-            tooltipComponents.add(FOLDED_1);
-            tooltipComponents.add(FOLDED_2);
-            tooltipComponents.add(FOLDED_3);
+            builder.accept(FOLDED_1);
+            builder.accept(FOLDED_2);
+            builder.accept(FOLDED_3);
         }
         else {
-            tooltipComponents.add(DESC_UNFOLD);
+            builder.accept(DESC_UNFOLD);
         }
     }
 

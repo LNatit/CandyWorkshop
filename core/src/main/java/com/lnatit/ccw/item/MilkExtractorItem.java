@@ -18,7 +18,7 @@ public class MilkExtractorItem extends Item {
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity interactionTarget, InteractionHand usedHand) {
         if (interactionTarget instanceof Cow) {
-            if (isBroken(stack) || player.getCooldowns().isOnCooldown(stack.getItem()))
+            if (isBroken(stack) || player.getCooldowns().isOnCooldown(stack))
                 return InteractionResult.FAIL;
 
             int count = 1;
@@ -34,7 +34,7 @@ public class MilkExtractorItem extends Item {
             }
 
             interactionTarget.playSound(SoundRegistry.PLUG_OFF.get());
-            player.getCooldowns().addCooldown(stack.getItem(), 2 * count);
+            player.getCooldowns().addCooldown(stack, 2 * count);
             return InteractionResult.SUCCESS;
         }
         return super.interactLivingEntity(stack, player, interactionTarget, usedHand);

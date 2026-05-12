@@ -14,7 +14,7 @@ import vectorwing.farmersdelight.common.registry.ModEffects;
 
 import java.util.concurrent.CompletableFuture;
 
-@EventBusSubscriber(modid = CandyWorkshop.MODID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = CandyWorkshop.MODID)
 public class FarmersDelightDataGenerate {
 
     @SubscribeEvent

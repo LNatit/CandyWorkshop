@@ -1,18 +1,23 @@
 package com.lnatit.ccw.item.crafting;
 
 import com.lnatit.ccw.item.ItemRegistry;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.CraftingBookCategory;
-import net.minecraft.world.item.crafting.CraftingInput;
-import net.minecraft.world.item.crafting.CustomRecipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
 public class RepairExtractorRecipe extends CustomRecipe {
-    public RepairExtractorRecipe(CraftingBookCategory category) {
-        super(category);
+    public static final RepairExtractorRecipe INSTANCE = new RepairExtractorRecipe();
+    public static final MapCodec<RepairExtractorRecipe> MAP_CODEC = MapCodec.unit(INSTANCE);
+    public static final StreamCodec<RegistryFriendlyByteBuf, RepairExtractorRecipe> STREAM_CODEC = StreamCodec.unit(INSTANCE);
+    public static final RecipeSerializer<RepairExtractorRecipe> SERIALIZER = new RecipeSerializer<>(MAP_CODEC, STREAM_CODEC);
+
+    public RepairExtractorRecipe() {
+        super();
     }
 
     @Override
@@ -36,7 +41,7 @@ public class RepairExtractorRecipe extends CustomRecipe {
     }
 
     @Override
-    public ItemStack assemble(CraftingInput input, HolderLookup.Provider registries) {
+    public ItemStack assemble(CraftingInput input) {
         ItemStack extractor = ItemStack.EMPTY;
         int repairCount = 0;
         for (int i = 0; i < input.size(); i++) {
@@ -65,11 +70,6 @@ public class RepairExtractorRecipe extends CustomRecipe {
         extractor.setDamageValue(damage);
 
         return extractor;
-    }
-
-    @Override
-    public boolean canCraftInDimensions(int width, int height) {
-        return true;
     }
 
     @Override

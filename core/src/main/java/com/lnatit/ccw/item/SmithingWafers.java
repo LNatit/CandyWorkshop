@@ -2,7 +2,7 @@ package com.lnatit.ccw.item;
 
 import com.lnatit.ccw.CandyWorkshop;
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.SmithingTemplateItem;
@@ -35,11 +35,12 @@ public interface SmithingWafers {
         return new SmithingTemplateItem(
                 Component.translatable(SmithingWafers.NETHER_GLAZE_APPLIES_TO).withStyle(DESCRIPTION_FORMAT),
                 Component.translatable(SmithingWafers.NETHER_GLAZE_INGREDIENTS).withStyle(DESCRIPTION_FORMAT),
-                Component.translatable(SmithingWafers.NETHER_GLAZE_UPGRADE).withStyle(TITLE_FORMAT),
+//                Component.translatable(SmithingWafers.NETHER_GLAZE_UPGRADE).withStyle(TITLE_FORMAT),
                 Component.translatable(SmithingWafers.NETHER_GLAZE_BASE_SLOT_DESC),
                 Component.translatable(SmithingWafers.NETHER_GLAZE_ADDITIONS_SLOT_DESC),
                 UPGRADE_ICONS,
-                List.of(EMPTY_SLOT_INGOT)
+                List.of(EMPTY_SLOT_INGOT),
+
         );
     }
 
@@ -47,11 +48,12 @@ public interface SmithingWafers {
         return new SmithingTemplateItem(
                 Component.translatable(SmithingWafers.ENDER_GLAZE_APPLIES_TO).withStyle(DESCRIPTION_FORMAT),
                 Component.translatable(SmithingWafers.ENDER_GLAZE_INGREDIENTS).withStyle(DESCRIPTION_FORMAT),
-                Component.translatable(SmithingWafers.ENDER_GLAZE_UPGRADE).withStyle(TITLE_FORMAT),
+//                Component.translatable(SmithingWafers.ENDER_GLAZE_UPGRADE).withStyle(TITLE_FORMAT),
                 Component.translatable(SmithingWafers.ENDER_GLAZE_BASE_SLOT_DESC),
                 Component.translatable(SmithingWafers.ENDER_GLAZE_ADDITIONS_SLOT_DESC),
                 UPGRADE_ICONS,
-                List.of(EMPTY_SLOT_DRAGON_HEAD)
+                List.of(EMPTY_SLOT_DRAGON_HEAD),
+
         );
     }
 }

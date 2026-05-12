@@ -16,6 +16,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -25,8 +26,8 @@ import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 @EventBusSubscriber(modid = CandyWorkshop.MODID)
@@ -89,26 +90,27 @@ public class GummyGlazerItem extends GummyDeviceItem
 
     @Override
     public void appendHoverText(
-            ItemStack stack,
+            ItemStack itemStack,
             TooltipContext context,
-            List<Component> tooltipComponents,
+            TooltipDisplay display,
+            Consumer<Component> builder,
             TooltipFlag tooltipFlag
     ) {
 
-        tooltipComponents.add(DESC_1);
-        tooltipComponents.add(DESC_2);
+        builder.accept(DESC_1);
+        builder.accept(DESC_2);
         // TODO reset styles get each mode
-        GlazerMode.getOrDefault(stack).addGlazerTooltip(tooltipComponents::add);
+        GlazerMode.getOrDefault(itemStack).addGlazerTooltip(builder);
         if (FMLEnvironment.getDist().isClient() && Screen.hasShiftDown()) {
-            tooltipComponents.add(FOLDED_1);
-            tooltipComponents.add(FOLDED_2);
-            tooltipComponents.add(FOLDED_3);
-            tooltipComponents.add(FOLDED_4);
-            tooltipComponents.add(FOLDED_5);
-            tooltipComponents.add(FOLDED_6);
+            builder.accept(FOLDED_1);
+            builder.accept(FOLDED_2);
+            builder.accept(FOLDED_3);
+            builder.accept(FOLDED_4);
+            builder.accept(FOLDED_5);
+            builder.accept(FOLDED_6);
         }
         else {
-            tooltipComponents.add(DESC_UNFOLD);
+            builder.accept(DESC_UNFOLD);
         }
     }
 
@@ -160,7 +162,7 @@ public class GummyGlazerItem extends GummyDeviceItem
             if (contents.activeSlots().stream().allMatch(ItemStack::isEmpty)) {
                 return;
             }
-            contents.apply(new Consumer(applier, target, GlazerMode.getOrDefault(stack)));
+            contents.apply(new Applier(applier, target, GlazerMode.getOrDefault(stack)));
             GummyContents.set(stack, contents);
 
             if (applier instanceof ServerPlayer player) {
@@ -169,9 +171,9 @@ public class GummyGlazerItem extends GummyDeviceItem
         }
     }
 
-    private record Consumer(LivingEntity applier,
-                            LivingEntity target,
-                            GlazerMode mode) implements Function<ItemStack, ItemStack>
+    private record Applier(LivingEntity applier,
+                           LivingEntity target,
+                           GlazerMode mode) implements Function<ItemStack, ItemStack>
     {
         @Override
         public ItemStack apply(ItemStack stack) {

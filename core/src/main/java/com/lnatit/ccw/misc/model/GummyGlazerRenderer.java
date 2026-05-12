@@ -10,19 +10,23 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.block.model.ItemTransform;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.client.ClientHooks;
 import org.joml.Vector3f;
+import org.jspecify.annotations.Nullable;
 
 import static net.minecraft.client.renderer.entity.ItemRenderer.getFoilBufferDirect;
 
 
-public class GummyGlazerRenderer extends BlockEntityWithoutLevelRenderer {
+public class GummyGlazerRenderer extends SpecialModelRenderer<NonNullList<ItemStack>>
+{
     public static final double STEP = 0.0625;
     public static final ItemTransform STEP_1 = new ItemTransform(
             new Vector3f(0, 180, 0),
@@ -32,6 +36,31 @@ public class GummyGlazerRenderer extends BlockEntityWithoutLevelRenderer {
 
     public GummyGlazerRenderer() {
         super(dispatcher(), Minecraft.getInstance().getEntityModels());
+    }
+
+    @Override
+    public @Nullable NonNullList<ItemStack> extractArgument(ItemStack stack) {
+        if (Minecraft.getInstance().screen instanceof GummyGlazerScreen screen) {
+            return screen.getMenu().items();
+        }
+        GummyContents contents = stack.get(ItemRegistry.GLAZER_CONTENTS_DCTYPE);
+        return contents == null ? null : contents.items();
+    }
+
+    @Override
+    public void submit(
+            @Nullable NonNullList<ItemStack> argument,
+            PoseStack poseStack,
+            SubmitNodeCollector submitNodeCollector,
+            int lightCoords,
+            int overlayCoords,
+            boolean hasFoil,
+            int outlineColor
+    ) {
+        if (argument == null) {
+            return;
+        }
+        // TODO
     }
 
     @Override

@@ -10,7 +10,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.RegistryBuilder;
 
-@EventBusSubscriber(modid = CandyWorkshop.MODID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = CandyWorkshop.MODID)
 public interface RegRegistry
 {
     ResourceKey<Registry<Sugar>> SUGAR_KEY = ResourceKey.createRegistryKey(

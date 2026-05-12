@@ -11,7 +11,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
-@EventBusSubscriber(modid = CandyWorkshop.MODID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = CandyWorkshop.MODID)
 public class KaleidoCookeryDataGenerate {
     @SubscribeEvent
     public static void onGatherData(GatherDataEvent event) {

@@ -16,18 +16,19 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.client.event.ScreenEvent;
+import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import net.neoforged.neoforge.client.settings.KeyConflictContext;
 import net.neoforged.neoforge.common.util.Lazy;
-import net.neoforged.neoforge.network.PacketDistributor;
 import org.lwjgl.glfw.GLFW;
 
 @EventBusSubscriber(value = Dist.CLIENT, modid = CandyWorkshop.MODID)
 public interface KeyRegistry {
-    Lazy<KeyMapping> SWITCH_MODE = Lazy.of(() -> new KeyMapping("key.ccw.switch_mode",
+    Lazy<KeyMapping> SWITCH_MODE = Lazy.of(() -> new KeyMapping(
+            "key.ccw.switch_mode",
             KeyConflictContext.GUI,
             InputConstants.Type.KEYSYM,
             GLFW.GLFW_KEY_D,
-            "key.categories.misc"));
+            KeyMapping.Category.MISC));
 
     @SubscribeEvent
     static void registerBindings(RegisterKeyMappingsEvent event) {
@@ -37,9 +38,9 @@ public interface KeyRegistry {
     @SubscribeEvent
     static void onKeyPressed(ScreenEvent.KeyPressed.Pre event) {
         if (event.getScreen() instanceof AbstractContainerScreen<?> screen
-                && SWITCH_MODE.get().isActiveAndMatches(InputConstants.getKey(event.getKeyCode(), event.getScanCode()))) {
+                && SWITCH_MODE.get().isActiveAndMatches(InputConstants.getKey(event.getKeyEvent()))) {
             Player player = Minecraft.getInstance().player;
-            Slot slot = screen.getSlotUnderMouse();
+            Slot slot = screen.getHoveredSlot();
             if (slot != null && player != null
                     && slot.allowModification(player)
                     && slot.hasItem()
@@ -48,7 +49,7 @@ public interface KeyRegistry {
                 GlazerMode newMode = old == GlazerMode.SAVE ? GlazerMode.EXTEND : GlazerMode.SAVE;
                 slot.getItem().set(ItemRegistry.GLAZER_MODE_DCTYPE, newMode);
                 // Notify server
-                PacketDistributor.sendToServer(new UpdateGlazerModePayload(slot.index, newMode));
+                ClientPacketDistributor.sendToServer(new UpdateGlazerModePayload(slot.index, newMode));
                 event.setCanceled(true);
             }
         }

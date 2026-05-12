@@ -96,7 +96,7 @@ public record SugarContents(Holder<Sugar> sugar, Holder<Flavor> flavor)
     }
 
     public void onConsume(LivingEntity entity) {
-        if (!entity.level().isClientSide) {
+        if (!entity.level().isClientSide()) {
             Optional<Formula> optional = Formula.getFormulaOptional(this.sugar, this.flavor);
             optional.ifPresent(formula -> applyOn(formula, entity));
 

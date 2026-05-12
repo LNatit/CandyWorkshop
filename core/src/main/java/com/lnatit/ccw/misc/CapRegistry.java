@@ -9,18 +9,18 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 
-@EventBusSubscriber(modid = CandyWorkshop.MODID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = CandyWorkshop.MODID)
 public interface CapRegistry {
     @SubscribeEvent
-    static void registerCapabilities(final RegisterCapabilitiesEvent event) {
+    static void registerCapabilities(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(
-                Capabilities.ItemHandler.BLOCK,
+                Capabilities.Item.BLOCK,
                 BlockRegistry.SUGAR_REFINERY_BETYPE.get(),
                 SugarRefineryBlockEntity::accessInventory
         );
 
         event.registerBlockEntity(
-                Capabilities.ItemHandler.BLOCK,
+                Capabilities.Item.BLOCK,
                 BlockRegistry.DRAWER_TABLE_BETYPE.get(),
                 DrawerTableBlockEntity::accessInventory
         );

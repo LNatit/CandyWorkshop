@@ -28,7 +28,7 @@ public class SugarStat {
     }
 
     public static AttachmentType<SugarStat> type() {
-        return AttachmentType.builder(() -> new SugarStat()).serialize(CODEC).build();
+        return AttachmentType.builder(() -> new SugarStat()).serialize(CODEC.fieldOf("sugar_stat")).build();
     }
 
     public void addHistory(Holder<Sugar> holder, ServerPlayer player) {

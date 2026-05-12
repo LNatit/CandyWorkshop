@@ -5,6 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.util.StringUtil;
 import net.minecraft.world.effect.MobEffect;
@@ -35,12 +36,16 @@ public record Effect(Holder<MobEffect> mobEffect, int duration, int amplifier)
     }
 
     public void extendEffect(LivingEntity entity) {
+        if (entity.level().isClientSide()) {
+            return;
+        }
+
         int duration = this.duration;
         int amplifier = this.amplifier;
 
         // Instantenous effect behaves differently
         if (this.mobEffect.value().isInstantenous()) {
-            this.mobEffect.value().applyInstantenousEffect(entity, entity, entity, amplifier, 0.5);
+            this.mobEffect.value().applyInstantenousEffect((ServerLevel) entity.level(), entity, entity, entity, amplifier, 0.5);
         }
         else {
             MobEffectInstance exist = entity.getEffect(this.mobEffect);

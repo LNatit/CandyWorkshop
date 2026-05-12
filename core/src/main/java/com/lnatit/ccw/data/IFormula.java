@@ -26,8 +26,8 @@ public interface IFormula
     }
 
     static void shrinkAndHandleRemainders(ItemStack stack, int count, Consumer<ItemStack> remainderHandler) {
-        if (stack.hasCraftingRemainingItem()) {
-            ItemStack remainder = stack.getCraftingRemainingItem();
+        if (stack.getCraftingRemainder() != null) {
+            ItemStack remainder = stack.getCraftingRemainder().create();
             remainder.setCount(count);
             remainderHandler.accept(remainder);
         }
@@ -59,10 +59,10 @@ public interface IFormula
     }
 
     static boolean isMain(ItemStack stack) {
-        return RegRegistry.SUGAR.holders().anyMatch(ref -> ref.value().ingredient().test(stack));
+        return RegRegistry.SUGAR.stream().anyMatch(ref -> ref.ingredient().test(stack));
     }
 
     static boolean isExtra(ItemStack stack) {
-        return RegRegistry.FLAVOR.holders().anyMatch(ref -> ref.value().ingredient().test(stack));
+        return RegRegistry.FLAVOR.stream().anyMatch(ref -> ref.ingredient().test(stack));
     }
 }

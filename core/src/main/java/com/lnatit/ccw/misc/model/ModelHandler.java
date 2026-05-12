@@ -18,7 +18,7 @@ import net.neoforged.neoforge.client.event.ModelEvent;
 
 import java.util.Map;
 
-@EventBusSubscriber(modid = CandyWorkshop.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = CandyWorkshop.MODID, value = Dist.CLIENT)
 public interface ModelHandler
 {
     Identifier BROKEN = CandyWorkshop.id("broken");
