@@ -96,7 +96,7 @@ public class ModModelProvider
             basicItem(ApothBlends.VITALITY_BERRY.get());
             // FarmersDelight
             basicItem(FarmersDelightCompats.GLAZED_MEAT_RICE.get());
-            basicItem(FarmersDelightCompats.SWEET_HARVEST_SOUP.get());
+//            basicItem(FarmersDelightCompats.SWEET_HARVEST_SOUP.get());
         }
     }
 }

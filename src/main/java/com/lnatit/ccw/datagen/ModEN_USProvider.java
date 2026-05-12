@@ -85,7 +85,7 @@ public class ModEN_USProvider extends LanguageProvider
 
         // FarmersDelight
         this.add(FarmersDelightCompats.GLAZED_MEAT_RICE.get(), "Glazed Meat Rice");
-        this.add(FarmersDelightCompats.SWEET_HARVEST_SOUP.get(), "Sweet Harvest Soup");
+//        this.add(FarmersDelightCompats.SWEET_HARVEST_SOUP.get(), "Sweet Harvest Soup");
 
         // Apotheosis
         this.add(ApothBlends.MALIGNANT_BERRY.get(), "Malignant Berry");

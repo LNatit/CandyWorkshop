@@ -59,8 +59,8 @@ public class ModTagProvider
                     .add(net.minecraft.world.item.Items.GLOW_BERRIES);
 
             this.tag(ItemTags.create(new ResourceLocation("farmersdelight", "meals")))
-                .add(FarmersDelightCompats.GLAZED_MEAT_RICE.get())
-                .add(FarmersDelightCompats.SWEET_HARVEST_SOUP.get());
+                .add(FarmersDelightCompats.GLAZED_MEAT_RICE.get());
+//                .add(FarmersDelightCompats.SWEET_HARVEST_SOUP.get());
         }
     }
 }

@@ -277,15 +277,15 @@ public class ModRecipeProvider extends RecipeProvider
                                .addIngredient(ForgeTags.SALAD_INGREDIENTS)
                                .unlockedBy("has_gummy", has(ItemRegistry.GUMMY_ITEM.get()))
                                .setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
-                               .build(output);
+                               .save(output);
 
-        CookingPotRecipeBuilder.cookingPotRecipe(FarmersDelightCompats.SWEET_HARVEST_SOUP.get(), 1, 200, 1.0F)
-                .addIngredient(ItemRegistry.GUMMY_ITEM.get())
-                .addIngredient(ModTagProvider.Items.FORGE_FRUITS)
-                .addIngredient(ForgeTags.SALAD_INGREDIENTS)
-                .addIngredient(ForgeTags.MILK)
-                .unlockedBy("has_gummy", has(ItemRegistry.GUMMY_ITEM.get()))
-                .setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
-                .build(output);
+//        CookingPotRecipeBuilder.cookingPotRecipe(FarmersDelightCompats.SWEET_HARVEST_SOUP.get(), 1, 200, 1.0F)
+//                .addIngredient(ItemRegistry.GUMMY_ITEM.get())
+//                .addIngredient(ModTagProvider.Items.FORGE_FRUITS)
+//                .addIngredient(ForgeTags.SALAD_INGREDIENTS)
+//                .addIngredient(ForgeTags.MILK)
+//                .unlockedBy("has_gummy", has(ItemRegistry.GUMMY_ITEM.get()))
+//                .setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
+//                .save(output);
     }
 }

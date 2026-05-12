@@ -24,13 +24,13 @@ public class FarmersDelightCompats
                     .withNoExcited()
                     .build()
     );
-    public static final RegistryObject<SingleEffectSugar> COMFORT = Sugars.registerSingle(
-            "comfort",
-            builder -> builder
-                    .withEffect(ModEffects.COMFORT.get())
-                    .withNoExcited()
-                    .build()
-    );
+//    public static final RegistryObject<SingleEffectSugar> COMFORT = Sugars.registerSingle(
+//            "comfort",
+//            builder -> builder
+//                    .withEffect(ModEffects.COMFORT.get())
+//                    .withNoExcited()
+//                    .build()
+//    );
 
     public static final Supplier<Item> GLAZED_MEAT_RICE = registerWithTab(
             "glazed_meat_rice",
@@ -44,18 +44,18 @@ public class FarmersDelightCompats
                     )
             )
     );
-    public static final Supplier<Item> SWEET_HARVEST_SOUP = registerWithTab(
-            "sweet_harvest_soup",
-            () -> new ConsumableItem(
-                    ModItems.bowlFoodItem(
-                            new FoodProperties.Builder()
-                                    .nutrition(8)
-                                    .saturationMod(FoodConstants.FOOD_SATURATION_NORMAL)
-                                    .effect(() -> new MobEffectInstance(ModEffects.COMFORT.get(), 6000, 0), 1.0F)
-                                    .build()
-                    )
-            )
-    );
+//    public static final Supplier<Item> SWEET_HARVEST_SOUP = registerWithTab(
+//            "sweet_harvest_soup",
+//            () -> new ConsumableItem(
+//                    ModItems.bowlFoodItem(
+//                            new FoodProperties.Builder()
+//                                    .nutrition(8)
+//                                    .saturationMod(FoodConstants.FOOD_SATURATION_NORMAL)
+//                                    .effect(() -> new MobEffectInstance(ModEffects.COMFORT.get(), 6000, 0), 1.0F)
+//                                    .build()
+//                    )
+//            )
+//    );
 
     public static void init() {
         SugarRefining.addCustomBlendProviders(FarmersDelightCompats::addBlends);
@@ -69,6 +69,6 @@ public class FarmersDelightCompats
 
     private static void addBlends(SugarRefining.Builder builder) {
         builder.addOverworldBlend(NOURISHED, GLAZED_MEAT_RICE.get());
-        builder.addOverworldBlend(COMFORT, SWEET_HARVEST_SOUP.get());
+//        builder.addOverworldBlend(COMFORT, SWEET_HARVEST_SOUP.get());
     }
 }
