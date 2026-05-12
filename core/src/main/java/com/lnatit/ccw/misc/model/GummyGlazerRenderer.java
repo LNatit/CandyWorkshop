@@ -13,7 +13,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.ItemTransform;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
@@ -94,7 +93,7 @@ public class GummyGlazerRenderer extends BlockEntityWithoutLevelRenderer {
         return Minecraft.getInstance().getBlockEntityRenderDispatcher();
     }
 
-    public static ModelResourceLocation of(GummyGlazerItem glazer) {
+    public static ModelIdentifier of(GummyGlazerItem glazer) {
         if (glazer == ItemRegistry.NETHER_GLAZER.get()) {
             return ModelHandler.NETHER_GLAZER;
         }

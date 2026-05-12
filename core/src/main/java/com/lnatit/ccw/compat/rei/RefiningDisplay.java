@@ -14,7 +14,7 @@
 //import net.minecraft.core.Holder;
 //import net.minecraft.network.codec.ByteBufCodecs;
 //import net.minecraft.network.codec.StreamCodec;
-//import net.minecraft.resources.ResourceLocation;
+//import net.minecraft.resources.Identifier;
 //import net.minecraft.world.item.ItemStack;
 //import net.neoforged.neoforge.common.util.ConcatenatedListView;
 //import org.jetbrains.annotations.Nullable;
@@ -94,7 +94,7 @@
 //    }
 //
 //    @Override
-//    public Optional<ResourceLocation> getDisplayLocation() {
+//    public Optional<Identifier> getDisplayLocation() {
 //        return Optional.empty();
 //    }
 //

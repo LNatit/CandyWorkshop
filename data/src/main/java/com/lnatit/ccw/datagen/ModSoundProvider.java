@@ -17,7 +17,7 @@ public class ModSoundProvider extends SoundDefinitionsProvider
 
     @Override
     public void registerSounds() {
-        // Accepts a Supplier<SoundEvent>, a SoundEvent, or a ResourceLocation as the first parameter.
+        // Accepts a Supplier<SoundEvent>, a SoundEvent, or a Identifier as the first parameter.
         add(SoundRegistry.PLUG_OFF,
             SoundDefinition.definition()
                            .with(

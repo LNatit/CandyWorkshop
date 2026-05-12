@@ -4,7 +4,7 @@ import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.block.entity.DrawerTableBlockEntity;
 import com.lnatit.ccw.block.entity.SugarRefineryBlockEntity;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
@@ -71,7 +71,7 @@ public interface BlockRegistry {
             );
 
     private static TagKey<Block> tag(String namespace, String name) {
-        return BlockTags.create(ResourceLocation.fromNamespaceAndPath(namespace, name));
+        return BlockTags.create(Identifier.fromNamespaceAndPath(namespace, name));
     }
 
     private static TagKey<Block> tag(String name) {

@@ -56,7 +56,7 @@ public class ModTagProvider
             this.tag(ItemRegistry.CARTON_MILK_TAG)
                 .add(ItemRegistry.CARTON_MILK.get())
                 .add(ItemRegistry.CALCIUM_RICH_MILK.get())
-//                .addOptional(ResourceLocation.parse("kitchenkarrot:milk"))
+//                .addOptional(Identifier.parse("kitchenkarrot:milk"))
             ;
 
             this.tag(ItemRegistry.OVERWORLD_SUGAR_TAG)

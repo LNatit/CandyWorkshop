@@ -9,7 +9,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -48,14 +48,14 @@ public class GummyMagazineItem extends GummyDeviceItem
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
+    public InteractionResult use(Level level, Player player, InteractionHand usedHand) {
         ItemStack itemstack = player.getItemInHand(usedHand);
         MutableContents magazine = this.getMutable(itemstack);
         boolean client = level.isClientSide();
 
         if (player.isShiftKeyDown()) {
             if (!client) {
-                int slot = usedHand == InteractionHand.MAIN_HAND ? player.getInventory().selected : 0;
+                int slot = usedHand == InteractionHand.MAIN_HAND ? player.getInventory().getSelectedSlot() : 0;
                 GummyContentMenu.Provider provider = GummyContentMenu.provider(this.type,
                                                                                magazine,
                                                                                usedHand,
@@ -66,14 +66,14 @@ public class GummyMagazineItem extends GummyDeviceItem
         }
         else {
             if (magazine.activeSlots().stream().allMatch(ItemStack::isEmpty)) {
-                return InteractionResultHolder.fail(itemstack);
+                return InteractionResult.FAIL;
             }
             eatGummies(level, player, magazine);
             GummyContents.set(itemstack, magazine);
         }
 
         player.awardStat(Stats.ITEM_USED.get(this));
-        return InteractionResultHolder.sidedSuccess(itemstack, level.isClientSide());
+        return InteractionResult.SUCCESS_SERVER;
     }
 
     public static void eatGummies(Level level, Player player, MutableContents magazine) {
@@ -100,7 +100,7 @@ public class GummyMagazineItem extends GummyDeviceItem
     ) {
         tooltipComponents.add(DESC_1);
         tooltipComponents.add(DESC_2);
-        if (FMLEnvironment.dist.isClient() && Screen.hasShiftDown()) {
+        if (FMLEnvironment.getDist().isClient() && Screen.hasShiftDown()) {
             tooltipComponents.add(FOLDED_1);
             tooltipComponents.add(FOLDED_2);
             tooltipComponents.add(FOLDED_3);

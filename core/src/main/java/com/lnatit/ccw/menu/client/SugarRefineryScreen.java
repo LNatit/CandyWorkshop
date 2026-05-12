@@ -8,16 +8,16 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import net.neoforged.neoforge.client.gui.widget.ExtendedButton;
 
 public class SugarRefineryScreen extends AbstractContainerScreen<SugarRefineryMenu> {
-    public static final ResourceLocation BACKGROUND_LOCATION =
+    public static final Identifier BACKGROUND_LOCATION =
             CandyWorkshop.id("textures/gui/container/sugar_refinery.png");
-    public static final ResourceLocation ANIMATION_SPRITE =
+    public static final Identifier ANIMATION_SPRITE =
             CandyWorkshop.id("container/sugar_refinery/stirring");
-    public static final ResourceLocation PROGRESS_SPRITE =
+    public static final Identifier PROGRESS_SPRITE =
             CandyWorkshop.id("container/sugar_refinery/progress");
     public static final Tooltip PAUSE = Tooltip.create(Component.translatable("container.sugar_refinery.pause"));
     public static final Tooltip START = Tooltip.create(Component.translatable("container.sugar_refinery.start"));

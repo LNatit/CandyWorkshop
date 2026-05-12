@@ -9,7 +9,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -40,7 +40,7 @@ public class FarmersDelightTagProvider {
 
         @Override
         protected void addTags(HolderLookup.Provider provider) {
-            this.tag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("farmersdelight", "meals")))
+            this.tag(ItemTags.create(Identifier.fromNamespaceAndPath("farmersdelight", "meals")))
                     .add(FarmersDelightCompats.GLAZED_MEAT_RICE.get());
         }
     }

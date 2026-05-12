@@ -15,7 +15,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.advancements.AdvancementProvider;
 import net.minecraft.data.advancements.AdvancementSubProvider;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -58,11 +58,11 @@ public class ModAdvcmtProvider extends AdvancementProvider {
                         new ItemStack(ItemRegistry.SUGAR_REFINERY.asItem()),
                         AdvancementResources.ROOT.name(),
                         AdvancementResources.ROOT.desc(),
-                        ResourceLocation.fromNamespaceAndPath(
+                        Identifier.fromNamespaceAndPath(
                                 CandyWorkshop.MODID,
                                 "textures/gui/advancements/backgrounds/ccw.png"
                         ),
-//                        ResourceLocation.withDefaultNamespace("textures/block/pink_wool.png"),
+//                        Identifier.withDefaultNamespace("textures/block/pink_wool.png"),
                         AdvancementType.TASK,
                         true,
                         true,
@@ -386,9 +386,9 @@ public class ModAdvcmtProvider extends AdvancementProvider {
         private final AdvancementHolder parent;
         private final String nameKey;
         private final String descKey;
-        private final ResourceLocation id;
+        private final Identifier id;
 
-        public AdvancementResources(String name, @Nullable AdvancementHolder parent, String nameKey, String descKey, ResourceLocation id) {
+        public AdvancementResources(String name, @Nullable AdvancementHolder parent, String nameKey, String descKey, Identifier id) {
             this.name = name;
             this.parent = parent;
             this.nameKey = nameKey;

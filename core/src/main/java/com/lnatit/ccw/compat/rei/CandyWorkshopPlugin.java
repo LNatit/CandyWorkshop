@@ -4,7 +4,7 @@
 //import me.shedaniel.rei.api.common.display.DisplaySerializerRegistry;
 //import me.shedaniel.rei.api.common.plugins.REICommonPlugin;
 //import me.shedaniel.rei.forge.REIPluginCommon;
-//import net.minecraft.resources.ResourceLocation;
+//import net.minecraft.resources.Identifier;
 //
 //@REIPluginCommon
 //public class CandyWorkshopPlugin implements REICommonPlugin {

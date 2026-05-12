@@ -3,7 +3,7 @@ package com.lnatit.ccw.compat;
 import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.menu.client.SugarRefineryScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class ModConstants
 {
@@ -11,9 +11,9 @@ public class ModConstants
 
 
     // Note: it's a SPRITE!
-    public static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(
+    public static final Identifier BACKGROUND = Identifier.fromNamespaceAndPath(
             CandyWorkshop.MODID,
             "compat/refining"
     );
-    public static final ResourceLocation ANIMATION_SPRITE = SugarRefineryScreen.ANIMATION_SPRITE;
+    public static final Identifier ANIMATION_SPRITE = SugarRefineryScreen.ANIMATION_SPRITE;
 }

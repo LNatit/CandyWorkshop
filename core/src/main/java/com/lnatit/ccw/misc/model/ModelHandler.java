@@ -7,9 +7,9 @@ import com.lnatit.ccw.item.sugaring.Sugar;
 import com.lnatit.ccw.item.sugaring.Sugars;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.resources.model.ModelIdentifier;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -21,7 +21,7 @@ import java.util.Map;
 @EventBusSubscriber(modid = CandyWorkshop.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
 public interface ModelHandler
 {
-    ResourceLocation BROKEN = CandyWorkshop.id("broken");
+    Identifier BROKEN = CandyWorkshop.id("broken");
 
     @SubscribeEvent
     static void onPropertyRegister(FMLClientSetupEvent event) {
@@ -32,14 +32,14 @@ public interface ModelHandler
                                                                                         : 0.0F));
     }
 
-    ModelResourceLocation GUMMY_GLAZER = ModelResourceLocation.standalone(CandyWorkshop.id("item/gummy_glazer_base"));
-    ModelResourceLocation NETHER_GLAZER = ModelResourceLocation.standalone(CandyWorkshop.id("item/nether_glazer_base"));
-    ModelResourceLocation ENDER_GLAZER = ModelResourceLocation.standalone(CandyWorkshop.id("item/ender_glazer_base"));
+    ModelIdentifier GUMMY_GLAZER = ModelIdentifier.standalone(CandyWorkshop.id("item/gummy_glazer_base"));
+    ModelIdentifier NETHER_GLAZER = ModelIdentifier.standalone(CandyWorkshop.id("item/nether_glazer_base"));
+    ModelIdentifier ENDER_GLAZER = ModelIdentifier.standalone(CandyWorkshop.id("item/ender_glazer_base"));
 
     @SubscribeEvent
     static void onModelRegister(ModelEvent.RegisterAdditional event) {
         for (Holder<Sugar> sugarHolder : Sugars.SUGARS.getEntries()) {
-            event.register(ModelResourceLocation.standalone(Sugar.getModelId(sugarHolder)));
+            event.register(ModelIdentifier.standalone(Sugar.getModelId(sugarHolder)));
         }
 
         event.register(GUMMY_GLAZER);
@@ -49,8 +49,8 @@ public interface ModelHandler
 
     @SubscribeEvent
     static void onModelBake(ModelEvent.ModifyBakingResult event) {
-        Map<ModelResourceLocation, BakedModel> modelMap = event.getModels();
-        ModelResourceLocation gummy = ModelResourceLocation.inventory(ItemRegistry.GUMMY.getId());
+        Map<ModelIdentifier, BakedModel> modelMap = event.getModels();
+        ModelIdentifier gummy = ModelIdentifier.inventory(ItemRegistry.GUMMY.getId());
         modelMap.compute(gummy, (k, original) -> SugarOverrideHandler.getModel(original));
     }
 }

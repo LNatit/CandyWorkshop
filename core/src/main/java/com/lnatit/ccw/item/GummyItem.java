@@ -3,7 +3,7 @@ package com.lnatit.ccw.item;
 import com.lnatit.ccw.item.component.SugarContents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -29,7 +29,7 @@ public class GummyItem extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
+    public InteractionResult use(Level level, Player player, InteractionHand usedHand) {
         if (usedHand == InteractionHand.MAIN_HAND && player.isCreative() && player.isShiftKeyDown()) {
             ItemStack itemstack = player.getItemInHand(usedHand).copy();
             SugarContents contents = itemstack.get(ItemRegistry.SUGAR_CONTENTS_DCTYPE);
@@ -40,7 +40,7 @@ public class GummyItem extends Item {
                 itemstack.set(ItemRegistry.SUGAR_CONTENTS_DCTYPE, contents);
 
                 player.setItemInHand(usedHand, itemstack);
-                return InteractionResultHolder.consume(itemstack);
+                return InteractionResult.CONSUME;
             }
         }
         return super.use(level, player, usedHand);

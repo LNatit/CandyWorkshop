@@ -14,7 +14,7 @@
 //import me.shedaniel.rei.api.common.util.EntryStacks;
 //import me.shedaniel.rei.impl.client.gui.widget.basewidgets.PanelWidget;
 //import net.minecraft.network.chat.Component;
-//import net.minecraft.resources.ResourceLocation;
+//import net.minecraft.resources.Identifier;
 //
 //import java.util.ArrayList;
 //import java.util.List;
@@ -25,7 +25,7 @@
 //    public static final Component TITLE = Component.translatable("compat.ccw.rei.title");
 //    public static final Renderer ICON = EntryStacks.provider(ItemRegistry.SUGAR_REFINERY);
 //    // Note: it's a SPRITE!
-//    public static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(
+//    public static final Identifier BACKGROUND = Identifier.fromNamespaceAndPath(
 //            CandyWorkshop.MODID,
 //            "rei/refining"
 //    );

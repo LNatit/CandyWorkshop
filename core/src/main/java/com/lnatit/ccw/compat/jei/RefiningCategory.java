@@ -124,7 +124,7 @@ public class RefiningCategory extends AbstractRecipeCategory<List<? extends IFor
             // Share a same main
             return formula.sugar().value().ingredient();
         }
-        return Ingredient.EMPTY;
+        return Ingredient.of();
     }
 
     private static List<ItemStack> getExtra(List<Formula> recipe) {

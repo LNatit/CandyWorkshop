@@ -10,7 +10,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -69,11 +69,11 @@ public class GummyGlazerItem extends GummyDeviceItem
 
     // TODO check whether to switch between modes
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
+    public InteractionResult use(Level level, Player player, InteractionHand usedHand) {
         if (player.isShiftKeyDown()) {
             ItemStack itemstack = player.getItemInHand(usedHand);
-            if (!level.isClientSide) {
-                int slot = usedHand == InteractionHand.MAIN_HAND ? player.getInventory().selected : 0;
+            if (!level.isClientSide()) {
+                int slot = usedHand == InteractionHand.MAIN_HAND ? player.getInventory().getSelectedSlot() : 0;
                 GummyContentMenu.Provider provider = GummyContentMenu.provider(this.type,
                                                                                this.getMutable(itemstack),
                                                                                usedHand,
@@ -82,7 +82,7 @@ public class GummyGlazerItem extends GummyDeviceItem
                 player.openMenu(provider);
             }
             player.awardStat(Stats.ITEM_USED.get(this));
-            return InteractionResultHolder.sidedSuccess(itemstack, level.isClientSide());
+            return InteractionResult.SUCCESS_SERVER;
         }
         return super.use(level, player, usedHand);
     }
@@ -99,7 +99,7 @@ public class GummyGlazerItem extends GummyDeviceItem
         tooltipComponents.add(DESC_2);
         // TODO reset styles get each mode
         GlazerMode.getOrDefault(stack).addGlazerTooltip(tooltipComponents::add);
-        if (FMLEnvironment.dist.isClient() && Screen.hasShiftDown()) {
+        if (FMLEnvironment.getDist().isClient() && Screen.hasShiftDown()) {
             tooltipComponents.add(FOLDED_1);
             tooltipComponents.add(FOLDED_2);
             tooltipComponents.add(FOLDED_3);

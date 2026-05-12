@@ -3,18 +3,18 @@ package com.lnatit.ccw.menu.client;
 import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.menu.GummyContentMenu;
 import net.minecraft.Util;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import net.neoforged.neoforge.client.gui.widget.ExtendedButton;
 
 public class GummyMagazineScreen extends AbstractContainerScreen<GummyContentMenu> {
-    public static final ResourceLocation BACKGROUND_LOCATION =
+    public static final Identifier BACKGROUND_LOCATION =
             CandyWorkshop.id("textures/gui/container/gummy_magazine.png");
-    public static final ResourceLocation ACTIVE_SLOT_SPRITE =
+    public static final Identifier ACTIVE_SLOT_SPRITE =
             CandyWorkshop.id("container/gummy_container/active_slot");
     public static final int WIDTH = 176;
     public static final int HEIGHT = 188;
@@ -80,7 +80,7 @@ public class GummyMagazineScreen extends AbstractContainerScreen<GummyContentMen
     }
 
     private static class MagazineButton extends ExtendedButton {
-        public static final ResourceLocation BUTTON_SPRITE =
+        public static final Identifier BUTTON_SPRITE =
                 CandyWorkshop.id("container/gummy_magazine/button");
         public static final int MSPF = 50;
         private long lastPressTime = -1;

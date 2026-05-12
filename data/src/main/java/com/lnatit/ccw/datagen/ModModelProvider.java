@@ -7,7 +7,7 @@ import com.lnatit.ccw.item.sugaring.Sugar;
 import com.lnatit.ccw.item.sugaring.Sugars;
 import com.lnatit.ccw.misc.model.ModelHandler;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -73,7 +73,7 @@ public class ModModelProvider
                 sugarModel(sugar);
             }
 
-            ResourceLocation id = ItemRegistry.MILK_EXTRACTOR.getId();
+            Identifier id = ItemRegistry.MILK_EXTRACTOR.getId();
             basicItem(id.withSuffix("_empty"));
             getBuilder(id.toString())
                     .parent(new ModelFile.UncheckedModelFile("item/generated"))

@@ -2,16 +2,16 @@ package com.lnatit.ccw.menu.client;
 
 import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.menu.GummyContentMenu;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 
 public class GummyGlazerScreen extends AbstractContainerScreen<GummyContentMenu> {
-    public static final ResourceLocation BACKGROUND_LOCATION =
+    public static final Identifier BACKGROUND_LOCATION =
             CandyWorkshop.id("textures/gui/container/gummy_glazer.png");
-    public static final ResourceLocation ACTIVE_SLOT_SPRITE =
+    public static final Identifier ACTIVE_SLOT_SPRITE =
             CandyWorkshop.id("container/gummy_container/active_slot");
     public static final int WIDTH = 176;
     public static final int HEIGHT = 188;

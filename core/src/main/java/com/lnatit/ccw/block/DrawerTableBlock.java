@@ -9,7 +9,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -78,9 +77,9 @@ public class DrawerTableBlock extends BaseEntityBlock
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (stack.is(ItemRegistry.SUGAR_REFINERY) && hitResult.getDirection() == Direction.UP) {
-            return ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
+            return InteractionResult.PASS;
         }
         return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
     }

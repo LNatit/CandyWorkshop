@@ -8,7 +8,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -21,11 +21,11 @@ public record Sugar(Type type, Ingredient ingredient)
     public static final StreamCodec<RegistryFriendlyByteBuf, Holder<Sugar>> STREAM_CODEC = ByteBufCodecs.holderRegistry(
             RegRegistry.SUGAR_KEY);
 
-    public static ResourceLocation getItemModel(Holder<Sugar> sugar) {
+    public static Identifier getItemModel(Holder<Sugar> sugar) {
         return sugar.getKey().location().withSuffix("_gummy");
     }
 
-    public static ResourceLocation getModelId(Holder<Sugar> sugar) {
+    public static Identifier getModelId(Holder<Sugar> sugar) {
         return getItemModel(sugar).withPrefix("item/");
     }
 

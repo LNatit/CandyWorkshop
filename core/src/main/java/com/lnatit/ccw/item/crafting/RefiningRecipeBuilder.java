@@ -4,7 +4,7 @@ import com.lnatit.ccw.data.IFormula;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -54,12 +54,12 @@ public class RefiningRecipeBuilder implements RecipeBuilder
     }
 
     @Override
-    public void save(RecipeOutput recipeOutput, ResourceLocation resourceLocation) {
-        saveInternal(this.milk, recipeOutput, resourceLocation);
+    public void save(RecipeOutput recipeOutput, Identifier Identifier) {
+        saveInternal(this.milk, recipeOutput, Identifier);
     }
 
-    private void saveInternal(SizedIngredient milk, RecipeOutput recipeOutput, ResourceLocation resourceLocation) {
+    private void saveInternal(SizedIngredient milk, RecipeOutput recipeOutput, Identifier Identifier) {
         RefiningRecipe recipe = new RefiningRecipe(milk, this.sugar, this.main, this.extra, this.result);
-        recipeOutput.accept(resourceLocation, recipe, null);
+        recipeOutput.accept(Identifier, recipe, null);
     }
 }
