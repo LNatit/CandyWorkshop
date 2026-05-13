@@ -12,18 +12,26 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponentGetter;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.Consumable;
+import net.minecraft.world.item.component.ConsumableListener;
+import net.minecraft.world.item.component.TooltipProvider;
+import net.minecraft.world.level.Level;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-public record SugarContents(Holder<Sugar> sugar, Holder<Flavor> flavor)
+public record SugarContents(Holder<Sugar> sugar, Holder<Flavor> flavor) implements ConsumableListener, TooltipProvider
 {
     public static final Codec<SugarContents> CODEC =
             Codec.withAlternative(RecordCodecBuilder.create(ins -> ins.group(Sugar.CODEC.fieldOf("sugar")
@@ -38,7 +46,7 @@ public record SugarContents(Holder<Sugar> sugar, Holder<Flavor> flavor)
                                                                              Codec.STRING.fieldOf("flavor")
                                                                                          .xmap(Flavors::byName,
                                                                                                f -> f.getKey()
-                                                                                                     .location()
+                                                                                                     .identifier()
                                                                                                      .getPath())
                                                                                          .forGetter(SugarContents::flavor))
                                                                       .apply(ins, SugarContents::new))
@@ -55,6 +63,7 @@ public record SugarContents(Holder<Sugar> sugar, Holder<Flavor> flavor)
         ItemStack itemStack = ItemRegistry.GUMMY.toStack();
         flavor.value().onApply(itemStack);
         itemStack.set(ItemRegistry.SUGAR_CONTENTS_DCTYPE, new SugarContents(sugar, flavor));
+        itemStack.set(DataComponents.ITEM_MODEL, Sugar.getModelId(sugar));
         return itemStack;
     }
 
@@ -79,20 +88,32 @@ public record SugarContents(Holder<Sugar> sugar, Holder<Flavor> flavor)
 
     public Component getName(String descriptionId) {
         // temporary fix
-        Component name = Component.translatable(descriptionId + "." + this.sugar.getKey().location().getPath())
+        Component name = Component.translatable(descriptionId + "." + this.sugar.getKey().identifier().getPath())
                                   .withStyle(ChatFormatting.WHITE);
         return this.flavor.is(Flavors.ORIGINAL) ? name : Flavor.prefix(this.flavor).append(" ").append(name);
     }
 
-    public void addSugarTooltip(Consumer<Component> tooltipAdder, float ticksPerSecond) {
+    @Override
+    public void addToTooltip(
+            Item.TooltipContext context,
+            Consumer<Component> consumer,
+            TooltipFlag flag,
+            DataComponentGetter components
+    ) {
+        float ticksPerSecond = context.tickRate();
         Formula.getFormulaOptional(this.sugar, this.flavor)
                .map(Formula::effects)
                .orElse(List.of())
-               .forEach(effect -> tooltipAdder.accept(effect.getDescription(ticksPerSecond)));
+               .forEach(effect -> consumer.accept(effect.getDescription(ticksPerSecond)));
 
         if (!flavor.is(Flavors.ORIGINAL)) {
-            tooltipAdder.accept(Flavor.description(this.flavor));
+            consumer.accept(Flavor.description(this.flavor));
         }
+    }
+
+    @Override
+    public void onConsume(Level level, LivingEntity user, ItemStack stack, Consumable consumable) {
+        this.onConsume(user);
     }
 
     public void onConsume(LivingEntity entity) {

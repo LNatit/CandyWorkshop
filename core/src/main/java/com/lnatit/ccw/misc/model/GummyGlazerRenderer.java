@@ -7,7 +7,6 @@ import com.lnatit.ccw.menu.client.GummyGlazerScreen;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
@@ -20,12 +19,12 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.client.ClientHooks;
 import org.joml.Vector3f;
+import org.joml.Vector3fc;
 import org.jspecify.annotations.Nullable;
 
-import static net.minecraft.client.renderer.entity.ItemRenderer.getFoilBufferDirect;
+import java.util.function.Consumer;
 
-
-public class GummyGlazerRenderer extends SpecialModelRenderer<NonNullList<ItemStack>>
+public class GummyGlazerRenderer implements SpecialModelRenderer<NonNullList<ItemStack>>
 {
     public static final double STEP = 0.0625;
     public static final ItemTransform STEP_1 = new ItemTransform(
@@ -35,7 +34,7 @@ public class GummyGlazerRenderer extends SpecialModelRenderer<NonNullList<ItemSt
     );
 
     public GummyGlazerRenderer() {
-        super(dispatcher(), Minecraft.getInstance().getEntityModels());
+        super();
     }
 
     @Override
@@ -61,6 +60,11 @@ public class GummyGlazerRenderer extends SpecialModelRenderer<NonNullList<ItemSt
             return;
         }
         // TODO
+    }
+
+    @Override
+    public void getExtents(Consumer<Vector3fc> output) {
+
     }
 
     @Override

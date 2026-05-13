@@ -1,6 +1,5 @@
 package com.lnatit.ccw.block;
 
-import com.lnatit.ccw.block.entity.IItemStackHandlerContainer;
 import com.lnatit.ccw.block.entity.SugarRefineryBlockEntity;
 import com.lnatit.ccw.misc.StatRegistry;
 import com.mojang.serialization.MapCodec;
@@ -105,14 +104,6 @@ public class SugarRefineryBlock extends BaseEntityBlock {
                                                                 BlockRegistry.SUGAR_REFINERY_BETYPE.value(),
                                                                 SugarRefineryBlockEntity::serverTick
         );
-    }
-
-    @Override
-    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
-        if (level.getBlockEntity(pos) instanceof IItemStackHandlerContainer container) {
-            container.onRemove(state, newState, level, pos);
-        }
-        super.onRemove(state, level, pos, newState, movedByPiston);
     }
 
     @Override

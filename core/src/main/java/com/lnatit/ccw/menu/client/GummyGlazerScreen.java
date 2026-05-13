@@ -18,10 +18,8 @@ public class GummyGlazerScreen extends AbstractContainerScreen<GummyContentMenu>
     private final int activeSlots;
 
     public GummyGlazerScreen(GummyContentMenu menu, Inventory playerInventory, Component title) {
-        super(menu, playerInventory, title);
+        super(menu, playerInventory, title, WIDTH, HEIGHT);
         this.activeSlots = menu.activeSize();
-        this.imageWidth = WIDTH;
-        this.imageHeight = HEIGHT;
         this.inventoryLabelY = this.imageHeight - 95;
     }
 

@@ -22,7 +22,7 @@ public record Sugar(Type type, Ingredient ingredient)
             RegRegistry.SUGAR_KEY);
 
     public static Identifier getItemModel(Holder<Sugar> sugar) {
-        return sugar.getKey().location().withSuffix("_gummy");
+        return sugar.getKey().identifier().withSuffix("_gummy");
     }
 
     public static Identifier getModelId(Holder<Sugar> sugar) {
@@ -46,7 +46,7 @@ public record Sugar(Type type, Ingredient ingredient)
 
     @Nullable
     public static Holder<Sugar> from(RefiningInput input) {
-        return RegRegistry.SUGAR.holders()
+        return RegRegistry.SUGAR.listElements()
                                 .filter(sugar -> sugar.value().ingredient().test(input.main()))
                                 .filter(sugar -> input.sugar().is(sugar.value().type().tag()))
                                 .findFirst()

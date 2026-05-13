@@ -19,6 +19,8 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.ComponentSerialization;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
@@ -34,6 +36,8 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import net.neoforged.neoforge.items.IItemHandler;
@@ -68,21 +72,17 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
-        tag.put("data", this.data.serializeNBT(registries));
-        if (this.name != null) {
-            tag.putString("CustomName", Component.Serializer.toJson(this.name, registries));
-        }
+    protected void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
+        this.data.deserialize(input.childOrEmpty("data"));
+        this.name = parseCustomNameSafe(input, "CustomName");
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        this.data.deserializeNBT(registries, tag.getCompound("data"));
-        if (tag.contains("CustomName", 8)) {
-            this.name = parseCustomNameSafe(tag.getString("CustomName"), registries);
-        }
+    protected void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
+        output.putChild("data", this.data);
+        output.storeNullable("CustomName", ComponentSerialization.CODEC, this.name);
     }
 
     public IItemHandler accessInventory(@Nullable Direction direction) {
@@ -128,6 +128,13 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
                                                                                                               5.0,
                                                                                                               10.0))) {
             CriteriaRegistry.REFINE_FLAVORED_SUGAR.get().trigger(serverplayer);
+        }
+    }
+
+    @Override
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        if (this.level != null) {
+            this.onRemove(pos, this.level, state);
         }
     }
 
@@ -203,41 +210,44 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
          * @return true if new matched formula is different from the old one
          */
         private boolean updateFormula() {
-            RefiningInput input = getInput();
-            Optional<? extends IFormula> newFormula = Optional.empty();
+            if (SugarRefineryBlockEntity.this.level instanceof ServerLevel serverLevel) {
+                RefiningInput input = getInput();
+                Optional<? extends IFormula> newFormula = Optional.empty();
 
-            // Refining Match first
-            Holder<Sugar> sugar = Sugar.from(input);
-            if (sugar != null) {
-                newFormula = Formula.getFormulaOptional(sugar, Flavor.from(input.extra()));
-            }
+                // Refining Match first
+                Holder<Sugar> sugar = Sugar.from(input);
+                if (sugar != null) {
+                    newFormula = Formula.getFormulaOptional(sugar, Flavor.from(input.extra()));
+                }
 
-            // Fall back to vanilla recipe
-            if (newFormula.isEmpty() && SugarRefineryBlockEntity.this.level != null) {
-                newFormula = SugarRefineryBlockEntity.this.level
-                        .getRecipeManager()
-                        .getRecipeFor(RecipeRegistry.REFINING.get(), input, SugarRefineryBlockEntity.this.level)
-                        .map(RecipeHolder::value);
-            }
+                // Fall back to vanilla recipe
+                if (newFormula.isEmpty()) {
+                    newFormula = serverLevel
+                            .recipeAccess()
+                            .getRecipeFor(RecipeRegistry.REFINING.get(), input, serverLevel)
+                            .map(RecipeHolder::value);
+                }
 
-            if (newFormula.isPresent()) {
-                ItemStack output = this.getStackInSlot(4);
-                if (!output.isEmpty()) {
-                    ItemStack production = newFormula.get().productionOf(input);
-                    if (production.isEmpty()
-                        || !ItemStack.isSameItemSameComponents(output, production)
-                        || output.getCount() + production.getCount() > output.getMaxStackSize()) {
-                        newFormula = Optional.empty();
+                if (newFormula.isPresent()) {
+                    ItemStack output = this.getStackInSlot(4);
+                    if (!output.isEmpty()) {
+                        ItemStack production = newFormula.get().productionOf(input);
+                        if (production.isEmpty()
+                            || !ItemStack.isSameItemSameComponents(output, production)
+                            || output.getCount() + production.getCount() > output.getMaxStackSize()) {
+                            newFormula = Optional.empty();
+                        }
                     }
                 }
-            }
 
-            if (this.formula.equals(newFormula)) {
-                return false;
-            }
+                if (this.formula.equals(newFormula)) {
+                    return false;
+                }
 
-            this.formula = newFormula;
-            return true;
+                this.formula = newFormula;
+                return true;
+            }
+            return false;
         }
 
         private void generateOutputs(@Nullable IItemHandler drawer) {
@@ -336,22 +346,16 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
         }
 
         @Override
-        public CompoundTag serializeNBT(HolderLookup.Provider provider) {
-            CompoundTag tag = super.serializeNBT(provider);
-            tag.putInt("progress", progress);
-            // recalculate it when deserializing
-//            if (formula.isPresent()) {
-//                tag.put("formula", provider.lookupOrThrow());
-//            }
-            return tag;
+        public void serialize(ValueOutput output) {
+            super.serialize(output);
+            output.putInt("progress", progress);
         }
 
         @Override
-        public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
-            super.deserializeNBT(provider, nbt);
-            progress = nbt.getInt("progress");
-            updateFormula();
-//            changedExternal = true;
+        public void deserialize(ValueInput input) {
+            super.deserialize(input);
+            progress = input.getIntOr("progress", 0);
+            this.updateFormula();
         }
 
         @Override
@@ -376,19 +380,21 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
         }
 
         private boolean testSized(Function<RefiningRecipe, SizedIngredient> ingredientGetter, ItemStack stack) {
-            return SugarRefineryBlockEntity.this.level != null && SugarRefineryBlockEntity.this.level
-                    .getRecipeManager()
-                    .getAllRecipesFor(RecipeRegistry.REFINING.get())
-                    .stream()
-                    .anyMatch(holder -> ingredientGetter.apply(holder.value()).test(stack));
+            if (SugarRefineryBlockEntity.this.level instanceof ServerLevel serverLevel) {
+                return serverLevel.recipeAccess()
+                        .getRecipeFor(RecipeRegistry.REFINING.get(), this.getInput(), serverLevel)
+                        .isPresent();
+            }
+            return false;
         }
 
         private boolean test(Function<RefiningRecipe, Ingredient> ingredientGetter, ItemStack stack) {
-            return SugarRefineryBlockEntity.this.level != null && SugarRefineryBlockEntity.this.level
-                    .getRecipeManager()
-                    .getAllRecipesFor(RecipeRegistry.REFINING.get())
-                    .stream()
-                    .anyMatch(holder -> ingredientGetter.apply(holder.value()).test(stack));
+            if (SugarRefineryBlockEntity.this.level  instanceof ServerLevel serverLevel) {
+                return serverLevel.recipeAccess()
+                                  .getRecipeFor(RecipeRegistry.REFINING.get(), this.getInput(), serverLevel)
+                                  .isPresent();
+            }
+            return false;
         }
     }
 }

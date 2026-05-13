@@ -11,6 +11,7 @@ import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class GummyItem extends Item {
     public GummyItem(Properties properties) {
@@ -52,11 +53,11 @@ public class GummyItem extends Item {
             ItemStack itemStack,
             TooltipContext context,
             TooltipDisplay display,
-            java.util.function.Consumer<Component> builder,
+            Consumer<Component> builder,
             TooltipFlag tooltipFlag) {
         SugarContents sugarContents = itemStack.get(ItemRegistry.SUGAR_CONTENTS_DCTYPE);
         if (sugarContents != null) {
-            sugarContents.addSugarTooltip(builder, context.tickRate());
+            sugarContents.addToTooltip(context, builder, tooltipFlag, itemStack.getComponents());
         }
     }
 }

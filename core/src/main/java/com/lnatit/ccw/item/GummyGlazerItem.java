@@ -5,6 +5,7 @@ import com.lnatit.ccw.data.Formula;
 import com.lnatit.ccw.item.component.*;
 import com.lnatit.ccw.menu.GummyContentMenu;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -101,7 +102,7 @@ public class GummyGlazerItem extends GummyDeviceItem
         builder.accept(DESC_2);
         // TODO reset styles get each mode
         GlazerMode.getOrDefault(itemStack).addGlazerTooltip(builder);
-        if (FMLEnvironment.getDist().isClient() && Screen.hasShiftDown()) {
+        if (FMLEnvironment.getDist().isClient() && Minecraft.getInstance().hasShiftDown()) {
             builder.accept(FOLDED_1);
             builder.accept(FOLDED_2);
             builder.accept(FOLDED_3);

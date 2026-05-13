@@ -8,12 +8,13 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 
 public class DrawerTableScreen extends AbstractContainerScreen<DrawerTableMenu> {
+    public static final int WIDTH = 176;
+    public static final int HEIGHT = 222;
     private static final Identifier CONTAINER_BACKGROUND = Identifier.withDefaultNamespace(
             "textures/gui/container/generic_54.png");
 
     public DrawerTableScreen(DrawerTableMenu menu, Inventory playerInventory, Component title) {
-        super(menu, playerInventory, title);
-        this.imageHeight = 222;
+        super(menu, playerInventory, title, WIDTH, HEIGHT);
         this.inventoryLabelY = this.imageHeight - 94;
     }
 

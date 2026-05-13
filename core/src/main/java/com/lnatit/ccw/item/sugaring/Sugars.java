@@ -3,6 +3,7 @@ package com.lnatit.ccw.item.sugaring;
 import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.misc.RegRegistry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.neoforge.common.Tags;
@@ -58,7 +59,7 @@ public interface Sugars
                                                                          Ingredient.of(Items.SOUL_SAND)));
     DeferredHolder<Sugar, Sugar> STINKY = SUGARS.register("stinky",
                                                           () -> new Sugar(Sugar.Type.OVERWORLD,
-                                                                          Ingredient.of(Tags.Items.MUSHROOMS)));
+                                                                          Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(Tags.Items.MUSHROOMS))));
 
     DeferredHolder<Sugar, Sugar> BLINDING = SUGARS.register("blinding",
                                                             () -> new Sugar(Sugar.Type.OVERWORLD,

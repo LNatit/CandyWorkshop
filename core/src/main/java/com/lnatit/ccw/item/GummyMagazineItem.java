@@ -5,7 +5,7 @@ import com.lnatit.ccw.item.component.IContents;
 import com.lnatit.ccw.item.component.MutableContents;
 import com.lnatit.ccw.menu.GummyContentMenu;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -102,7 +102,7 @@ public class GummyMagazineItem extends GummyDeviceItem
     ) {
         builder.accept(DESC_1);
         builder.accept(DESC_2);
-        if (FMLEnvironment.getDist().isClient() && Screen.hasShiftDown()) {
+        if (FMLEnvironment.getDist().isClient() && Minecraft.getInstance().hasShiftDown()) {
             builder.accept(FOLDED_1);
             builder.accept(FOLDED_2);
             builder.accept(FOLDED_3);

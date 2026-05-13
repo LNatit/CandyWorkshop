@@ -26,9 +26,7 @@ public class SugarRefineryScreen extends AbstractContainerScreen<SugarRefineryMe
 
 
     public SugarRefineryScreen(SugarRefineryMenu menu, Inventory playerInventory, Component title) {
-        super(menu, playerInventory, title);
-        this.imageWidth = WIDTH;
-        this.imageHeight = HEIGHT;
+        super(menu, playerInventory, title, WIDTH, HEIGHT);
         this.inventoryLabelY = this.imageHeight - 95;
     }
 

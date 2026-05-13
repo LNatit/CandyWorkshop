@@ -4,7 +4,7 @@ import com.lnatit.ccw.data.Effect;
 import com.lnatit.ccw.misc.RegRegistry;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import net.minecraft.core.IdMap;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -17,6 +17,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Objects;
 
 public abstract class Flavor {
     public static final Codec<Holder<Flavor>> CODEC = RegRegistry.FLAVOR.holderByNameCodec();
@@ -30,7 +31,7 @@ public abstract class Flavor {
     }
 
     public Ingredient ingredient() {
-        return Ingredient.EMPTY;
+        return Ingredient.of();
     }
 
     /**
@@ -63,39 +64,28 @@ public abstract class Flavor {
 
     public static MutableComponent prefix(Holder<Flavor> flavor) {
         return Component
-                .translatable("item.ccw.gummy." + flavor.getKey().location().getPath() + ".prefix")
+                .translatable("item.ccw.gummy." + flavor.getKey().identifier().getPath() + ".prefix")
                 .withStyle(flavor.value().style());
     }
 
     public static MutableComponent description(Holder<Flavor> flavor) {
         return Component
-                .translatable("item.ccw.gummy." + flavor.getKey().location().getPath() + ".desc")
+                .translatable("item.ccw.gummy." + flavor.getKey().identifier().getPath() + ".desc")
                 .withStyle(flavor.value().style());
     }
 
-    @Nullable
-    private static List<? extends Holder<Flavor>> CACHE;
-
-    public static void rebuildCache(Registry<Flavor> registry) {
-        CACHE = registry.holders().toList();
-    }
-
     public static Holder<Flavor> next(Holder<Flavor> flavor) {
-        if (CACHE == null) {
-            return flavor;
-        }
-        int index = CACHE.indexOf(flavor);
+        IdMap<Holder<Flavor>> list = RegRegistry.FLAVOR.asHolderIdMap();
+        int index = list.getId(flavor);
         if (index == -1) {
             return flavor;
         }
-        return CACHE.get((index + 1) % CACHE.size());
+        return Objects.requireNonNull(list.byId((index + 1) % list.size()));
     }
 
     public static Holder<Flavor> from(ItemStack stack) {
-        if (CACHE == null) {
-            return Flavors.ORIGINAL;
-        }
-        for (Holder<Flavor> flavor : CACHE) {
+        IdMap<Holder<Flavor>> list = RegRegistry.FLAVOR.asHolderIdMap();
+        for (Holder<Flavor> flavor : list) {
             if (flavor.value().ingredient().test(stack)) {
                 return flavor;
             }

@@ -68,7 +68,7 @@ public class DrawerTableMenu extends ModContainerMenu
     public boolean stillValid(Player player) {
         return this.access.evaluate(
                 (level, pos) -> level.getBlockState(pos).is(BlockRegistry.DRAWER_TABLE_TAG) &&
-                        player.canInteractWithBlock(pos, 8.0),
+                        player.isWithinBlockInteractionRange(pos, 8.0),
                 true
         );
     }

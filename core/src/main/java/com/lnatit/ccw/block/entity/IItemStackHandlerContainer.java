@@ -26,12 +26,10 @@ public interface IItemStackHandlerContainer
         return Mth.lerpDiscrete(f, 0, 15);
     }
 
-    default void onRemove(BlockState state, BlockState newState, Level level, BlockPos pos) {
-        if (!state.is(newState.getBlock())) {
-            for (int i = 0; i < getInventory().getSlots(); i++) {
-                Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), getInventory().getStackInSlot(i));
-            }
-            level.updateNeighbourForOutputSignal(pos, state.getBlock());
+    default void onRemove(BlockPos pos, Level level, BlockState state) {
+        for (int i = 0; i < getInventory().getSlots(); i++) {
+            Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), getInventory().getStackInSlot(i));
         }
+        level.updateNeighbourForOutputSignal(pos, state.getBlock());
     }
 }

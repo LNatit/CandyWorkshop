@@ -24,7 +24,6 @@ public interface RegRegistry
     Registry<Flavor> FLAVOR = new RegistryBuilder<>(FLAVOR_KEY)
             .sync(true)
             .defaultKey(CandyWorkshop.id("original"))
-            .onBake(Flavor::rebuildCache)
             .create();
 
     @SubscribeEvent

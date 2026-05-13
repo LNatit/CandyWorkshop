@@ -2,7 +2,7 @@ package com.lnatit.ccw.menu.client;
 
 import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.menu.GummyContentMenu;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -21,10 +21,8 @@ public class GummyMagazineScreen extends AbstractContainerScreen<GummyContentMen
     private final int activeSlots;
 
     public GummyMagazineScreen(GummyContentMenu menu, Inventory playerInventory, Component title) {
-        super(menu, playerInventory, title);
+        super(menu, playerInventory, title, WIDTH, HEIGHT);
         this.activeSlots = menu.activeSize();
-        this.imageWidth = WIDTH;
-        this.imageHeight = HEIGHT;
         this.inventoryLabelY = this.imageHeight - 95;
     }
 

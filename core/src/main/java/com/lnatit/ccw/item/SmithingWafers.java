@@ -5,6 +5,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.util.Util;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.SmithingTemplateItem;
 
 import java.util.List;
@@ -40,7 +42,7 @@ public interface SmithingWafers {
                 Component.translatable(SmithingWafers.NETHER_GLAZE_ADDITIONS_SLOT_DESC),
                 UPGRADE_ICONS,
                 List.of(EMPTY_SLOT_INGOT),
-
+                new Item.Properties().rarity(Rarity.UNCOMMON)
         );
     }
 
@@ -53,7 +55,7 @@ public interface SmithingWafers {
                 Component.translatable(SmithingWafers.ENDER_GLAZE_ADDITIONS_SLOT_DESC),
                 UPGRADE_ICONS,
                 List.of(EMPTY_SLOT_DRAGON_HEAD),
-
+                new Item.Properties().rarity(Rarity.UNCOMMON)
         );
     }
 }
