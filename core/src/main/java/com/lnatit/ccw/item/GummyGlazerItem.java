@@ -5,8 +5,6 @@ import com.lnatit.ccw.data.Formula;
 import com.lnatit.ccw.item.component.*;
 import com.lnatit.ccw.menu.GummyContentMenu;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
@@ -16,19 +14,16 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
 @EventBusSubscriber(modid = CandyWorkshop.MODID)
@@ -36,7 +31,6 @@ public class GummyGlazerItem extends GummyDeviceItem
 {
     public static final String DESC_1_KEY = "item.ccw.gummy_glazer.desc0";
     public static final String DESC_2_KEY = "item.ccw.gummy_glazer.desc1";
-    public static final String DESC_UNFOLD_KEY = "item.ccw.unfold";
     public static final String FOLDED_1_KEY = "item.ccw.gummy_glazer.folded0";
     public static final String FOLDED_2_KEY = "item.ccw.gummy_glazer.folded1";
     public static final String FOLDED_3_KEY = "item.ccw.gummy_glazer.folded2";
@@ -46,7 +40,6 @@ public class GummyGlazerItem extends GummyDeviceItem
 
     public static final Component DESC_1 = Component.translatable(DESC_1_KEY).withStyle(ChatFormatting.GRAY);
     public static final Component DESC_2 = Component.translatable(DESC_2_KEY).withStyle(ChatFormatting.GRAY);
-    public static final Component DESC_UNFOLD = Component.translatable(DESC_UNFOLD_KEY).withStyle(ChatFormatting.GRAY);
     public static final Component FOLDED_1 = Component.translatable(FOLDED_1_KEY).withStyle(ChatFormatting.GRAY);
     public static final Component FOLDED_2 = Component.translatable(FOLDED_2_KEY).withStyle(ChatFormatting.GRAY);
     public static final Component FOLDED_3 = Component.translatable(FOLDED_3_KEY).withStyle(ChatFormatting.GRAY);
@@ -60,7 +53,7 @@ public class GummyGlazerItem extends GummyDeviceItem
 
     public static GummyGlazerItem create(Tier tier) {
         return new GummyGlazerItem(new Item.Properties().component(IContents.Type.GLAZER.dataComponentType,
-                                                                   IContents.Type.GLAZER.defaultContents()), tier);
+                IContents.Type.GLAZER.defaultContents()), tier);
     }
 
 //    @Override
@@ -77,10 +70,10 @@ public class GummyGlazerItem extends GummyDeviceItem
             if (!level.isClientSide()) {
                 int slot = usedHand == InteractionHand.MAIN_HAND ? player.getInventory().getSelectedSlot() : 0;
                 GummyContentMenu.Provider provider = GummyContentMenu.provider(this.type,
-                                                                               this.getMutable(itemstack),
-                                                                               usedHand,
-                                                                               slot,
-                                                                               itemstack.getHoverName());
+                        this.getMutable(itemstack),
+                        usedHand,
+                        slot,
+                        itemstack.getHoverName());
                 player.openMenu(provider);
             }
             player.awardStat(Stats.ITEM_USED.get(this));
@@ -90,29 +83,20 @@ public class GummyGlazerItem extends GummyDeviceItem
     }
 
     @Override
-    public void appendHoverText(
-            ItemStack itemStack,
-            TooltipContext context,
-            TooltipDisplay display,
-            Consumer<Component> builder,
-            TooltipFlag tooltipFlag
-    ) {
+    protected void appendFoldedTooltips(List<Component> tooltipComponents) {
+        tooltipComponents.add(FOLDED_1);
+        tooltipComponents.add(FOLDED_2);
+        tooltipComponents.add(FOLDED_3);
+        tooltipComponents.add(FOLDED_4);
+        tooltipComponents.add(FOLDED_5);
+        tooltipComponents.add(FOLDED_6);
+    }
 
-        builder.accept(DESC_1);
-        builder.accept(DESC_2);
-        // TODO reset styles get each mode
-        GlazerMode.getOrDefault(itemStack).addGlazerTooltip(builder);
-        if (FMLEnvironment.getDist().isClient() && Minecraft.getInstance().hasShiftDown()) {
-            builder.accept(FOLDED_1);
-            builder.accept(FOLDED_2);
-            builder.accept(FOLDED_3);
-            builder.accept(FOLDED_4);
-            builder.accept(FOLDED_5);
-            builder.accept(FOLDED_6);
-        }
-        else {
-            builder.accept(DESC_UNFOLD);
-        }
+    @Override
+    protected void appendCommonTooltips(ItemStack stack, List<Component> tooltipComponents) {
+        tooltipComponents.add(DESC_1);
+        tooltipComponents.add(DESC_2);
+        GlazerMode.getOrDefault(stack).addGlazerTooltip(tooltipComponents::add);
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
@@ -185,9 +169,9 @@ public class GummyGlazerItem extends GummyDeviceItem
                 assert contents != null;
                 Optional<Formula> optional = Formula.getFormulaOptional(contents.sugar(), contents.flavor());
                 if (optional.isPresent() && optional.get()
-                                                    .effects()
-                                                    .stream()
-                                                    .allMatch(effect -> target.hasEffect(effect.mobEffect()))) {
+                        .effects()
+                        .stream()
+                        .allMatch(effect -> target.hasEffect(effect.mobEffect()))) {
                     return stack;
                 }
             }

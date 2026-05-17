@@ -24,7 +24,25 @@ public class ModSoundProvider extends SoundDefinitionsProvider
                                    sound("ccw:plug_off")
                            )
                            .subtitle(PLUG_OFF_SUBTITLE)
-                           .replace(true)
+        );
+        add(SoundRegistry.SWITCH_MODE,
+            SoundDefinition.definition()
+                           .with(
+                                   sound("ccw:switch_mode_1"),
+                                   sound("ccw:switch_mode_2")
+                           )
+        );
+        add(SoundRegistry.UNFOLD_DESC,
+            SoundDefinition.definition()
+                           .with(
+                                   sound("ccw:unfold_desc")
+                           )
+        );
+        add(SoundRegistry.FOLD_DESC,
+            SoundDefinition.definition()
+                           .with(
+                                   sound("ccw:fold_desc")
+                           )
         );
     }
 }

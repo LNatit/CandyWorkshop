@@ -20,7 +20,7 @@ public class CookeryCompat
     public static final DeferredItem<Item> FRESH_VEGGIE_SAUCE =
             ItemRegistry.ITEMS.registerSimpleItem("fresh_veggie_sauce");
     public static final DeferredItem<Item> LACTO_BOLT_RED_SAUCE =
-            ItemRegistry.ITEMS.registerSimpleItem("lacto_bot_red_sauce");
+            ItemRegistry.ITEMS.registerSimpleItem("lacto_bolt_red_sauce");
     public static final DeferredItem<Item> SASHIMI_SIDE_SAUCE =
             ItemRegistry.ITEMS.registerSimpleItem("sashimi_side_sauce");
     public static final DeferredItem<Item> ULTRA_RICH_MARROW_CREAM =

@@ -7,7 +7,6 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.ItemStackHandler;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
@@ -48,42 +47,49 @@ public class MutableContents extends ItemStackHandler implements IContents
         return this.stacks.subList(0, length);
     }
 
-    public List<ItemStack> updateSlots(List<ItemStack> stacks) {
-        stacks = stacks.subList(0, Math.min(stacks.size(), this.activeSize()));
-        List<ItemStack> unaccepted = new ArrayList<>();
-        for (int i = 0; i < stacks.size(); i++) {
-            ItemStack stack = stacks.get(i);
-            if (isItemValid(i, stack)) {
-                if (stack.isEmpty()) {
-                    feed(i);
+    private void feed(int slot) {
+        ItemStack template = this.stacks.get(slot);
+        if (template.isEmpty()) {
+            return;
+        }
+
+        // The original stack is only used as a type template; refill starts from an empty target slot.
+        int targetSize = Math.min(this.getSlotLimit(slot), template.getMaxStackSize());
+        int pulled = 0;
+        for (int i = this.activeSize(); i < this.stacks.size() && pulled < targetSize; i++) {
+            ItemStack stack = this.stacks.get(i);
+            if (!stack.isEmpty() && ItemStack.isSameItemSameComponents(template, stack)) {
+                int transfer = Math.min(targetSize - pulled, stack.getCount());
+                if (transfer > 0) {
+                    stack.shrink(transfer);
+                    pulled += transfer;
+                    this.stacks.set(i, stack.isEmpty() ? ItemStack.EMPTY : stack);
                 }
-                else {
-                    this.stacks.set(i, stack);
-                }
+            }
+        }
+
+        this.stacks.set(slot, pulled > 0 ? template.copyWithCount(pulled) : ItemStack.EMPTY);
+    }
+
+    public boolean apply(Function<ItemStack, ItemStack> consumer) {
+        boolean changed = false;
+        List<ItemStack> results = this.activeSlots().stream().map(consumer).toList();
+        results = results.subList(0, Math.min(results.size(), this.activeSize()));
+        for (int i = 0; i < results.size(); i++) {
+            ItemStack old = this.stacks.get(i);
+            ItemStack updated = results.get(i);
+            if (ItemStack.isSameItemSameComponents(old, updated) && old.getCount() == updated.getCount()) {
+                continue;
+            }
+            if (updated.isEmpty()) {
+                feed(i);
             }
             else {
-                this.stacks.set(i, ItemStack.EMPTY);
-                unaccepted.add(stack);
+                this.stacks.set(i, updated);
             }
+            changed = true;
         }
-        return unaccepted;
-    }
-
-    private void feed(int slot) {
-        ItemStack target = this.stacks.get(slot);
-        for (int i = this.activeSize(); i < this.stacks.size(); i++) {
-            ItemStack stack = this.stacks.get(i);
-            if (ItemStack.isSameItemSameComponents(target, stack)) {
-                this.stacks.set(slot, stack);
-                this.stacks.set(i, ItemStack.EMPTY);
-                return;
-            }
-        }
-    }
-
-    public List<ItemStack> apply(Function<ItemStack, ItemStack> consumer) {
-        List<ItemStack> results = this.activeSlots().stream().map(consumer).toList();
-        return updateSlots(results);
+        return changed;
     }
 
     @Override
@@ -115,5 +121,4 @@ public class MutableContents extends ItemStackHandler implements IContents
     public boolean isItemValid(int slot, ItemStack stack) {
         return stack.isEmpty() || slot < this.stacks.size() && stack.is(ItemRegistry.GUMMY);
     }
-
 }

@@ -61,7 +61,7 @@ public interface ItemRegistry
     DeferredItem<BlockItem> PLAIN_DRAWER_TABLE = ITEMS.registerSimpleBlockItem(BlockRegistry.PLAIN_DRAWER_TABLE);
     DeferredItem<BlockItem> DRAWER_TABLE = ITEMS.registerSimpleBlockItem(BlockRegistry.DRAWER_TABLE);
     DeferredItem<MilkExtractorItem> MILK_EXTRACTOR =
-            ITEMS.register("milk_extractor", key -> new MilkExtractorItem(new Item.Properties().durability(129)));
+            ITEMS.register("milk_extractor", key -> new MilkExtractorItem());
     DeferredItem<Item> MILK_PACKAGING = ITEMS.registerSimpleItem("milk_packaging");
     DeferredItem<Item> CARTON_MILK = ITEMS.register("carton_milk", key -> new CartonMilkItem(new Item.Properties()));
     DeferredItem<Item> NETHER_SUGAR = ITEMS.registerSimpleItem("nether_sugar");

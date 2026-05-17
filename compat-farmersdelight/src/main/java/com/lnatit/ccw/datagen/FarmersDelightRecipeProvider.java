@@ -8,13 +8,11 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.neoforge.common.conditions.ModLoadedCondition;
 import vectorwing.farmersdelight.client.recipebook.CookingPotRecipeBookTab;
 import vectorwing.farmersdelight.data.builder.CookingPotRecipeBuilder;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Stream;
 
 public class FarmersDelightRecipeProvider extends RecipeProvider {
     protected FarmersDelightRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
@@ -27,11 +25,7 @@ public class FarmersDelightRecipeProvider extends RecipeProvider {
 
         CookingPotRecipeBuilder.cookingPotRecipe(FarmersDelightCompats.GLAZED_MEAT_RICE.get(), 1, 200, 1.0F)
                 .addIngredient(ItemRegistry.GUMMY)
-                .addIngredient(Ingredient.fromValues(Stream.of(
-                        new Ingredient.TagValue(ItemTags.create(Identifier.fromNamespaceAndPath("c", "foods/raw/chicken"))),
-                        new Ingredient.TagValue(ItemTags.create(Identifier.fromNamespaceAndPath("c", "foods/raw/pork"))),
-                        new Ingredient.TagValue(ItemTags.create(Identifier.fromNamespaceAndPath("c", "foods/raw/beef")))
-                )))
+                .addIngredient(ItemTags.create(Identifier.fromNamespaceAndPath("c", "foods/raw_meat")))
                 .addIngredient(ItemTags.create(Identifier.fromNamespaceAndPath("c", "crops/rice")))
                 .addIngredient(ItemTags.create(Identifier.fromNamespaceAndPath("c", "foods/leafy_green")))
                 .unlockedBy("has_gummy", has(ItemRegistry.GUMMY))

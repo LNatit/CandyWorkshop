@@ -90,8 +90,8 @@ public class GummyContentMenu extends ModContainerMenu
 
     @Override
     public boolean clickMenuButton(Player player, int id) {
-        if (this.type == IContents.Type.MAGAZINE && id == 0) {
-            GummyMagazineItem.eatGummies(player.level(), player, this.mutable);
+        if (this.type == IContents.Type.MAGAZINE && id == 0 &&
+            GummyMagazineItem.eatGummies(player.level(), player, this.mutable)) {
             player.awardStat(Stats.ITEM_USED.get(this.getContainer(player).getItem()));
             return true;
         }

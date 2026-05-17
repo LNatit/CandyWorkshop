@@ -15,4 +15,16 @@ public interface SoundRegistry
             "plug_off",
             SoundEvent::createVariableRangeEvent
     );
+    DeferredHolder<SoundEvent, SoundEvent> SWITCH_MODE = SOUND_EVENTS.register(
+            "switch_mode",
+            SoundEvent::createVariableRangeEvent
+    );
+    DeferredHolder<SoundEvent, SoundEvent> UNFOLD_DESC = SOUND_EVENTS.register(
+            "unfold_desc",
+            SoundEvent::createVariableRangeEvent
+    );
+    DeferredHolder<SoundEvent, SoundEvent> FOLD_DESC = SOUND_EVENTS.register(
+            "fold_desc",
+            SoundEvent::createVariableRangeEvent
+    );
 }

@@ -1,24 +1,37 @@
 package com.lnatit.ccw.item;
 
+import com.lnatit.ccw.CandyWorkshopClient;
 import com.lnatit.ccw.block.entity.DrawerTableBlockEntity;
 import com.lnatit.ccw.item.component.GummyContents;
 import com.lnatit.ccw.item.component.IContents;
 import com.lnatit.ccw.item.component.MutableContents;
+import com.lnatit.ccw.misc.SoundRegistry;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.items.IItemHandler;
+
+import java.util.List;
+import java.util.function.Consumer;
 
 public abstract class GummyDeviceItem extends Item
 {
+    public static final String DESC_UNFOLD_KEY = "item.ccw.unfold";
+    public static final Component DESC_UNFOLD = Component.translatable(DESC_UNFOLD_KEY).withStyle(ChatFormatting.GRAY);
     protected final IContents.Type type;
     protected final Tier tier;
 
     public GummyDeviceItem(Properties properties, IContents.Type type, Tier tier) {
-        super(properties);
+        super(properties.stacksTo(1));
         this.type = type;
         this.tier = tier;
     }
@@ -165,4 +178,38 @@ public abstract class GummyDeviceItem extends Item
         totalFilled -= pulled;  // 初始可用空间 - 剩余可用空间 = 实际填充量
         return totalFilled > 0 ? template.copyWithCount(totalFilled) : ItemStack.EMPTY;
     }
+
+    @Override
+    public void appendHoverText(
+            ItemStack itemStack,
+            TooltipContext context,
+            TooltipDisplay display,
+            Consumer<Component> builder,
+            TooltipFlag tooltipFlag
+    ) {
+        this.appendCommonTooltips(stack, tooltipComponents);
+        if (FMLEnvironment.dist.isClient()) {
+            if (Screen.hasShiftDown()) {
+                if (CandyWorkshopClient.folded()) {
+                    CandyWorkshopClient.playSound(SoundRegistry.UNFOLD_DESC);
+                    CandyWorkshopClient.setFolded(false);
+                }
+                appendFoldedTooltips(tooltipComponents);
+            } else {
+                if (!CandyWorkshopClient.folded()) {
+                    CandyWorkshopClient.playSound(SoundRegistry.FOLD_DESC);
+                    CandyWorkshopClient.setFolded(true);
+                }
+                appendUnfoldNotification(tooltipComponents);
+            }
+        }
+    }
+
+    private void appendUnfoldNotification(List<Component> tooltipComponents) {
+        tooltipComponents.add(DESC_UNFOLD);
+    }
+
+    protected abstract void appendFoldedTooltips(List<Component> tooltipComponents);
+
+    protected abstract void appendCommonTooltips(ItemStack stack, List<Component> tooltipComponents);
 }

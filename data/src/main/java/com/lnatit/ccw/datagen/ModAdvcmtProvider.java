@@ -151,7 +151,7 @@ public class ModAdvcmtProvider extends AdvancementProvider {
                                                 )
                                                 .build()
                                 ),
-                                MinMaxBounds.Ints.atMost(0)
+                                MinMaxBounds.Ints.atMost(1)
                         )
                 )
                 .requirements(AdvancementRequirements.allOf(List.of("drain_milk_extractor")))
