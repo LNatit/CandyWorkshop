@@ -2,6 +2,8 @@ package com.lnatit.ccw.menu.client;
 
 import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.menu.GummyContentMenu;
+import net.minecraft.client.input.InputWithModifiers;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.util.Util;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
@@ -38,19 +40,15 @@ public class GummyMagazineScreen extends AbstractContainerScreen<GummyContentMen
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.render(guiGraphics, mouseX, mouseY, partialTick);
-        this.renderTooltip(guiGraphics, mouseX, mouseY);
+    protected void extractLabels(GuiGraphicsExtractor graphics, int xm, int ym) {
+        graphics.text(this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY, 4210752, false);
     }
 
     @Override
-    protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        guiGraphics.drawString(this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY, 4210752, false);
-    }
-
-    @Override
-    protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-        guiGraphics.blit(
+    public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
+        super.extractBackground(graphics, mouseX, mouseY, a);
+        graphics.blit(
+                RenderPipelines.GUI_TEXTURED,
                 BACKGROUND_LOCATION,
                 this.leftPos,
                 this.topPos,
@@ -62,7 +60,8 @@ public class GummyMagazineScreen extends AbstractContainerScreen<GummyContentMen
         int slotCount = 0;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 2; j++) {
-                guiGraphics.blitSprite(ACTIVE_SLOT_SPRITE, this.leftPos + 71 + j * 19, this.topPos + 13 + i * 19, 16, 16);
+                graphics.blitSprite(
+                        RenderPipelines.GUI_TEXTURED, ACTIVE_SLOT_SPRITE, this.leftPos + 71 + j * 19, this.topPos + 13 + i * 19, 16, 16);
                 slotCount++;
                 if (slotCount >= activeSlots) {
                     return;
@@ -88,21 +87,21 @@ public class GummyMagazineScreen extends AbstractContainerScreen<GummyContentMen
         }
 
         @Override
-        public void onPress() {
-            super.onPress();
+        public void onPress(InputWithModifiers input) {
+            super.onPress(input);
             this.lastPressTime = Util.getMillis();
         }
 
         @Override
-        public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+        public void extractContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
             long delta = Util.getMillis() - this.lastPressTime;
             int frame = (int) (delta / MSPF);
             if (frame < 4) {
-                guiGraphics.blitSprite(BUTTON_SPRITE, 60, 30, 20 + frame * 10, 0, this.getX(), this.getY(), 10, this.getHeight());
+                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, BUTTON_SPRITE, 60, 30, 20 + frame * 10, 0, this.getX(), this.getY(), 10, this.getHeight());
             } else if (this.isHovered()) {
-                guiGraphics.blitSprite(BUTTON_SPRITE, 60, 30, 10, 0, this.getX(), this.getY(), 10, this.getHeight());
+                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, BUTTON_SPRITE, 60, 30, 10, 0, this.getX(), this.getY(), 10, this.getHeight());
             } else {
-                guiGraphics.blitSprite(BUTTON_SPRITE, 60, 30, 0, 0, this.getX(), this.getY(), 10, this.getHeight());
+                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, BUTTON_SPRITE, 60, 30, 0, 0, this.getX(), this.getY(), 10, this.getHeight());
             }
         }
     }

@@ -15,6 +15,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.ModelEvent;
+import net.neoforged.neoforge.client.event.RegisterSpecialModelRendererEvent;
 
 import java.util.Map;
 
@@ -52,5 +53,15 @@ public interface ModelHandler
         Map<ModelIdentifier, BakedModel> modelMap = event.getModels();
         ModelIdentifier gummy = ModelIdentifier.inventory(ItemRegistry.GUMMY.getId());
         modelMap.compute(gummy, (k, original) -> SugarOverrideHandler.getModel(original));
+    }
+
+    @SubscribeEvent // on the mod event bus only on the physical client
+    static void registerSpecialRenderers(RegisterSpecialModelRendererEvent event) {
+        event.register(
+                // The name to reference as the type
+                CandyWorkshop.id("glazer"),
+                // The map codec
+                GummyGlazerRenderer.Unbaked.MAP_CODEC
+        );
     }
 }

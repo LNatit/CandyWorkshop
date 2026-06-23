@@ -25,14 +25,14 @@ public class CoreEN_USProvider extends LanguageProvider {
         for (var flavor : Flavors.FLAVORS.getEntries()) {
             if (flavor == Flavors.ORIGINAL)
                 continue;
-            this.add("item.ccw.gummy." + flavor.getKey().location().getPath() + ".prefix", "prefix: " + flavor.getRegisteredName());
-            this.add("item.ccw.gummy." + flavor.getKey().location().getPath() + ".desc", "desc: " + flavor.getRegisteredName());
+            this.add("item.ccw.gummy." + flavor.getKey().identifier().getPath() + ".prefix", "prefix: " + flavor.getRegisteredName());
+            this.add("item.ccw.gummy." + flavor.getKey().identifier().getPath() + ".desc", "desc: " + flavor.getRegisteredName());
         }
 
         for (DeferredHolder<Sugar, ? extends Sugar> sugar : Sugars.SUGARS.getEntries()) {
-            this.add("item." + CandyWorkshop.MODID + ".gummy." + ((Holder<?>) sugar).getKey().location().getPath(), "placeholder:" + ((Holder<?>) sugar)
+            this.add("item." + CandyWorkshop.MODID + ".gummy." + ((Holder<?>) sugar).getKey().identifier().getPath(), "placeholder:" + ((Holder<?>) sugar)
                     .getKey()
-                    .location()
+                    .identifier()
                     .getPath());
         }
     }

@@ -7,6 +7,7 @@ import com.lnatit.ccw.menu.client.GummyGlazerScreen;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.Model;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
@@ -14,7 +15,10 @@ import net.minecraft.client.renderer.block.model.ItemTransform;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.resources.model.sprite.SpriteGetter;
+import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.core.NonNullList;
+import net.minecraft.util.Unit;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.client.ClientHooks;
@@ -24,7 +28,7 @@ import org.jspecify.annotations.Nullable;
 
 import java.util.function.Consumer;
 
-public class GummyGlazerRenderer implements SpecialModelRenderer<NonNullList<ItemStack>>
+public record GummyGlazerRenderer(SpriteGetter spriteGetter, Model.Simple model, SpriteId sprite) implements SpecialModelRenderer<NonNullList<ItemStack>>
 {
     public static final double STEP = 0.0625;
     public static final ItemTransform STEP_1 = new ItemTransform(
@@ -43,7 +47,7 @@ public class GummyGlazerRenderer implements SpecialModelRenderer<NonNullList<Ite
             return screen.getMenu().items();
         }
         GummyContents contents = stack.get(ItemRegistry.GLAZER_CONTENTS_DCTYPE);
-        return contents == null ? null : contents.items();
+        return contents != null ? contents.items() : null;
     }
 
     @Override

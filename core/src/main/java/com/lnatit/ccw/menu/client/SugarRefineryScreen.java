@@ -3,10 +3,11 @@ package com.lnatit.ccw.menu.client;
 import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.block.entity.SugarRefineryBlockEntity;
 import com.lnatit.ccw.menu.SugarRefineryMenu;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
@@ -43,14 +44,10 @@ public class SugarRefineryScreen extends AbstractContainerScreen<SugarRefineryMe
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.render(guiGraphics, mouseX, mouseY, partialTick);
-        this.renderTooltip(guiGraphics, mouseX, mouseY);
-    }
-
-    @Override
-    protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-        guiGraphics.blit(
+    public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
+        super.extractBackground(graphics, mouseX, mouseY, a);
+        graphics.blit(
+                RenderPipelines.GUI_TEXTURED,
                 BACKGROUND_LOCATION,
                 this.leftPos,
                 this.topPos,
@@ -63,7 +60,8 @@ public class SugarRefineryScreen extends AbstractContainerScreen<SugarRefineryMe
         int progress = this.menu.getProgress();
 
         if (progress > 0)
-            guiGraphics.blitSprite(
+            graphics.blitSprite(
+                    RenderPipelines.GUI_TEXTURED,
                     ANIMATION_SPRITE,
                     this.leftPos + 72,
                     this.topPos + 22,
@@ -72,7 +70,8 @@ public class SugarRefineryScreen extends AbstractContainerScreen<SugarRefineryMe
         else progress = 0;
 
         progress = -15 * progress / SugarRefineryBlockEntity.REFINE_TIME;
-        guiGraphics.blitSprite(
+        graphics.blitSprite(
+                RenderPipelines.GUI_TEXTURED,
                 PROGRESS_SPRITE,
                 this.leftPos + 72 - progress,
                 this.topPos + 41,
@@ -93,8 +92,7 @@ public class SugarRefineryScreen extends AbstractContainerScreen<SugarRefineryMe
         }
 
         @Override
-        public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-            // no extra rendering needed...
+        public void extractContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         }
     }
 }

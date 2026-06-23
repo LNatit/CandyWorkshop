@@ -9,7 +9,6 @@ public class ModConstants
 {
     public static final Component TITLE = Component.translatable("compat.ccw.rei.title");
 
-
     // Note: it's a SPRITE!
     public static final Identifier BACKGROUND = Identifier.fromNamespaceAndPath(
             CandyWorkshop.MODID,
