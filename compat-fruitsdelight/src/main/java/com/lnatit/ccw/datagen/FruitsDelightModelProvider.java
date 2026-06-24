@@ -4,7 +4,8 @@ import com.lnatit.ccw.compat.FruitsDelightCompats;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
-public class FruitsDelightModelProvider extends CoreItemModelProvider {
+public class FruitsDelightModelProvider extends CoreModelProvider
+{
     public FruitsDelightModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
         super(output, existingFileHelper);
     }

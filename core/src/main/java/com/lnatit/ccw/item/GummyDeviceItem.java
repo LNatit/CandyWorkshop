@@ -6,7 +6,7 @@ import com.lnatit.ccw.item.component.GummyContents;
 import com.lnatit.ccw.item.component.IContents;
 import com.lnatit.ccw.item.component.MutableContents;
 import com.lnatit.ccw.misc.SoundRegistry;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -18,9 +18,10 @@ import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.neoforged.fml.loading.FMLEnvironment;
-import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 public abstract class GummyDeviceItem extends Item
@@ -49,7 +50,7 @@ public abstract class GummyDeviceItem extends Item
 
                 ItemStack stack = context.getItemInHand();
                 MutableContents mutable = this.getMutable(stack);
-                IItemHandler contents = table.accessInventory(context.getClickedFace());
+                ResourceHandler<ItemResource> contents = table.accessInventory(context.getClickedFace());
 
                 boolean changed = false;
                 int i;
@@ -59,10 +60,10 @@ public abstract class GummyDeviceItem extends Item
                  * 遍历设备的全部槽位，对每个非空槽位调用 doFill，
                  * 从抽屉中取出同类物品并尽可能填满该槽位。
                  */
-                for (i = 0; i < mutable.getSlots(); i++) {
-                    ItemStack template = mutable.getStackInSlot(i);
+                for (i = 0; i < mutable.size(); i++) {
+                    ItemResource template = mutable.getResource(i);
                     if (template.isEmpty()) continue;
-                    if (!doFill(contents, template, mutable, i).isEmpty()) changed = true;
+                    if (doFill(contents, template, mutable, i) != 0) changed = true;
                 }
 
                 /*
@@ -79,21 +80,20 @@ public abstract class GummyDeviceItem extends Item
                  * 说明所有有效模板均无法继续补货，退出循环。
                  */
                 if (!changed) {
-                    ItemStack template;
+                    ItemResource template;
                     boolean cycleProgress = false;
                     int k = 0;
                     i = mutable.activeSize();
-                    while (i < mutable.getSlots()) {
+                    while (i < mutable.size()) {
                         // 跳过已有内容的非活跃槽位，找到下一个空白目标
-                        while (i < mutable.getSlots() && !mutable.getStackInSlot(i).isEmpty()) i++;
-                        if (i >= mutable.getSlots()) break;
+                        while (i < mutable.size() && !mutable.getResource(i).isEmpty()) i++;
+                        if (i >= mutable.size()) break;
 
-                        template = mutable.getStackInSlot(k);
+                        template = mutable.getResource(k);
                         // 模板必须非空且已满：未满说明第一阶段已确认抽屉中无此类型库存
-                        if (!template.isEmpty() && template.getCount() >= Math.min(template.getMaxStackSize(),
-                                                                                   mutable.getSlotLimit(k))) {
-                            ItemStack filled = doFill(contents, template, mutable, i);
-                            if (!filled.isEmpty()) {
+                        if (!template.isEmpty() && mutable.getAmountAsInt(k) >= mutable.getCapacityAsInt(k, template)) {
+                            int filled = doFill(contents, template, mutable, i);
+                            if (filled != 0) {
                                 i++;             // 槽位已获得物品，推进到下一个空白槽位
                                 changed = true;
                                 cycleProgress = true;
@@ -140,43 +140,30 @@ public abstract class GummyDeviceItem extends Item
      * @param template 填充类型模板，决定从 {@code from} 中取哪种物品
      * @param to       目标 {@link MutableContents}
      * @param slotId   目标槽位索引
-     * @return 实际填入槽位的 {@link ItemStack}（其 count 为本次填充总量），
-     *         若未填入任何物品则返回 {@link ItemStack#EMPTY}
+     * @return 实际填入槽位的填充总量
      */
-    public static ItemStack doFill(IItemHandler from, ItemStack template, IItemHandler to, int slotId) {
-        ItemStack dest = to.getStackInSlot(slotId);
+    public static int doFill(ResourceHandler<ItemResource> from, ItemResource template, ResourceHandler<ItemResource> to, int slotId) {
+        ItemResource dest = to.getResource(slotId);
         // 目标槽位已有不同类型的物品：模板为空时改用现有物品作为模板，否则类型冲突无法填充
         if (template.isEmpty()) {
-            if (dest.isEmpty()) return ItemStack.EMPTY;
+            if (dest.isEmpty()) return 0;
             template = dest;
         }
-        else if (!dest.isEmpty() && !ItemStack.isSameItemSameComponents(template, dest)) {
-            return ItemStack.EMPTY;
+        else if (!dest.isEmpty() && !template.equals(dest)) {
+            return 0;
         }
         
         // 目标槽位的可用空间（受槽位上限与物品堆叠上限的双重约束）
-        int pulled = Math.min(to.getSlotLimit(slotId), template.getMaxStackSize()) - dest.getCount();
-        if (pulled <= 0) return ItemStack.EMPTY;
-        int totalFilled = pulled;  // 复用：先存快照，循环后原地求差得填充量
+        int pulled = to.getCapacityAsInt(slotId, template) - to.getAmountAsInt(slotId);
+        if (pulled <= 0) return 0;
+        int extracted;
 
-        for (int j = 0; j < from.getSlots(); j++) {
-            ItemStack current = from.getStackInSlot(j);
-            if (current.isEmpty()) continue;
-
-            if (ItemStack.isSameItemSameComponents(current, template)) {
-                // 先模拟提取与插入，确定实际可转移数量，再执行真实操作，避免多余的回滚
-                ItemStack topped = from.extractItem(j, pulled, true);
-                int toFill = topped.getCount() - to.insertItem(slotId, topped, true).getCount();
-                if (toFill > 0) {
-                    to.insertItem(slotId, from.extractItem(j, toFill, false), false);
-                    pulled -= toFill;
-                    if (pulled <= 0) break;  // 槽位已满，无需继续遍历
-                }
-            }
+        try (Transaction transaction = Transaction.openRoot()) {
+            extracted = from.extract(template, pulled, transaction);
+            to.insert(slotId, template, extracted, transaction);
         }
 
-        totalFilled -= pulled;  // 初始可用空间 - 剩余可用空间 = 实际填充量
-        return totalFilled > 0 ? template.copyWithCount(totalFilled) : ItemStack.EMPTY;
+        return extracted;
     }
 
     @Override
@@ -187,29 +174,29 @@ public abstract class GummyDeviceItem extends Item
             Consumer<Component> builder,
             TooltipFlag tooltipFlag
     ) {
-        this.appendCommonTooltips(stack, tooltipComponents);
-        if (FMLEnvironment.dist.isClient()) {
-            if (Screen.hasShiftDown()) {
+        this.appendCommonTooltips(itemStack, builder);
+        if (FMLEnvironment.getDist().isClient()) {
+            if (Minecraft.getInstance().hasShiftDown()) {
                 if (CandyWorkshopClient.folded()) {
                     CandyWorkshopClient.playSound(SoundRegistry.UNFOLD_DESC);
                     CandyWorkshopClient.setFolded(false);
                 }
-                appendFoldedTooltips(tooltipComponents);
+                appendFoldedTooltips(builder);
             } else {
                 if (!CandyWorkshopClient.folded()) {
                     CandyWorkshopClient.playSound(SoundRegistry.FOLD_DESC);
                     CandyWorkshopClient.setFolded(true);
                 }
-                appendUnfoldNotification(tooltipComponents);
+                appendUnfoldNotification(builder);
             }
         }
     }
 
-    private void appendUnfoldNotification(List<Component> tooltipComponents) {
-        tooltipComponents.add(DESC_UNFOLD);
+    private void appendUnfoldNotification(Consumer<Component> builder) {
+        builder.accept(DESC_UNFOLD);
     }
 
-    protected abstract void appendFoldedTooltips(List<Component> tooltipComponents);
+    protected abstract void appendFoldedTooltips(Consumer<Component> builder);
 
-    protected abstract void appendCommonTooltips(ItemStack stack, List<Component> tooltipComponents);
+    protected abstract void appendCommonTooltips(ItemStack stack, Consumer<Component> builder);
 }

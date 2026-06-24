@@ -108,8 +108,8 @@ public class CoreDataProviders extends DatapackBuiltinEntriesProvider
         }
 
         private ResourceKey<Formula> of(Holder<Flavor> flavor) {
-            String sugarName = ((Holder<?>) this.sugar).getKey().location().getPath();
-            String flavorName = ((Holder<?>) flavor).getKey().location().getPath();
+            String sugarName = ((Holder<?>) this.sugar).getKey().identifier().getPath();
+            String flavorName = ((Holder<?>) flavor).getKey().identifier().getPath();
             return DataPackRegistry.of(Formula.KEY, sugarName + "_" + flavorName);
         }
 

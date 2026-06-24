@@ -4,7 +4,8 @@ import com.lnatit.ccw.compat.CookeryCompat;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
-public class KaleidoCookeryModelProvider extends CoreItemModelProvider {
+public class KaleidoCookeryModelProvider extends CoreModelProvider
+{
     public KaleidoCookeryModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
         super(output, existingFileHelper);
     }

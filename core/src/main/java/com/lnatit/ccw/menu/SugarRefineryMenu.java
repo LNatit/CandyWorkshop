@@ -8,16 +8,17 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
-import net.neoforged.neoforge.items.SlotItemHandler;
+import net.neoforged.neoforge.transfer.StacksResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
+import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 
 public class SugarRefineryMenu extends ModContainerMenu {
     private final DataSlot data;
     private final ContainerLevelAccess access;
 
     // Server constructor
-    public SugarRefineryMenu(int containerId, Inventory playerInventory, IItemHandler content, DataSlot data, ContainerLevelAccess access) {
+    public SugarRefineryMenu(int containerId, Inventory playerInventory, StacksResourceHandler<ItemStack, ItemResource> content, DataSlot data, ContainerLevelAccess access) {
         super(MenuRegistry.SUGAR_REFINERY.get(), containerId);
         this.data = data;
         this.access = access;
@@ -28,20 +29,20 @@ public class SugarRefineryMenu extends ModContainerMenu {
 
     // Client constructor
     public SugarRefineryMenu(int containerId, Inventory playerInventory) {
-        this(containerId, playerInventory, new ItemStackHandler(8), DataSlot.standalone(), ContainerLevelAccess.NULL);
+        this(containerId, playerInventory, new ItemStacksResourceHandler(8), DataSlot.standalone(), ContainerLevelAccess.NULL);
     }
 
-    private void addRefinerySlots(IItemHandler contents) {
+    private void addRefinerySlots(StacksResourceHandler<ItemStack, ItemResource> contents) {
         this.addSlot(new InteractiveSlot(contents, 0, 23, 23));
         this.addSlot(new InteractiveSlot(contents, 1, 48, 23));
         this.addSlot(new InteractiveSlot(contents, 2, 108, 23));
         this.addSlot(new InteractiveSlot(contents, 3, 132, 23));
 
-        this.addSlot(new SlotItemHandler(contents, 4, 78, 56));
+        this.addSlot(new ResourceHandlerSlot(contents, contents::set, 4, 78, 56));
 
-        this.addSlot(new SlotItemHandler(contents, 5, 118, 71));
-        this.addSlot(new SlotItemHandler(contents, 6, 136, 71));
-        this.addSlot(new SlotItemHandler(contents, 7, 154, 71));
+        this.addSlot(new ResourceHandlerSlot(contents, contents::set, 5, 118, 71));
+        this.addSlot(new ResourceHandlerSlot(contents, contents::set, 6, 136, 71));
+        this.addSlot(new ResourceHandlerSlot(contents, contents::set, 7, 154, 71));
     }
 
     public int getProgress() {
@@ -88,9 +89,9 @@ public class SugarRefineryMenu extends ModContainerMenu {
         return AbstractContainerMenu.stillValid(this.access, player, BlockRegistry.SUGAR_REFINERY.get());
     }
 
-    public static class InteractiveSlot extends SlotItemHandler {
-        public InteractiveSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
-            super(itemHandler, index, xPosition, yPosition);
+    public static class InteractiveSlot extends ResourceHandlerSlot {
+        public InteractiveSlot(StacksResourceHandler<ItemStack, ItemResource> itemHandler, int index, int xPosition, int yPosition) {
+            super(itemHandler, itemHandler::set, index, xPosition, yPosition);
         }
 
         // Fxxk REI!

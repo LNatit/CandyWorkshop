@@ -4,7 +4,8 @@ import com.lnatit.ccw.compat.FarmersDelightCompats;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
-public class FarmersDelightModelProvider extends CoreItemModelProvider {
+public class FarmersDelightModelProvider extends CoreModelProvider
+{
     public FarmersDelightModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
         super(output, existingFileHelper);
     }

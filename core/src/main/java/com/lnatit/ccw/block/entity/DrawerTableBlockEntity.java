@@ -12,23 +12,25 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import org.jetbrains.annotations.Nullable;
 
-public class DrawerTableBlockEntity extends BlockEntity implements MenuProvider, Nameable, IItemStackHandlerContainer
+public class DrawerTableBlockEntity extends BlockEntity implements MenuProvider, Nameable, ExtractedContainer
 {
     public static final int SIZE = 54;
     public static final Component DEFAULT_NAME = Component.translatable("container.drawer_table");
 
-    private final ItemStackHandler inventory = new ItemStackHandler(SIZE) {
+    private final ItemStacksResourceHandler inventory = new ItemStacksResourceHandler(SIZE) {
         @Override
-        protected void onContentsChanged(int slot) {
-            super.onContentsChanged(slot);
+        protected void onContentsChanged(int index, ItemStack previousContents) {
+            super.onContentsChanged(index, previousContents);
             DrawerTableBlockEntity.this.setChanged();
         }
     };
@@ -53,7 +55,7 @@ public class DrawerTableBlockEntity extends BlockEntity implements MenuProvider,
         output.storeNullable("CustomName", ComponentSerialization.CODEC, this.name);
     }
 
-    public IItemHandler accessInventory(@Nullable Direction direction) {
+    public ResourceHandler<ItemResource> accessInventory(@Nullable Direction direction) {
         return this.inventory;
     }
 
@@ -82,7 +84,7 @@ public class DrawerTableBlockEntity extends BlockEntity implements MenuProvider,
     }
 
     @Override
-    public ItemStackHandler getInventory() {
+    public ItemStacksResourceHandler getInventory() {
         return this.inventory;
     }
 

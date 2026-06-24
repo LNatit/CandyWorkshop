@@ -15,7 +15,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class GummyMagazineItem extends GummyDeviceItem
@@ -67,23 +67,23 @@ public class GummyMagazineItem extends GummyDeviceItem
     }
 
     public static boolean eatGummies(Level level, Player player, MutableContents magazine) {
-        return magazine.apply(new Consumer(level, player));
+        return magazine.apply(new Applier(level, player));
     }
 
     @Override
-    protected void appendFoldedTooltips(List<Component> tooltipComponents) {
-        tooltipComponents.add(FOLDED_1);
-        tooltipComponents.add(FOLDED_2);
-        tooltipComponents.add(FOLDED_3);
+    protected void appendFoldedTooltips(Consumer<Component> builder) {
+        builder.accept(FOLDED_1);
+        builder.accept(FOLDED_2);
+        builder.accept(FOLDED_3);
     }
 
     @Override
-    protected void appendCommonTooltips(ItemStack stack, List<Component> tooltipComponents) {
-        tooltipComponents.add(DESC_1);
-        tooltipComponents.add(DESC_2);
+    protected void appendCommonTooltips(ItemStack stack, Consumer<Component> builder) {
+        builder.accept(DESC_1);
+        builder.accept(DESC_2);
     }
 
-    private record Consumer(Level level, LivingEntity entity) implements Function<ItemStack, ItemStack>
+    private record Applier(Level level, LivingEntity entity) implements Function<ItemStack, ItemStack>
     {
         @Override
         public ItemStack apply(ItemStack stack) {

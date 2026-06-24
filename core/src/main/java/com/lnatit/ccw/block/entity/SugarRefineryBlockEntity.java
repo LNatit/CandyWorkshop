@@ -16,8 +16,6 @@ import com.lnatit.ccw.misc.critereon.CriteriaRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.server.level.ServerLevel;
@@ -40,15 +38,17 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
-import net.neoforged.neoforge.items.wrapper.RangedWrapper;
+import net.neoforged.neoforge.transfer.RangedResourceHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 import java.util.function.Function;
 
-public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvider, Nameable, IItemStackHandlerContainer
+public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvider, Nameable, ExtractedContainer
 {
     public static final Component DEFAULT_NAME = Component.translatable("container.sugar_refinery");
     public static final int REFINE_TIME = 160;
@@ -63,7 +63,7 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
     public static void serverTick(Level level, BlockPos pos, BlockState state, SugarRefineryBlockEntity refinery) {
         if (level.isClientSide()) return;
 
-        Optional<IItemHandler> drawer = level
+        Optional<ResourceHandler<ItemResource>> drawer = level
                 .getBlockEntity(pos.below(), BlockRegistry.DRAWER_TABLE_BETYPE.get())
                 .map(DrawerTableBlockEntity::getInventory);
         if (refinery.data.tick(drawer.orElse(null))) {
@@ -85,7 +85,7 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
         output.storeNullable("CustomName", ComponentSerialization.CODEC, this.name);
     }
 
-    public IItemHandler accessInventory(@Nullable Direction direction) {
+    public ResourceHandler<ItemResource> accessInventory(@Nullable Direction direction) {
         return this.data.getInventoryAccess(this.getBlockState().getValue(SugarRefineryBlock.FACING), direction);
     }
 
@@ -114,7 +114,7 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
     }
 
     @Override
-    public ItemStackHandler getInventory() {
+    public ItemStacksResourceHandler getInventory() {
         return this.data;
     }
 
@@ -138,7 +138,7 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
         }
     }
 
-    public class Data extends ItemStackHandler
+    public class Data extends ItemStacksResourceHandler
     {
         private boolean changedExternal = true;
         private int progress = 0;
@@ -146,11 +146,6 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
 
         private Data() {
             super(8);
-        }
-
-        @Override
-        public void setSize(int size) {
-            throw new RuntimeException("Resize is not allowed!");
         }
 
         private DataSlot getDataAccess() {
@@ -174,7 +169,7 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
             };
         }
 
-        private boolean tick(@Nullable IItemHandler drawer) {
+        private boolean tick(@Nullable ResourceHandler<ItemResource> drawer) {
             boolean flag = false;
             if (changedExternal) {
                 // match formula
@@ -229,12 +224,12 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
                 }
 
                 if (newFormula.isPresent()) {
-                    ItemStack output = this.getStackInSlot(4);
+                    ItemResource output = this.getResource(4);
                     if (!output.isEmpty()) {
                         ItemStack production = newFormula.get().productionOf(input);
                         if (production.isEmpty()
-                            || !ItemStack.isSameItemSameComponents(output, production)
-                            || output.getCount() + production.getCount() > output.getMaxStackSize()) {
+                            || !ItemStack.isSameItemSameComponents(output.toStack(), production)
+                            || this.getAmountAsInt(4) + production.getCount() > output.getMaxStackSize()) {
                             newFormula = Optional.empty();
                         }
                     }
@@ -250,7 +245,7 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
             return false;
         }
 
-        private void generateOutputs(@Nullable IItemHandler drawer) {
+        private void generateOutputs(@Nullable ResourceHandler<ItemResource> drawer) {
             if (this.formula.isEmpty()) {
                 return;
             }
@@ -277,7 +272,7 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
             this.formula = Optional.empty();
         }
 
-        private void acceptRemainder(ItemStack remainder, @Nullable IItemHandler drawer) {
+        private void acceptRemainder(ItemStack remainder, @Nullable ResourceHandler<ItemResource> drawer) {
             remainder = drain(remainder, drawer);
             for (int i = 5; i < 8; i++) {
                 ItemStack stack = this.stacks.get(i);
@@ -304,43 +299,45 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
             }
         }
 
-        private ItemStack drain(ItemStack stack, @Nullable IItemHandler to) {
+        private ItemStack drain(ItemStack stack, @Nullable ResourceHandler<ItemResource> to) {
             if (to == null) {
                 return stack;
             }
 
-            for (int i = 0; i < to.getSlots(); i++) {
-                stack = to.insertItem(i, stack, false);
+            int inserted = 0;
+            try (Transaction t = Transaction.openRoot()) {
+                inserted = to.insert(ItemResource.of(stack), stack.getCount(), t);
             }
-            if (stack.isEmpty()) {
+
+            if (stack.getCount() - inserted <= 0) {
                 return ItemStack.EMPTY;
             }
-            return stack;
+            return stack.copyWithCount(stack.getCount() - inserted);
         }
 
-        public IItemHandler getInventoryAccess(Direction facing, @Nullable Direction direction) {
+        public ResourceHandler<ItemResource> getInventoryAccess(Direction facing, @Nullable Direction direction) {
             if (direction == Direction.UP) {
-                return new RangedWrapper(this, 0, 2);
+                return RangedResourceHandler.of(this, 0, 2);
             }
             if (direction == Direction.DOWN) {
-                return new RangedWrapper(this, 4, 8);
+                return RangedResourceHandler.of(this, 4, 8);
             }
             if (direction == facing.getClockWise()) {
-                return new RangedWrapper(this, 2, 3);
+                return RangedResourceHandler.of(this, 2, 3);
             }
             if (direction == facing.getCounterClockWise()) {
-                return new RangedWrapper(this, 3, 4);
+                return RangedResourceHandler.of(this, 3, 4);
             }
-            return new RangedWrapper(this, 2, 8);
+            return RangedResourceHandler.of(this, 2, 8);
         }
 
         @Override
-        public boolean isItemValid(int slot, ItemStack stack) {
-            return switch (slot) {
-                case 0 -> this.isMilk(stack);
-                case 1 -> this.isSugar(stack);
-                case 2 -> this.isMain(stack);
-                case 3 -> this.isExtra(stack);
+        public boolean isValid(int index, ItemResource resource) {
+            return switch (index) {
+                case 0 -> this.isMilk(resource.toStack());
+                case 1 -> this.isSugar(resource.toStack());
+                case 2 -> this.isMain(resource.toStack());
+                case 3 -> this.isExtra(resource.toStack());
                 default -> false;
             };
         }
@@ -359,7 +356,8 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
         }
 
         @Override
-        protected void onContentsChanged(int slot) {
+        protected void onContentsChanged(int index, ItemStack previousContents) {
+            super.onContentsChanged(index, previousContents);
             changedExternal = true;
         }
 

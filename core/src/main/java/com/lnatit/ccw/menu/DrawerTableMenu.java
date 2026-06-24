@@ -7,16 +7,17 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
-import net.neoforged.neoforge.items.SlotItemHandler;
+import net.neoforged.neoforge.transfer.StacksResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
+import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 
 public class DrawerTableMenu extends ModContainerMenu
 {
     private final ContainerLevelAccess access;
 
     // Server Constructor
-    public DrawerTableMenu(int containerId, Inventory playerInventory, IItemHandler content, ContainerLevelAccess access) {
+    public DrawerTableMenu(int containerId, Inventory playerInventory, StacksResourceHandler<ItemStack, ItemResource> content, ContainerLevelAccess access) {
         super(MenuRegistry.DRAWER_TABLE.get(), containerId);
         this.access = access;
         this.addSixRowsSlots(content);
@@ -25,15 +26,15 @@ public class DrawerTableMenu extends ModContainerMenu
 
     // Client Constructor
     public DrawerTableMenu(int containerId, Inventory playerInventory) {
-        this(containerId, playerInventory, new ItemStackHandler(DrawerTableBlockEntity.SIZE),
+        this(containerId, playerInventory, new ItemStacksResourceHandler(DrawerTableBlockEntity.SIZE),
              ContainerLevelAccess.NULL
         );
     }
 
-    private void addSixRowsSlots(IItemHandler contents) {
+    private void addSixRowsSlots(StacksResourceHandler<ItemStack, ItemResource> contents) {
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 9; j++) {
-                this.addSlot(new SlotItemHandler(contents, j + i * 9, 8 + j * 18, 18 + i * 18));
+                this.addSlot(new ResourceHandlerSlot(contents, contents::set, j + i * 9, 8 + j * 18, 18 + i * 18));
             }
         }
     }

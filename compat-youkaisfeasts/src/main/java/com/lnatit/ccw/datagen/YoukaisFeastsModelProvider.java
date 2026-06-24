@@ -4,7 +4,8 @@ import com.lnatit.ccw.compat.YoukaisFeastsCompats;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
-public class YoukaisFeastsModelProvider extends CoreItemModelProvider {
+public class YoukaisFeastsModelProvider extends CoreModelProvider
+{
     public YoukaisFeastsModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
         super(output, existingFileHelper);
     }

@@ -35,7 +35,7 @@ public class ModModelProvider
         }
     }
 
-    public static class Item extends CoreItemModelProvider
+    public static class Item extends CoreModelProvider
     {
         public Item(PackOutput output, ExistingFileHelper existingFileHelper) {
             super(output, existingFileHelper);

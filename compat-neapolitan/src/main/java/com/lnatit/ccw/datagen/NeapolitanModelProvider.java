@@ -4,7 +4,8 @@ import com.lnatit.ccw.compat.NeapolitanCompats;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
-public class NeapolitanModelProvider extends CoreItemModelProvider {
+public class NeapolitanModelProvider extends CoreModelProvider
+{
     public NeapolitanModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
         super(output, existingFileHelper);
     }

@@ -17,8 +17,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.SlotItemHandler;
+import net.neoforged.neoforge.transfer.StacksResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 
 public class GummyContentMenu extends ModContainerMenu
 {
@@ -67,15 +68,15 @@ public class GummyContentMenu extends ModContainerMenu
         return new GummyContentMenu(containerId, playerInventory, IContents.Type.GLAZER, data);
     }
 
-    private void addContentSlots(IItemHandler contents) {
+    private void addContentSlots(StacksResourceHandler<ItemStack, ItemResource> contents) {
         for (int i = 0; i < 3; i++) {
             switch (this.type) {
                 case MAGAZINE -> {
                     for (int j = 0; j < 2; j++) {
-                        this.addSlot(new SlotItemHandler(contents, j + i * 2, 71 + j * 19, 13 + i * 19));
+                        this.addSlot(new ResourceHandlerSlot(contents, contents::set, j + i * 2, 71 + j * 19, 13 + i * 19));
                     }
                 }
-                case GLAZER -> this.addSlot(new SlotItemHandler(contents, i, 80, 13 + i * 19));
+                case GLAZER -> this.addSlot(new ResourceHandlerSlot(contents, contents::set, i, 80, 13 + i * 19));
             }
         }
     }

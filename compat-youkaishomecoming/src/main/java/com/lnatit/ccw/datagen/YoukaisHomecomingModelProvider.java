@@ -4,7 +4,8 @@ import com.lnatit.ccw.compat.YoukaisHomecomingCompats;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
-public class YoukaisHomecomingModelProvider extends CoreItemModelProvider {
+public class YoukaisHomecomingModelProvider extends CoreModelProvider
+{
     public YoukaisHomecomingModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
         super(output, existingFileHelper);
     }

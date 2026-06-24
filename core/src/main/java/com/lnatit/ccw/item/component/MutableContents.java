@@ -5,12 +5,14 @@ import com.lnatit.ccw.item.Tier;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.minecraft.world.level.ItemLike;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 
 import java.util.List;
 import java.util.function.Function;
 
-public class MutableContents extends ItemStackHandler implements IContents
+public class MutableContents extends ItemStacksResourceHandler implements IContents
 {
     public static final StreamCodec<RegistryFriendlyByteBuf, MutableContents> STREAM_CODEC = StreamCodec.composite(
             ItemStack.OPTIONAL_LIST_STREAM_CODEC,
@@ -54,7 +56,7 @@ public class MutableContents extends ItemStackHandler implements IContents
         }
 
         // The original stack is only used as a type template; refill starts from an empty target slot.
-        int targetSize = Math.min(this.getSlotLimit(slot), template.getMaxStackSize());
+        int targetSize = Math.min(this.getCapacity(slot, ItemResource.of(template)), template.getMaxStackSize());
         int pulled = 0;
         for (int i = this.activeSize(); i < this.stacks.size() && pulled < targetSize; i++) {
             ItemStack stack = this.stacks.get(i);
@@ -103,22 +105,15 @@ public class MutableContents extends ItemStackHandler implements IContents
     }
 
     @Override
-    public void setSize(int size) {
-        throw new RuntimeException("Resize is not allowed!");
+    public void set(int index, ItemResource resource, int amount) {
+        if (isValid(index, resource)) {
+            super.set(index, resource, amount);
+        }
+        // Don't throw exception here
     }
 
     @Override
-    public void setStackInSlot(int slot, ItemStack stack) {
-        if (isItemValid(slot, stack)) {
-            super.setStackInSlot(slot, stack);
-        }
-        else {
-            throw new RuntimeException("Invalid item " + stack + " in slot " + slot + "!");
-        }
-    }
-
-    @Override
-    public boolean isItemValid(int slot, ItemStack stack) {
-        return stack.isEmpty() || slot < this.stacks.size() && stack.is(ItemRegistry.GUMMY);
+    public boolean isValid(int index, ItemResource resource) {
+        return resource.isEmpty() || index < this.stacks.size() && resource.is((ItemLike) ItemRegistry.GUMMY);
     }
 }

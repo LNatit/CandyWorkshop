@@ -22,8 +22,8 @@ import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 @EventBusSubscriber(modid = CandyWorkshop.MODID)
@@ -83,20 +83,20 @@ public class GummyGlazerItem extends GummyDeviceItem
     }
 
     @Override
-    protected void appendFoldedTooltips(List<Component> tooltipComponents) {
-        tooltipComponents.add(FOLDED_1);
-        tooltipComponents.add(FOLDED_2);
-        tooltipComponents.add(FOLDED_3);
-        tooltipComponents.add(FOLDED_4);
-        tooltipComponents.add(FOLDED_5);
-        tooltipComponents.add(FOLDED_6);
+    protected void appendFoldedTooltips(Consumer<Component> builder) {
+        builder.accept(FOLDED_1);
+        builder.accept(FOLDED_2);
+        builder.accept(FOLDED_3);
+        builder.accept(FOLDED_4);
+        builder.accept(FOLDED_5);
+        builder.accept(FOLDED_6);
     }
 
     @Override
-    protected void appendCommonTooltips(ItemStack stack, List<Component> tooltipComponents) {
-        tooltipComponents.add(DESC_1);
-        tooltipComponents.add(DESC_2);
-        GlazerMode.getOrDefault(stack).addGlazerTooltip(tooltipComponents::add);
+    protected void appendCommonTooltips(ItemStack stack, Consumer<Component> builder) {
+        builder.accept(DESC_1);
+        builder.accept(DESC_2);
+        GlazerMode.getOrDefault(stack).addGlazerTooltip(builder);
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
