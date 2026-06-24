@@ -24,7 +24,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-public class EnhancedModelProvider extends ModelProvider
+public abstract class EnhancedModelProvider extends ModelProvider
 {
     private final PackOutput.PathProvider itemInfoPathProvider;
     private final ClientItemModelGenerators.ClientItemCollector clientItemCollector;
@@ -44,12 +44,11 @@ public class EnhancedModelProvider extends ModelProvider
         registerModels(blockModels, itemModels, new ClientItemModelGenerators(this.clientItemCollector, itemModels));
     }
 
-    protected void registerModels(
+    protected abstract void registerModels(
             BlockModelGenerators blockModels,
             ItemModelGenerators itemModels,
             ClientItemModelGenerators clientItemModels
-    ) {
-    }
+    );
 
     /**
      * Disable registry checks

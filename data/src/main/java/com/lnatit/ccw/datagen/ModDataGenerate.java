@@ -9,7 +9,6 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.world.effect.MobEffects;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import java.util.concurrent.CompletableFuture;
@@ -18,18 +17,18 @@ import java.util.concurrent.CompletableFuture;
 public class ModDataGenerate
 {
     @SubscribeEvent
-    public static void onGatherData(GatherDataEvent event) {
+    public static void onClientGatherData(GatherDataEvent.Client event) {
         CoreDataProviders.get()
                          // Overworld blends
-                         .register(Sugars.SPEED, Effect.simple(MobEffects.MOVEMENT_SPEED))
+                         .register(Sugars.SPEED, Effect.simple(MobEffects.SPEED))
                          .defaultExcited()
                          .defaultBold()
 
-                         .register(Sugars.BUNNY, Effect.simple(MobEffects.JUMP))
+                         .register(Sugars.BUNNY, Effect.simple(MobEffects.JUMP_BOOST))
                          .defaultExcited()
                          .defaultBold()
 
-                         .register(Sugars.HEALING, Effect.instant(MobEffects.HEAL))
+                         .register(Sugars.HEALING, Effect.instant(MobEffects.HEALTH_BOOST))
                          .defaultExcited()
 
                          .register(Sugars.POISON, Effect.simple(MobEffects.POISON))
@@ -43,7 +42,7 @@ public class ModDataGenerate
                          .register(Sugars.NIGHT_VISION, Effect.simple(MobEffects.NIGHT_VISION))
                          .defaultBold()
 
-                         .register(Sugars.STRENGTH, Effect.simple(MobEffects.DAMAGE_BOOST))
+                         .register(Sugars.STRENGTH, Effect.simple(MobEffects.STRENGTH))
                          .defaultExcited()
                          .defaultBold()
 
@@ -52,22 +51,22 @@ public class ModDataGenerate
                          .defaultBold()
 
                          .register(Sugars.TURTLE,
-                                   new Effect(MobEffects.MOVEMENT_SLOWDOWN, 100, 3),
-                                   new Effect(MobEffects.DAMAGE_RESISTANCE, 100, 2))
-                         .excited(new Effect(MobEffects.MOVEMENT_SLOWDOWN, 100, 5),
-                                  new Effect(MobEffects.DAMAGE_RESISTANCE, 100, 3))
-                         .bold(new Effect(MobEffects.MOVEMENT_SLOWDOWN, 200, 3),
-                               new Effect(MobEffects.DAMAGE_RESISTANCE, 200, 2))
+                                   new Effect(MobEffects.SLOWNESS, 100, 3),
+                                   new Effect(MobEffects.RESISTANCE, 100, 2))
+                         .excited(new Effect(MobEffects.SLOWNESS, 100, 5),
+                                  new Effect(MobEffects.RESISTANCE, 100, 3))
+                         .bold(new Effect(MobEffects.SLOWNESS, 200, 3),
+                               new Effect(MobEffects.RESISTANCE, 200, 2))
 
                          .register(Sugars.FLUTTER, Effect.simple(MobEffects.SLOW_FALLING))
                          .defaultExcited()
                          .defaultBold()
 
-                         .register(Sugars.SNAIL, Effect.simple(MobEffects.MOVEMENT_SLOWDOWN))
+                         .register(Sugars.SNAIL, Effect.simple(MobEffects.SLOWNESS))
                          .defaultExcited()
                          .defaultBold()
 
-                         .register(Sugars.STINKY, Effect.simple(MobEffects.CONFUSION))
+                         .register(Sugars.STINKY, Effect.simple(MobEffects.NAUSEA))
                          .defaultBold()
 
                          .register(Sugars.BLINDING, Effect.simple(MobEffects.BLINDNESS))
@@ -91,7 +90,7 @@ public class ModDataGenerate
                          .register(Sugars.INVISIBILITY, Effect.simple(MobEffects.INVISIBILITY))
                          .defaultBold()
 
-                         .register(Sugars.STINGER, Effect.instant(MobEffects.HARM))
+                         .register(Sugars.STINGER, Effect.instant(MobEffects.INSTANT_DAMAGE))
                          .defaultExcited()
 
                          .register(Sugars.BUG, Effect.simple(MobEffects.INFESTED))
@@ -106,15 +105,15 @@ public class ModDataGenerate
                          .register(Sugars.GALE, Effect.simple(MobEffects.WIND_CHARGED))
                          .defaultBold()
 
-                         .register(Sugars.REFRESHING, Effect.simple(MobEffects.DIG_SPEED))
+                         .register(Sugars.REFRESHING, Effect.simple(MobEffects.HASTE))
                          .defaultExcited()
                          .defaultBold()
 
-                         .register(Sugars.LAZY, Effect.simple(MobEffects.DIG_SLOWDOWN))
+                         .register(Sugars.LAZY, Effect.simple(MobEffects.MINING_FATIGUE))
                          .defaultExcited()
                          .defaultBold()
 
-                         .register(Sugars.SOLID, Effect.simple(MobEffects.DAMAGE_RESISTANCE))
+                         .register(Sugars.SOLID, Effect.simple(MobEffects.RESISTANCE))
                          .defaultExcited()
                          .defaultBold()
 
@@ -162,48 +161,46 @@ public class ModDataGenerate
 
         DataGenerator generator = event.getGenerator();
         PackOutput output = generator.getPackOutput();
-        ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 
 
         generator.addProvider(
-                event.includeClient(),
-                new ModModelProvider.Block(output, existingFileHelper)
+                true,
+                new ModModelProvider(output)
         );
         generator.addProvider(
-                event.includeClient(),
-                new ModModelProvider.Item(output, existingFileHelper)
-        );
-        generator.addProvider(
-                event.includeClient(),
+                true,
                 new ModEN_USProvider(output)
         );
         generator.addProvider(
-                event.includeClient(),
-                new ModSoundProvider(output, existingFileHelper)
+                true,
+                new ModSoundProvider(output)
         );
 
         generator.addProvider(
-                event.includeServer(),
+                true,
                 new ModAdvcmtProvider(output, lookupProvider)
         );
         generator.addProvider(
-                event.includeServer(),
-                new ModRecipeProvider(output, lookupProvider)
+                true,
+                new ModRecipeProvider.Runner(output, lookupProvider)
         );
         generator.addProvider(
-                event.includeServer(),
+                true,
                 new ModLootProvider(output, lookupProvider)
         );
-        var blockTags = new ModTagProvider.BlockTags(output, lookupProvider, existingFileHelper);
         generator.addProvider(
-                event.includeServer(),
-                blockTags
+                true,
+                new ModTagProvider.BlockTags(output, lookupProvider)
 
         );
         generator.addProvider(
-                event.includeServer(),
-                new ModTagProvider.ItemTags(output, lookupProvider, blockTags.contentsGetter(), existingFileHelper)
+                true,
+                new ModTagProvider.ItemTags(output, lookupProvider)
         );
+    }
+
+    @SubscribeEvent
+    public static void onServerGatherData(GatherDataEvent.Server event) {
     }
 }

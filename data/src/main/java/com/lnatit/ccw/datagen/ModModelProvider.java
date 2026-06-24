@@ -6,6 +6,8 @@ import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.item.sugaring.Sugar;
 import com.lnatit.ccw.item.sugaring.Sugars;
 import com.lnatit.ccw.misc.model.ModelHandler;
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
@@ -13,26 +15,21 @@ import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
-public class ModModelProvider
+public class ModModelProvider extends CoreModelProvider
 {
-    public static class Block extends BlockStateProvider
-    {
-        public Block(PackOutput output, ExistingFileHelper existingFileHelper) {
-            super(output, CandyWorkshop.MODID, existingFileHelper);
-        }
+    public ModModelProvider(PackOutput output) {
+        super(output);
+    }
 
-        @Override
-        protected void registerStatesAndModels() {
-            ModelFile sugarRefinery = models().withExistingParent("sugar_refinery", modLoc("block/sugar_refinery"));
-            ModelFile plainDrawerTable = models().withExistingParent("plain_drawer_table",
-                                                                     modLoc("block/plain_drawer_table")
-            );
-            ModelFile drawerTable = models().withExistingParent("drawer_table", modLoc("block/drawer_table"));
+    @Override
+    protected void registerModels(
+            BlockModelGenerators blockModels,
+            ItemModelGenerators itemModels,
+            ClientItemModelGenerators clientItemModels
+    ) {
 
-            horizontalBlock(BlockRegistry.SUGAR_REFINERY.get(), sugarRefinery);
-            horizontalBlock(BlockRegistry.PLAIN_DRAWER_TABLE.get(), plainDrawerTable);
-            horizontalBlock(BlockRegistry.DRAWER_TABLE.get(), drawerTable);
-        }
+
+        clientItemModels.gen().withId(ItemRegistry.GUMMY).all();
     }
 
     public static class Item extends CoreModelProvider
@@ -90,4 +87,24 @@ public class ModModelProvider
             basicItem(ItemRegistry.ENDER_SMITHING_WAFER.getId());
          }
      }
+
+    public static class Block extends BlockStateProvider
+    {
+        public Block(PackOutput output, ExistingFileHelper existingFileHelper) {
+            super(output, CandyWorkshop.MODID, existingFileHelper);
+        }
+
+        @Override
+        protected void registerStatesAndModels() {
+            ModelFile sugarRefinery = models().withExistingParent("sugar_refinery", modLoc("block/sugar_refinery"));
+            ModelFile plainDrawerTable = models().withExistingParent("plain_drawer_table",
+                                                                     modLoc("block/plain_drawer_table")
+            );
+            ModelFile drawerTable = models().withExistingParent("drawer_table", modLoc("block/drawer_table"));
+
+            horizontalBlock(BlockRegistry.SUGAR_REFINERY.get(), sugarRefinery);
+            horizontalBlock(BlockRegistry.PLAIN_DRAWER_TABLE.get(), plainDrawerTable);
+            horizontalBlock(BlockRegistry.DRAWER_TABLE.get(), drawerTable);
+        }
+    }
  }

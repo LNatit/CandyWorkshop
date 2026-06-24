@@ -6,9 +6,6 @@ import com.lnatit.ccw.item.crafting.RefiningRecipeBuilder;
 import com.lnatit.ccw.item.crafting.RepairExtractorRecipe;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.component.DataComponentExactPredicate;
-import net.minecraft.core.component.predicates.DataComponentPredicate;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
@@ -25,12 +22,12 @@ import java.util.concurrent.CompletableFuture;
 
 public class ModRecipeProvider extends RecipeProvider
 {
-    protected ModRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-        super(output, lookupProvider);
+    protected ModRecipeProvider(HolderLookup.Provider registries, RecipeOutput output) {
+        super(registries, output);
     }
 
     @Override
-    protected void buildRecipes(RecipeOutput output, HolderLookup.Provider registries) {
+    protected void buildRecipes() {
         HolderLookup.RegistryLookup<Item> lookup = registries.lookupOrThrow(Registries.ITEM);
 
         ShapedRecipeBuilder.shaped(lookup, RecipeCategory.MISC, ItemRegistry.MILK_EXTRACTOR)
@@ -222,10 +219,7 @@ public class ModRecipeProvider extends RecipeProvider
         Ingredient ominous_banner = new Ingredient(
                 new DataComponentIngredient(
                         HolderSet.direct(Items.WHITE_BANNER.builtInRegistryHolder()),
-                        DataComponentPredicate.allOf(
-                                Raid.getBannerComponentPatch(registries.lookupOrThrow(Registries.BANNER_PATTERN))
-                                        .entrySet()
-                        ),
+                        Raid.getBannerComponentPatch(registries.lookupOrThrow(Registries.BANNER_PATTERN)),
                         false
                 )
         );
@@ -342,5 +336,21 @@ public class ModRecipeProvider extends RecipeProvider
                                       .save(output, "glazer_ender_upgrade");
     }
 
+    // The runner to add to the data generator
+    public static class Runner extends RecipeProvider.Runner {
+        // Get the parameters from the `GatherDataEvent`s.
+        public Runner(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+            super(output, lookupProvider);
+        }
 
+        @Override
+        protected RecipeProvider createRecipeProvider(HolderLookup.Provider provider, RecipeOutput output) {
+            return new ModRecipeProvider(provider, output);
+        }
+
+        @Override
+        public String getName() {
+            return "Candy Workshop Recipes";
+        }
+    }
 }
