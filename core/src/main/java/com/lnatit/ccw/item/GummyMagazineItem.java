@@ -11,7 +11,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
@@ -36,8 +35,8 @@ public class GummyMagazineItem extends GummyDeviceItem
         super(properties, IContents.Type.MAGAZINE, tier);
     }
 
-    public static GummyMagazineItem create(Tier tier) {
-        return new GummyMagazineItem(new Item.Properties().component(IContents.Type.MAGAZINE.dataComponentType,
+    public static GummyMagazineItem create(Properties properties, Tier tier) {
+        return new GummyMagazineItem(properties.component(IContents.Type.MAGAZINE.dataComponentType,
                                                                      IContents.Type.MAGAZINE.defaultContents()), tier);
     }
 

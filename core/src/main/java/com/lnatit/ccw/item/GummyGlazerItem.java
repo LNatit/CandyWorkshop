@@ -12,7 +12,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.EventPriority;
@@ -51,8 +50,8 @@ public class GummyGlazerItem extends GummyDeviceItem
         super(properties, IContents.Type.GLAZER, tier);
     }
 
-    public static GummyGlazerItem create(Tier tier) {
-        return new GummyGlazerItem(new Item.Properties().component(IContents.Type.GLAZER.dataComponentType,
+    public static GummyGlazerItem create(Properties properties, Tier tier) {
+        return new GummyGlazerItem(properties.component(IContents.Type.GLAZER.dataComponentType,
                 IContents.Type.GLAZER.defaultContents()), tier);
     }
 

@@ -54,68 +54,68 @@ public interface ItemRegistry
 
     DeferredRegister.Items ITEMS = DeferredRegister.createItems(CandyWorkshop.MODID);
 
-    DeferredItem<GummyItem> GUMMY = ITEMS.register("gummy",
-                                                   key -> new GummyItem(new Item.Properties().food(FoodsAndConsumables.GUMMY_FOOD,
+    DeferredItem<GummyItem> GUMMY = ITEMS.registerItem("gummy",
+                                                   properties -> new GummyItem(properties.food(FoodsAndConsumables.GUMMY_FOOD,
                                                                                                    FoodsAndConsumables.GUMMY_CONSUMABLE)));
     DeferredItem<BlockItem> SUGAR_REFINERY = ITEMS.registerSimpleBlockItem(BlockRegistry.SUGAR_REFINERY);
     DeferredItem<BlockItem> PLAIN_DRAWER_TABLE = ITEMS.registerSimpleBlockItem(BlockRegistry.PLAIN_DRAWER_TABLE);
     DeferredItem<BlockItem> DRAWER_TABLE = ITEMS.registerSimpleBlockItem(BlockRegistry.DRAWER_TABLE);
     DeferredItem<MilkExtractorItem> MILK_EXTRACTOR =
-            ITEMS.register("milk_extractor", key -> new MilkExtractorItem());
+            ITEMS.registerItem("milk_extractor", MilkExtractorItem::new);
     DeferredItem<Item> MILK_PACKAGING = ITEMS.registerSimpleItem("milk_packaging");
-    DeferredItem<Item> CARTON_MILK = ITEMS.register("carton_milk", key -> new CartonMilkItem(new Item.Properties()));
+    DeferredItem<Item> CARTON_MILK = ITEMS.registerItem("carton_milk", CartonMilkItem::new);
     DeferredItem<Item> NETHER_SUGAR = ITEMS.registerSimpleItem("nether_sugar");
     DeferredItem<Item> ENDER_SUGAR = ITEMS.registerSimpleItem("ender_sugar");
-    DeferredItem<Item> ENERGY_CARROT = ITEMS.register("energy_carrot",
-                                                      key -> new Item(new Item.Properties().food(FoodsAndConsumables.ENERGY_CARROT_FOOD,
-                                                                                                 FoodsAndConsumables.ENERGY_CARROT_CONSUMABLE)));
-    DeferredItem<Item> SWEET_MELON_SLICE = ITEMS.register("sweet_melon_slice",
-                                                          key -> new Item(new Item.Properties().food(FoodsAndConsumables.SWEET_LEMON_SLICE_FOOD,
-                                                                                                     FoodsAndConsumables.SWEET_LEMON_SLICE_CONSUMABLE)));
+    DeferredItem<Item> ENERGY_CARROT = ITEMS.registerSimpleItem("energy_carrot",
+                                                      properties -> properties.food(FoodsAndConsumables.ENERGY_CARROT_FOOD,
+                                                                                             FoodsAndConsumables.ENERGY_CARROT_CONSUMABLE));
+    DeferredItem<Item> SWEET_MELON_SLICE = ITEMS.registerSimpleItem("sweet_melon_slice",
+                                                          properties -> properties.food(FoodsAndConsumables.SWEET_LEMON_SLICE_FOOD,
+                                                                                                     FoodsAndConsumables.SWEET_LEMON_SLICE_CONSUMABLE));
     DeferredItem<Item> PHANTOM_PEARL = ITEMS.registerSimpleItem("phantom_pearl");
-    DeferredItem<Item> CALCIUM_RICH_MILK = ITEMS.register("calcium_rich_milk",
-                                                          key -> new Item(new Item.Properties().food(FoodsAndConsumables.CALCIUM_RICH_MILK_FOOD,
-                                                                                                     FoodsAndConsumables.CALCIUM_RICH_MILK_CONSUMABLE)));
-    DeferredItem<Item> VOID_CARROT = ITEMS.register("void_carrot",
-                                                    key -> new Item(new Item.Properties().food(FoodsAndConsumables.VOID_CARROT_FOOD,
-                                                                                               FoodsAndConsumables.VOID_CARROT_CONSUMABLE)));
+    DeferredItem<Item> CALCIUM_RICH_MILK = ITEMS.registerSimpleItem("calcium_rich_milk",
+                                                          properties -> properties.food(FoodsAndConsumables.CALCIUM_RICH_MILK_FOOD,
+                                                                                                     FoodsAndConsumables.CALCIUM_RICH_MILK_CONSUMABLE));
+    DeferredItem<Item> VOID_CARROT = ITEMS.registerSimpleItem("void_carrot",
+                                                    properties -> properties.food(FoodsAndConsumables.VOID_CARROT_FOOD,
+                                                                                               FoodsAndConsumables.VOID_CARROT_CONSUMABLE));
     DeferredItem<Item> WEAKNESS_POWDER = ITEMS.registerSimpleItem("weakness_powder");
-    DeferredItem<Item> IRON_CLAD_APPLE = ITEMS.register("iron_clad_apple",
-                                                        key -> new Item(new Item.Properties().food(FoodsAndConsumables.IRON_CLAD_APPLE_FOOD,
-                                                                                                   FoodsAndConsumables.IRON_CLAD_APPLE_CONSUMABLE)));
-    DeferredItem<Item> GOLD_STUDDED_APPLE = ITEMS.register("gold_studded_apple",
-                                                           key -> new Item(new Item.Properties().food(
+    DeferredItem<Item> IRON_CLAD_APPLE = ITEMS.registerSimpleItem("iron_clad_apple",
+                                                        properties -> properties.food(FoodsAndConsumables.IRON_CLAD_APPLE_FOOD,
+                                                                                                   FoodsAndConsumables.IRON_CLAD_APPLE_CONSUMABLE));
+    DeferredItem<Item> GOLD_STUDDED_APPLE = ITEMS.registerSimpleItem("gold_studded_apple",
+                                                           properties -> properties.food(
                                                                    FoodsAndConsumables.GOLD_STUDDED_APPLE_FOOD,
-                                                                   FoodsAndConsumables.GOLD_STUDDED_APPLE_CONSUMABLE)));
-    DeferredItem<Item> BLESSED_STEAK = ITEMS.register("blessed_steak",
-                                                      key -> new Item(new Item.Properties().food(FoodsAndConsumables.BLESSED_STEAK_FOOD,
-                                                                                                 FoodsAndConsumables.BLESSED_STEAK_CONSUMABLE)));
+                                                                   FoodsAndConsumables.GOLD_STUDDED_APPLE_CONSUMABLE));
+    DeferredItem<Item> BLESSED_STEAK = ITEMS.registerSimpleItem("blessed_steak",
+                                                      properties -> properties.food(FoodsAndConsumables.BLESSED_STEAK_FOOD,
+                                                                                                 FoodsAndConsumables.BLESSED_STEAK_CONSUMABLE));
     DeferredItem<Item> GREEDY_OFFERING =
-            ITEMS.register("greedy_offering", key -> new Item(new Item.Properties().craftRemainder(Items.BOWL)));
+            ITEMS.registerSimpleItem("greedy_offering", properties -> properties.craftRemainder(Items.BOWL));
     DeferredItem<Item> DEFILED_OFFERING =
-            ITEMS.register("defiled_offering", key -> new Item(new Item.Properties().craftRemainder(Items.BOWL)));
-    DeferredItem<Item> DOLPHIN_COOKIE = ITEMS.register("dolphin_cookie",
-                                                       key -> new Item(new Item.Properties().food(FoodsAndConsumables.DOLPHIN_COOKIE_FOOD,
-                                                                                                  FoodsAndConsumables.DOLPHIN_COOKIE_CONSUMABLE)));
+            ITEMS.registerSimpleItem("defiled_offering", properties -> properties.craftRemainder(Items.BOWL));
+    DeferredItem<Item> DOLPHIN_COOKIE = ITEMS.registerSimpleItem("dolphin_cookie",
+                                                       properties -> properties.food(FoodsAndConsumables.DOLPHIN_COOKIE_FOOD,
+                                                                                                  FoodsAndConsumables.DOLPHIN_COOKIE_CONSUMABLE));
     DeferredItem<Item> OMINOUS_FLAG = ITEMS.registerSimpleItem("ominous_flag");
     DeferredItem<Item> MILK_GELATIN = ITEMS.registerSimpleItem("milk_gelatin");
     DeferredItem<Item> CARAMETAL = ITEMS.registerSimpleItem("carametal");
     DeferredItem<GummyMagazineItem> GUMMY_MAGAZINE =
-            ITEMS.register("gummy_magazine", key -> GummyMagazineItem.create(Tier.PRIMARY));
+            ITEMS.registerItem("gummy_magazine", properties -> GummyMagazineItem.create(properties, Tier.PRIMARY));
     DeferredItem<GummyMagazineItem> NETHER_MAGAZINE =
-            ITEMS.register("nether_magazine", key -> GummyMagazineItem.create(Tier.NETHER));
+            ITEMS.registerItem("nether_magazine", properties -> GummyMagazineItem.create(properties, Tier.NETHER));
     DeferredItem<GummyMagazineItem> ENDER_MAGAZINE =
-            ITEMS.register("ender_magazine", key -> GummyMagazineItem.create(Tier.ENDER));
+            ITEMS.registerItem("ender_magazine", properties -> GummyMagazineItem.create(properties, Tier.ENDER));
     DeferredItem<GummyGlazerItem> GUMMY_GLAZER =
-            ITEMS.register("gummy_glazer", key -> GummyGlazerItem.create(Tier.PRIMARY));
+            ITEMS.registerItem("gummy_glazer", properties -> GummyGlazerItem.create(properties, Tier.PRIMARY));
     DeferredItem<GummyGlazerItem> NETHER_GLAZER =
-            ITEMS.register("nether_glazer", key -> GummyGlazerItem.create(Tier.NETHER));
+            ITEMS.registerItem("nether_glazer", properties -> GummyGlazerItem.create(properties, Tier.NETHER));
     DeferredItem<GummyGlazerItem> ENDER_GLAZER =
-            ITEMS.register("ender_glazer", key -> GummyGlazerItem.create(Tier.ENDER));
+            ITEMS.registerItem("ender_glazer", properties -> GummyGlazerItem.create(properties, Tier.ENDER));
     DeferredItem<SmithingTemplateItem> NETHER_SMITHING_WAFER =
-            ITEMS.register("nether_smithing_wafer", SmithingWafers::createNether);
+            ITEMS.registerItem("nether_smithing_wafer", SmithingWafers::createNether);
     DeferredItem<SmithingTemplateItem> ENDER_SMITHING_WAFER =
-            ITEMS.register("ender_smithing_wafer", SmithingWafers::createEnder);
+            ITEMS.registerItem("ender_smithing_wafer", SmithingWafers::createEnder);
 
     DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, CandyWorkshop.MODID);
 

@@ -3,9 +3,7 @@ package com.lnatit.ccw.item.sugaring;
 import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.misc.RegRegistry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -26,7 +24,7 @@ public interface Sugars
     DeferredHolder<Sugar, Sugar> BUNNY = SUGARS.register("bunny",
                                                          () -> new Sugar(Sugar.Type.OVERWORLD,
                                                                          Ingredient.of(Items.RABBIT_FOOT,
-                                                                                       ItemRegistry.ENERGY_CARROT.get())));
+                                                                                       ItemRegistry.ENERGY_CARROT)));
 
     DeferredHolder<Sugar, Sugar> HEALING = SUGARS.register("healing",
                                                            () -> new Sugar(Sugar.Type.OVERWORLD,
@@ -46,7 +44,7 @@ public interface Sugars
     DeferredHolder<Sugar, Sugar> RECOVERY = SUGARS.register("recovery",
                                                             () -> new Sugar(Sugar.Type.OVERWORLD,
                                                                             Ingredient.of(Items.GHAST_TEAR,
-                                                                                          ItemRegistry.SWEET_MELON_SLICE.get())));
+                                                                                          ItemRegistry.SWEET_MELON_SLICE)));
 
     DeferredHolder<Sugar, Sugar> TURTLE = SUGARS.register("turtle",
                                                           () -> new Sugar(Sugar.Type.OVERWORLD,
@@ -59,16 +57,16 @@ public interface Sugars
                                                                          Ingredient.of(Items.SOUL_SAND)));
     DeferredHolder<Sugar, Sugar> STINKY = SUGARS.register("stinky",
                                                           () -> new Sugar(Sugar.Type.OVERWORLD,
-                                                                          Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(Tags.Items.MUSHROOMS))));
+                                                                          Ingredient.of(Tags.Items.MUSHROOMS)));
 
     DeferredHolder<Sugar, Sugar> BLINDING = SUGARS.register("blinding",
                                                             () -> new Sugar(Sugar.Type.OVERWORLD,
-                                                                            Ingredient.of(ItemRegistry.VOID_CARROT.get())));
+                                                                            Ingredient.of(ItemRegistry.VOID_CARROT)));
 
 
     DeferredHolder<Sugar, Sugar> WEAKNESS = SUGARS.register("weakness",
                                                             () -> new Sugar(Sugar.Type.OVERWORLD,
-                                                                            Ingredient.of(ItemRegistry.WEAKNESS_POWDER.get())));
+                                                                            Ingredient.of(ItemRegistry.WEAKNESS_POWDER)));
 
     DeferredHolder<Sugar, Sugar> BRIGHTNESS = SUGARS.register("brightness",
                                                               () -> new Sugar(Sugar.Type.OVERWORLD,
@@ -83,7 +81,7 @@ public interface Sugars
     // Nether blends
     DeferredHolder<Sugar, Sugar> INVISIBILITY = SUGARS.register("invisibility",
                                                                 () -> new Sugar(Sugar.Type.NETHER,
-                                                                                Ingredient.of(ItemRegistry.PHANTOM_PEARL.get())));
+                                                                                Ingredient.of(ItemRegistry.PHANTOM_PEARL)));
 
 
     DeferredHolder<Sugar, Sugar> STINGER = SUGARS.register("stinger",
@@ -108,7 +106,7 @@ public interface Sugars
                                                                         Ingredient.of(Items.COBBLESTONE)));
     DeferredHolder<Sugar, Sugar> SOLID = SUGARS.register("solid",
                                                          () -> new Sugar(Sugar.Type.NETHER,
-                                                                         Ingredient.of(ItemRegistry.CALCIUM_RICH_MILK.get())));
+                                                                         Ingredient.of(ItemRegistry.CALCIUM_RICH_MILK)));
 
 
     DeferredHolder<Sugar, Sugar> FIREPROOF = SUGARS.register("fireproof",
@@ -120,7 +118,7 @@ public interface Sugars
                                                                              Ingredient.of(Items.WITHER_ROSE)));
     DeferredHolder<Sugar, Sugar> RED_HEART = SUGARS.register("red_heart",
                                                              () -> new Sugar(Sugar.Type.NETHER,
-                                                                             Ingredient.of(ItemRegistry.IRON_CLAD_APPLE.get())));
+                                                                             Ingredient.of(ItemRegistry.IRON_CLAD_APPLE)));
 
 
     DeferredHolder<Sugar, Sugar> FLOATING = SUGARS.register("floating",
@@ -130,32 +128,32 @@ public interface Sugars
     // End blends
     DeferredHolder<Sugar, Sugar> GOLDEN_HEART = SUGARS.register("golden_heart",
                                                                 () -> new Sugar(Sugar.Type.END,
-                                                                                Ingredient.of(ItemRegistry.GOLD_STUDDED_APPLE.get())));
+                                                                                Ingredient.of(ItemRegistry.GOLD_STUDDED_APPLE)));
 
 
     DeferredHolder<Sugar, Sugar> SATIATING = SUGARS.register("satiating",
                                                              () -> new Sugar(Sugar.Type.END,
-                                                                             Ingredient.of(ItemRegistry.BLESSED_STEAK.get())));
+                                                                             Ingredient.of(ItemRegistry.BLESSED_STEAK)));
 
     DeferredHolder<Sugar, Sugar> LUCKY = SUGARS.register("lucky",
                                                          () -> new Sugar(Sugar.Type.END,
-                                                                         Ingredient.of(ItemRegistry.GREEDY_OFFERING.get())));
+                                                                         Ingredient.of(ItemRegistry.GREEDY_OFFERING)));
 
 
     DeferredHolder<Sugar, Sugar> UNLUCKY = SUGARS.register("unlucky",
                                                            () -> new Sugar(Sugar.Type.END,
-                                                                           Ingredient.of(ItemRegistry.DEFILED_OFFERING.get())));
+                                                                           Ingredient.of(ItemRegistry.DEFILED_OFFERING)));
 
     DeferredHolder<Sugar, Sugar> TIDAL = SUGARS.register("tidal",
                                                          () -> new Sugar(Sugar.Type.END,
                                                                          Ingredient.of(Items.NAUTILUS_SHELL)));
     DeferredHolder<Sugar, Sugar> FISH_SWIM = SUGARS.register("fish_swim",
                                                              () -> new Sugar(Sugar.Type.END,
-                                                                             Ingredient.of(ItemRegistry.DOLPHIN_COOKIE.get())));
+                                                                             Ingredient.of(ItemRegistry.DOLPHIN_COOKIE)));
 
     DeferredHolder<Sugar, Sugar> TAUNTING = SUGARS.register("taunting",
                                                             () -> new Sugar(Sugar.Type.END,
-                                                                            Ingredient.of(ItemRegistry.OMINOUS_FLAG.get())));
+                                                                            Ingredient.of(ItemRegistry.OMINOUS_FLAG)));
 
     DeferredHolder<Sugar, Sugar> DISCOUNT = SUGARS.register("discount",
                                                             () -> new Sugar(Sugar.Type.END,

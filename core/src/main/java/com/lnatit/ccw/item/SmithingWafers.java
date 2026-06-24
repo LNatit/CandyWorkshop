@@ -33,7 +33,7 @@ public interface SmithingWafers {
     Identifier EMPTY_SLOT_INGOT = Identifier.withDefaultNamespace("item/empty_slot_ingot");
     Identifier EMPTY_SLOT_DRAGON_HEAD = CandyWorkshop.id("item/empty_slot_dragon_head");
 
-    static SmithingTemplateItem createNether() {
+    static SmithingTemplateItem createNether(Item.Properties properties) {
         return new SmithingTemplateItem(
                 Component.translatable(SmithingWafers.NETHER_GLAZE_APPLIES_TO).withStyle(DESCRIPTION_FORMAT),
                 Component.translatable(SmithingWafers.NETHER_GLAZE_INGREDIENTS).withStyle(DESCRIPTION_FORMAT),
@@ -42,11 +42,11 @@ public interface SmithingWafers {
                 Component.translatable(SmithingWafers.NETHER_GLAZE_ADDITIONS_SLOT_DESC),
                 UPGRADE_ICONS,
                 List.of(EMPTY_SLOT_INGOT),
-                new Item.Properties().rarity(Rarity.UNCOMMON)
+                properties.rarity(Rarity.UNCOMMON)
         );
     }
 
-    static SmithingTemplateItem createEnder() {
+    static SmithingTemplateItem createEnder(Item.Properties properties) {
         return new SmithingTemplateItem(
                 Component.translatable(SmithingWafers.ENDER_GLAZE_APPLIES_TO).withStyle(DESCRIPTION_FORMAT),
                 Component.translatable(SmithingWafers.ENDER_GLAZE_INGREDIENTS).withStyle(DESCRIPTION_FORMAT),
@@ -55,7 +55,7 @@ public interface SmithingWafers {
                 Component.translatable(SmithingWafers.ENDER_GLAZE_ADDITIONS_SLOT_DESC),
                 UPGRADE_ICONS,
                 List.of(EMPTY_SLOT_DRAGON_HEAD),
-                new Item.Properties().rarity(Rarity.UNCOMMON)
+                properties.rarity(Rarity.UNCOMMON)
         );
     }
 }

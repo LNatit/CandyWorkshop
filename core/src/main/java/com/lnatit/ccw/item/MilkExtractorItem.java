@@ -11,8 +11,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 public class MilkExtractorItem extends Item {
-    public MilkExtractorItem() {
-        super(new Item.Properties().durability(129));
+    public MilkExtractorItem(Properties properties) {
+        super(properties.durability(129));
     }
 
     @Override

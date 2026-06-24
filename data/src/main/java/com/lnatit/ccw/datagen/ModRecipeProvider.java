@@ -6,11 +6,14 @@ import com.lnatit.ccw.item.crafting.RefiningRecipeBuilder;
 import com.lnatit.ccw.item.crafting.RepairExtractorRecipe;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.component.DataComponentPredicate;
+import net.minecraft.core.component.DataComponentExactPredicate;
+import net.minecraft.core.component.predicates.DataComponentPredicate;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.world.entity.raid.Raid;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -28,7 +31,9 @@ public class ModRecipeProvider extends RecipeProvider
 
     @Override
     protected void buildRecipes(RecipeOutput output, HolderLookup.Provider registries) {
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.MILK_EXTRACTOR)
+        HolderLookup.RegistryLookup<Item> lookup = registries.lookupOrThrow(Registries.ITEM);
+
+        ShapedRecipeBuilder.shaped(lookup, RecipeCategory.MISC, ItemRegistry.MILK_EXTRACTOR)
                            .define('#', Items.GLASS_PANE)
                            .define('U', Items.BUCKET)
                            .define('I', Items.IRON_INGOT)
@@ -39,7 +44,7 @@ public class ModRecipeProvider extends RecipeProvider
                            .unlockedBy("has_milk", has(Items.MILK_BUCKET))
                            .save(output);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.MILK_PACKAGING)
+        ShapedRecipeBuilder.shaped(lookup, RecipeCategory.MISC, ItemRegistry.MILK_PACKAGING)
                            .define('#', Items.PAPER)
                            .pattern("#")
                            .pattern("#")
@@ -56,13 +61,13 @@ public class ModRecipeProvider extends RecipeProvider
 //                .unlockedBy("has_packaging", has(ItemRegistry.MILK_PACKAGING))
 //                .save(ShapedRecipeBuilder.output);
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemRegistry.CARTON_MILK, 8)
+        ShapelessRecipeBuilder.shapeless(lookup, RecipeCategory.MISC, ItemRegistry.CARTON_MILK, 8)
                               .requires(Items.MILK_BUCKET)
                               .requires(Items.PAPER)
                               .unlockedBy("has_milk", has(Items.MILK_BUCKET))
                               .save(output, CandyWorkshop.MODID + ":milk_carton_from_single_milk_bucket");
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemRegistry.CARTON_MILK, 24)
+        ShapelessRecipeBuilder.shapeless(lookup, RecipeCategory.MISC, ItemRegistry.CARTON_MILK, 24)
                               .requires(Items.MILK_BUCKET, 3)
                               .requires(Items.PAPER)
                               .unlockedBy("has_milk", has(Items.MILK_BUCKET))
@@ -72,7 +77,7 @@ public class ModRecipeProvider extends RecipeProvider
         SpecialRecipeBuilder.special(RepairExtractorRecipe::new)
                             .save(output, CandyWorkshop.MODID + ":repair_extractor");
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.SUGAR_REFINERY)
+        ShapedRecipeBuilder.shaped(lookup, RecipeCategory.MISC, ItemRegistry.SUGAR_REFINERY)
                            .define('U', Items.BUCKET)
                            .define('#', Items.IRON_INGOT)
                            .define('/', Tags.Items.RODS_WOODEN)
@@ -83,7 +88,7 @@ public class ModRecipeProvider extends RecipeProvider
                            .unlockedBy("has_milk", has(Items.MILK_BUCKET))
                            .save(output);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.PLAIN_DRAWER_TABLE)
+        ShapedRecipeBuilder.shaped(lookup, RecipeCategory.MISC, ItemRegistry.PLAIN_DRAWER_TABLE)
                            .define('#', net.minecraft.tags.ItemTags.PLANKS)
                            .define('X', Tags.Items.CHESTS)
                            .pattern("###")
@@ -92,7 +97,7 @@ public class ModRecipeProvider extends RecipeProvider
                            .unlockedBy("has_chest", has(Items.CHEST))
                            .save(output);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.DRAWER_TABLE)
+        ShapedRecipeBuilder.shaped(lookup, RecipeCategory.MISC, ItemRegistry.DRAWER_TABLE)
                            .define('#', ItemRegistry.PLAIN_DRAWER_TABLE)
                            .define('X', Items.PINK_CARPET)
                            .pattern("X")
@@ -100,19 +105,19 @@ public class ModRecipeProvider extends RecipeProvider
                            .unlockedBy("has_plain_drawer_table", has(ItemRegistry.PLAIN_DRAWER_TABLE))
                            .save(output);
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.BREWING, ItemRegistry.NETHER_SUGAR, 8)
+        ShapelessRecipeBuilder.shapeless(lookup, RecipeCategory.BREWING, ItemRegistry.NETHER_SUGAR, 8)
                               .requires(Items.NETHER_WART)
                               .requires(Items.SUGAR, 8)
                               .unlockedBy("has_milk_carton", has(ItemRegistry.CARTON_MILK_TAG))
                               .save(output);
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.BREWING, ItemRegistry.ENDER_SUGAR, 8)
+        ShapelessRecipeBuilder.shapeless(lookup, RecipeCategory.BREWING, ItemRegistry.ENDER_SUGAR, 8)
                               .requires(Items.DRAGON_BREATH)
                               .requires(Items.SUGAR, 8)
                               .unlockedBy("has_milk_carton", has(ItemRegistry.CARTON_MILK_TAG))
                               .save(output);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.BREWING, ItemRegistry.ENERGY_CARROT)
+        ShapedRecipeBuilder.shaped(lookup, RecipeCategory.BREWING, ItemRegistry.ENERGY_CARROT)
                            .define('#', Items.REDSTONE)
                            .define('X', Items.CARROT)
                            .pattern("###")
@@ -121,7 +126,7 @@ public class ModRecipeProvider extends RecipeProvider
                            .unlockedBy("has_milk_carton", has(ItemRegistry.CARTON_MILK_TAG))
                            .save(output);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.BREWING, ItemRegistry.SWEET_MELON_SLICE)
+        ShapedRecipeBuilder.shaped(lookup, RecipeCategory.BREWING, ItemRegistry.SWEET_MELON_SLICE)
                            .define('#', Items.SUGAR)
                            .define('X', Items.MELON_SLICE)
                            .pattern("###")
@@ -130,13 +135,13 @@ public class ModRecipeProvider extends RecipeProvider
                            .unlockedBy("has_milk_carton", has(ItemRegistry.CARTON_MILK_TAG))
                            .save(output);
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.BREWING, ItemRegistry.PHANTOM_PEARL)
+        ShapelessRecipeBuilder.shapeless(lookup, RecipeCategory.BREWING, ItemRegistry.PHANTOM_PEARL)
                               .requires(Items.PHANTOM_MEMBRANE)
                               .requires(Items.ENDER_PEARL)
                               .unlockedBy("has_milk_carton", has(ItemRegistry.CARTON_MILK_TAG))
                               .save(output);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.BREWING, ItemRegistry.CALCIUM_RICH_MILK)
+        ShapedRecipeBuilder.shaped(lookup, RecipeCategory.BREWING, ItemRegistry.CALCIUM_RICH_MILK)
                            .define('#', Items.BONE)
                            .define('X', ItemRegistry.CARTON_MILK_TAG)
                            .pattern(" # ")
@@ -145,7 +150,7 @@ public class ModRecipeProvider extends RecipeProvider
                            .unlockedBy("has_milk_carton", has(ItemRegistry.CARTON_MILK_TAG))
                            .save(output);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.BREWING, ItemRegistry.VOID_CARROT)
+        ShapedRecipeBuilder.shaped(lookup, RecipeCategory.BREWING, ItemRegistry.VOID_CARROT)
                            .define('#', Items.BLACK_DYE)
                            .define('X', Items.CARROT)
                            .pattern("###")
@@ -154,13 +159,13 @@ public class ModRecipeProvider extends RecipeProvider
                            .unlockedBy("has_milk_carton", has(ItemRegistry.CARTON_MILK_TAG))
                            .save(output);
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.BREWING, ItemRegistry.WEAKNESS_POWDER)
+        ShapelessRecipeBuilder.shapeless(lookup, RecipeCategory.BREWING, ItemRegistry.WEAKNESS_POWDER)
                               .requires(Items.BLAZE_POWDER)
                               .requires(Items.FERMENTED_SPIDER_EYE)
                               .unlockedBy("has_milk_carton", has(ItemRegistry.CARTON_MILK_TAG))
                               .save(output);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.BREWING, ItemRegistry.IRON_CLAD_APPLE)
+        ShapedRecipeBuilder.shaped(lookup, RecipeCategory.BREWING, ItemRegistry.IRON_CLAD_APPLE)
                            .define('#', Items.IRON_NUGGET)
                            .define('X', Items.APPLE)
                            .pattern("###")
@@ -169,7 +174,7 @@ public class ModRecipeProvider extends RecipeProvider
                            .unlockedBy("has_milk_carton", has(ItemRegistry.CARTON_MILK_TAG))
                            .save(output);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.BREWING, ItemRegistry.GOLD_STUDDED_APPLE)
+        ShapedRecipeBuilder.shaped(lookup, RecipeCategory.BREWING, ItemRegistry.GOLD_STUDDED_APPLE)
                            .define('#', Items.GOLD_NUGGET)
                            .define('X', Items.APPLE)
                            .pattern("###")
@@ -178,7 +183,7 @@ public class ModRecipeProvider extends RecipeProvider
                            .unlockedBy("has_milk_carton", has(ItemRegistry.CARTON_MILK_TAG))
                            .save(output);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.BREWING, ItemRegistry.BLESSED_STEAK)
+        ShapedRecipeBuilder.shaped(lookup, RecipeCategory.BREWING, ItemRegistry.BLESSED_STEAK)
                            .define('#', Items.GOLD_INGOT)
                            .define('X', Items.COOKED_BEEF)
                            .pattern("###")
@@ -187,7 +192,7 @@ public class ModRecipeProvider extends RecipeProvider
                            .unlockedBy("has_milk_carton", has(ItemRegistry.CARTON_MILK_TAG))
                            .save(output);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.BREWING, ItemRegistry.GREEDY_OFFERING)
+        ShapedRecipeBuilder.shaped(lookup, RecipeCategory.BREWING, ItemRegistry.GREEDY_OFFERING)
                            .define('#', Items.EMERALD)
                            .define('X', Items.BOWL)
                            .pattern(" # ")
@@ -196,7 +201,7 @@ public class ModRecipeProvider extends RecipeProvider
                            .unlockedBy("has_milk_carton", has(ItemRegistry.CARTON_MILK_TAG))
                            .save(output);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.BREWING, ItemRegistry.DEFILED_OFFERING)
+        ShapedRecipeBuilder.shaped(lookup, RecipeCategory.BREWING, ItemRegistry.DEFILED_OFFERING)
                            .define('#', Items.COAL)
                            .define('X', Items.BOWL)
                            .pattern(" # ")
@@ -205,7 +210,7 @@ public class ModRecipeProvider extends RecipeProvider
                            .unlockedBy("has_milk_carton", has(ItemRegistry.CARTON_MILK_TAG))
                            .save(output);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.BREWING, ItemRegistry.DOLPHIN_COOKIE)
+        ShapedRecipeBuilder.shaped(lookup, RecipeCategory.BREWING, ItemRegistry.DOLPHIN_COOKIE)
                            .define('#', Tags.Items.FOODS_RAW_FISH)
                            .define('X', Items.COOKIE)
                            .pattern(" # ")
@@ -218,13 +223,13 @@ public class ModRecipeProvider extends RecipeProvider
                 new DataComponentIngredient(
                         HolderSet.direct(Items.WHITE_BANNER.builtInRegistryHolder()),
                         DataComponentPredicate.allOf(
-                                Raid.getLeaderBannerInstance(registries.lookupOrThrow(Registries.BANNER_PATTERN))
-                                    .getComponents()
+                                Raid.getBannerComponentPatch(registries.lookupOrThrow(Registries.BANNER_PATTERN))
+                                        .entrySet()
                         ),
                         false
                 )
         );
-        ShapedRecipeBuilder.shaped(RecipeCategory.BREWING, ItemRegistry.OMINOUS_FLAG)
+        ShapedRecipeBuilder.shaped(lookup, RecipeCategory.BREWING, ItemRegistry.OMINOUS_FLAG)
                            .define('#', ominous_banner)
                            .define('X', Items.EMERALD)
                            .pattern("# #")
@@ -233,13 +238,13 @@ public class ModRecipeProvider extends RecipeProvider
                            .unlockedBy("has_milk_carton", has(ItemRegistry.CARTON_MILK_TAG))
                            .save(output);
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.BREWING, ItemRegistry.MILK_GELATIN)
+        ShapelessRecipeBuilder.shapeless(lookup, RecipeCategory.BREWING, ItemRegistry.MILK_GELATIN)
                               .requires(ItemRegistry.CARTON_MILK_TAG)
                               .requires(Tags.Items.SLIME_BALLS)
                               .unlockedBy("has_milk_carton", has(ItemRegistry.CARTON_MILK_TAG))
                               .save(output);
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.BREWING, ItemRegistry.MILK_GELATIN, 8)
+        ShapelessRecipeBuilder.shapeless(lookup, RecipeCategory.BREWING, ItemRegistry.MILK_GELATIN, 8)
                               .requires(Items.MILK_BUCKET)
                               .requires(Items.SLIME_BALL, 8)
                               .unlockedBy("has_milk_carton", has(ItemRegistry.CARTON_MILK_TAG))
@@ -247,15 +252,15 @@ public class ModRecipeProvider extends RecipeProvider
 
         // TODO check amount and output
         RefiningRecipeBuilder.of(
-                                     SizedIngredient.of(ItemRegistry.CARTON_MILK_TAG, 8),
+                                     new SizedIngredient(Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ItemRegistry.CARTON_MILK_TAG)), 8),
                                      SizedIngredient.of(Items.SUGAR, 8),
                                      Ingredient.of(Items.COPPER_BLOCK),
-                                     Ingredient.EMPTY,
+                                     Ingredient.of(),
                                      new ItemStack(ItemRegistry.CARAMETAL.asItem())
                              )
                              .save(output);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.GUMMY_MAGAZINE)
+        ShapedRecipeBuilder.shaped(lookup, RecipeCategory.MISC, ItemRegistry.GUMMY_MAGAZINE)
                            .define('#', ItemRegistry.CARAMETAL)
                            .define('C', Items.CHEST)
                            .define('S', Items.IRON_TRAPDOOR)
@@ -265,7 +270,7 @@ public class ModRecipeProvider extends RecipeProvider
                            .unlockedBy("has_carametal", has(ItemRegistry.CARAMETAL))
                            .save(output);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.GUMMY_GLAZER)
+        ShapedRecipeBuilder.shaped(lookup, RecipeCategory.MISC, ItemRegistry.GUMMY_GLAZER)
                            .define('#', ItemRegistry.CARAMETAL)
                            .define('C', Items.BLAST_FURNACE)
                            .define('D', Items.LAVA_BUCKET)
@@ -276,7 +281,7 @@ public class ModRecipeProvider extends RecipeProvider
                            .unlockedBy("has_carametal", has(ItemRegistry.CARAMETAL))
                            .save(output);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.NETHER_SMITHING_WAFER)
+        ShapedRecipeBuilder.shaped(lookup, RecipeCategory.MISC, ItemRegistry.NETHER_SMITHING_WAFER)
                            .define('#', ItemRegistry.CARAMETAL)
                            .define('C', Items.DIAMOND)
                            .define('S', ItemRegistry.NETHER_SUGAR_TAG)
@@ -286,7 +291,7 @@ public class ModRecipeProvider extends RecipeProvider
                            .unlockedBy("has_nether_sugar", has(ItemRegistry.NETHER_SUGAR_TAG))
                            .save(output);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.ENDER_SMITHING_WAFER)
+        ShapedRecipeBuilder.shaped(lookup, RecipeCategory.MISC, ItemRegistry.ENDER_SMITHING_WAFER)
                            .define('#', Items.POPPED_CHORUS_FRUIT)
                            .define('C', Items.ECHO_SHARD)
                            .define('S', ItemRegistry.ENDER_SUGAR_TAG)

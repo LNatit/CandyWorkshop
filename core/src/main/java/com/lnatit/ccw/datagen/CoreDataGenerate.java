@@ -19,7 +19,7 @@ public class CoreDataGenerate
 {
     // Use lowest so that we can init those datapacks
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void onGatherData(GatherDataEvent event) {
+    public static void onGatherData(GatherDataEvent.Client event) {
         DataGenerator generator = event.getGenerator();
         PackOutput output = generator.getPackOutput();
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
