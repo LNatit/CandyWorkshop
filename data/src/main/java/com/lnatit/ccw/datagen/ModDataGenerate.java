@@ -164,10 +164,10 @@ public class ModDataGenerate
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 
 
-        generator.addProvider(
-                true,
-                new ModModelProvider(output)
-        );
+//        generator.addProvider(
+//                true,
+//                new ModModelProvider(output)
+//        );
         generator.addProvider(
                 true,
                 new ModEN_USProvider(output)
