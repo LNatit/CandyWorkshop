@@ -111,26 +111,77 @@ subprojects {
     }
 }
 
-def compatProjects = [
-        project(':compat-apotheosis'),
-        project(':compat-farmersdelight'),
-        project(':compat-fruitsdelight'),
-        project(':compat-kaleidoscope'),
-        project(':compat-neapolitan'),
-        project(':compat-youkaisfeasts'),
-        project(':compat-youkaishomecoming')
+// Single source of truth for compat modules: enable flag + extra dependencies.
+def compatConfig = [
+        ':compat-apotheosis': [
+                enabled: false,
+                deps   : {
+                    implementation("curse.maven:patchouli-306770:6164617")
+                    implementation("curse.maven:placebo-283644:6446766-sources")
+                    implementation("curse.maven:apoattr-898963:6514649-sources")
+                    implementation("curse.maven:apoench-1063926:6631673-sources")
+                    implementation("curse.maven:apospaw-986583:6689771-sources")
+                    implementation("curse.maven:apotheosis-313970:6545942-sources")
+                }
+        ],
+        ':compat-farmersdelight': [
+                enabled: false,
+                deps   : {
+                    // FD has no source artifact to download.
+                    implementation("curse.maven:farmers-delight-398521:8007613")
+                }
+        ],
+        ':compat-fruitsdelight': [
+                enabled: false,
+                deps   : {
+                    implementation project(':compat-farmersdelight')
+                    implementation("com.tterrag.registrate:Registrate:MC1.21-1.3.0+67")
+                    implementation("curse.maven:fruits-delight-943774:8004727")
+                    runtimeOnly("curse.maven:cuisine-delight-893541:8004724")
+                }
+        ],
+        ':compat-kaleidoscope': [
+                enabled: false,
+                deps   : {
+                    implementation("curse.maven:kaleidoscope-cookery-1309203:7738871")
+                    // Optional addons kept commented intentionally:
+//                    implementation("curse.maven:kaleidoscope-nether-1417862:7732247")
+                }
+        ],
+        ':compat-neapolitan': [
+                enabled: false,
+                deps   : {
+                    implementation("curse.maven:blueprint-382216:7148094")
+                    implementation("curse.maven:neapolitan-382016:7119475")
+                    runtimeOnly("curse.maven:gallery-1173553:6449910")
+                }
+        ],
+        ':compat-youkaisfeasts': [
+                enabled: false,
+                deps   : {
+                    implementation project(':compat-farmersdelight')
+                    implementation("l2core:l2core:3.0.8+3")
+                    implementation("com.tterrag.registrate:Registrate:MC1.21-1.3.0+67")
+                    implementation("curse.maven:gensokyo-delight-youkais-feasts-1309991:8004770")
+                }
+        ],
+        ':compat-youkaishomecoming': [
+                enabled: false,
+                deps   : {
+                    implementation project(':compat-farmersdelight')
+                    implementation("l2core:l2core:3.0.8+3")
+                    implementation("com.tterrag.registrate:Registrate:MC1.21-1.3.0+67")
+                    implementation("youkaishomecoming:youkaishomecoming:3.0.8")
+                }
+        ]
 ]
 
+def compatProjects = compatConfig.keySet().collect { path -> project(path) }
+
 // activeCompats must be defined BEFORE apply from: so the applied script can reference it via ext.
-ext.activeCompats = [
-//        project(':compat-apotheosis'),
-//        project(':compat-farmersdelight'),
-//        project(':compat-fruitsdelight'),
-//        project(':compat-kaleidoscope'),
-//        project(':compat-neapolitan'),
-//        project(':compat-youkaisfeasts'),
-//        project(':compat-youkaishomecoming')
-]
+ext.activeCompats = compatConfig
+        .findAll { _, spec -> spec.enabled }
+        .collect { path, _ -> project(path) }
 
 apply from: "$rootDir/gradle/lang-merge-and-conflicts.gradle"
 
@@ -225,99 +276,23 @@ project(':data') {
 
 // New compat onboarding checklist:
 // 1) Add include in settings.gradle: include 'compat-<newmod>'
-// 2) Add compat project block below with required mod dependencies
-// 3) Add project to compatProjects list above
-// 4) Add project jar to root moduleJars aggregation list
-
-project(':compat-apotheosis') {
-    dependencies {
-        implementation project(':core')
-        implementation("curse.maven:patchouli-306770:6164617")
-        implementation("curse.maven:placebo-283644:6446766-sources")
-        implementation("curse.maven:apoattr-898963:6514649-sources")
-        implementation("curse.maven:apoench-1063926:6631673-sources")
-        implementation("curse.maven:apospaw-986583:6689771-sources")
-        implementation("curse.maven:apotheosis-313970:6545942-sources")
-    }
-}
-
-project(':compat-farmersdelight') {
-    dependencies {
-        implementation project(':core')
-        // Farmers Delight
-        // https://www.curseforge.com/minecraft/mc-mods/farmers-delight/files
-        // FD has no src to download
-        implementation("curse.maven:farmers-delight-398521:8007613")
-    }
-}
-
-project(':compat-fruitsdelight') {
-    dependencies {
-        implementation project(':core')
-        implementation project(':compat-farmersdelight')
-        // FruitsDelight
-        // https://www.curseforge.com/minecraft/mc-mods/fruits-delight/files
-        implementation("com.tterrag.registrate:Registrate:MC1.21-1.3.0+67")
-        implementation("curse.maven:fruits-delight-943774:8004727")
-        runtimeOnly("curse.maven:cuisine-delight-893541:8004724")
-    }
-}
-
-
-project(':compat-kaleidoscope') {
-    dependencies {
-        implementation project(':core')
-        // Kaleidoscope Cookery
-        // https://www.curseforge.com/minecraft/mc-mods/kaleidoscope-cookery/files
-        implementation("curse.maven:kaleidoscope-cookery-1309203:7738871")
-        // Nether
-        // https://www.curseforge.com/minecraft/mc-mods/kaleidoscope-nether/files
-//    implementation("curse.maven:kaleidoscope-nether-1417862:7732247")
-        // End
-        // https://www.curseforge.com/minecraft/mc-mods/kaleidoscope-end/files
-//    implementation()
-    }
-}
-
-project(':compat-neapolitan') {
-    dependencies {
-        implementation project(':core')
-        // Neapolitan
-        // https://www.curseforge.com/minecraft/mc-mods/neapolitan/files
-        implementation("curse.maven:blueprint-382216:7148094")
-        implementation("curse.maven:neapolitan-382016:7119475")
-        // datagen issue
-        runtimeOnly("curse.maven:gallery-1173553:6449910")
-    }
-}
-
-project(':compat-youkaisfeasts') {
-    dependencies {
-        implementation project(':core')
-        implementation project(':compat-farmersdelight')
-        // Youkai's Feasts is an addon for Farmer's Delight, so depend on that compat module to pull in the base mod dependency.)
-        implementation("l2core:l2core:3.0.8+3")
-        implementation("com.tterrag.registrate:Registrate:MC1.21-1.3.0+67")
-        // https://www.curseforge.com/minecraft/mc-mods/gensokyo-delight-youkais-feasts/files
-        implementation("curse.maven:gensokyo-delight-youkais-feasts-1309991:8004770")
-    }
-}
-
-project(':compat-youkaishomecoming') {
-    dependencies {
-        implementation project(':core')
-        // YH only supports FD 1.2
-        implementation project(':compat-farmersdelight')
-        // Youkais Homecoming
-        // No src to download
-        implementation("l2core:l2core:3.0.8+3")
-        implementation("com.tterrag.registrate:Registrate:MC1.21-1.3.0+67")
-        // https://modrinth.com/mod/youkaishomecoming/versions?g=1.21.1
-        implementation("youkaishomecoming:youkaishomecoming:3.0.8")
-    }
-}
+// 2) Add one entry in compatConfig (enabled + deps)
+// 3) Add project jar to root moduleJars aggregation list (if needed)
 
 configure(compatProjects) {
+    if (!rootProject.ext.activeCompats.contains(project)) return
+    dependencies {
+        implementation project(':core')
+        def extraDeps = compatConfig[project.path]?.deps
+        if (extraDeps != null) {
+            extraDeps.delegate = delegate
+            extraDeps.resolveStrategy = DELEGATE_FIRST
+            extraDeps.call()
+        }
+    }
+}
+
+configure(activeCompats) {
     neoForge {
         mods {
             "${mod_id}" {
@@ -364,6 +339,22 @@ configure(compatProjects) {
                 systemProperty 'forge.logging.markers', 'REGISTRIES'
                 logLevel = org.slf4j.event.Level.DEBUG
             }
+        }
+    }
+}
+
+def inactiveCompats = compatProjects - activeCompats
+configure(inactiveCompats) {
+    // Keep disabled compat modules out of root ':build' task graph.
+    tasks.configureEach {
+        if (name in [
+                'build', 'assemble', 'check',
+                'compileJava', 'processResources', 'classes',
+                'jarJar', 'jar',
+                'compileTestJava', 'processTestResources', 'testClasses', 'test',
+                'createMinecraftArtifacts'
+        ]) {
+            enabled = false
         }
     }
 }
