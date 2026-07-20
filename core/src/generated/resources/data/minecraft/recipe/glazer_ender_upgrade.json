@@ -1,16 +1,9 @@
 {
   "type": "minecraft:smithing_transform",
-  "addition": {
-    "item": "minecraft:dragon_head"
-  },
-  "base": {
-    "item": "ccw:nether_glazer"
-  },
+  "addition": "minecraft:dragon_head",
+  "base": "ccw:nether_glazer",
   "result": {
-    "count": 1,
     "id": "ccw:ender_glazer"
   },
-  "template": {
-    "item": "ccw:ender_smithing_wafer"
-  }
+  "template": "ccw:ender_smithing_wafer"
 }

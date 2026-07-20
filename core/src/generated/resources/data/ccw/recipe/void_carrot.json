@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
-      "item": "minecraft:black_dye"
-    },
-    "X": {
-      "item": "minecraft:carrot"
-    }
+    "#": "minecraft:black_dye",
+    "X": "minecraft:carrot"
   },
   "pattern": [
     "###",
@@ -15,7 +11,6 @@
     "###"
   ],
   "result": {
-    "count": 1,
     "id": "ccw:void_carrot"
   }
 }

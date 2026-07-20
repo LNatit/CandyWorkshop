@@ -2,33 +2,15 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "minecraft:milk_bucket"
-    },
-    {
-      "item": "minecraft:slime_ball"
-    },
-    {
-      "item": "minecraft:slime_ball"
-    },
-    {
-      "item": "minecraft:slime_ball"
-    },
-    {
-      "item": "minecraft:slime_ball"
-    },
-    {
-      "item": "minecraft:slime_ball"
-    },
-    {
-      "item": "minecraft:slime_ball"
-    },
-    {
-      "item": "minecraft:slime_ball"
-    },
-    {
-      "item": "minecraft:slime_ball"
-    }
+    "minecraft:milk_bucket",
+    "minecraft:slime_ball",
+    "minecraft:slime_ball",
+    "minecraft:slime_ball",
+    "minecraft:slime_ball",
+    "minecraft:slime_ball",
+    "minecraft:slime_ball",
+    "minecraft:slime_ball",
+    "minecraft:slime_ball"
   ],
   "result": {
     "count": 8,

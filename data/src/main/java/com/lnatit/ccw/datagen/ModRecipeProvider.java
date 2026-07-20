@@ -11,13 +11,14 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
 
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 public class ModRecipeProvider extends RecipeProvider
@@ -249,8 +250,8 @@ public class ModRecipeProvider extends RecipeProvider
                                      new SizedIngredient(Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(ItemRegistry.CARTON_MILK_TAG)), 8),
                                      SizedIngredient.of(Items.SUGAR, 8),
                                      Ingredient.of(Items.COPPER_BLOCK),
-                                     Ingredient.of(),
-                                     new ItemStack(ItemRegistry.CARAMETAL.asItem())
+                                     Optional.empty(),
+                                     new ItemStackTemplate(ItemRegistry.CARAMETAL)
                              )
                              .save(output);
 

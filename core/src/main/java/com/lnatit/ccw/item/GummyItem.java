@@ -4,13 +4,11 @@ import com.lnatit.ccw.item.component.SugarContents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 public class GummyItem extends Item {
@@ -22,12 +20,6 @@ public class GummyItem extends Item {
     public Component getName(ItemStack stack) {
         SugarContents sugarContents = stack.get(ItemRegistry.SUGAR_CONTENTS_DCTYPE);
         return sugarContents != null ? sugarContents.getName(this.getDescriptionId()) : super.getName(stack);
-    }
-
-    @Override
-    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity livingEntity) {
-        SugarContents.applySugarEffects(stack, livingEntity);
-        return super.finishUsingItem(stack, level, livingEntity);
     }
 
     @Override

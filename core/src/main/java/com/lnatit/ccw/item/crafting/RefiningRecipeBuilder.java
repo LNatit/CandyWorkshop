@@ -4,11 +4,13 @@ import net.minecraft.advancements.Criterion;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 public class RefiningRecipeBuilder implements RecipeBuilder
 {
@@ -16,10 +18,10 @@ public class RefiningRecipeBuilder implements RecipeBuilder
     protected SizedIngredient sugar;
 //    {SizedIngredient.of(Items.SUGAR, IFormula.SUGAR_CONSUMPTION);}
     protected Ingredient main;
-    protected Ingredient extra;
-    protected ItemStack result;
+    protected Optional<Ingredient> extra;
+    protected ItemStackTemplate result;
 
-    public static RefiningRecipeBuilder of(SizedIngredient milk, SizedIngredient sugar, Ingredient main, Ingredient extra, ItemStack result) {
+    public static RefiningRecipeBuilder of(SizedIngredient milk, SizedIngredient sugar, Ingredient main, Optional<Ingredient> extra, ItemStackTemplate result) {
         return new RefiningRecipeBuilder(milk, sugar, main, extra, result);
     }
 
@@ -27,8 +29,8 @@ public class RefiningRecipeBuilder implements RecipeBuilder
             SizedIngredient milk,
             SizedIngredient sugar,
             Ingredient main,
-            Ingredient extra,
-            ItemStack result
+            Optional<Ingredient> extra,
+            ItemStackTemplate result
     ) {
         this.milk = milk;
         this.sugar = sugar;

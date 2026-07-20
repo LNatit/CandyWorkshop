@@ -1,19 +1,15 @@
 {
   "type": "ccw:common_refining",
-  "extra": [],
-  "main": {
-    "item": "minecraft:copper_block"
-  },
+  "main": "minecraft:copper_block",
   "milk": {
     "count": 8,
-    "tag": "ccw:carton_milk"
+    "ingredient": "#ccw:carton_milk"
   },
-  "result": {
-    "count": 1,
+  "resultTemplate": {
     "id": "ccw:carametal"
   },
   "sugar": {
     "count": 8,
-    "item": "minecraft:sugar"
+    "ingredient": "minecraft:sugar"
   }
 }

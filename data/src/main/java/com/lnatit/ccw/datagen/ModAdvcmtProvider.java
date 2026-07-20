@@ -3,14 +3,17 @@ package com.lnatit.ccw.datagen;
 import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.block.BlockRegistry;
 import com.lnatit.ccw.item.ItemRegistry;
-import com.lnatit.ccw.item.component.SugarContents;
+import com.lnatit.ccw.item.sugaring.Sugar;
 import com.lnatit.ccw.item.sugaring.Sugars;
 import com.lnatit.ccw.misc.critereon.CriteriaRegistry;
 import com.lnatit.ccw.misc.critereon.NumericTrigger;
 import com.lnatit.ccw.misc.critereon.SimpleTrigger;
 import net.minecraft.advancements.*;
 import net.minecraft.advancements.criterion.*;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.advancements.AdvancementProvider;
@@ -57,7 +60,6 @@ public class ModAdvcmtProvider extends AdvancementProvider
     private static void genRoot(HolderLookup.Provider registries, Consumer<AdvancementHolder> writer) {
         Advancement.Builder builder = Advancement.Builder.advancement();
         builder.display(
-
                        new ItemStackTemplate(ItemRegistry.SUGAR_REFINERY),
                        AdvancementResources.ROOT.name(),
                        AdvancementResources.ROOT.desc(),
@@ -168,7 +170,7 @@ public class ModAdvcmtProvider extends AdvancementProvider
         Advancement.Builder builder = Advancement.Builder.advancement();
         builder.parent(AdvancementResources.MYFICA.parent())
                .display(
-                       ItemStackTemplate.fromNonEmptyStack(SugarContents.createOriginalSugar(Sugars.RED_HEART)),
+                       getSugarIcon(Sugars.RED_HEART),
                        AdvancementResources.MYFICA.name(),
                        AdvancementResources.MYFICA.desc(),
                        null,
@@ -186,7 +188,7 @@ public class ModAdvcmtProvider extends AdvancementProvider
         Advancement.Builder builder = Advancement.Builder.advancement();
         builder.parent(AdvancementResources.ADCAMA.parent())
                .display(
-                       ItemStackTemplate.fromNonEmptyStack(SugarContents.createOriginalSugar(Sugars.GOLDEN_HEART)),
+                       getSugarIcon(Sugars.GOLDEN_HEART),
                        AdvancementResources.ADCAMA.name(),
                        AdvancementResources.ADCAMA.desc(),
                        null,
@@ -248,7 +250,7 @@ public class ModAdvcmtProvider extends AdvancementProvider
         Advancement.Builder builder = Advancement.Builder.advancement();
         builder.parent(AdvancementResources.RAICOL.parent())
                .display(
-                       ItemStackTemplate.fromNonEmptyStack(SugarContents.createOriginalSugar(Sugars.RECOVERY)),
+                       getSugarIcon(Sugars.RECOVERY),
                        AdvancementResources.RAICOL.name(),
                        AdvancementResources.RAICOL.desc(),
                        null,
@@ -270,7 +272,7 @@ public class ModAdvcmtProvider extends AdvancementProvider
         Advancement.Builder builder = Advancement.Builder.advancement();
         builder.parent(AdvancementResources.DIABET.parent())
                .display(
-                       ItemStackTemplate.fromNonEmptyStack(SugarContents.createOriginalSugar(Sugars.STINGER)),
+                       getSugarIcon(Sugars.STINGER),
                        AdvancementResources.DIABET.name(),
                        AdvancementResources.DIABET.desc(),
                        null,
@@ -366,6 +368,14 @@ public class ModAdvcmtProvider extends AdvancementProvider
                )
                .requirements(AdvancementRequirements.allOf(List.of("place_candy_workshop")))
                .save(writer, AdvancementResources.TRCAWO.id());
+    }
+
+    private static ItemStackTemplate getSugarIcon(Holder<Sugar> sugar) {
+        return new ItemStackTemplate(ItemRegistry.GUMMY,
+                                     DataComponentPatch.builder()
+                                                       .set(DataComponents.ITEM_MODEL,
+                                                            Sugar.getModelId(sugar))
+                                                       .build());
     }
 
     public static class AdvancementResources

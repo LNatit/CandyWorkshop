@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
-      "item": "minecraft:popped_chorus_fruit"
-    },
-    "C": {
-      "item": "minecraft:echo_shard"
-    },
-    "S": {
-      "tag": "ccw:ender_sugar"
-    }
+    "#": "minecraft:popped_chorus_fruit",
+    "C": "minecraft:echo_shard",
+    "S": "#ccw:ender_sugar"
   },
   "pattern": [
     "#S#",
@@ -18,7 +12,6 @@
     "###"
   ],
   "result": {
-    "count": 1,
     "id": "ccw:ender_smithing_wafer"
   }
 }

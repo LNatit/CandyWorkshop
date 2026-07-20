@@ -11,12 +11,8 @@
     },
     "icon": {
       "components": {
-        "ccw:sugar_contents": {
-          "flavor": "ccw:original",
-          "sugar": "ccw:golden_heart"
-        }
+        "minecraft:item_model": "ccw:item/golden_heart_gummy"
       },
-      "count": 1,
       "id": "ccw:gummy"
     },
     "title": {

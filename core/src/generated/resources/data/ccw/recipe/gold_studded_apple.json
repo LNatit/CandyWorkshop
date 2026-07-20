@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
-      "item": "minecraft:gold_nugget"
-    },
-    "X": {
-      "item": "minecraft:apple"
-    }
+    "#": "minecraft:gold_nugget",
+    "X": "minecraft:apple"
   },
   "pattern": [
     "###",
@@ -15,7 +11,6 @@
     "###"
   ],
   "result": {
-    "count": 1,
     "id": "ccw:gold_studded_apple"
   }
 }

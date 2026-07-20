@@ -5,29 +5,32 @@ import com.lnatit.ccw.data.IFormula;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
 
+import java.util.Optional;
 import java.util.function.Consumer;
 
 public record RefiningRecipe(SizedIngredient milk,
                              SizedIngredient sugar,
                              Ingredient main,
-                             Ingredient extra,
-                             ItemStack result) implements IFormula, Recipe<RefiningInput>
+                             Optional<Ingredient> extra,
+                             ItemStackTemplate resultTemplate) implements IFormula, Recipe<RefiningInput>
 {
     public static final MapCodec<RefiningRecipe> MAP_CODEC =
             RecordCodecBuilder.mapCodec(inst -> inst.group(SizedIngredient.NESTED_CODEC.fieldOf("milk").forGetter(RefiningRecipe::milk),
                                                            SizedIngredient.NESTED_CODEC.fieldOf("sugar").forGetter(RefiningRecipe::sugar),
                                                            Ingredient.CODEC.fieldOf("main")
                                                                            .forGetter(RefiningRecipe::main),
-                                                           Ingredient.CODEC.fieldOf("extra")
+                                                           Ingredient.CODEC.optionalFieldOf("extra")
                                                                            .forGetter(RefiningRecipe::extra),
-                                                           ItemStack.CODEC.fieldOf("result")
-                                                                          .forGetter(RefiningRecipe::result))
+                                                           ItemStackTemplate.CODEC.fieldOf("resultTemplate")
+                                                                          .forGetter(RefiningRecipe::resultTemplate))
                                                     .apply(inst, RefiningRecipe::new));
     public static final StreamCodec<RegistryFriendlyByteBuf, RefiningRecipe> STREAM_CODEC = StreamCodec.composite(
             SizedIngredient.STREAM_CODEC,
@@ -36,10 +39,10 @@ public record RefiningRecipe(SizedIngredient milk,
             RefiningRecipe::sugar,
             Ingredient.CONTENTS_STREAM_CODEC,
             RefiningRecipe::main,
-            Ingredient.CONTENTS_STREAM_CODEC,
+            ByteBufCodecs.optional(Ingredient.CONTENTS_STREAM_CODEC),
             RefiningRecipe::extra,
-            ItemStack.STREAM_CODEC,
-            RefiningRecipe::result,
+            ItemStackTemplate.STREAM_CODEC,
+            RefiningRecipe::resultTemplate,
             RefiningRecipe::new);
 
     public static final RecipeSerializer<RefiningRecipe> SERIALIZER = new RecipeSerializer<>(MAP_CODEC, STREAM_CODEC);
@@ -49,7 +52,7 @@ public record RefiningRecipe(SizedIngredient milk,
         return this.milk.test(input.milk())
                && this.sugar.test(input.sugar())
                && this.main.test(input.main())
-               && this.extra.test(input.extra());
+               && (this.extra.isEmpty() || this.extra.get().test(input.extra()));
     }
 
     @Override
@@ -69,8 +72,13 @@ public record RefiningRecipe(SizedIngredient milk,
     }
 
     @Override
+    public ItemStack result() {
+        return resultTemplate.create();
+    }
+
+    @Override
     public ItemStack productionOf(RefiningInput input) {
-        return this.result.copy();
+        return this.resultTemplate.create();
     }
 
     @Override
@@ -80,10 +88,10 @@ public record RefiningRecipe(SizedIngredient milk,
         if (!this.main.isEmpty()) {
             IFormula.shrinkAndHandleRemainders(input.main(), remainderHandler);
         }
-        if (!this.extra.isEmpty()) {
+        if (this.extra.isPresent()) {
             IFormula.shrinkAndHandleRemainders(input.extra(), remainderHandler);
         }
-        return this.result.copy();
+        return this.resultTemplate.create();
     }
 
     @Override

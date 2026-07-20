@@ -4,7 +4,7 @@
     "drain_milk_extractor": {
       "conditions": {
         "durability": {
-          "max": 0
+          "max": 1
         },
         "item": {
           "items": "ccw:milk_extractor"
@@ -19,7 +19,6 @@
     },
     "frame": "challenge",
     "icon": {
-      "count": 1,
       "id": "ccw:carton_milk"
     },
     "title": {

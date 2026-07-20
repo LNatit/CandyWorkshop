@@ -30,7 +30,7 @@ public record Effect(Holder<MobEffect> mobEffect, int duration, int amplifier)
 
     public static Effect instant(Holder<MobEffect> mobEffect) {
         if (!mobEffect.value().isInstantenous()) {
-            throw new IllegalArgumentException("MobEffect is not instant: " + mobEffect.value());
+            throw new IllegalArgumentException("MobEffect is not instant: " + mobEffect.getRegisteredName());
         }
         return new Effect(mobEffect, 1, DEFAULT_AMPLIFIER);
     }

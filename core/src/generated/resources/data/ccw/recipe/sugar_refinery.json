@@ -2,18 +2,10 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
-      "item": "minecraft:iron_ingot"
-    },
-    "/": {
-      "tag": "c:rods/wooden"
-    },
-    "U": {
-      "item": "minecraft:bucket"
-    },
-    "X": {
-      "tag": "c:stones"
-    }
+    "#": "minecraft:iron_ingot",
+    "/": "#c:rods/wooden",
+    "U": "minecraft:bucket",
+    "X": "#c:stones"
   },
   "pattern": [
     "U #",
@@ -21,7 +13,6 @@
     " X "
   ],
   "result": {
-    "count": 1,
     "id": "ccw:sugar_refinery"
   }
 }

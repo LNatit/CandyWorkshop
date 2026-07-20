@@ -12,12 +12,8 @@
     "frame": "challenge",
     "icon": {
       "components": {
-        "ccw:sugar_contents": {
-          "flavor": "ccw:original",
-          "sugar": "ccw:recovery"
-        }
+        "minecraft:item_model": "ccw:item/recovery_gummy"
       },
-      "count": 1,
       "id": "ccw:gummy"
     },
     "title": {

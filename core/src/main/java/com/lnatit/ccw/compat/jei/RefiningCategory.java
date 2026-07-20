@@ -138,8 +138,8 @@
 //
 //    private static List<ItemStack> getOutput(List<? extends IFormula> recipe) {
 //        if (recipe.getFirst() instanceof RefiningRecipe refiningRecipe) {
-//            return List.of(refiningRecipe.result());
+//            return List.of(refiningRecipe.resultTemplate());
 //        }
-//        return recipe.stream().map(IFormula::result).toList();
+//        return recipe.stream().map(IFormula::resultTemplate).toList();
 //    }
 //}

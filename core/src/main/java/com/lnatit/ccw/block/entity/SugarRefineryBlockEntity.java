@@ -370,11 +370,11 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
         }
 
         private boolean isMain(ItemStack stack) {
-            return IFormula.isMain(stack) || test(RefiningRecipe::main, stack);
+            return IFormula.isMain(stack) || testMain(RefiningRecipe::main, stack);
         }
 
         private boolean isExtra(ItemStack stack) {
-            return IFormula.isExtra(stack) || test(RefiningRecipe::extra, stack);
+            return IFormula.isExtra(stack) || testExtra(RefiningRecipe::extra, stack);
         }
 
         private boolean testSized(Function<RefiningRecipe, SizedIngredient> ingredientGetter, ItemStack stack) {
@@ -386,13 +386,17 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
             return false;
         }
 
-        private boolean test(Function<RefiningRecipe, Ingredient> ingredientGetter, ItemStack stack) {
-            if (SugarRefineryBlockEntity.this.level  instanceof ServerLevel serverLevel) {
-                return serverLevel.recipeAccess()
-                                  .getRecipeFor(RecipeRegistry.REFINING.get(), this.getInput(), serverLevel)
-                                  .isPresent();
-            }
-            return false;
+        private boolean testMain(Function<RefiningRecipe, Ingredient> ingredientGetter, ItemStack stack) {
+//            if (SugarRefineryBlockEntity.this.level  instanceof ServerLevel serverLevel) {
+//                return serverLevel.recipeAccess()
+//                                  .getRecipeFor(RecipeRegistry.REFINING.get(), this.getInput(), serverLevel)
+//                                  .isPresent();
+//            }
+            return true;
+        }
+
+        private boolean testExtra(Function<RefiningRecipe, Optional<Ingredient>> ingredientGetter, ItemStack stack) {
+            return true;
         }
     }
 }

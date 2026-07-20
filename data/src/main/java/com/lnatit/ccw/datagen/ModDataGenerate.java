@@ -28,7 +28,7 @@ public class ModDataGenerate
                          .defaultExcited()
                          .defaultBold()
 
-                         .register(Sugars.HEALING, Effect.instant(MobEffects.HEALTH_BOOST))
+                         .register(Sugars.HEALING, Effect.instant(MobEffects.INSTANT_HEALTH))
                          .defaultExcited()
 
                          .register(Sugars.POISON, Effect.simple(MobEffects.POISON))
@@ -164,10 +164,10 @@ public class ModDataGenerate
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 
 
-//        generator.addProvider(
-//                true,
-//                new ModModelProvider(output)
-//        );
+        generator.addProvider(
+                true,
+                new ModModelProvider(output)
+        );
         generator.addProvider(
                 true,
                 new ModEN_USProvider(output)

@@ -2,18 +2,10 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
-      "item": "minecraft:glass_pane"
-    },
-    "I": {
-      "item": "minecraft:iron_ingot"
-    },
-    "U": {
-      "item": "minecraft:bucket"
-    },
-    "X": {
-      "item": "ccw:milk_packaging"
-    }
+    "#": "minecraft:glass_pane",
+    "I": "minecraft:iron_ingot",
+    "U": "minecraft:bucket",
+    "X": "ccw:milk_packaging"
   },
   "pattern": [
     "#  ",
@@ -21,7 +13,6 @@
     "#XI"
   ],
   "result": {
-    "count": 1,
     "id": "ccw:milk_extractor"
   }
 }

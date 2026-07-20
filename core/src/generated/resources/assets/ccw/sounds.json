@@ -1,9 +1,24 @@
 {
+  "fold_desc": {
+    "sounds": [
+      "ccw:fold_desc"
+    ]
+  },
   "plug_off": {
-    "replace": true,
     "sounds": [
       "ccw:plug_off"
     ],
     "subtitle": "sound.ccw.plug_off"
+  },
+  "switch_mode": {
+    "sounds": [
+      "ccw:switch_mode_1",
+      "ccw:switch_mode_2"
+    ]
+  },
+  "unfold_desc": {
+    "sounds": [
+      "ccw:unfold_desc"
+    ]
   }
 }

@@ -17,12 +17,8 @@
     "frame": "challenge",
     "icon": {
       "components": {
-        "ccw:sugar_contents": {
-          "flavor": "ccw:original",
-          "sugar": "ccw:stinger"
-        }
+        "minecraft:item_model": "ccw:item/stinger_gummy"
       },
-      "count": 1,
       "id": "ccw:gummy"
     },
     "title": {

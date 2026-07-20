@@ -25,7 +25,7 @@ public record Sugar(Type type, Ingredient ingredient)
     }
 
     public static Identifier getModelId(Holder<Sugar> sugar) {
-        return getItemModel(sugar).withPrefix("item/");
+        return getItemModel(sugar);
     }
 
     public enum Type
