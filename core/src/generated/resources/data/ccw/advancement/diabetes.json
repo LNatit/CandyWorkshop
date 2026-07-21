@@ -17,7 +17,7 @@
     "frame": "challenge",
     "icon": {
       "components": {
-        "minecraft:item_model": "ccw:item/stinger_gummy"
+        "minecraft:item_model": "ccw:stinger_gummy"
       },
       "id": "ccw:gummy"
     },

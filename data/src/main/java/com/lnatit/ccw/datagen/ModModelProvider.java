@@ -5,9 +5,16 @@ import com.lnatit.ccw.item.sugaring.Sugar;
 import com.lnatit.ccw.item.sugaring.Sugars;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.renderer.item.CuboidItemModelWrapper;
+import net.minecraft.client.renderer.item.RangeSelectItemModel;
+import net.minecraft.client.renderer.item.properties.numeric.Damage;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.registries.DeferredHolder;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 public class ModModelProvider extends CoreModelProvider
 {
@@ -21,6 +28,9 @@ public class ModModelProvider extends CoreModelProvider
             ItemModelGenerators itemModels,
             ClientItemModelGenerators clientItemModels
     ) {
+
+
+
 //        simpleBlockItem(BlockRegistry.SUGAR_REFINERY.get());
 //        simpleBlockItem(BlockRegistry.PLAIN_DRAWER_TABLE.get());
 //        simpleBlockItem(BlockRegistry.DRAWER_TABLE.get());
@@ -53,7 +63,38 @@ public class ModModelProvider extends CoreModelProvider
         }
 
         Identifier id = ItemRegistry.MILK_EXTRACTOR.getId();
-        clientItemModels.gen().withId(id.withSuffix("_empty")).all();
+        Identifier empty = id.withSuffix("_empty");
+        Identifier full = id.withSuffix("_full");
+        clientItemModels.gen().withId(empty).modelOnly();
+        clientItemModels.gen().withId(full).modelOnly();
+
+        itemModels.itemModelOutput.accept(
+                ItemRegistry.MILK_EXTRACTOR.get(),
+                new RangeSelectItemModel.Unbaked(
+                        Optional.empty(),
+                        new Damage(false),
+                        1,
+                        List.of(
+                                new RangeSelectItemModel.Entry(
+                                        128,
+                                        new CuboidItemModelWrapper.Unbaked(
+                                                empty.withPrefix("item/"),
+                                                Optional.empty(),
+                                                Collections.emptyList()
+                                        )
+                                )
+                        ),
+                        Optional.of(
+                                new CuboidItemModelWrapper.Unbaked(
+                                        full.withPrefix("item/"),
+                                        Optional.empty(),
+                                        Collections.emptyList()
+                                )
+                        )
+                )
+        );
+
+
 //        getBuilder(id.toString())
 //                .parent(new ModelFile.UncheckedModelFile("item/generated"))
 //                .texture("layer0", id.withPrefix("item/").withSuffix("_full"))
@@ -68,8 +109,13 @@ public class ModModelProvider extends CoreModelProvider
         clientItemModels.gen().withId(ItemRegistry.NETHER_SMITHING_WAFER).all();
         clientItemModels.gen().withId(ItemRegistry.ENDER_SMITHING_WAFER).all();
 
+        clientItemModels.gen().withId(ItemRegistry.GUMMY_MAGAZINE).clientItemOnly();
+        clientItemModels.gen().withId(ItemRegistry.NETHER_MAGAZINE).clientItemOnly();
+        clientItemModels.gen().withId(ItemRegistry.ENDER_MAGAZINE).clientItemOnly();
 
-
+        clientItemModels.gen().withId(ItemRegistry.GUMMY_GLAZER).clientItemOnly();
+        clientItemModels.gen().withId(ItemRegistry.NETHER_GLAZER).clientItemOnly();
+        clientItemModels.gen().withId(ItemRegistry.ENDER_GLAZER).clientItemOnly();
     }
 
 //    public static class Item extends CoreModelProvider

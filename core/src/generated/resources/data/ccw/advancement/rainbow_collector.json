@@ -12,7 +12,7 @@
     "frame": "challenge",
     "icon": {
       "components": {
-        "minecraft:item_model": "ccw:item/recovery_gummy"
+        "minecraft:item_model": "ccw:recovery_gummy"
       },
       "id": "ccw:gummy"
     },

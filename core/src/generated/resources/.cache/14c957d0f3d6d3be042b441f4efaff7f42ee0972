@@ -1,4 +1,4 @@
-// 26.1.2	2026-07-20T22:50:40.8337876	Model Definitions - ccw
+// 26.1.2	2026-07-21T22:38:22.2127976	Model Definitions - ccw
 bd3e196ca948649c926c64a02cb60df44a96ebaa assets/ccw/items/binding_gummy.json
 5c8756f15851d606a5f381228b17cbf6488af02b assets/ccw/items/blessed_steak.json
 5ba38ce127446c1ff630347988daf5b2414caa12 assets/ccw/items/blinding_gummy.json
@@ -12,6 +12,8 @@ d6857f3a083f320a0f4dd84baf5973005b4de549 assets/ccw/items/darkness_gummy.json
 c7fc132b726cfe90eb2bb26cfe68d2ab83ff577e assets/ccw/items/defiled_offering.json
 14335069ec187460ec932fe53c9a29855cc61794 assets/ccw/items/discount_gummy.json
 1847a0f0efd5c069de9be8fe75bcb4995bd30c76 assets/ccw/items/dolphin_cookie.json
+ed56c0f9c44c768a051f37e931c0fcfd65c60419 assets/ccw/items/ender_glazer.json
+31d76943a07bd48bdf7da4bd114a54f7e0e97d1a assets/ccw/items/ender_magazine.json
 a6ea6128eef56a3fc0bd5ed806849fbc6021dda0 assets/ccw/items/ender_smithing_wafer.json
 101102e76cbd95e93503918b80c71455c45a55a2 assets/ccw/items/ender_sugar.json
 3e94212060f57d7bf26e432f678d6d7231b6ac45 assets/ccw/items/energy_carrot.json
@@ -24,15 +26,19 @@ ba108f686f75c598cdfe136e689d7408128dc057 assets/ccw/items/fish_swim_gummy.json
 cbcf20b9b8ccebdbf506be1bdc6c71bb3ded07bc assets/ccw/items/gold_studded_apple.json
 204d1bb83400ced3da558ff2c127ca32366d64a6 assets/ccw/items/greedy_offering.json
 60d8fab7616c0c1cf90f7aae667b308199ed4754 assets/ccw/items/gummy.json
+116bb8d5c27c8c59e2062193a834d13a7295076c assets/ccw/items/gummy_glazer.json
+4a1a9751fc63fb668f989104b3624b13c291d383 assets/ccw/items/gummy_magazine.json
 ee6c6fb496472904b336cf4ad14f019d2ed3a362 assets/ccw/items/healing_gummy.json
 4e6a96f4e55f36e477c16fd8cee4615a6d4092d6 assets/ccw/items/hunger_gummy.json
 1bb7169730eb6423fca4139aae30561c91cef400 assets/ccw/items/invisibility_gummy.json
 4984dba719598c4c4e2eb2bb9501abc32cf20f02 assets/ccw/items/iron_clad_apple.json
 c1216c4e1e5070c33bf69c71edc138f7123fe0cb assets/ccw/items/lazy_gummy.json
 a2b18bdbf4e3470d1f4025a6f2e7b82833629a3a assets/ccw/items/lucky_gummy.json
-becf93d08ebfe7c9096e4c97efc2df2fefc97772 assets/ccw/items/milk_extractor_empty.json
+09290e4009d79976b63c2dbfdbd2f7a195b7109e assets/ccw/items/milk_extractor.json
 445b7547e71bf2773081e72657653ceaded32643 assets/ccw/items/milk_gelatin.json
 27c27b08ef94e7af7060cb8572b7d57657e6810c assets/ccw/items/milk_packaging.json
+9c0685e68d12a785f68867e163168a4b4c55639d assets/ccw/items/nether_glazer.json
+a639a89e9fc0facc85938fc95de576cc52b77905 assets/ccw/items/nether_magazine.json
 14a2a9eb5c741a7b14c46b803199a5fcb8513758 assets/ccw/items/nether_smithing_wafer.json
 effcee48e2afeacbe1b66c7103410a7b305af73e assets/ccw/items/nether_sugar.json
 8252c4f7e424058283a0b625de27c4b45fdbc13c assets/ccw/items/night_vision_gummy.json
@@ -92,6 +98,7 @@ b8cb59a3008ca9a31cfd0902558de3e41c833e70 assets/ccw/models/item/iron_clad_apple.
 8235a72b0641b00e2ce0dadbb6df7642fa99b432 assets/ccw/models/item/lazy_gummy.json
 91054437faad48f875620165612f7b68f846b748 assets/ccw/models/item/lucky_gummy.json
 7203287943fdfc7fef303b0055f11977bf6b9f07 assets/ccw/models/item/milk_extractor_empty.json
+6913de75e5a79564946f32633c0c70b1f158a211 assets/ccw/models/item/milk_extractor_full.json
 38e4e14d2f040f47880da7730d39233b5b96ffed assets/ccw/models/item/milk_gelatin.json
 408e3542570614d61e2b7519a3228abee18f7d72 assets/ccw/models/item/milk_packaging.json
 14b857fa142c6aace9ae90b726282dc1935029c8 assets/ccw/models/item/nether_smithing_wafer.json

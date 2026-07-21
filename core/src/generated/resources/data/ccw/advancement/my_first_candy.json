@@ -18,7 +18,7 @@
     },
     "icon": {
       "components": {
-        "minecraft:item_model": "ccw:item/red_heart_gummy"
+        "minecraft:item_model": "ccw:red_heart_gummy"
       },
       "id": "ccw:gummy"
     },
