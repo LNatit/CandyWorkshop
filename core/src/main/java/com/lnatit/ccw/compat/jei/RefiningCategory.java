@@ -34,10 +34,10 @@ public class RefiningCategory extends AbstractRecipeCategory<List<? extends IFor
 
     public RefiningCategory(IGuiHelper guiHelper) {
         super(CandyWorkshopPlugin.REFINING,
-              ModConstants.TITLE,
-              guiHelper.createDrawableItemLike(BlockRegistry.SUGAR_REFINERY),
-              150,
-              66);
+                ModConstants.TITLE,
+                guiHelper.createDrawableItemLike(BlockRegistry.SUGAR_REFINERY),
+                150,
+                66);
     }
 
     @Override
@@ -54,6 +54,9 @@ public class RefiningCategory extends AbstractRecipeCategory<List<? extends IFor
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, List<? extends IFormula> recipe, IFocusGroup focuses) {
+        if (recipe.isEmpty()) {
+            return;
+        }
         // using unsafe here will cause a display glitch
         builder.addInputSlot(13, 7).addItemStacks(getMilk(recipe));
         builder.addInputSlot(38, 7).addItemStacks(getSugar(recipe));
@@ -62,7 +65,7 @@ public class RefiningCategory extends AbstractRecipeCategory<List<? extends IFor
             builder.addInputSlot(120, 7).addIngredients(refiningRecipe.extra());
         }
         else {
-            builder.addInputSlot(120, 7).addItemStacks(getExtra((List<Formula>) recipe));
+            builder.addInputSlot(120, 7).addItemStacks(getExtra(recipe));
         }
         builder.addOutputSlot(67, 39).addItemStacks(getOutput(recipe));
     }
@@ -108,7 +111,7 @@ public class RefiningCategory extends AbstractRecipeCategory<List<? extends IFor
             if (!SUGARS.containsKey(tag)) {
                 List<ItemStack> stacks = new ArrayList<>();
                 BuiltInRegistries.ITEM.getTagOrEmpty(tag)
-                                      .forEach(item -> stacks.add(new ItemStack(item, Formula.SUGAR_CONSUMPTION)));
+                        .forEach(item -> stacks.add(new ItemStack(item, Formula.SUGAR_CONSUMPTION)));
                 SUGARS.put(tag, stacks);
             }
             return SUGARS.get(tag);
@@ -127,12 +130,16 @@ public class RefiningCategory extends AbstractRecipeCategory<List<? extends IFor
         return Ingredient.EMPTY;
     }
 
-    private static List<ItemStack> getExtra(List<Formula> recipe) {
+    private static List<ItemStack> getExtra(List<? extends IFormula> recipe) {
         return recipe.stream().map(f -> {
-            if (f.flavor().is(Flavors.ORIGINAL)) {
-                return ItemStack.EMPTY;
+            if (f instanceof Formula formula) {
+                if (formula.flavor().is(Flavors.ORIGINAL)) {
+                    return ItemStack.EMPTY;
+                }
+                ItemStack[] items = formula.flavor().value().ingredient().getItems();
+                return items.length > 0 ? items[0] : ItemStack.EMPTY;
             }
-            return f.flavor().value().ingredient().getItems()[0];
+            return ItemStack.EMPTY;
         }).toList();
     }
 

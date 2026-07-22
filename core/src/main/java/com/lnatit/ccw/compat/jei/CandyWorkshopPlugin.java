@@ -8,7 +8,7 @@ import com.lnatit.ccw.item.crafting.RecipeRegistry;
 import com.lnatit.ccw.menu.MenuRegistry;
 import com.lnatit.ccw.menu.SugarRefineryMenu;
 import com.lnatit.ccw.menu.client.SugarRefineryScreen;
-import com.lnatit.ccw.misc.RegRegistry;
+import com.lnatit.ccw.item.sugaring.Sugar;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -17,11 +17,14 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.registration.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @JeiPlugin
 public class CandyWorkshopPlugin implements IModPlugin
@@ -57,17 +60,18 @@ public class CandyWorkshopPlugin implements IModPlugin
         assert level != null;
         RecipeManager manager = level.getRecipeManager();
         manager.getAllRecipesFor(RecipeRegistry.REFINING.get()).forEach(recipe -> recipes.add(List.of(recipe.value())));
+        // Read formulas directly from the synced datapack registry instead of Formula.CACHE,
+        // which may not be populated yet when JEI registers recipes (e.g. on Arclight clients).
         level.registryAccess()
-             .registry(RegRegistry.FLAVOR_KEY)
-             .ifPresent(flavorReg -> level.registryAccess()
-                                          .registry(RegRegistry.SUGAR_KEY)
-                                          .ifPresent(registry -> registry.holders().forEach(sugar -> {
-                                              List<Formula> formulas = new ArrayList<>();
-                                              flavorReg.holders()
-                                                       .forEach(flavor -> Formula.getFormulaOptional(sugar, flavor)
-                                                                                 .ifPresent(formulas::add));
-                                              recipes.add(formulas);
-                                          })));
+                .registry(Formula.KEY)
+                .ifPresent(formulaReg -> {
+                    Map<Holder<Sugar>, List<Formula>> grouped = new HashMap<>();
+                    for (var entry : formulaReg.entrySet()) {
+                        Formula formula = entry.getValue();
+                        grouped.computeIfAbsent(formula.sugar(), k -> new ArrayList<>()).add(formula);
+                    }
+                    recipes.addAll(grouped.values());
+                });
 
         registration.addRecipes(REFINING, recipes);
     }
@@ -86,11 +90,11 @@ public class CandyWorkshopPlugin implements IModPlugin
     @Override
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
         registration.addRecipeTransferHandler(SugarRefineryMenu.class,
-                                              MenuRegistry.SUGAR_REFINERY.get(),
-                                              REFINING,
-                                              0,
-                                              4,
-                                              8,
-                                              36);
+                MenuRegistry.SUGAR_REFINERY.get(),
+                REFINING,
+                0,
+                4,
+                8,
+                36);
     }
 }

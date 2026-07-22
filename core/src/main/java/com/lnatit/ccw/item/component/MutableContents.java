@@ -104,7 +104,9 @@ public class MutableContents extends ItemStackHandler implements IContents
 
     @Override
     public void setSize(int size) {
-        throw new RuntimeException("Resize is not allowed!");
+        if (size != this.stacks.size()) {
+            throw new RuntimeException("Resize is not allowed! Expected: " + this.stacks.size() + ", got: " + size);
+        }
     }
 
     @Override

@@ -107,10 +107,10 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
     @Override
     public @Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
         return new SugarRefineryMenu(containerId,
-                                     playerInventory,
-                                     this.data,
-                                     this.data.getDataAccess(),
-                                     ContainerLevelAccess.create(this.level, this.worldPosition));
+                playerInventory,
+                this.data,
+                this.data.getDataAccess(),
+                ContainerLevelAccess.create(this.level, this.worldPosition));
     }
 
     @Override
@@ -124,9 +124,9 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
         int j = worldPosition.getY();
         int k = worldPosition.getZ();
         for (ServerPlayer serverplayer : this.level.getEntitiesOfClass(ServerPlayer.class,
-                                                                       new AABB(i, j, k, i, j - 4, k).inflate(10.0,
-                                                                                                              5.0,
-                                                                                                              10.0))) {
+                new AABB(i, j, k, i, j - 4, k).inflate(10.0,
+                        5.0,
+                        10.0))) {
             CriteriaRegistry.REFINE_FLAVORED_SUGAR.get().trigger(serverplayer);
         }
     }
@@ -143,7 +143,9 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
 
         @Override
         public void setSize(int size) {
-            throw new RuntimeException("Resize is not allowed!");
+            if (size != this.stacks.size()) {
+                throw new RuntimeException("Resize is not allowed! Expected: " + this.stacks.size() + ", got: " + size);
+            }
         }
 
         private DataSlot getDataAccess() {
@@ -225,8 +227,8 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
                 if (!output.isEmpty()) {
                     ItemStack production = newFormula.get().productionOf(input);
                     if (production.isEmpty()
-                        || !ItemStack.isSameItemSameComponents(output, production)
-                        || output.getCount() + production.getCount() > output.getMaxStackSize()) {
+                            || !ItemStack.isSameItemSameComponents(output, production)
+                            || output.getCount() + production.getCount() > output.getMaxStackSize()) {
                         newFormula = Optional.empty();
                     }
                 }
@@ -287,10 +289,10 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
             }
             if (SugarRefineryBlockEntity.this.level != null) {
                 Containers.dropItemStack(SugarRefineryBlockEntity.this.level,
-                                         SugarRefineryBlockEntity.this.worldPosition.getX(),
-                                         SugarRefineryBlockEntity.this.worldPosition.getY(),
-                                         SugarRefineryBlockEntity.this.worldPosition.getZ(),
-                                         remainder);
+                        SugarRefineryBlockEntity.this.worldPosition.getX(),
+                        SugarRefineryBlockEntity.this.worldPosition.getY(),
+                        SugarRefineryBlockEntity.this.worldPosition.getZ(),
+                        remainder);
             }
         }
 
