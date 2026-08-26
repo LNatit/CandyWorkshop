@@ -2,7 +2,6 @@ package com.lnatit.ccw.item.sugaring;
 
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Style;
-import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.Nullable;
 
 public class SimpleFlavor extends Flavor

@@ -8,7 +8,7 @@ import net.minecraft.world.item.Items;
 
 import java.util.function.Consumer;
 
-public interface IFormula
+public sealed interface IFormula permits Formula, RefiningRecipe
 {
     int COMMON_MILK_CONSUMPTION = 1;
     int CARTON_MILK_CONSUMPTION = 8;

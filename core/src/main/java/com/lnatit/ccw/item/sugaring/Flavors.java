@@ -4,7 +4,6 @@ import com.lnatit.ccw.CandyWorkshop;
 import com.lnatit.ccw.misc.RegRegistry;
 import net.minecraft.core.Holder;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 

@@ -1,10 +1,12 @@
 package com.lnatit.ccw.data;
 
 import com.lnatit.ccw.CandyWorkshop;
+import com.lnatit.ccw.item.crafting.RecipeRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 
 @EventBusSubscriber(modid = CandyWorkshop.MODID)
@@ -13,6 +15,11 @@ public interface DataPackRegistry
     @SubscribeEvent
     static void onDataPackRegister(DataPackRegistryEvent.NewRegistry event) {
         event.dataPackRegistry(Formula.KEY, Formula.CODEC, Formula.CODEC, builder -> builder.onBake(Formula::rebuildCache));
+    }
+
+    @SubscribeEvent
+    static void onDataPackSync(OnDatapackSyncEvent event) {
+        event.sendRecipes(RecipeRegistry.REFINING.get());
     }
 
     static <T> ResourceKey<T> of(ResourceKey<Registry<T>> registry, String name) {

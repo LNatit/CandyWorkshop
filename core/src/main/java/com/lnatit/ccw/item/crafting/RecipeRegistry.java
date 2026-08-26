@@ -1,6 +1,7 @@
 package com.lnatit.ccw.item.crafting;
 
 import com.lnatit.ccw.CandyWorkshop;
+import com.lnatit.ccw.data.RefiningRecipe;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.crafting.*;
 import net.neoforged.neoforge.registries.DeferredHolder;

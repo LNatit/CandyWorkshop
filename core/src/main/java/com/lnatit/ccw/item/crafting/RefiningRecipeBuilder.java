@@ -1,5 +1,6 @@
 package com.lnatit.ccw.item.crafting;
 
+import com.lnatit.ccw.data.RefiningRecipe;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;

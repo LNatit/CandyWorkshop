@@ -7,7 +7,7 @@ import com.lnatit.ccw.data.IFormula;
 import com.lnatit.ccw.item.ItemRegistry;
 import com.lnatit.ccw.item.crafting.RecipeRegistry;
 import com.lnatit.ccw.item.crafting.RefiningInput;
-import com.lnatit.ccw.item.crafting.RefiningRecipe;
+import com.lnatit.ccw.data.RefiningRecipe;
 import com.lnatit.ccw.item.sugaring.Flavor;
 import com.lnatit.ccw.item.sugaring.Flavors;
 import com.lnatit.ccw.item.sugaring.Sugar;

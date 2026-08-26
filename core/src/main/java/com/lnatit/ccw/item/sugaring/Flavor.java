@@ -13,7 +13,6 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -31,7 +30,7 @@ public abstract class Flavor {
     }
 
     public Ingredient ingredient() {
-        return Ingredient.of();
+        return Ingredient.EMPTY;
     }
 
     /**

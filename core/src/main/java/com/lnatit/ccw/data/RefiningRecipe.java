@@ -1,7 +1,8 @@
-package com.lnatit.ccw.item.crafting;
+package com.lnatit.ccw.data;
 
 import com.lnatit.ccw.CandyWorkshop;
-import com.lnatit.ccw.data.IFormula;
+import com.lnatit.ccw.item.crafting.RecipeRegistry;
+import com.lnatit.ccw.item.crafting.RefiningInput;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -13,6 +14,7 @@ import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
@@ -23,14 +25,16 @@ public record RefiningRecipe(SizedIngredient milk,
                              ItemStackTemplate resultTemplate) implements IFormula, Recipe<RefiningInput>
 {
     public static final MapCodec<RefiningRecipe> MAP_CODEC =
-            RecordCodecBuilder.mapCodec(inst -> inst.group(SizedIngredient.NESTED_CODEC.fieldOf("milk").forGetter(RefiningRecipe::milk),
-                                                           SizedIngredient.NESTED_CODEC.fieldOf("sugar").forGetter(RefiningRecipe::sugar),
+            RecordCodecBuilder.mapCodec(inst -> inst.group(SizedIngredient.NESTED_CODEC.fieldOf("milk")
+                                                                                       .forGetter(RefiningRecipe::milk),
+                                                           SizedIngredient.NESTED_CODEC.fieldOf("sugar")
+                                                                                       .forGetter(RefiningRecipe::sugar),
                                                            Ingredient.CODEC.fieldOf("main")
                                                                            .forGetter(RefiningRecipe::main),
                                                            Ingredient.CODEC.optionalFieldOf("extra")
                                                                            .forGetter(RefiningRecipe::extra),
                                                            ItemStackTemplate.CODEC.fieldOf("resultTemplate")
-                                                                          .forGetter(RefiningRecipe::resultTemplate))
+                                                                                  .forGetter(RefiningRecipe::resultTemplate))
                                                     .apply(inst, RefiningRecipe::new));
     public static final StreamCodec<RegistryFriendlyByteBuf, RefiningRecipe> STREAM_CODEC = StreamCodec.composite(
             SizedIngredient.STREAM_CODEC,
@@ -106,7 +110,10 @@ public record RefiningRecipe(SizedIngredient milk,
 
     @Override
     public PlacementInfo placementInfo() {
-        return PlacementInfo.NOT_PLACEABLE;
+        return PlacementInfo.createFromOptionals(List.of(Optional.of(this.milk.ingredient()),
+                                                         Optional.of(this.sugar.ingredient()),
+                                                         Optional.of(this.main),
+                                                         this.extra));
     }
 
     @Override

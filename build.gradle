@@ -59,6 +59,11 @@ subprojects {
         exclude 'assets/ccw/unused'
     }
 
+    tasks.named(sourceSets.generated.processResourcesTaskName, ProcessResources).configure {
+        // Allow duplicate generated entries so later compat/core resources overwrite earlier copies.
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    }
+
     configurations {
         runtimeClasspath.extendsFrom localRuntime
     }

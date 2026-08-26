@@ -8,8 +8,10 @@ import net.minecraft.world.level.ItemLike;
 import java.util.List;
 import java.util.function.Predicate;
 
-public interface Ingredient extends Predicate<ItemStack>
+public sealed interface Ingredient extends Predicate<ItemStack>
 {
+    Ingredient EMPTY = new Listed(List.of());
+
     static Ingredient of(ItemLike... items) {
         return new Listed(List.of(items));
     }
