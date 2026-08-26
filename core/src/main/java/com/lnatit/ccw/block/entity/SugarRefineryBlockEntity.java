@@ -45,6 +45,8 @@ import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -198,7 +200,10 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
         }
 
         private RefiningInput getInput() {
-            return new RefiningInput(stacks.get(0), stacks.get(1), stacks.get(2), stacks.get(3));
+            return new RefiningInput(this.getStackSnapshot(0),
+                                     this.getStackSnapshot(1),
+                                     this.getStackSnapshot(2),
+                                     this.getStackSnapshot(3));
         }
 
         /**
@@ -250,46 +255,38 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
                 return;
             }
 
+            RefiningInput input = this.getInput();
+            RefiningInput remaining = new RefiningInput(input.milk().copy(),
+                                                        input.sugar().copy(),
+                                                        input.main().copy(),
+                                                        input.extra().copy());
+            List<ItemStack> remainders = new ArrayList<>();
             ItemStack batched = this.formula
                     .get()
-                    .batch(this.getInput(), remainder -> acceptRemainder(remainder, drawer));
-            if (batched.has(ItemRegistry.SUGAR_CONTENTS_DCTYPE) && !batched
+                    .batch(remaining, remainder -> {
+                        if (!remainder.isEmpty()) {
+                            remainders.add(remainder.copy());
+                        }
+                    });
+            boolean flavored = batched.has(ItemRegistry.SUGAR_CONTENTS_DCTYPE) && !batched
                     .get(ItemRegistry.SUGAR_CONTENTS_DCTYPE)
                     .flavor()
-                    .is(Flavors.ORIGINAL)) {
+                    .is(Flavors.ORIGINAL);
+            List<ItemStack> dropped = new ArrayList<>();
+            if (!this.commitBatch(drawer, input, remaining, batched, remainders, dropped)) {
+                return;
+            }
+
+            if (flavored) {
                 SugarRefineryBlockEntity.this.refineFlavoredCallback();
             }
-
-            ItemStack output = this.stacks.get(4);
-            if (output.isEmpty()) {
-                output = batched;
+            for (ItemStack leftover : dropped) {
+                this.dropRemainder(leftover);
             }
-            else {
-                output.grow(batched.getCount());
-            }
-
-            this.stacks.set(4, drain(output, drawer));
             this.formula = Optional.empty();
         }
 
-        private void acceptRemainder(ItemStack remainder, @Nullable ResourceHandler<ItemResource> drawer) {
-            remainder = drain(remainder, drawer);
-            for (int i = 5; i < 8; i++) {
-                ItemStack stack = this.stacks.get(i);
-                if (stack.isEmpty()) {
-                    this.stacks.set(i, remainder);
-                    return;
-                }
-                else if (ItemStack.isSameItemSameComponents(stack, remainder)) {
-                    int consume = Math.min(stack.getMaxStackSize() - stack.getCount(), remainder.getCount());
-                    stack.grow(consume);
-                    this.stacks.set(i, stack);
-                    remainder.shrink(consume);
-                    if (remainder.isEmpty()) {
-                        return;
-                    }
-                }
-            }
+        private void dropRemainder(ItemStack remainder) {
             if (SugarRefineryBlockEntity.this.level != null) {
                 Containers.dropItemStack(SugarRefineryBlockEntity.this.level,
                                          SugarRefineryBlockEntity.this.worldPosition.getX(),
@@ -299,15 +296,78 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
             }
         }
 
-        private ItemStack drain(ItemStack stack, @Nullable ResourceHandler<ItemResource> to) {
-            if (to == null) {
+        private ItemStack getStackSnapshot(int slot) {
+            ItemResource resource = this.getResource(slot);
+            if (resource.isEmpty()) {
+                return ItemStack.EMPTY;
+            }
+            return resource.toStack().copyWithCount(this.getAmountAsInt(slot));
+        }
+
+        private boolean commitBatch(
+                @Nullable ResourceHandler<ItemResource> drawer,
+                RefiningInput input,
+                RefiningInput remaining,
+                ItemStack batched,
+                List<ItemStack> remainders,
+                List<ItemStack> dropped
+        ) {
+            try (Transaction transaction = Transaction.openRoot()) {
+                if (!this.tryExtractConsumedInput(0, input.milk(), remaining.milk(), transaction)
+                    || !this.tryExtractConsumedInput(1, input.sugar(), remaining.sugar(), transaction)
+                    || !this.tryExtractConsumedInput(2, input.main(), remaining.main(), transaction)
+                    || !this.tryExtractConsumedInput(3, input.extra(), remaining.extra(), transaction)) {
+                    return false;
+                }
+
+                ItemStack output = this.drain(batched, drawer, transaction);
+                output = this.insertIntoSlot(4, output, transaction);
+                if (!output.isEmpty()) {
+                    return false;
+                }
+
+                for (ItemStack remainder : remainders) {
+                    ItemStack leftover = this.drain(remainder, drawer, transaction);
+                    for (int i = 5; i < 8 && !leftover.isEmpty(); i++) {
+                        leftover = this.insertIntoSlot(i, leftover, transaction);
+                    }
+                    if (!leftover.isEmpty()) {
+                        dropped.add(leftover);
+                    }
+                }
+
+                transaction.commit();
+                return true;
+            }
+        }
+
+        private boolean tryExtractConsumedInput(int slot, ItemStack before, ItemStack after, Transaction transaction) {
+            int consumed = before.getCount() - after.getCount();
+            if (consumed <= 0) {
+                return true;
+            }
+
+            return this.extract(slot, ItemResource.of(before), consumed, transaction) == consumed;
+        }
+
+        private ItemStack insertIntoSlot(int slot, ItemStack stack, Transaction transaction) {
+            if (stack.isEmpty()) {
+                return ItemStack.EMPTY;
+            }
+
+            int inserted = this.insert(slot, ItemResource.of(stack), stack.getCount(), transaction);
+            if (stack.getCount() - inserted <= 0) {
+                return ItemStack.EMPTY;
+            }
+            return stack.copyWithCount(stack.getCount() - inserted);
+        }
+
+        private ItemStack drain(ItemStack stack, @Nullable ResourceHandler<ItemResource> to, Transaction transaction) {
+            if (stack.isEmpty() || to == null) {
                 return stack;
             }
 
-            int inserted = 0;
-            try (Transaction t = Transaction.openRoot()) {
-                inserted = to.insert(ItemResource.of(stack), stack.getCount(), t);
-            }
+            int inserted = to.insert(ItemResource.of(stack), stack.getCount(), transaction);
 
             if (stack.getCount() - inserted <= 0) {
                 return ItemStack.EMPTY;

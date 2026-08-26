@@ -8,7 +8,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
@@ -36,7 +38,8 @@ public class MutableContents extends ItemStacksResourceHandler implements IConte
         this.type = type;
         this.tier = tier;
         for (int i = 0; i < type.size; i++) {
-            this.stacks.set(i, stacks.get(i));
+            ItemStack stack = stacks.get(i);
+            super.set(i, ItemResource.of(stack), stack.getCount());
         }
     }
 
@@ -45,40 +48,49 @@ public class MutableContents extends ItemStacksResourceHandler implements IConte
     }
 
     public List<ItemStack> activeSlots() {
-        int length = Math.min(this.stacks.size(), this.activeSize());
-        return this.stacks.subList(0, length);
+        List<ItemStack> snapshot = this.copyToList();
+        int length = Math.min(snapshot.size(), this.activeSize());
+        return snapshot.subList(0, length);
     }
 
     private void feed(int slot) {
-        ItemStack template = this.stacks.get(slot);
+        ItemStack template = this.getStackSnapshot(slot);
         if (template.isEmpty()) {
             return;
         }
 
         // The original stack is only used as a type template; refill starts from an empty target slot.
         int targetSize = Math.min(this.getCapacity(slot, ItemResource.of(template)), template.getMaxStackSize());
-        int pulled = 0;
-        for (int i = this.activeSize(); i < this.stacks.size() && pulled < targetSize; i++) {
-            ItemStack stack = this.stacks.get(i);
-            if (!stack.isEmpty() && ItemStack.isSameItemSameComponents(template, stack)) {
-                int transfer = Math.min(targetSize - pulled, stack.getCount());
-                if (transfer > 0) {
-                    stack.shrink(transfer);
-                    pulled += transfer;
-                    this.stacks.set(i, stack.isEmpty() ? ItemStack.EMPTY : stack);
-                }
-            }
+        if (targetSize <= 0) {
+            this.set(slot, ItemResource.EMPTY, 0);
+            return;
         }
 
-        this.stacks.set(slot, pulled > 0 ? template.copyWithCount(pulled) : ItemStack.EMPTY);
+        int pulled = 0;
+        try (Transaction transaction = Transaction.openRoot()) {
+            for (int i = this.activeSize(); i < this.slotCount() && pulled < targetSize; i++) {
+                ItemResource source = this.getResource(i);
+                if (!source.isEmpty() && source.toStack().is(template.getItem())
+                    && ItemStack.isSameItemSameComponents(source.toStack(), template)) {
+                    pulled += this.extract(i, source, targetSize - pulled, transaction);
+                }
+            }
+
+            if (pulled > 0) {
+                this.insert(slot, ItemResource.of(template), pulled, transaction);
+            }
+            transaction.commit();
+        }
     }
 
     public boolean apply(Function<ItemStack, ItemStack> consumer) {
         boolean changed = false;
-        List<ItemStack> results = this.activeSlots().stream().map(consumer).toList();
-        results = results.subList(0, Math.min(results.size(), this.activeSize()));
+        int active = Math.min(this.slotCount(), this.activeSize());
+        List<ItemStack> results = new ArrayList<>(active);
+        this.activeSlots().forEach(stack -> results.add(consumer.apply(stack)));
+
         for (int i = 0; i < results.size(); i++) {
-            ItemStack old = this.stacks.get(i);
+            ItemStack old = this.getStackSnapshot(i);
             ItemStack updated = results.get(i);
             if (ItemStack.isSameItemSameComponents(old, updated) && old.getCount() == updated.getCount()) {
                 continue;
@@ -87,16 +99,41 @@ public class MutableContents extends ItemStacksResourceHandler implements IConte
                 feed(i);
             }
             else {
-                this.stacks.set(i, updated);
+                this.setSlot(i, updated);
             }
             changed = true;
         }
         return changed;
     }
 
+    private void setSlot(int slot, ItemStack stack) {
+        try (Transaction transaction = Transaction.openRoot()) {
+            ItemResource current = this.getResource(slot);
+            if (!current.isEmpty()) {
+                this.extract(slot, current, this.getAmountAsInt(slot), transaction);
+            }
+            if (!stack.isEmpty()) {
+                this.insert(slot, ItemResource.of(stack), stack.getCount(), transaction);
+            }
+            transaction.commit();
+        }
+    }
+
+    private ItemStack getStackSnapshot(int slot) {
+        ItemResource resource = this.getResource(slot);
+        if (resource.isEmpty()) {
+            return ItemStack.EMPTY;
+        }
+        return resource.toStack().copyWithCount(this.getAmountAsInt(slot));
+    }
+
+    private int slotCount() {
+        return this.copyToList().size();
+    }
+
     @Override
     public List<ItemStack> stacks() {
-        return this.stacks;
+        return this.copyToList();
     }
 
     @Override
@@ -114,6 +151,6 @@ public class MutableContents extends ItemStacksResourceHandler implements IConte
 
     @Override
     public boolean isValid(int index, ItemResource resource) {
-        return resource.isEmpty() || index < this.stacks.size() && resource.is((ItemLike) ItemRegistry.GUMMY);
+        return resource.isEmpty() || index < this.size() && resource.is((ItemLike) ItemRegistry.GUMMY);
     }
 }

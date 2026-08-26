@@ -30,7 +30,6 @@ public class DrawerTableBlockEntity extends BlockEntity implements MenuProvider,
     private final ItemStacksResourceHandler inventory = new ItemStacksResourceHandler(SIZE) {
         @Override
         protected void onContentsChanged(int index, ItemStack previousContents) {
-            super.onContentsChanged(index, previousContents);
             DrawerTableBlockEntity.this.setChanged();
         }
     };
