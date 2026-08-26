@@ -2,6 +2,7 @@ package com.lnatit.ccw.item;
 
 import com.lnatit.ccw.item.component.SugarContents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -24,7 +25,7 @@ public class GummyItem extends Item {
 
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand usedHand) {
-        if (usedHand == InteractionHand.MAIN_HAND && player.isCreative() && player.isShiftKeyDown()) {
+        if (player instanceof ServerPlayer && usedHand == InteractionHand.MAIN_HAND && player.isCreative() && player.isShiftKeyDown()) {
             ItemStack itemstack = player.getItemInHand(usedHand).copy();
             SugarContents contents = itemstack.get(ItemRegistry.SUGAR_CONTENTS_DCTYPE);
             if (contents != null) {

@@ -68,6 +68,8 @@ public class MutableContents extends ItemStacksResourceHandler implements IConte
 
         int pulled = 0;
         try (Transaction transaction = Transaction.openRoot()) {
+            this.extract(slot, ItemResource.of(template), this.getAmountAsInt(slot), transaction);
+
             for (int i = this.activeSize(); i < this.slotCount() && pulled < targetSize; i++) {
                 ItemResource source = this.getResource(i);
                 if (!source.isEmpty() && source.toStack().is(template.getItem())
