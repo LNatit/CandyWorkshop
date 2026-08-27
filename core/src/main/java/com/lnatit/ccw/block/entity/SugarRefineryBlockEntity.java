@@ -215,9 +215,11 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
                 Optional<? extends IFormula> newFormula = Optional.empty();
 
                 // Refining Match first
-                Holder<Sugar> sugar = Sugar.from(input);
-                if (sugar != null) {
-                    newFormula = Formula.getFormulaOptional(sugar, Flavor.from(input.extra()));
+                if (IFormula.hasEnoughMilkAndSugar(input)) {
+                    Holder<Sugar> sugar = Sugar.from(input);
+                    if (sugar != null) {
+                        newFormula = Formula.getFormulaOptional(sugar, Flavor.from(input.extra()));
+                    }
                 }
 
                 // Fall back to vanilla recipe
@@ -255,38 +257,58 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
                 return;
             }
 
-            RefiningInput input = this.getInput();
-            RefiningInput remaining = new RefiningInput(input.milk().copy(),
-                                                        input.sugar().copy(),
-                                                        input.main().copy(),
-                                                        input.extra().copy());
-            List<ItemStack> remainders = new ArrayList<>();
-            ItemStack batched = this.formula
-                    .get()
-                    .batch(remaining, remainder -> {
-                        if (!remainder.isEmpty()) {
-                            remainders.add(remainder.copy());
-                        }
-                    });
-            boolean flavored = batched.has(ItemRegistry.SUGAR_CONTENTS_DCTYPE) && !batched
-                    .get(ItemRegistry.SUGAR_CONTENTS_DCTYPE)
-                    .flavor()
-                    .is(Flavors.ORIGINAL);
-            List<ItemStack> dropped = new ArrayList<>();
-            if (!this.commitBatch(drawer, input, remaining, batched, remainders, dropped)) {
-                return;
+            boolean flavored = false;
+            try (Transaction transaction = Transaction.openRoot()) {
+                RefiningInput input = this.getInput();
+                List<ItemStack> remainders = new ArrayList<>();
+
+                ItemStack batched = this.formula
+                        .get()
+                        .batch(input, remainder -> {
+                            if (!remainder.isEmpty()) {
+                                ItemStack leftover = drain(remainder, drawer, transaction);
+                                if (!leftover.isEmpty()) {
+                                    remainders.add(leftover);
+                                }
+                            }
+                        });
+                if (batched.isEmpty() ||
+                    !this.tryExtract(0, input.milk(), transaction) ||
+                    !this.tryExtract(1, input.sugar(), transaction) ||
+                    !this.tryExtract(2, input.main(), transaction) ||
+                    !this.tryExtract(3, input.extra(), transaction)
+
+                ) {
+                    transaction.close();
+                    return;
+                }
+
+                flavored = batched.has(ItemRegistry.SUGAR_CONTENTS_DCTYPE) && !batched
+                        .get(ItemRegistry.SUGAR_CONTENTS_DCTYPE)
+                        .flavor()
+                        .is(Flavors.ORIGINAL);
+
+                ItemStack output = this.drain(batched, drawer, transaction);
+                if (!output.isEmpty() && !tryInsert(4, output, transaction)) {
+                    transaction.close();
+                    return;
+                }
+
+                remainders.forEach(r -> this.handleRemainder(r, transaction));
+                transaction.commit();
             }
 
             if (flavored) {
                 SugarRefineryBlockEntity.this.refineFlavoredCallback();
             }
-            for (ItemStack leftover : dropped) {
-                this.dropRemainder(leftover);
-            }
             this.formula = Optional.empty();
         }
 
-        private void dropRemainder(ItemStack remainder) {
+        private void handleRemainder(ItemStack remainder, Transaction transaction) {
+            for (int i = 5; i < 8 && !remainder.isEmpty(); i++) {
+                remainder = this.insertIntoSlot(i, remainder, transaction);
+            }
+
             if (SugarRefineryBlockEntity.this.level != null) {
                 Containers.dropItemStack(SugarRefineryBlockEntity.this.level,
                                          SugarRefineryBlockEntity.this.worldPosition.getX(),
@@ -304,50 +326,20 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
             return resource.toStack().copyWithCount(this.getAmountAsInt(slot));
         }
 
-        private boolean commitBatch(
-                @Nullable ResourceHandler<ItemResource> drawer,
-                RefiningInput input,
-                RefiningInput remaining,
-                ItemStack batched,
-                List<ItemStack> remainders,
-                List<ItemStack> dropped
-        ) {
-            try (Transaction transaction = Transaction.openRoot()) {
-                if (!this.tryExtractConsumedInput(0, input.milk(), remaining.milk(), transaction)
-                    || !this.tryExtractConsumedInput(1, input.sugar(), remaining.sugar(), transaction)
-                    || !this.tryExtractConsumedInput(2, input.main(), remaining.main(), transaction)
-                    || !this.tryExtractConsumedInput(3, input.extra(), remaining.extra(), transaction)) {
-                    return false;
-                }
-
-                ItemStack output = this.drain(batched, drawer, transaction);
-                output = this.insertIntoSlot(4, output, transaction);
-                if (!output.isEmpty()) {
-                    return false;
-                }
-
-                for (ItemStack remainder : remainders) {
-                    ItemStack leftover = this.drain(remainder, drawer, transaction);
-                    for (int i = 5; i < 8 && !leftover.isEmpty(); i++) {
-                        leftover = this.insertIntoSlot(i, leftover, transaction);
-                    }
-                    if (!leftover.isEmpty()) {
-                        dropped.add(leftover);
-                    }
-                }
-
-                transaction.commit();
+        private boolean tryExtract(int slot, ItemStack stack, Transaction transaction) {
+            if (stack.isEmpty()) {
                 return true;
             }
+            int amount = stack.getCount();
+            return amount == this.extract(slot, ItemResource.of(stack), amount, transaction);
         }
 
-        private boolean tryExtractConsumedInput(int slot, ItemStack before, ItemStack after, Transaction transaction) {
-            int consumed = before.getCount() - after.getCount();
-            if (consumed <= 0) {
+        private boolean tryInsert(int slot, ItemStack stack, Transaction transaction) {
+            if (stack.isEmpty()) {
                 return true;
             }
-
-            return this.extract(slot, ItemResource.of(before), consumed, transaction) == consumed;
+            int amount = stack.getCount();
+            return amount == this.insert(slot, ItemResource.of(stack), amount, transaction);
         }
 
         private ItemStack insertIntoSlot(int slot, ItemStack stack, Transaction transaction) {
@@ -398,7 +390,7 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
                 case 1 -> this.isSugar(resource.toStack());
                 case 2 -> this.isMain(resource.toStack());
                 case 3 -> this.isExtra(resource.toStack());
-                default -> false;
+                default -> true;
             };
         }
 
@@ -440,8 +432,8 @@ public class SugarRefineryBlockEntity extends BlockEntity implements MenuProvide
         private boolean testSized(Function<RefiningRecipe, SizedIngredient> ingredientGetter, ItemStack stack) {
             if (SugarRefineryBlockEntity.this.level instanceof ServerLevel serverLevel) {
                 return serverLevel.recipeAccess()
-                        .getRecipeFor(RecipeRegistry.REFINING.get(), this.getInput(), serverLevel)
-                        .isPresent();
+                                  .getRecipeFor(RecipeRegistry.REFINING.get(), this.getInput(), serverLevel)
+                                  .isPresent();
             }
             return false;
         }

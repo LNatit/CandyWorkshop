@@ -19,19 +19,25 @@ public sealed interface IFormula permits Formula, RefiningRecipe
 
     ItemStack productionOf(RefiningInput input);
 
+    /**
+     * input will be set to the consumed stacks
+     * @param input
+     * @param remainderHandler
+     * @return
+     */
     ItemStack batch(RefiningInput input, Consumer<ItemStack> remainderHandler);
 
-    static void shrinkAndHandleRemainders(ItemStack stack, Consumer<ItemStack> remainderHandler) {
-        shrinkAndHandleRemainders(stack, 1, remainderHandler);
+    static void setAndHandleRemainders(ItemStack stack, Consumer<ItemStack> remainderHandler) {
+        setAndHandleRemainders(stack, 1, remainderHandler);
     }
 
-    static void shrinkAndHandleRemainders(ItemStack stack, int count, Consumer<ItemStack> remainderHandler) {
+    static void setAndHandleRemainders(ItemStack stack, int count, Consumer<ItemStack> remainderHandler) {
         if (stack.getCraftingRemainder() != null) {
             ItemStack remainder = stack.getCraftingRemainder().create();
             remainder.setCount(count);
             remainderHandler.accept(remainder);
         }
-        stack.shrink(count);
+        stack.setCount(count);
     }
 
     static boolean hasEnoughMilkAndSugar(RefiningInput input) {

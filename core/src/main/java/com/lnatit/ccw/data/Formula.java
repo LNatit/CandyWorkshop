@@ -51,12 +51,12 @@ public record Formula(Holder<Sugar> sugar, Holder<Flavor> flavor, List<Effect> e
             RefiningInput input,
             Consumer<ItemStack> remainderHandler
     ) {
-        IFormula.shrinkAndHandleRemainders(input.milk(), IFormula.getMilkConsumption(input.milk()), remainderHandler);
-        IFormula.shrinkAndHandleRemainders(input.sugar(), SUGAR_CONSUMPTION, remainderHandler);
-        IFormula.shrinkAndHandleRemainders(input.main(), remainderHandler);
+        IFormula.setAndHandleRemainders(input.milk(), IFormula.getMilkConsumption(input.milk()), remainderHandler);
+        IFormula.setAndHandleRemainders(input.sugar(), SUGAR_CONSUMPTION, remainderHandler);
+        IFormula.setAndHandleRemainders(input.main(), remainderHandler);
         Holder<Flavor> flavor = Flavor.from(input.extra());
         if (!flavor.is(Flavors.ORIGINAL)) {
-            IFormula.shrinkAndHandleRemainders(input.extra(), remainderHandler);
+            IFormula.setAndHandleRemainders(input.extra(), remainderHandler);
         }
         return this.result();
     }

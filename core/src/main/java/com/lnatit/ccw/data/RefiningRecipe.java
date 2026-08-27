@@ -87,13 +87,13 @@ public record RefiningRecipe(SizedIngredient milk,
 
     @Override
     public ItemStack batch(RefiningInput input, Consumer<ItemStack> remainderHandler) {
-        IFormula.shrinkAndHandleRemainders(input.milk(), this.milk.count(), remainderHandler);
-        IFormula.shrinkAndHandleRemainders(input.sugar(), this.sugar.count(), remainderHandler);
+        IFormula.setAndHandleRemainders(input.milk(), this.milk.count(), remainderHandler);
+        IFormula.setAndHandleRemainders(input.sugar(), this.sugar.count(), remainderHandler);
         if (!this.main.isEmpty()) {
-            IFormula.shrinkAndHandleRemainders(input.main(), remainderHandler);
+            IFormula.setAndHandleRemainders(input.main(), remainderHandler);
         }
         if (this.extra.isPresent()) {
-            IFormula.shrinkAndHandleRemainders(input.extra(), remainderHandler);
+            IFormula.setAndHandleRemainders(input.extra(), remainderHandler);
         }
         return this.resultTemplate.create();
     }

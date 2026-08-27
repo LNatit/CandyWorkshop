@@ -8,6 +8,8 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.transfer.IndexModifier;
+import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.StacksResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
@@ -38,11 +40,11 @@ public class SugarRefineryMenu extends ModContainerMenu {
         this.addSlot(new InteractiveSlot(contents, 2, 108, 23));
         this.addSlot(new InteractiveSlot(contents, 3, 132, 23));
 
-        this.addSlot(new ResourceHandlerSlot(contents, contents::set, 4, 78, 56));
+        this.addSlot(new LockedSlot(contents, contents::set, 4, 78, 56));
 
-        this.addSlot(new ResourceHandlerSlot(contents, contents::set, 5, 118, 71));
-        this.addSlot(new ResourceHandlerSlot(contents, contents::set, 6, 136, 71));
-        this.addSlot(new ResourceHandlerSlot(contents, contents::set, 7, 154, 71));
+        this.addSlot(new LockedSlot(contents, contents::set, 5, 118, 71));
+        this.addSlot(new LockedSlot(contents, contents::set, 6, 136, 71));
+        this.addSlot(new LockedSlot(contents, contents::set, 7, 154, 71));
     }
 
     public int getProgress() {
@@ -106,6 +108,23 @@ public class SugarRefineryMenu extends ModContainerMenu {
         @Override
         public boolean mayPickup(Player playerIn) {
             return true;
+        }
+    }
+
+    public static class LockedSlot extends ResourceHandlerSlot {
+        public LockedSlot(
+                ResourceHandler<ItemResource> handler,
+                IndexModifier<ItemResource> slotModifier,
+                int handlerSlot,
+                int xPosition,
+                int yPosition
+        ) {
+            super(handler, slotModifier, handlerSlot, xPosition, yPosition);
+        }
+
+        @Override
+        public boolean mayPlace(ItemStack stack) {
+            return false;
         }
     }
 }
