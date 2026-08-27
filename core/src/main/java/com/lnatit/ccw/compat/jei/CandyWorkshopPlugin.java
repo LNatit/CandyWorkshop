@@ -21,10 +21,7 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @JeiPlugin
 public class CandyWorkshopPlugin implements IModPlugin
@@ -33,8 +30,8 @@ public class CandyWorkshopPlugin implements IModPlugin
             CandyWorkshop.id(CandyWorkshop.MODID);
 
     @SuppressWarnings("unchecked")
-    public static final IRecipeType<List<? extends IFormula>> REFINING =
-            IRecipeType.create(CandyWorkshop.MODID, "refining", (Class<List<? extends IFormula>>) (Class<?>) List.class);
+    public static final IRecipeType<RefiningRecipe> REFINING =
+            IRecipeType.create(CandyWorkshop.MODID, "refining", (Class<RefiningRecipe>) (Class<?>) List.class);
 
     @Override
     public Identifier getPluginUid() {
@@ -55,19 +52,19 @@ public class CandyWorkshopPlugin implements IModPlugin
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        List<List<? extends IFormula>> recipes = new ArrayList<>();
+        List<RefiningRecipe> recipes = new ArrayList<>();
         ClientLevel level = Minecraft.getInstance().level;
         assert level != null;
-        RecipeHelper.getRecipesByType(level, RecipeRegistry.REFINING.get()).forEach(recipe -> recipes.add(List.of(recipe.value())));
+        RecipeHelper.getRecipesByType(level, RecipeRegistry.REFINING.get()).forEach(recipe -> recipes.add(new RefiningRecipe(recipe.id().identifier(), List.of(recipe.value()))));
         level.registryAccess()
                 .lookup(Formula.KEY)
                 .ifPresent(formulaReg -> {
-                    Map<Holder<Sugar>, List<Formula>> grouped = new HashMap<>();
+                    Map<Holder<Sugar>, List<Formula>> grouped = new LinkedHashMap<>();
                     for (var entry : formulaReg.entrySet()) {
                         Formula formula = entry.getValue();
                         grouped.computeIfAbsent(formula.sugar(), k -> new ArrayList<>()).add(formula);
                     }
-                    recipes.addAll(grouped.values());
+                    grouped.forEach((key, value) -> recipes.add(new RefiningRecipe(key.getKey().identifier(), value)));
                 });
 
         registration.addRecipes(REFINING, recipes);
@@ -93,5 +90,9 @@ public class CandyWorkshopPlugin implements IModPlugin
                                               4,
                                               8,
                                               36);
+    }
+
+    public record RefiningRecipe(Identifier id, List<? extends IFormula> formulas) {
+
     }
 }

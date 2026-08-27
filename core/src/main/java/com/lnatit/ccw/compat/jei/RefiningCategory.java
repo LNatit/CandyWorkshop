@@ -16,10 +16,10 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
 
 import javax.annotation.Nullable;
@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RefiningCategory extends AbstractRecipeCategory<List<? extends IFormula>>
+public class RefiningCategory extends AbstractRecipeCategory<CandyWorkshopPlugin.RefiningRecipe>
 {
     @Nullable
     public static List<ItemStack> MILK;
@@ -44,7 +44,7 @@ public class RefiningCategory extends AbstractRecipeCategory<List<? extends IFor
 
     @Override
     public void draw(
-            List<? extends IFormula> recipe,
+            CandyWorkshopPlugin.RefiningRecipe recipe,
             IRecipeSlotsView recipeSlotsView,
             GuiGraphicsExtractor guiGraphics,
             double mouseX,
@@ -55,15 +55,15 @@ public class RefiningCategory extends AbstractRecipeCategory<List<? extends IFor
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, List<? extends IFormula> recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, CandyWorkshopPlugin.RefiningRecipe recipe, IFocusGroup focuses) {
         // using unsafe here will cause a display glitch
-        builder.addInputSlot(13, 7).addItemStacks(getMilk(recipe));
-        builder.addInputSlot(38, 7).addItemStacks(getSugar(recipe));
+        builder.addInputSlot(13, 7).addItemStacks(getMilk(recipe.formulas()));
+        builder.addInputSlot(38, 7).addItemStacks(getSugar(recipe.formulas()));
 
-        switch (recipe.getFirst()) {
+        switch (recipe.formulas().getFirst()) {
             case Formula formula -> {
                 builder.addInputSlot(96, 7).addItemStacks(of(formula.sugar().value().ingredient()));
-                builder.addInputSlot(120, 7).addItemStacks(getExtra((List<Formula>) recipe));
+                builder.addInputSlot(120, 7).addItemStacks(getExtra((List<Formula>) recipe.formulas()));
             }
             case RefiningRecipe refiningRecipe -> {
                 builder.addInputSlot(96, 7).add(refiningRecipe.main().display());
@@ -71,7 +71,12 @@ public class RefiningCategory extends AbstractRecipeCategory<List<? extends IFor
             }
         }
 
-        builder.addOutputSlot(67, 39).addItemStacks(getOutput(recipe));
+        builder.addOutputSlot(67, 39).addItemStacks(getOutput(recipe.formulas()));
+    }
+
+    @Override
+    public @org.jspecify.annotations.Nullable Identifier getIdentifier(CandyWorkshopPlugin.RefiningRecipe recipe) {
+        return recipe.id();
     }
 
     private static List<ItemStack> getMilk(List<? extends IFormula> recipe) {
@@ -137,10 +142,6 @@ public class RefiningCategory extends AbstractRecipeCategory<List<? extends IFor
             return List.of(refiningRecipe.result());
         }
         return recipe.stream().map(IFormula::result).toList();
-    }
-
-    private static List<ItemStack> of(Ingredient ingredient) {
-        return ingredient.items().map(ItemStack::new).toList();
     }
 
     private static List<ItemStack> of(com.lnatit.ccw.item.sugaring.Ingredient ingredient) {
