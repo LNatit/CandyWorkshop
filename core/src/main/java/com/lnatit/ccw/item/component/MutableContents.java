@@ -10,7 +10,6 @@ import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
@@ -44,89 +43,84 @@ public class MutableContents extends ItemStacksResourceHandler implements IConte
     }
 
     public int activeSize() {
-        return this.type().tierMarch * (this.tier.ordinal() + 1);
+        return Math.min(this.slotCount(), this.type().tierMarch * (this.tier.ordinal() + 1));
     }
 
+    /**
+     * @return a modifiable list of the active slots
+     */
     public List<ItemStack> activeSlots() {
         List<ItemStack> snapshot = this.copyToList();
-        int length = Math.min(snapshot.size(), this.activeSize());
+        int length = this.activeSize();
         return snapshot.subList(0, length);
     }
 
-    private void feed(int slot) {
-        ItemStack template = this.getStackSnapshot(slot);
-        if (template.isEmpty()) {
-            return;
-        }
+    private void feed(int slot, ItemResource resource, Transaction transaction) {
+        ItemStack template = resource.toStack();
 
         // The original stack is only used as a type template; refill starts from an empty target slot.
-        int targetSize = Math.min(this.getCapacity(slot, ItemResource.of(template)), template.getMaxStackSize());
+        int targetSize = Math.min(this.getCapacity(slot, resource), template.getMaxStackSize());
         if (targetSize <= 0) {
             this.set(slot, ItemResource.EMPTY, 0);
             return;
         }
 
         int pulled = 0;
-        try (Transaction transaction = Transaction.openRoot()) {
-            this.extract(slot, ItemResource.of(template), this.getAmountAsInt(slot), transaction);
+        try (Transaction child = Transaction.open(transaction)) {
+            this.extract(slot, resource, this.getAmountAsInt(slot), child);
 
             for (int i = this.activeSize(); i < this.slotCount() && pulled < targetSize; i++) {
                 ItemResource source = this.getResource(i);
                 if (!source.isEmpty() && source.toStack().is(template.getItem())
                     && ItemStack.isSameItemSameComponents(source.toStack(), template)) {
-                    pulled += this.extract(i, source, targetSize - pulled, transaction);
+                    pulled += this.extract(i, source, targetSize - pulled, child);
                 }
             }
 
             if (pulled > 0) {
-                this.insert(slot, ItemResource.of(template), pulled, transaction);
+                this.insert(slot, resource, pulled, child);
             }
-            transaction.commit();
+            child.commit();
         }
     }
 
     public boolean apply(Function<ItemStack, ItemStack> consumer) {
         boolean changed = false;
-        int active = Math.min(this.slotCount(), this.activeSize());
-        List<ItemStack> results = new ArrayList<>(active);
-        this.activeSlots().forEach(stack -> results.add(consumer.apply(stack)));
+        List<ItemStack> active = this.activeSlots();
 
-        for (int i = 0; i < results.size(); i++) {
-            ItemStack old = this.getStackSnapshot(i);
-            ItemStack updated = results.get(i);
-            if (ItemStack.isSameItemSameComponents(old, updated) && old.getCount() == updated.getCount()) {
-                continue;
-            }
-            if (updated.isEmpty()) {
-                feed(i);
-            }
-            else {
-                this.setSlot(i, updated);
-            }
-            changed = true;
-        }
-        return changed;
-    }
-
-    private void setSlot(int slot, ItemStack stack) {
         try (Transaction transaction = Transaction.openRoot()) {
-            ItemResource current = this.getResource(slot);
-            if (!current.isEmpty()) {
-                this.extract(slot, current, this.getAmountAsInt(slot), transaction);
-            }
-            if (!stack.isEmpty()) {
-                this.insert(slot, ItemResource.of(stack), stack.getCount(), transaction);
+            for (int i = 0; i < active.size(); i++) {
+                ItemResource resource = this.getResource(i);
+                if (!resource.isEmpty()) {
+                    if (this.tryExtract(i, resource, transaction))
+                    {
+                        changed = true;
+                    }
+                    else {
+                        transaction.close();
+                        return false;
+                    }
+
+                    if (this.getAmountAsInt(i) == 0) {
+                        feed(i, resource, transaction);
+                    }
+                }
             }
             transaction.commit();
         }
+        active.forEach(consumer::apply);
+        return changed;
     }
 
-    private ItemStack getStackSnapshot(int slot) {
-        ItemResource resource = this.getResource(slot);
-        if (resource.isEmpty()) {
-            return ItemStack.EMPTY;
+    private boolean tryExtract(int slot, ItemResource resource, Transaction transaction) {
+        try (Transaction child = Transaction.open(transaction)) {
+            int extracted = this.extract(slot, resource, 1, child);
+            if (extracted == 0) {
+                return false;
+            }
+            child.commit();
+            return true;
         }
-        return resource.toStack().copyWithCount(this.getAmountAsInt(slot));
     }
 
     private int slotCount() {
